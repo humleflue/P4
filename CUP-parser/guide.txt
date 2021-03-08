@@ -1,0 +1,4 @@
+
+jflex version0.1min.jflex
+javac -cp .:java-cup-11b-runtime.jar main.java
+java -cp .:java-cup-11b-runtime.jar Main
