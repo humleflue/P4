@@ -1,5 +1,5 @@
 terminal numberdcl, textdcl, id, lparen, rparen,
-         assign, comma, plus, minus, nl;
+         assign, comma, plus, minus, semi;
 terminal Double numberval;
 terminal String textval;
 
@@ -8,7 +8,7 @@ non terminal Prog, Dcls, Dcl, Type, Dclparams, Dclmoreparams, Dclparam,
              Stmtparams, Stmtmoreparams;
 
 Prog ::= Dcls Stmts ;
-Dcls ::= Dcl nl Dcls 
+Dcls ::= Dcl semi Dcls 
       | ;
 Dcl ::= Type id lparen Dclparams rparen assign Stmt ;
 Type ::= numberdcl
@@ -19,7 +19,7 @@ Dclmoreparams ::= comma Dclparam Dclmoreparams
                | ;
 Dclparam ::= Type id ;
 
-Stmts ::= Stmt nl Stmts 
+Stmts ::= Stmt semi Stmts 
       | ;
 Stmt ::= Math
       | textval ;

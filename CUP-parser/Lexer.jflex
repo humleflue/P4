@@ -2,7 +2,7 @@ import java_cup.runtime.*;
 import java.util.*;
 
 %%
-%class Buff
+%class Lexer
 %unicode
 %line
 %column
@@ -23,7 +23,7 @@ import java.util.*;
 
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
-WhiteSpace     = {LineTerminator} | [ \t\f]
+WhiteSpace     = [ \t\f]|\r|\n|\r\n
 
 /* comments */
 Comment              = {TraditionalComment} | {EndOfLineComment}
@@ -70,7 +70,7 @@ DecNumberLiteral = -?[0-9]+.[0-9]+|0|-?[1-9][0-9]*
     {Comment}                      { /* ignore */ }
     
     /* whitespace */
-    {LineTerminator}               { return symbol(sym.nl); }
+    ";"                            { return symbol(sym.semi); }
     {WhiteSpace}                   { /* ignore */ }
 }
 

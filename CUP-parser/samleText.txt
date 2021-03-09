@@ -1,2 +1,0 @@
-number f(number x) = x + x
-g(2, 3)

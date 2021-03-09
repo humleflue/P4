@@ -3,14 +3,13 @@ import java.util.*;
 import java.io.*;
 
 
-class Main {
+class main {
     public static void main(String[] args) throws Exception {
-        String sourceFilePath = "";
-        Reader file = new FileReader("./samleText.txt");
+        Reader file = new FileReader("./sampleCode.txt");
 
-        Buff buff = new Buff(file);
+        Lexer lexer = new Lexer(file);
 
-        parser minimalParser = new parser(buff);
+        parser minimalParser = new parser(lexer);
         minimalParser.parse();
     }
 }

@@ -197,7 +197,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // Dcls ::= Dcl nl Dcls 
+          case 2: // Dcls ::= Dcl semi Dcls 
             {
               Object RESULT =null;
 
@@ -287,7 +287,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // Stmts ::= Stmt nl Stmts 
+          case 12: // Stmts ::= Stmt semi Stmts 
             {
               Object RESULT =null;
 

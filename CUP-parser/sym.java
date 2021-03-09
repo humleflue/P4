@@ -6,11 +6,11 @@
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int nl = 11;
   public static final int id = 4;
   public static final int minus = 10;
   public static final int numberval = 12;
   public static final int textval = 13;
+  public static final int semi = 11;
   public static final int EOF = 0;
   public static final int plus = 9;
   public static final int error = 1;
@@ -32,7 +32,7 @@ public class sym {
   "comma",
   "plus",
   "minus",
-  "nl",
+  "semi",
   "numberval",
   "textval"
   };
