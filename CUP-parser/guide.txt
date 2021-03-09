@@ -1,0 +1,4 @@
+Compile with:    make
+Run parser with: java -cp .:java-cup-11b-runtime.jar main
+
+Cleanup with:    make clean

@@ -1,0 +1,2 @@
+number f(number x) = 2 + 2;
+g(2, 3);

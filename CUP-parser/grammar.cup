@@ -1,0 +1,39 @@
+terminal numberdcl, textdcl, id, lparen, rparen,
+         assign, comma, plus, minus, semi;
+terminal Double numberval;
+terminal String textval;
+
+non terminal Prog, Dcls, Dcl, Type, Dclparams, Dclmoreparams, Dclparam,
+             Stmts, Stmt, Math, Followterm, Term, Simpleops, Val, Funccall,
+             Stmtparams, Stmtmoreparams;
+
+Prog ::= Dcls Stmts ;
+Dcls ::= Dcl semi Dcls 
+      | ;
+Dcl ::= Type id lparen Dclparams rparen assign Stmt ;
+Type ::= numberdcl
+      | textdcl ;
+Dclparams ::= Dclparam Dclmoreparams
+           | ;
+Dclmoreparams ::= comma Dclparam Dclmoreparams
+               | ;
+Dclparam ::= Type id ;
+
+Stmts ::= Stmt semi Stmts 
+      | ;
+Stmt ::= Math
+      | textval ;
+Math ::= Term Followterm ;
+Followterm ::= Simpleops Math
+            | ;
+Term ::= Funccall
+      | Val ;
+Simpleops ::= plus 
+           | minus ;
+Val ::= lparen Math rparen
+     | numberval ;
+Funccall ::= id lparen Stmtparams rparen ;
+Stmtparams ::= Stmt Stmtmoreparams
+            | ;
+Stmtmoreparams ::= comma Stmt Stmtmoreparams
+                | ;

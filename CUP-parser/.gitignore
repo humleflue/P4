@@ -1,0 +1,10 @@
+# All class files are ignored
+*.class
+
+# Project specific files, which doesn't need to be synced
+Lexer.java
+parser.java
+sym.java
+
+# Experimental stuff on Lasses computer
+examples
