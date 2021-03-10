@@ -4,13 +4,14 @@ import java.util.Arrays;
 
 public class Main {
     private static TokenStream ts = new TokenStream(new ArrayList<String>(
-        Arrays.asList("numberdcl", "id", "(", ")", "=", "numberval", "+", "numberval", "-", "numberval", "nl" ,"$")
+        Arrays.asList("numberdcl", "id", "lparen", "rparen", "assign", "numberval", "plus", "numberval", "minus", "numberval", "semicolon","$")
     ));
 
     public static void main(String[] args) {
         Dcls();
         Stmts();
         match(ts, "$");
+        System.out.print("Parsing successful");
     }
 
     public static void match(TokenStream ts, String token) {
@@ -28,7 +29,7 @@ public class Main {
         switch(ts.peek()) {
             case "textval": case "id": case "lparen": case "numberval":
                 Stmt();
-                match(ts, "nl");
+                match(ts, "semicolon");
                 Stmts();
                 break;
             default: break;
@@ -38,7 +39,7 @@ public class Main {
 	private static void Dcls() {
         if(ts.peek() == "numberdcl" || ts.peek() == "textdcl") {
             Dcl();
-            match(ts, "nl");
+            match(ts, "semicolon");
             Dcls();
         }
 	} 
@@ -46,10 +47,10 @@ public class Main {
 	private static void Dcl() {
         Type();
         match(ts, "id");
-        match(ts, "(");
+        match(ts, "lparen");
         Dclparams();
-        match(ts, ")");
-        match(ts, "=");
+        match(ts, "rparen");
+        match(ts, "assign");
         Stmt();
 	} 
 
@@ -68,7 +69,7 @@ public class Main {
 	} 
 
 	private static void Followterm() {
-        if(ts.peek() == "+" || ts.peek() == "-") {
+        if(ts.peek() == "plus" || ts.peek() == "minus") {
             Simpleops();
             Math();
         }
@@ -76,11 +77,11 @@ public class Main {
 	} 
 
 	private static void Simpleops() {
-        if(ts.peek() == "+") {
-            match(ts, "+");
+        if(ts.peek() == "plus") {
+            match(ts, "plus");
         }
         else {
-            match(ts, "-");
+            match(ts, "minus");
         }
     }
 
@@ -94,10 +95,10 @@ public class Main {
 	} 
 
 	private static void Val() {
-        if(ts.peek() == "(") {
-            match(ts, "(");
+        if(ts.peek() == "lparen") {
+            match(ts, "lparen");
             Math();
-            match(ts, ")");
+            match(ts, "rparen");
         }
         else {
             match(ts, "numberval");
@@ -106,9 +107,9 @@ public class Main {
 
 	private static void Funccall() {
         match(ts, "id");
-        match(ts, "(");
+        match(ts, "lparen");
         Stmtparams();
-        match(ts, ")");
+        match(ts, "rparen");
 	} 
 
 	private static void Stmtparams() {
