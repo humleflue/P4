@@ -11,5 +11,7 @@ class main {
 
         parser minimalParser = new parser(lexer);
         minimalParser.parse();
+
+        System.out.println("Parse successful.");
     }
 }
