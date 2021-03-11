@@ -7,7 +7,6 @@ import java.util.*;
 %line
 %column
 %cup
-%standalone
 %{
     StringBuffer string = new StringBuffer();
     
@@ -17,13 +16,11 @@ import java.util.*;
     private Symbol symbol(int type, Object value) {
         return new Symbol(type, yyline, yycolumn, value);
     }
-
-    List<String> numbers = new ArrayList();
 %}
 
-LineTerminator = \r|\n|\r\n
+LineTerminator = \r\n|\r|\n
 InputCharacter = [^\r\n]
-WhiteSpace     = [ \t\f]|\r|\n|\r\n
+WhiteSpace     = [ \t\f] | {LineTerminator}
 
 /* comments */
 Comment              = {TraditionalComment} | {EndOfLineComment}
@@ -33,17 +30,6 @@ EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
 
 Identifier       = [:jletter:] [:jletterdigit:]*
 DecNumberLiteral = -?[0-9]+.[0-9]+|0|-?[1-9][0-9]*
-
-%eof{
-    System.out.print("Numbers: ");
-    for(int i=0; i< numbers.size(); i++) {
-        if(i == numbers.size()-1)
-            System.out.print(numbers.get(i));
-        else {
-            System.out.print(numbers.get(i) + ", ");
-        }
-    }
-%eof}
 %%
 
 /* keywords */
@@ -54,7 +40,7 @@ DecNumberLiteral = -?[0-9]+.[0-9]+|0|-?[1-9][0-9]*
     {Identifier}                   { return symbol(sym.id); }
     
     /* literals */
-    {DecNumberLiteral}             { numbers.add(yytext()); return symbol(sym.numberval); }
+    {DecNumberLiteral}             { return symbol(sym.numberval); }
 
     /* operators */
     "="                            { return symbol(sym.assign); }
@@ -69,8 +55,10 @@ DecNumberLiteral = -?[0-9]+.[0-9]+|0|-?[1-9][0-9]*
     /* comments */
     {Comment}                      { /* ignore */ }
     
-    /* whitespace */
+    /* statement terminator */
     ";"                            { return symbol(sym.semi); }
+
+    /* whitespace */
     {WhiteSpace}                   { /* ignore */ }
 }
 
