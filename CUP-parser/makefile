@@ -1,5 +1,5 @@
 JAVAC = javac
-CFLAGS = -cp .:java-cup-11b-runtime.jar 
+CFLAGS = -cp .:java-cup-11b-runtime.jar -Xlint
 
 JFLEXC = jflex
 CUPC = cup
