@@ -7,6 +7,6 @@ public class StmtFuncCall extends Stmt {
         FuncCall = funcCall;
     }
 
-    public String Nodetype = "StmtFuncCall";
+    public String NodeType = "StmtFuncCall";
     public FuncCall FuncCall;
 }
