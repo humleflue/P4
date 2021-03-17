@@ -1,35 +1,50 @@
 grammar Buff;
 
+prog : dcls stmts EOF ;
+dcls : dcl SEMICOLON dcls
+      |  ;
+dcl : type ID LPAREN dclparams RPAREN ASSIGN stmt ;
+type : NUMBERDCL
+      | TEXTDCL ;
+dclparams : dclparam dclmoreparams
+           |  ;
+dclmoreparams : COMMA dclparam dclmoreparams
+               |  ;
+dclparam : type ID ;
 
-prog            : dcls stmts EOF;
-dcls            : dcl SEMI dcls | ;
-dcl             : type ID LPAREN dclParams RPAREN ASSIGN stmt ;
-type            : NUMBERDCl | TEXTDCL ;
-dclParams       : dclParam dclMoreParams | ;
-dclMoreParams   : COMMA dclParam dclMoreParams | ;
-dclParam        : type ID ;
-stmts           : stmt SEMI stmts | ;
-stmt            : math | TEXTVAL ;
-math            : term followTerm | NUMBER;
-followTerm      : simpleOps math ;
-term            : funcCall | val ;
-simpleOps       : PLUS | MINUS ;
-val             : LPAREN math RPAREN | NUMBER;
-funcCall        : ID LPAREN stmtParams RPAREN ;
-stmtParams      : stmt stmtMoreParams | ;
-stmtMoreParams  : COMMA stmt stmtMoreParams | ;
+stmts : stmt SEMICOLON stmts
+      |  ;
+stmt : math
+      | TEXTVAL ;
+math : term followterm ;
+followterm : simpleops math
+            |  ;
+term : funccall
+      | val ;
+simpleops : PLUS
+           | MINUS ;
+val : LPAREN math RPAREN
+     | NUMBERVAL ;
+funccall : ID LPAREN stmtparams RPAREN ;
+stmtparams : stmt stmtmoreparams
+            |  ;
+stmtmoreparams : COMMA stmt stmtmoreparams
+                |  ;
 
-NEWLINE : ('\r\n'|'\n'|'\r');
-NUMBER : ('0'..'9')+|('0'..'9')+'.'('0'..'9')+;
-WHITESPACE : (' ' | NEWLINE)+ -> skip;
+
+NUMBERDCL : 'number' ;
+TEXTDCL : 'text' ;
+
+ID : TEXTVAL ;
+TEXTVAL : ['A-Za-z]['A-Za-z_0-9]+ ;
+NUMBERVAL : ('0'..'9')+|('0'..'9')+'.'('0'..'9')+;
+
 LPAREN : '(' ;
 RPAREN : ')' ;
 ASSIGN : '=' ;
 COMMA : ',' ;
 PLUS : '+' ;
 MINUS : '-' ;
-TEXTVAL : ('a'..'z''_')('a'..'z''0'..'9''_''-')* ;
-SEMI : ';' ;
-NUMBERDCL : 'number' ;
-TEXTDCL : 'text' ;
-ID : TEXTVAL ;
+SEMICOLON : ';' ;
+WS: (' '|'\t' | NEWLINE)+ -> skip;
+NEWLINE : ('\r\n'|'\n'|'\r');
