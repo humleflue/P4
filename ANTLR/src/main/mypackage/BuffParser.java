@@ -1,4 +1,5 @@
-// Generated from Buff.g4 by ANTLR 4.9
+// Generated from Buff.g4 by ANTLR 4.9.2
+package mypackage;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class BuffParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.9", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.9.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -117,6 +118,11 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitProg(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitProg(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ProgContext prog() throws RecognitionException {
@@ -163,6 +169,11 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitDcls(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitDcls(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -235,6 +246,11 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitDcl(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitDcl(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DclContext dcl() throws RecognitionException {
@@ -284,6 +300,11 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitType(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitType(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -335,6 +356,11 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitDclparams(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitDclparams(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -395,6 +421,11 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitDclmoreparams(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitDclmoreparams(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DclmoreparamsContext dclmoreparams() throws RecognitionException {
@@ -452,6 +483,11 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitDclparam(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitDclparam(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DclparamContext dclparam() throws RecognitionException {
@@ -496,6 +532,11 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitStmts(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitStmts(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -557,6 +598,11 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitStmt(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitStmt(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final StmtContext stmt() throws RecognitionException {
@@ -616,6 +662,11 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitMath(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitMath(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final MathContext math() throws RecognitionException {
@@ -659,6 +710,11 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitFollowterm(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitFollowterm(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -720,6 +776,11 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitTerm(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitTerm(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TermContext term() throws RecognitionException {
@@ -770,6 +831,11 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitSimpleops(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitSimpleops(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -829,6 +895,11 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitPresedenceMath(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitPresedenceMath(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	public static class TermTerminalContext extends ValContext {
 		public ValTerminalContext valTerminal() {
@@ -842,6 +913,11 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitTermTerminal(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitTermTerminal(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -903,6 +979,11 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitValTerminal(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitValTerminal(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ValTerminalContext valTerminal() throws RecognitionException {
@@ -954,6 +1035,11 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitFunccall(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitFunccall(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final FunccallContext funccall() throws RecognitionException {
@@ -1001,6 +1087,11 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitStmtparams(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitStmtparams(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1062,6 +1153,11 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitStmtmoreparams(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitStmtmoreparams(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
