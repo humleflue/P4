@@ -171,13 +171,37 @@ public class BuffBaseListener implements BuffListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVal(BuffParser.ValContext ctx) { }
+	@Override public void enterPresedenceMath(BuffParser.PresedenceMathContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVal(BuffParser.ValContext ctx) { }
+	@Override public void exitPresedenceMath(BuffParser.PresedenceMathContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTermTerminal(BuffParser.TermTerminalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTermTerminal(BuffParser.TermTerminalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterValTerminal(BuffParser.ValTerminalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitValTerminal(BuffParser.ValTerminalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

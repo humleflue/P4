@@ -1,5 +1,10 @@
 grammar Buff;
 
+options 
+{
+    language = Java;
+}
+
 prog            : dcls stmts EOF ;
 dcls            : dcl SEMICOLON dcls
                 |  ;
@@ -23,9 +28,11 @@ term            : funccall
                 | val ;
 simpleops       : PLUS
                 | MINUS ;
-val             : LPAREN math RPAREN
-                | NUMBERVAL
-                | ID;
+val             : LPAREN math RPAREN                                #presedenceMath
+                | valTerminal                                       #termTerminal
+                ;
+valTerminal     : NUMBERVAL
+                | ID ;
 funccall        : ID LPAREN stmtparams RPAREN ;
 stmtparams      : stmt stmtmoreparams
                 |   ;

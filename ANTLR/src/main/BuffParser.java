@@ -22,12 +22,13 @@ public class BuffParser extends Parser {
 		RULE_prog = 0, RULE_dcls = 1, RULE_dcl = 2, RULE_type = 3, RULE_dclparams = 4, 
 		RULE_dclmoreparams = 5, RULE_dclparam = 6, RULE_stmts = 7, RULE_stmt = 8, 
 		RULE_math = 9, RULE_followterm = 10, RULE_term = 11, RULE_simpleops = 12, 
-		RULE_val = 13, RULE_funccall = 14, RULE_stmtparams = 15, RULE_stmtmoreparams = 16;
+		RULE_val = 13, RULE_valTerminal = 14, RULE_funccall = 15, RULE_stmtparams = 16, 
+		RULE_stmtmoreparams = 17;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"prog", "dcls", "dcl", "type", "dclparams", "dclmoreparams", "dclparam", 
-			"stmts", "stmt", "math", "followterm", "term", "simpleops", "val", "funccall", 
-			"stmtparams", "stmtmoreparams"
+			"stmts", "stmt", "math", "followterm", "term", "simpleops", "val", "valTerminal", 
+			"funccall", "stmtparams", "stmtmoreparams"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -124,11 +125,11 @@ public class BuffParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(34);
-			dcls();
-			setState(35);
-			stmts();
 			setState(36);
+			dcls();
+			setState(37);
+			stmts();
+			setState(38);
 			match(EOF);
 			}
 		}
@@ -169,18 +170,18 @@ public class BuffParser extends Parser {
 		DclsContext _localctx = new DclsContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_dcls);
 		try {
-			setState(43);
+			setState(45);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NUMBERDCL:
 			case TEXTDCL:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(38);
-				dcl();
-				setState(39);
-				match(SEMICOLON);
 				setState(40);
+				dcl();
+				setState(41);
+				match(SEMICOLON);
+				setState(42);
 				dcls();
 				}
 				break;
@@ -242,19 +243,19 @@ public class BuffParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(45);
-			type();
-			setState(46);
-			match(ID);
 			setState(47);
-			match(LPAREN);
+			type();
 			setState(48);
-			dclparams();
+			match(ID);
 			setState(49);
-			match(RPAREN);
+			match(LPAREN);
 			setState(50);
-			match(ASSIGN);
+			dclparams();
 			setState(51);
+			match(RPAREN);
+			setState(52);
+			match(ASSIGN);
+			setState(53);
 			stmt();
 			}
 		}
@@ -293,7 +294,7 @@ public class BuffParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(53);
+			setState(55);
 			_la = _input.LA(1);
 			if ( !(_la==NUMBERDCL || _la==TEXTDCL) ) {
 			_errHandler.recoverInline(this);
@@ -341,16 +342,16 @@ public class BuffParser extends Parser {
 		DclparamsContext _localctx = new DclparamsContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_dclparams);
 		try {
-			setState(59);
+			setState(61);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case NUMBERDCL:
 			case TEXTDCL:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(55);
+				setState(57);
 				dclparam();
-				setState(56);
+				setState(58);
 				dclmoreparams();
 				}
 				break;
@@ -400,17 +401,17 @@ public class BuffParser extends Parser {
 		DclmoreparamsContext _localctx = new DclmoreparamsContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_dclmoreparams);
 		try {
-			setState(66);
+			setState(68);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case COMMA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(61);
-				match(COMMA);
-				setState(62);
-				dclparam();
 				setState(63);
+				match(COMMA);
+				setState(64);
+				dclparam();
+				setState(65);
 				dclmoreparams();
 				}
 				break;
@@ -459,9 +460,9 @@ public class BuffParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(68);
+			setState(70);
 			type();
-			setState(69);
+			setState(71);
 			match(ID);
 			}
 		}
@@ -502,7 +503,7 @@ public class BuffParser extends Parser {
 		StmtsContext _localctx = new StmtsContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_stmts);
 		try {
-			setState(76);
+			setState(78);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
@@ -511,11 +512,11 @@ public class BuffParser extends Parser {
 			case LPAREN:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(71);
-				stmt();
-				setState(72);
-				match(SEMICOLON);
 				setState(73);
+				stmt();
+				setState(74);
+				match(SEMICOLON);
+				setState(75);
 				stmts();
 				}
 				break;
@@ -562,7 +563,7 @@ public class BuffParser extends Parser {
 		StmtContext _localctx = new StmtContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_stmt);
 		try {
-			setState(80);
+			setState(82);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
@@ -570,14 +571,14 @@ public class BuffParser extends Parser {
 			case LPAREN:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(78);
+				setState(80);
 				math();
 				}
 				break;
 			case TEXTVAL:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(79);
+				setState(81);
 				match(TEXTVAL);
 				}
 				break;
@@ -623,9 +624,9 @@ public class BuffParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(82);
+			setState(84);
 			term();
-			setState(83);
+			setState(85);
 			followterm();
 			}
 		}
@@ -665,16 +666,16 @@ public class BuffParser extends Parser {
 		FollowtermContext _localctx = new FollowtermContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_followterm);
 		try {
-			setState(89);
+			setState(91);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case PLUS:
 			case MINUS:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(85);
+				setState(87);
 				simpleops();
-				setState(86);
+				setState(88);
 				math();
 				}
 				break;
@@ -725,20 +726,20 @@ public class BuffParser extends Parser {
 		TermContext _localctx = new TermContext(_ctx, getState());
 		enterRule(_localctx, 22, RULE_term);
 		try {
-			setState(93);
+			setState(95);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(91);
+				setState(93);
 				funccall();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(92);
+				setState(94);
 				val();
 				}
 				break;
@@ -779,7 +780,7 @@ public class BuffParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(95);
+			setState(97);
 			_la = _input.LA(1);
 			if ( !(_la==PLUS || _la==MINUS) ) {
 			_errHandler.recoverInline(this);
@@ -803,24 +804,44 @@ public class BuffParser extends Parser {
 	}
 
 	public static class ValContext extends ParserRuleContext {
+		public ValContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_val; }
+	 
+		public ValContext() { }
+		public void copyFrom(ValContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class PresedenceMathContext extends ValContext {
 		public TerminalNode LPAREN() { return getToken(BuffParser.LPAREN, 0); }
 		public MathContext math() {
 			return getRuleContext(MathContext.class,0);
 		}
 		public TerminalNode RPAREN() { return getToken(BuffParser.RPAREN, 0); }
-		public TerminalNode NUMBERVAL() { return getToken(BuffParser.NUMBERVAL, 0); }
-		public TerminalNode ID() { return getToken(BuffParser.ID, 0); }
-		public ValContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_val; }
+		public PresedenceMathContext(ValContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof BuffListener ) ((BuffListener)listener).enterVal(this);
+			if ( listener instanceof BuffListener ) ((BuffListener)listener).enterPresedenceMath(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitVal(this);
+			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitPresedenceMath(this);
+		}
+	}
+	public static class TermTerminalContext extends ValContext {
+		public ValTerminalContext valTerminal() {
+			return getRuleContext(ValTerminalContext.class,0);
+		}
+		public TermTerminalContext(ValContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BuffListener ) ((BuffListener)listener).enterTermTerminal(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitTermTerminal(this);
 		}
 	}
 
@@ -828,36 +849,79 @@ public class BuffParser extends Parser {
 		ValContext _localctx = new ValContext(_ctx, getState());
 		enterRule(_localctx, 26, RULE_val);
 		try {
-			setState(103);
+			setState(104);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LPAREN:
+				_localctx = new PresedenceMathContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(97);
-				match(LPAREN);
-				setState(98);
-				math();
 				setState(99);
+				match(LPAREN);
+				setState(100);
+				math();
+				setState(101);
 				match(RPAREN);
 				}
 				break;
+			case ID:
 			case NUMBERVAL:
+				_localctx = new TermTerminalContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(101);
-				match(NUMBERVAL);
-				}
-				break;
-			case ID:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(102);
-				match(ID);
+				setState(103);
+				valTerminal();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ValTerminalContext extends ParserRuleContext {
+		public TerminalNode NUMBERVAL() { return getToken(BuffParser.NUMBERVAL, 0); }
+		public TerminalNode ID() { return getToken(BuffParser.ID, 0); }
+		public ValTerminalContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_valTerminal; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BuffListener ) ((BuffListener)listener).enterValTerminal(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitValTerminal(this);
+		}
+	}
+
+	public final ValTerminalContext valTerminal() throws RecognitionException {
+		ValTerminalContext _localctx = new ValTerminalContext(_ctx, getState());
+		enterRule(_localctx, 28, RULE_valTerminal);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(106);
+			_la = _input.LA(1);
+			if ( !(_la==ID || _la==NUMBERVAL) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -894,17 +958,17 @@ public class BuffParser extends Parser {
 
 	public final FunccallContext funccall() throws RecognitionException {
 		FunccallContext _localctx = new FunccallContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_funccall);
+		enterRule(_localctx, 30, RULE_funccall);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(105);
-			match(ID);
-			setState(106);
-			match(LPAREN);
-			setState(107);
-			stmtparams();
 			setState(108);
+			match(ID);
+			setState(109);
+			match(LPAREN);
+			setState(110);
+			stmtparams();
+			setState(111);
 			match(RPAREN);
 			}
 		}
@@ -942,9 +1006,9 @@ public class BuffParser extends Parser {
 
 	public final StmtparamsContext stmtparams() throws RecognitionException {
 		StmtparamsContext _localctx = new StmtparamsContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_stmtparams);
+		enterRule(_localctx, 32, RULE_stmtparams);
 		try {
-			setState(114);
+			setState(117);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
@@ -953,9 +1017,9 @@ public class BuffParser extends Parser {
 			case LPAREN:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(110);
+				setState(113);
 				stmt();
-				setState(111);
+				setState(114);
 				stmtmoreparams();
 				}
 				break;
@@ -1003,19 +1067,19 @@ public class BuffParser extends Parser {
 
 	public final StmtmoreparamsContext stmtmoreparams() throws RecognitionException {
 		StmtmoreparamsContext _localctx = new StmtmoreparamsContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_stmtmoreparams);
+		enterRule(_localctx, 34, RULE_stmtmoreparams);
 		try {
-			setState(121);
+			setState(124);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case COMMA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(116);
+				setState(119);
 				match(COMMA);
-				setState(117);
+				setState(120);
 				stmt();
-				setState(118);
+				setState(121);
 				stmtmoreparams();
 				}
 				break;
@@ -1040,35 +1104,36 @@ public class BuffParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20~\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\3\2\3"+
-		"\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\5\3.\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
-		"\4\3\5\3\5\3\6\3\6\3\6\3\6\5\6>\n\6\3\7\3\7\3\7\3\7\3\7\5\7E\n\7\3\b\3"+
-		"\b\3\b\3\t\3\t\3\t\3\t\3\t\5\tO\n\t\3\n\3\n\5\nS\n\n\3\13\3\13\3\13\3"+
-		"\f\3\f\3\f\3\f\5\f\\\n\f\3\r\3\r\5\r`\n\r\3\16\3\16\3\17\3\17\3\17\3\17"+
-		"\3\17\3\17\5\17j\n\17\3\20\3\20\3\20\3\20\3\20\3\21\3\21\3\21\3\21\5\21"+
-		"u\n\21\3\22\3\22\3\22\3\22\3\22\5\22|\n\22\3\22\2\2\23\2\4\6\b\n\f\16"+
-		"\20\22\24\26\30\32\34\36 \"\2\4\3\2\3\4\3\2\f\r\2w\2$\3\2\2\2\4-\3\2\2"+
-		"\2\6/\3\2\2\2\b\67\3\2\2\2\n=\3\2\2\2\fD\3\2\2\2\16F\3\2\2\2\20N\3\2\2"+
-		"\2\22R\3\2\2\2\24T\3\2\2\2\26[\3\2\2\2\30_\3\2\2\2\32a\3\2\2\2\34i\3\2"+
-		"\2\2\36k\3\2\2\2 t\3\2\2\2\"{\3\2\2\2$%\5\4\3\2%&\5\20\t\2&\'\7\2\2\3"+
-		"\'\3\3\2\2\2()\5\6\4\2)*\7\16\2\2*+\5\4\3\2+.\3\2\2\2,.\3\2\2\2-(\3\2"+
-		"\2\2-,\3\2\2\2.\5\3\2\2\2/\60\5\b\5\2\60\61\7\5\2\2\61\62\7\b\2\2\62\63"+
-		"\5\n\6\2\63\64\7\t\2\2\64\65\7\n\2\2\65\66\5\22\n\2\66\7\3\2\2\2\678\t"+
-		"\2\2\28\t\3\2\2\29:\5\16\b\2:;\5\f\7\2;>\3\2\2\2<>\3\2\2\2=9\3\2\2\2="+
-		"<\3\2\2\2>\13\3\2\2\2?@\7\13\2\2@A\5\16\b\2AB\5\f\7\2BE\3\2\2\2CE\3\2"+
-		"\2\2D?\3\2\2\2DC\3\2\2\2E\r\3\2\2\2FG\5\b\5\2GH\7\5\2\2H\17\3\2\2\2IJ"+
-		"\5\22\n\2JK\7\16\2\2KL\5\20\t\2LO\3\2\2\2MO\3\2\2\2NI\3\2\2\2NM\3\2\2"+
-		"\2O\21\3\2\2\2PS\5\24\13\2QS\7\6\2\2RP\3\2\2\2RQ\3\2\2\2S\23\3\2\2\2T"+
-		"U\5\30\r\2UV\5\26\f\2V\25\3\2\2\2WX\5\32\16\2XY\5\24\13\2Y\\\3\2\2\2Z"+
-		"\\\3\2\2\2[W\3\2\2\2[Z\3\2\2\2\\\27\3\2\2\2]`\5\36\20\2^`\5\34\17\2_]"+
-		"\3\2\2\2_^\3\2\2\2`\31\3\2\2\2ab\t\3\2\2b\33\3\2\2\2cd\7\b\2\2de\5\24"+
-		"\13\2ef\7\t\2\2fj\3\2\2\2gj\7\7\2\2hj\7\5\2\2ic\3\2\2\2ig\3\2\2\2ih\3"+
-		"\2\2\2j\35\3\2\2\2kl\7\5\2\2lm\7\b\2\2mn\5 \21\2no\7\t\2\2o\37\3\2\2\2"+
-		"pq\5\22\n\2qr\5\"\22\2ru\3\2\2\2su\3\2\2\2tp\3\2\2\2ts\3\2\2\2u!\3\2\2"+
-		"\2vw\7\13\2\2wx\5\22\n\2xy\5\"\22\2y|\3\2\2\2z|\3\2\2\2{v\3\2\2\2{z\3"+
-		"\2\2\2|#\3\2\2\2\f-=DNR[_it{";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20\u0081\4\2\t\2"+
+		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
+		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
+		"\4\23\t\23\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\5\3\60\n\3\3\4\3\4\3\4"+
+		"\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3\6\3\6\3\6\3\6\5\6@\n\6\3\7\3\7\3\7\3\7"+
+		"\3\7\5\7G\n\7\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\5\tQ\n\t\3\n\3\n\5\nU\n"+
+		"\n\3\13\3\13\3\13\3\f\3\f\3\f\3\f\5\f^\n\f\3\r\3\r\5\rb\n\r\3\16\3\16"+
+		"\3\17\3\17\3\17\3\17\3\17\5\17k\n\17\3\20\3\20\3\21\3\21\3\21\3\21\3\21"+
+		"\3\22\3\22\3\22\3\22\5\22x\n\22\3\23\3\23\3\23\3\23\3\23\5\23\177\n\23"+
+		"\3\23\2\2\24\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$\2\5\3\2\3\4\3"+
+		"\2\f\r\4\2\5\5\7\7\2x\2&\3\2\2\2\4/\3\2\2\2\6\61\3\2\2\2\b9\3\2\2\2\n"+
+		"?\3\2\2\2\fF\3\2\2\2\16H\3\2\2\2\20P\3\2\2\2\22T\3\2\2\2\24V\3\2\2\2\26"+
+		"]\3\2\2\2\30a\3\2\2\2\32c\3\2\2\2\34j\3\2\2\2\36l\3\2\2\2 n\3\2\2\2\""+
+		"w\3\2\2\2$~\3\2\2\2&\'\5\4\3\2\'(\5\20\t\2()\7\2\2\3)\3\3\2\2\2*+\5\6"+
+		"\4\2+,\7\16\2\2,-\5\4\3\2-\60\3\2\2\2.\60\3\2\2\2/*\3\2\2\2/.\3\2\2\2"+
+		"\60\5\3\2\2\2\61\62\5\b\5\2\62\63\7\5\2\2\63\64\7\b\2\2\64\65\5\n\6\2"+
+		"\65\66\7\t\2\2\66\67\7\n\2\2\678\5\22\n\28\7\3\2\2\29:\t\2\2\2:\t\3\2"+
+		"\2\2;<\5\16\b\2<=\5\f\7\2=@\3\2\2\2>@\3\2\2\2?;\3\2\2\2?>\3\2\2\2@\13"+
+		"\3\2\2\2AB\7\13\2\2BC\5\16\b\2CD\5\f\7\2DG\3\2\2\2EG\3\2\2\2FA\3\2\2\2"+
+		"FE\3\2\2\2G\r\3\2\2\2HI\5\b\5\2IJ\7\5\2\2J\17\3\2\2\2KL\5\22\n\2LM\7\16"+
+		"\2\2MN\5\20\t\2NQ\3\2\2\2OQ\3\2\2\2PK\3\2\2\2PO\3\2\2\2Q\21\3\2\2\2RU"+
+		"\5\24\13\2SU\7\6\2\2TR\3\2\2\2TS\3\2\2\2U\23\3\2\2\2VW\5\30\r\2WX\5\26"+
+		"\f\2X\25\3\2\2\2YZ\5\32\16\2Z[\5\24\13\2[^\3\2\2\2\\^\3\2\2\2]Y\3\2\2"+
+		"\2]\\\3\2\2\2^\27\3\2\2\2_b\5 \21\2`b\5\34\17\2a_\3\2\2\2a`\3\2\2\2b\31"+
+		"\3\2\2\2cd\t\3\2\2d\33\3\2\2\2ef\7\b\2\2fg\5\24\13\2gh\7\t\2\2hk\3\2\2"+
+		"\2ik\5\36\20\2je\3\2\2\2ji\3\2\2\2k\35\3\2\2\2lm\t\4\2\2m\37\3\2\2\2n"+
+		"o\7\5\2\2op\7\b\2\2pq\5\"\22\2qr\7\t\2\2r!\3\2\2\2st\5\22\n\2tu\5$\23"+
+		"\2ux\3\2\2\2vx\3\2\2\2ws\3\2\2\2wv\3\2\2\2x#\3\2\2\2yz\7\13\2\2z{\5\22"+
+		"\n\2{|\5$\23\2|\177\3\2\2\2}\177\3\2\2\2~y\3\2\2\2~}\3\2\2\2\177%\3\2"+
+		"\2\2\f/?FPT]ajw~";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

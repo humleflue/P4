@@ -137,15 +137,39 @@ public interface BuffListener extends ParseTreeListener {
 	 */
 	void exitSimpleops(BuffParser.SimpleopsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BuffParser#val}.
+	 * Enter a parse tree produced by the {@code presedenceMath}
+	 * labeled alternative in {@link BuffParser#val}.
 	 * @param ctx the parse tree
 	 */
-	void enterVal(BuffParser.ValContext ctx);
+	void enterPresedenceMath(BuffParser.PresedenceMathContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BuffParser#val}.
+	 * Exit a parse tree produced by the {@code presedenceMath}
+	 * labeled alternative in {@link BuffParser#val}.
 	 * @param ctx the parse tree
 	 */
-	void exitVal(BuffParser.ValContext ctx);
+	void exitPresedenceMath(BuffParser.PresedenceMathContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code termTerminal}
+	 * labeled alternative in {@link BuffParser#val}.
+	 * @param ctx the parse tree
+	 */
+	void enterTermTerminal(BuffParser.TermTerminalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code termTerminal}
+	 * labeled alternative in {@link BuffParser#val}.
+	 * @param ctx the parse tree
+	 */
+	void exitTermTerminal(BuffParser.TermTerminalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BuffParser#valTerminal}.
+	 * @param ctx the parse tree
+	 */
+	void enterValTerminal(BuffParser.ValTerminalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BuffParser#valTerminal}.
+	 * @param ctx the parse tree
+	 */
+	void exitValTerminal(BuffParser.ValTerminalContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BuffParser#funccall}.
 	 * @param ctx the parse tree
