@@ -1,4 +1,4 @@
-// Generated from C:/Users/chris/4-semester/Projekt/P4/ANTLR/src/main\Buff.g4 by ANTLR 4.9.1
+// Generated from Buff.g4 by ANTLR 4.9
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -10,14 +10,14 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class BuffParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.9.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.9", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
 		NUMBERDCL=1, TEXTDCL=2, ID=3, TEXTVAL=4, NUMBERVAL=5, LPAREN=6, RPAREN=7, 
-		ASSIGN=8, COMMA=9, PLUS=10, MINUS=11, SEMICOLON=12, NEWLINE=13, WS=14;
+		ASSIGN=8, COMMA=9, PLUS=10, MINUS=11, SEMICOLON=12, WS=13, NEWLINE=14;
 	public static final int
 		RULE_prog = 0, RULE_dcls = 1, RULE_dcl = 2, RULE_type = 3, RULE_dclparams = 4, 
 		RULE_dclmoreparams = 5, RULE_dclparam = 6, RULE_stmts = 7, RULE_stmt = 8, 
@@ -42,8 +42,7 @@ public class BuffParser extends Parser {
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, "NUMBERDCL", "TEXTDCL", "ID", "TEXTVAL", "NUMBERVAL", "LPAREN", 
-			"RPAREN", "ASSIGN", "COMMA", "PLUS", "MINUS", "SEMICOLON", "NEWLINE", 
-			"WS"
+			"RPAREN", "ASSIGN", "COMMA", "PLUS", "MINUS", "SEMICOLON", "WS", "NEWLINE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -117,11 +116,6 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitProg(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitProg(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ProgContext prog() throws RecognitionException {
@@ -168,11 +162,6 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitDcls(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitDcls(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -245,11 +234,6 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitDcl(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitDcl(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DclContext dcl() throws RecognitionException {
@@ -299,11 +283,6 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitType(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -355,11 +334,6 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitDclparams(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitDclparams(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -420,11 +394,6 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitDclmoreparams(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitDclmoreparams(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DclmoreparamsContext dclmoreparams() throws RecognitionException {
@@ -482,11 +451,6 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitDclparam(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitDclparam(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DclparamContext dclparam() throws RecognitionException {
@@ -531,11 +495,6 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitStmts(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitStmts(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -597,11 +556,6 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitStmt(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitStmt(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final StmtContext stmt() throws RecognitionException {
@@ -661,11 +615,6 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitMath(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitMath(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MathContext math() throws RecognitionException {
@@ -709,11 +658,6 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitFollowterm(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitFollowterm(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -775,11 +719,6 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitTerm(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final TermContext term() throws RecognitionException {
@@ -788,24 +727,21 @@ public class BuffParser extends Parser {
 		try {
 			setState(93);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case ID:
+			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
+			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(91);
 				funccall();
 				}
 				break;
-			case NUMBERVAL:
-			case LPAREN:
+			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(92);
 				val();
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -833,11 +769,6 @@ public class BuffParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitSimpleops(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitSimpleops(this);
-			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -878,6 +809,7 @@ public class BuffParser extends Parser {
 		}
 		public TerminalNode RPAREN() { return getToken(BuffParser.RPAREN, 0); }
 		public TerminalNode NUMBERVAL() { return getToken(BuffParser.NUMBERVAL, 0); }
+		public TerminalNode ID() { return getToken(BuffParser.ID, 0); }
 		public ValContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -890,18 +822,13 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitVal(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitVal(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ValContext val() throws RecognitionException {
 		ValContext _localctx = new ValContext(_ctx, getState());
 		enterRule(_localctx, 26, RULE_val);
 		try {
-			setState(102);
+			setState(103);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LPAREN:
@@ -920,6 +847,13 @@ public class BuffParser extends Parser {
 				{
 				setState(101);
 				match(NUMBERVAL);
+				}
+				break;
+			case ID:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(102);
+				match(ID);
 				}
 				break;
 			default:
@@ -956,11 +890,6 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitFunccall(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitFunccall(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final FunccallContext funccall() throws RecognitionException {
@@ -969,13 +898,13 @@ public class BuffParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(104);
-			match(ID);
 			setState(105);
-			match(LPAREN);
+			match(ID);
 			setState(106);
-			stmtparams();
+			match(LPAREN);
 			setState(107);
+			stmtparams();
+			setState(108);
 			match(RPAREN);
 			}
 		}
@@ -1009,18 +938,13 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitStmtparams(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitStmtparams(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final StmtparamsContext stmtparams() throws RecognitionException {
 		StmtparamsContext _localctx = new StmtparamsContext(_ctx, getState());
 		enterRule(_localctx, 30, RULE_stmtparams);
 		try {
-			setState(113);
+			setState(114);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
@@ -1029,9 +953,9 @@ public class BuffParser extends Parser {
 			case LPAREN:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(109);
-				stmt();
 				setState(110);
+				stmt();
+				setState(111);
 				stmtmoreparams();
 				}
 				break;
@@ -1075,28 +999,23 @@ public class BuffParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof BuffListener ) ((BuffListener)listener).exitStmtmoreparams(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof BuffVisitor ) return ((BuffVisitor<? extends T>)visitor).visitStmtmoreparams(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final StmtmoreparamsContext stmtmoreparams() throws RecognitionException {
 		StmtmoreparamsContext _localctx = new StmtmoreparamsContext(_ctx, getState());
 		enterRule(_localctx, 32, RULE_stmtmoreparams);
 		try {
-			setState(120);
+			setState(121);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case COMMA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(115);
-				match(COMMA);
 				setState(116);
-				stmt();
+				match(COMMA);
 				setState(117);
+				stmt();
+				setState(118);
 				stmtmoreparams();
 				}
 				break;
@@ -1121,21 +1040,21 @@ public class BuffParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20}\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20~\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
 		"\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\3\2\3"+
 		"\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\5\3.\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
 		"\4\3\5\3\5\3\6\3\6\3\6\3\6\5\6>\n\6\3\7\3\7\3\7\3\7\3\7\5\7E\n\7\3\b\3"+
 		"\b\3\b\3\t\3\t\3\t\3\t\3\t\5\tO\n\t\3\n\3\n\5\nS\n\n\3\13\3\13\3\13\3"+
 		"\f\3\f\3\f\3\f\5\f\\\n\f\3\r\3\r\5\r`\n\r\3\16\3\16\3\17\3\17\3\17\3\17"+
-		"\3\17\5\17i\n\17\3\20\3\20\3\20\3\20\3\20\3\21\3\21\3\21\3\21\5\21t\n"+
-		"\21\3\22\3\22\3\22\3\22\3\22\5\22{\n\22\3\22\2\2\23\2\4\6\b\n\f\16\20"+
-		"\22\24\26\30\32\34\36 \"\2\4\3\2\3\4\3\2\f\r\2u\2$\3\2\2\2\4-\3\2\2\2"+
-		"\6/\3\2\2\2\b\67\3\2\2\2\n=\3\2\2\2\fD\3\2\2\2\16F\3\2\2\2\20N\3\2\2\2"+
-		"\22R\3\2\2\2\24T\3\2\2\2\26[\3\2\2\2\30_\3\2\2\2\32a\3\2\2\2\34h\3\2\2"+
-		"\2\36j\3\2\2\2 s\3\2\2\2\"z\3\2\2\2$%\5\4\3\2%&\5\20\t\2&\'\7\2\2\3\'"+
-		"\3\3\2\2\2()\5\6\4\2)*\7\16\2\2*+\5\4\3\2+.\3\2\2\2,.\3\2\2\2-(\3\2\2"+
-		"\2-,\3\2\2\2.\5\3\2\2\2/\60\5\b\5\2\60\61\7\5\2\2\61\62\7\b\2\2\62\63"+
+		"\3\17\3\17\5\17j\n\17\3\20\3\20\3\20\3\20\3\20\3\21\3\21\3\21\3\21\5\21"+
+		"u\n\21\3\22\3\22\3\22\3\22\3\22\5\22|\n\22\3\22\2\2\23\2\4\6\b\n\f\16"+
+		"\20\22\24\26\30\32\34\36 \"\2\4\3\2\3\4\3\2\f\r\2w\2$\3\2\2\2\4-\3\2\2"+
+		"\2\6/\3\2\2\2\b\67\3\2\2\2\n=\3\2\2\2\fD\3\2\2\2\16F\3\2\2\2\20N\3\2\2"+
+		"\2\22R\3\2\2\2\24T\3\2\2\2\26[\3\2\2\2\30_\3\2\2\2\32a\3\2\2\2\34i\3\2"+
+		"\2\2\36k\3\2\2\2 t\3\2\2\2\"{\3\2\2\2$%\5\4\3\2%&\5\20\t\2&\'\7\2\2\3"+
+		"\'\3\3\2\2\2()\5\6\4\2)*\7\16\2\2*+\5\4\3\2+.\3\2\2\2,.\3\2\2\2-(\3\2"+
+		"\2\2-,\3\2\2\2.\5\3\2\2\2/\60\5\b\5\2\60\61\7\5\2\2\61\62\7\b\2\2\62\63"+
 		"\5\n\6\2\63\64\7\t\2\2\64\65\7\n\2\2\65\66\5\22\n\2\66\7\3\2\2\2\678\t"+
 		"\2\2\28\t\3\2\2\29:\5\16\b\2:;\5\f\7\2;>\3\2\2\2<>\3\2\2\2=9\3\2\2\2="+
 		"<\3\2\2\2>\13\3\2\2\2?@\7\13\2\2@A\5\16\b\2AB\5\f\7\2BE\3\2\2\2CE\3\2"+
@@ -1145,11 +1064,11 @@ public class BuffParser extends Parser {
 		"U\5\30\r\2UV\5\26\f\2V\25\3\2\2\2WX\5\32\16\2XY\5\24\13\2Y\\\3\2\2\2Z"+
 		"\\\3\2\2\2[W\3\2\2\2[Z\3\2\2\2\\\27\3\2\2\2]`\5\36\20\2^`\5\34\17\2_]"+
 		"\3\2\2\2_^\3\2\2\2`\31\3\2\2\2ab\t\3\2\2b\33\3\2\2\2cd\7\b\2\2de\5\24"+
-		"\13\2ef\7\t\2\2fi\3\2\2\2gi\7\7\2\2hc\3\2\2\2hg\3\2\2\2i\35\3\2\2\2jk"+
-		"\7\5\2\2kl\7\b\2\2lm\5 \21\2mn\7\t\2\2n\37\3\2\2\2op\5\22\n\2pq\5\"\22"+
-		"\2qt\3\2\2\2rt\3\2\2\2so\3\2\2\2sr\3\2\2\2t!\3\2\2\2uv\7\13\2\2vw\5\22"+
-		"\n\2wx\5\"\22\2x{\3\2\2\2y{\3\2\2\2zu\3\2\2\2zy\3\2\2\2{#\3\2\2\2\f-="+
-		"DNR[_hsz";
+		"\13\2ef\7\t\2\2fj\3\2\2\2gj\7\7\2\2hj\7\5\2\2ic\3\2\2\2ig\3\2\2\2ih\3"+
+		"\2\2\2j\35\3\2\2\2kl\7\5\2\2lm\7\b\2\2mn\5 \21\2no\7\t\2\2o\37\3\2\2\2"+
+		"pq\5\22\n\2qr\5\"\22\2ru\3\2\2\2su\3\2\2\2tp\3\2\2\2ts\3\2\2\2u!\3\2\2"+
+		"\2vw\7\13\2\2wx\5\22\n\2xy\5\"\22\2y|\3\2\2\2z|\3\2\2\2{v\3\2\2\2{z\3"+
+		"\2\2\2|#\3\2\2\2\f-=DNR[_it{";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

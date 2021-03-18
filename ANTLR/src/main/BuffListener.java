@@ -1,4 +1,4 @@
-// Generated from C:/Users/chris/4-semester/Projekt/P4/ANTLR/src/main\Buff.g4 by ANTLR 4.9.1
+// Generated from Buff.g4 by ANTLR 4.9
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

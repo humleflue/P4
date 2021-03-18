@@ -3,7 +3,27 @@
   <component name="ChangeListManager">
     <list default="true" id="675e6b4e-7f5f-43ae-8f7f-e68b7fcde76f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ANTLR/src/main/Buff.g4" beforeDir="false" afterPath="$PROJECT_DIR$/ANTLR/src/main/Buff.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR/gen/main/Buff.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR/gen/main/Buff.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR/gen/main/BuffBaseListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR/gen/main/BuffBaseVisitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR/gen/main/BuffLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR/gen/main/BuffLexer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR/gen/main/BuffLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR/gen/main/BuffListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR/gen/main/BuffParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR/gen/main/BuffVisitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR/src/main/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/Buff.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/Buff.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/BuffBaseListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/BuffBaseVisitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/BuffLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/BuffLexer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/BuffLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/BuffListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/BuffParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/BuffVisitor.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,13 +51,18 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ANTLR/src/main" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\src\main" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
@@ -62,11 +87,22 @@
       <updated>1615455662481</updated>
       <workItem from="1615455664863" duration="406000" />
       <workItem from="1615538373079" duration="173000" />
-      <workItem from="1615981862455" duration="3293000" />
+      <workItem from="1615981862455" duration="6913000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
