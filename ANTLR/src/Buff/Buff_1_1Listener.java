@@ -342,17 +342,29 @@ public interface Buff_1_1Listener extends ParseTreeListener {
 	 */
 	void exitParensExp(Buff_1_1Parser.ParensExpContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code valFuncCal}
+	 * Enter a parse tree produced by the {@code valFuncCall}
 	 * labeled alternative in {@link Buff_1_1Parser#val}.
 	 * @param ctx the parse tree
 	 */
-	void enterValFuncCal(Buff_1_1Parser.ValFuncCalContext ctx);
+	void enterValFuncCall(Buff_1_1Parser.ValFuncCallContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code valFuncCal}
+	 * Exit a parse tree produced by the {@code valFuncCall}
 	 * labeled alternative in {@link Buff_1_1Parser#val}.
 	 * @param ctx the parse tree
 	 */
-	void exitValFuncCal(Buff_1_1Parser.ValFuncCalContext ctx);
+	void exitValFuncCall(Buff_1_1Parser.ValFuncCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code valFuncCallDebug}
+	 * labeled alternative in {@link Buff_1_1Parser#val}.
+	 * @param ctx the parse tree
+	 */
+	void enterValFuncCallDebug(Buff_1_1Parser.ValFuncCallDebugContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code valFuncCallDebug}
+	 * labeled alternative in {@link Buff_1_1Parser#val}.
+	 * @param ctx the parse tree
+	 */
+	void exitValFuncCallDebug(Buff_1_1Parser.ValFuncCallDebugContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code valTerminal}
 	 * labeled alternative in {@link Buff_1_1Parser#val}.
@@ -396,13 +408,13 @@ public interface Buff_1_1Listener extends ParseTreeListener {
 	 */
 	void exitStmtParams(Buff_1_1Parser.StmtParamsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Buff_1_1Parser#stmtMoreParams}.
+	 * Enter a parse tree produced by {@link Buff_1_1Parser#exprMoreParams}.
 	 * @param ctx the parse tree
 	 */
-	void enterStmtMoreParams(Buff_1_1Parser.StmtMoreParamsContext ctx);
+	void enterExprMoreParams(Buff_1_1Parser.ExprMoreParamsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Buff_1_1Parser#stmtMoreParams}.
+	 * Exit a parse tree produced by {@link Buff_1_1Parser#exprMoreParams}.
 	 * @param ctx the parse tree
 	 */
-	void exitStmtMoreParams(Buff_1_1Parser.StmtMoreParamsContext ctx);
+	void exitExprMoreParams(Buff_1_1Parser.ExprMoreParamsContext ctx);
 }

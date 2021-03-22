@@ -220,7 +220,14 @@ public class Buff_1_1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitValFuncCal(Buff_1_1Parser.ValFuncCalContext ctx) { return visitChildren(ctx); }
+	@Override public T visitValFuncCall(Buff_1_1Parser.ValFuncCallContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitValFuncCallDebug(Buff_1_1Parser.ValFuncCallDebugContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -255,5 +262,5 @@ public class Buff_1_1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStmtMoreParams(Buff_1_1Parser.StmtMoreParamsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExprMoreParams(Buff_1_1Parser.ExprMoreParamsContext ctx) { return visitChildren(ctx); }
 }

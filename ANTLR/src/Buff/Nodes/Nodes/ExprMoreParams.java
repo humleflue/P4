@@ -2,8 +2,8 @@ package Buff.Nodes.Nodes;
 
 import Buff.Nodes.Abstract.Node;
 
-public class StmtMoreParams extends StmtParams{
-    public StmtMoreParams(Node stmt, Node stmtMoreParams) {
+public class ExprMoreParams extends StmtParams{
+    public ExprMoreParams(Node stmt, Node stmtMoreParams) {
         super(stmt, stmtMoreParams);
     }
 

@@ -5,10 +5,9 @@ prog : dcl prog                                                                 
       |                                                                         #progEmpty
       ;
 dcl : type ID LPAREN dclParams RPAREN ASSIGN stmt                               #oneLineStmt
-     | type ID LPAREN dclParams RPAREN ASSIGN LCURLY stmts RETURN stmt RCURLY   #multiLineStmt
+     | type ID LPAREN dclParams RPAREN ASSIGN LCURLY stmts RETURN stmt RCURLY ENDF   #multiLineStmt
      ;
 type : NUMBERDCL
-      | TEXTDCL
       | BOOLEAN ;
 dclParams : dclParam dclMoreParams
            | ;
@@ -49,22 +48,24 @@ lgclExpr4 : op=NEGATE val                                           #negate
            | val                                                    #value
            ;
 val : LPAREN expr RPAREN                                            #parensExp
-     | funcCall                                                     #valFuncCal
+     | funcCall                                                     #valFuncCall
+     | funcCall PRINTDEBUG                                          #valFuncCallDebug
      | termVal                                                      #valTerminal
      ;
 termVal : NUMBERVAL
-        | TEXTVAL
         | BOOLVAL
         | ID ;
 funcCall : ID LPAREN stmtParams RPAREN ;
-stmtParams : stmt stmtMoreParams
+stmtParams : expr exprMoreParams
             | ;
-stmtMoreParams : COMMA stmt stmtMoreParams
+exprMoreParams : COMMA stmt exprMoreParams
                 | ;
 
 NUMBERDCL : 'number' ;
 TEXTDCL : 'text' ;
 BOOLEAN : 'bool' ;
+ENDF    : 'endf' ;
+PRINTDEBUG : '?' ;
 
 ID : TEXTVAL ;
 TEXTVAL : ['A-Za-z]['A-Za-z_0-9]* ;

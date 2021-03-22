@@ -207,12 +207,19 @@ public interface Buff_1_1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParensExp(Buff_1_1Parser.ParensExpContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code valFuncCal}
+	 * Visit a parse tree produced by the {@code valFuncCall}
 	 * labeled alternative in {@link Buff_1_1Parser#val}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitValFuncCal(Buff_1_1Parser.ValFuncCalContext ctx);
+	T visitValFuncCall(Buff_1_1Parser.ValFuncCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code valFuncCallDebug}
+	 * labeled alternative in {@link Buff_1_1Parser#val}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValFuncCallDebug(Buff_1_1Parser.ValFuncCallDebugContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code valTerminal}
 	 * labeled alternative in {@link Buff_1_1Parser#val}.
@@ -239,9 +246,9 @@ public interface Buff_1_1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStmtParams(Buff_1_1Parser.StmtParamsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Buff_1_1Parser#stmtMoreParams}.
+	 * Visit a parse tree produced by {@link Buff_1_1Parser#exprMoreParams}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStmtMoreParams(Buff_1_1Parser.StmtMoreParamsContext ctx);
+	T visitExprMoreParams(Buff_1_1Parser.ExprMoreParamsContext ctx);
 }
