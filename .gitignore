@@ -4,6 +4,6 @@
 
 
 Buff*.java
-Buff*.class
+*.class
 Buff*.token
 Buff*.interp
