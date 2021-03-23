@@ -1,4 +1,4 @@
-// Generated from Buff_1_1.g4 by ANTLR 4.9
+// Generated from ./Buff_1_1.g4 by ANTLR 4.9
 package Buff;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -88,25 +88,53 @@ public interface Buff_1_1Listener extends ParseTreeListener {
 	 */
 	void exitType(Buff_1_1Parser.TypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Buff_1_1Parser#dclParams}.
+	 * Enter a parse tree produced by the {@code dclParamscontained}
+	 * labeled alternative in {@link Buff_1_1Parser#dclParams}.
 	 * @param ctx the parse tree
 	 */
-	void enterDclParams(Buff_1_1Parser.DclParamsContext ctx);
+	void enterDclParamscontained(Buff_1_1Parser.DclParamscontainedContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Buff_1_1Parser#dclParams}.
+	 * Exit a parse tree produced by the {@code dclParamscontained}
+	 * labeled alternative in {@link Buff_1_1Parser#dclParams}.
 	 * @param ctx the parse tree
 	 */
-	void exitDclParams(Buff_1_1Parser.DclParamsContext ctx);
+	void exitDclParamscontained(Buff_1_1Parser.DclParamscontainedContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Buff_1_1Parser#dclMoreParams}.
+	 * Enter a parse tree produced by the {@code dclParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#dclParams}.
 	 * @param ctx the parse tree
 	 */
-	void enterDclMoreParams(Buff_1_1Parser.DclMoreParamsContext ctx);
+	void enterDclParamsEmpty(Buff_1_1Parser.DclParamsEmptyContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Buff_1_1Parser#dclMoreParams}.
+	 * Exit a parse tree produced by the {@code dclParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#dclParams}.
 	 * @param ctx the parse tree
 	 */
-	void exitDclMoreParams(Buff_1_1Parser.DclMoreParamsContext ctx);
+	void exitDclParamsEmpty(Buff_1_1Parser.DclParamsEmptyContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code dclMoreParamscontained}
+	 * labeled alternative in {@link Buff_1_1Parser#dclMoreParams}.
+	 * @param ctx the parse tree
+	 */
+	void enterDclMoreParamscontained(Buff_1_1Parser.DclMoreParamscontainedContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code dclMoreParamscontained}
+	 * labeled alternative in {@link Buff_1_1Parser#dclMoreParams}.
+	 * @param ctx the parse tree
+	 */
+	void exitDclMoreParamscontained(Buff_1_1Parser.DclMoreParamscontainedContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code dclMoreParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#dclMoreParams}.
+	 * @param ctx the parse tree
+	 */
+	void enterDclMoreParamsEmpty(Buff_1_1Parser.DclMoreParamsEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code dclMoreParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#dclMoreParams}.
+	 * @param ctx the parse tree
+	 */
+	void exitDclMoreParamsEmpty(Buff_1_1Parser.DclMoreParamsEmptyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Buff_1_1Parser#dclParam}.
 	 * @param ctx the parse tree
@@ -118,15 +146,29 @@ public interface Buff_1_1Listener extends ParseTreeListener {
 	 */
 	void exitDclParam(Buff_1_1Parser.DclParamContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Buff_1_1Parser#stmts}.
+	 * Enter a parse tree produced by the {@code stmtsContained}
+	 * labeled alternative in {@link Buff_1_1Parser#stmts}.
 	 * @param ctx the parse tree
 	 */
-	void enterStmts(Buff_1_1Parser.StmtsContext ctx);
+	void enterStmtsContained(Buff_1_1Parser.StmtsContainedContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Buff_1_1Parser#stmts}.
+	 * Exit a parse tree produced by the {@code stmtsContained}
+	 * labeled alternative in {@link Buff_1_1Parser#stmts}.
 	 * @param ctx the parse tree
 	 */
-	void exitStmts(Buff_1_1Parser.StmtsContext ctx);
+	void exitStmtsContained(Buff_1_1Parser.StmtsContainedContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code stmtsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#stmts}.
+	 * @param ctx the parse tree
+	 */
+	void enterStmtsEmpty(Buff_1_1Parser.StmtsEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stmtsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#stmts}.
+	 * @param ctx the parse tree
+	 */
+	void exitStmtsEmpty(Buff_1_1Parser.StmtsEmptyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Buff_1_1Parser#stmt}.
 	 * @param ctx the parse tree
@@ -282,17 +324,17 @@ public interface Buff_1_1Listener extends ParseTreeListener {
 	 */
 	void exitMathPow(Buff_1_1Parser.MathPowContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code binaryOpPoe}
+	 * Enter a parse tree produced by the {@code binaryOpPow}
 	 * labeled alternative in {@link Buff_1_1Parser#mathExpr3}.
 	 * @param ctx the parse tree
 	 */
-	void enterBinaryOpPoe(Buff_1_1Parser.BinaryOpPoeContext ctx);
+	void enterBinaryOpPow(Buff_1_1Parser.BinaryOpPowContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code binaryOpPoe}
+	 * Exit a parse tree produced by the {@code binaryOpPow}
 	 * labeled alternative in {@link Buff_1_1Parser#mathExpr3}.
 	 * @param ctx the parse tree
 	 */
-	void exitBinaryOpPoe(Buff_1_1Parser.BinaryOpPoeContext ctx);
+	void exitBinaryOpPow(Buff_1_1Parser.BinaryOpPowContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code logUnary}
 	 * labeled alternative in {@link Buff_1_1Parser#mathExpr3}.
@@ -398,23 +440,51 @@ public interface Buff_1_1Listener extends ParseTreeListener {
 	 */
 	void exitFuncCall(Buff_1_1Parser.FuncCallContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Buff_1_1Parser#stmtParams}.
+	 * Enter a parse tree produced by the {@code stmtParamscontained}
+	 * labeled alternative in {@link Buff_1_1Parser#stmtParams}.
 	 * @param ctx the parse tree
 	 */
-	void enterStmtParams(Buff_1_1Parser.StmtParamsContext ctx);
+	void enterStmtParamscontained(Buff_1_1Parser.StmtParamscontainedContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Buff_1_1Parser#stmtParams}.
+	 * Exit a parse tree produced by the {@code stmtParamscontained}
+	 * labeled alternative in {@link Buff_1_1Parser#stmtParams}.
 	 * @param ctx the parse tree
 	 */
-	void exitStmtParams(Buff_1_1Parser.StmtParamsContext ctx);
+	void exitStmtParamscontained(Buff_1_1Parser.StmtParamscontainedContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Buff_1_1Parser#exprMoreParams}.
+	 * Enter a parse tree produced by the {@code stmtParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#stmtParams}.
 	 * @param ctx the parse tree
 	 */
-	void enterExprMoreParams(Buff_1_1Parser.ExprMoreParamsContext ctx);
+	void enterStmtParamsEmpty(Buff_1_1Parser.StmtParamsEmptyContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Buff_1_1Parser#exprMoreParams}.
+	 * Exit a parse tree produced by the {@code stmtParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#stmtParams}.
 	 * @param ctx the parse tree
 	 */
-	void exitExprMoreParams(Buff_1_1Parser.ExprMoreParamsContext ctx);
+	void exitStmtParamsEmpty(Buff_1_1Parser.StmtParamsEmptyContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprMoreParamsContained}
+	 * labeled alternative in {@link Buff_1_1Parser#exprMoreParams}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprMoreParamsContained(Buff_1_1Parser.ExprMoreParamsContainedContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprMoreParamsContained}
+	 * labeled alternative in {@link Buff_1_1Parser#exprMoreParams}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprMoreParamsContained(Buff_1_1Parser.ExprMoreParamsContainedContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprMoreParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#exprMoreParams}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprMoreParamsEmpty(Buff_1_1Parser.ExprMoreParamsEmptyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprMoreParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#exprMoreParams}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprMoreParamsEmpty(Buff_1_1Parser.ExprMoreParamsEmptyContext ctx);
 }

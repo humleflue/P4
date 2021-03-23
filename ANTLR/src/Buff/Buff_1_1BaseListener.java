@@ -1,4 +1,4 @@
-// Generated from Buff_1_1.g4 by ANTLR 4.9
+// Generated from ./Buff_1_1.g4 by ANTLR 4.9
 package Buff;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -100,25 +100,49 @@ public class Buff_1_1BaseListener implements Buff_1_1Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDclParams(Buff_1_1Parser.DclParamsContext ctx) { }
+	@Override public void enterDclParamscontained(Buff_1_1Parser.DclParamscontainedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDclParams(Buff_1_1Parser.DclParamsContext ctx) { }
+	@Override public void exitDclParamscontained(Buff_1_1Parser.DclParamscontainedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDclMoreParams(Buff_1_1Parser.DclMoreParamsContext ctx) { }
+	@Override public void enterDclParamsEmpty(Buff_1_1Parser.DclParamsEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDclMoreParams(Buff_1_1Parser.DclMoreParamsContext ctx) { }
+	@Override public void exitDclParamsEmpty(Buff_1_1Parser.DclParamsEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDclMoreParamscontained(Buff_1_1Parser.DclMoreParamscontainedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDclMoreParamscontained(Buff_1_1Parser.DclMoreParamscontainedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDclMoreParamsEmpty(Buff_1_1Parser.DclMoreParamsEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDclMoreParamsEmpty(Buff_1_1Parser.DclMoreParamsEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -136,13 +160,25 @@ public class Buff_1_1BaseListener implements Buff_1_1Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStmts(Buff_1_1Parser.StmtsContext ctx) { }
+	@Override public void enterStmtsContained(Buff_1_1Parser.StmtsContainedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStmts(Buff_1_1Parser.StmtsContext ctx) { }
+	@Override public void exitStmtsContained(Buff_1_1Parser.StmtsContainedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStmtsEmpty(Buff_1_1Parser.StmtsEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStmtsEmpty(Buff_1_1Parser.StmtsEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -304,13 +340,13 @@ public class Buff_1_1BaseListener implements Buff_1_1Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBinaryOpPoe(Buff_1_1Parser.BinaryOpPoeContext ctx) { }
+	@Override public void enterBinaryOpPow(Buff_1_1Parser.BinaryOpPowContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBinaryOpPoe(Buff_1_1Parser.BinaryOpPoeContext ctx) { }
+	@Override public void exitBinaryOpPow(Buff_1_1Parser.BinaryOpPowContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -424,25 +460,49 @@ public class Buff_1_1BaseListener implements Buff_1_1Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStmtParams(Buff_1_1Parser.StmtParamsContext ctx) { }
+	@Override public void enterStmtParamscontained(Buff_1_1Parser.StmtParamscontainedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStmtParams(Buff_1_1Parser.StmtParamsContext ctx) { }
+	@Override public void exitStmtParamscontained(Buff_1_1Parser.StmtParamscontainedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprMoreParams(Buff_1_1Parser.ExprMoreParamsContext ctx) { }
+	@Override public void enterStmtParamsEmpty(Buff_1_1Parser.StmtParamsEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprMoreParams(Buff_1_1Parser.ExprMoreParamsContext ctx) { }
+	@Override public void exitStmtParamsEmpty(Buff_1_1Parser.StmtParamsEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprMoreParamsContained(Buff_1_1Parser.ExprMoreParamsContainedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprMoreParamsContained(Buff_1_1Parser.ExprMoreParamsContainedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprMoreParamsEmpty(Buff_1_1Parser.ExprMoreParamsEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprMoreParamsEmpty(Buff_1_1Parser.ExprMoreParamsEmptyContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

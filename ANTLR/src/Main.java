@@ -1,7 +1,8 @@
 import Buff.Buff_1_1Lexer;
 import Buff.Buff_1_1Parser;
 import Buff.BuildASTVisitor;
-import Buff.Nodes.Abstract.Node;
+import Buff.Nodes.Abstract.*;
+import Buff.Nodes.Nodes.*;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -21,7 +22,6 @@ public class Main {
         try{
             ParseTree tree = parser.prog();
             System.out.println("building cst");
-            System.out.println(tree.getText());
             Node ast = new BuildASTVisitor().visit(tree);
             System.out.println("building ast");
         }

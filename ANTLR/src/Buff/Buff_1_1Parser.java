@@ -1,4 +1,4 @@
-// Generated from Buff_1_1.g4 by ANTLR 4.9
+// Generated from ./Buff_1_1.g4 by ANTLR 4.9
 package Buff;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -482,27 +482,51 @@ public class Buff_1_1Parser extends Parser {
 	}
 
 	public static class DclParamsContext extends ParserRuleContext {
+		public DclParamsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_dclParams; }
+	 
+		public DclParamsContext() { }
+		public void copyFrom(DclParamsContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class DclParamsEmptyContext extends DclParamsContext {
+		public DclParamsEmptyContext(DclParamsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterDclParamsEmpty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitDclParamsEmpty(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitDclParamsEmpty(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class DclParamscontainedContext extends DclParamsContext {
 		public DclParamContext dclParam() {
 			return getRuleContext(DclParamContext.class,0);
 		}
 		public DclMoreParamsContext dclMoreParams() {
 			return getRuleContext(DclMoreParamsContext.class,0);
 		}
-		public DclParamsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_dclParams; }
+		public DclParamscontainedContext(DclParamsContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterDclParams(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterDclParamscontained(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitDclParams(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitDclParamscontained(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitDclParams(this);
+			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitDclParamscontained(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -516,6 +540,7 @@ public class Buff_1_1Parser extends Parser {
 			switch (_input.LA(1)) {
 			case NUMBERDCL:
 			case BOOLEAN:
+				_localctx = new DclParamscontainedContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(81);
@@ -525,6 +550,7 @@ public class Buff_1_1Parser extends Parser {
 				}
 				break;
 			case RPAREN:
+				_localctx = new DclParamsEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				}
@@ -545,6 +571,17 @@ public class Buff_1_1Parser extends Parser {
 	}
 
 	public static class DclMoreParamsContext extends ParserRuleContext {
+		public DclMoreParamsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_dclMoreParams; }
+	 
+		public DclMoreParamsContext() { }
+		public void copyFrom(DclMoreParamsContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class DclMoreParamscontainedContext extends DclMoreParamsContext {
 		public TerminalNode COMMA() { return getToken(Buff_1_1Parser.COMMA, 0); }
 		public DclParamContext dclParam() {
 			return getRuleContext(DclParamContext.class,0);
@@ -552,21 +589,34 @@ public class Buff_1_1Parser extends Parser {
 		public DclMoreParamsContext dclMoreParams() {
 			return getRuleContext(DclMoreParamsContext.class,0);
 		}
-		public DclMoreParamsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_dclMoreParams; }
+		public DclMoreParamscontainedContext(DclMoreParamsContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterDclMoreParams(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterDclMoreParamscontained(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitDclMoreParams(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitDclMoreParamscontained(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitDclMoreParams(this);
+			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitDclMoreParamscontained(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class DclMoreParamsEmptyContext extends DclMoreParamsContext {
+		public DclMoreParamsEmptyContext(DclMoreParamsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterDclMoreParamsEmpty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitDclMoreParamsEmpty(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitDclMoreParamsEmpty(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -579,6 +629,7 @@ public class Buff_1_1Parser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case COMMA:
+				_localctx = new DclMoreParamscontainedContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(87);
@@ -590,6 +641,7 @@ public class Buff_1_1Parser extends Parser {
 				}
 				break;
 			case RPAREN:
+				_localctx = new DclMoreParamsEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				}
@@ -657,6 +709,33 @@ public class Buff_1_1Parser extends Parser {
 	}
 
 	public static class StmtsContext extends ParserRuleContext {
+		public StmtsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_stmts; }
+	 
+		public StmtsContext() { }
+		public void copyFrom(StmtsContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class StmtsEmptyContext extends StmtsContext {
+		public StmtsEmptyContext(StmtsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterStmtsEmpty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitStmtsEmpty(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitStmtsEmpty(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StmtsContainedContext extends StmtsContext {
 		public TerminalNode IF() { return getToken(Buff_1_1Parser.IF, 0); }
 		public TerminalNode LPAREN() { return getToken(Buff_1_1Parser.LPAREN, 0); }
 		public ExprContext expr() {
@@ -670,21 +749,18 @@ public class Buff_1_1Parser extends Parser {
 		public StmtsContext stmts() {
 			return getRuleContext(StmtsContext.class,0);
 		}
-		public StmtsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_stmts; }
+		public StmtsContainedContext(StmtsContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterStmts(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterStmtsContained(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitStmts(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitStmtsContained(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitStmts(this);
+			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitStmtsContained(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -697,6 +773,7 @@ public class Buff_1_1Parser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IF:
+				_localctx = new StmtsContainedContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(97);
@@ -716,6 +793,7 @@ public class Buff_1_1Parser extends Parser {
 				}
 				break;
 			case RETURN:
+				_localctx = new StmtsEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				}
@@ -1453,7 +1531,7 @@ public class Buff_1_1Parser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class BinaryOpPoeContext extends MathExpr3Context {
+	public static class BinaryOpPowContext extends MathExpr3Context {
 		public LgclExpr4Context left;
 		public Token op;
 		public MathExpr3Context right;
@@ -1464,18 +1542,18 @@ public class Buff_1_1Parser extends Parser {
 		public MathExpr3Context mathExpr3() {
 			return getRuleContext(MathExpr3Context.class,0);
 		}
-		public BinaryOpPoeContext(MathExpr3Context ctx) { copyFrom(ctx); }
+		public BinaryOpPowContext(MathExpr3Context ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterBinaryOpPoe(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterBinaryOpPow(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitBinaryOpPoe(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitBinaryOpPow(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitBinaryOpPoe(this);
+			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitBinaryOpPow(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1507,15 +1585,15 @@ public class Buff_1_1Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
 			case 1:
-				_localctx = new BinaryOpPoeContext(_localctx);
+				_localctx = new BinaryOpPowContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(177);
-				((BinaryOpPoeContext)_localctx).left = lgclExpr4();
+				((BinaryOpPowContext)_localctx).left = lgclExpr4();
 				setState(178);
-				((BinaryOpPoeContext)_localctx).op = match(POWER);
+				((BinaryOpPowContext)_localctx).op = match(POWER);
 				setState(179);
-				((BinaryOpPoeContext)_localctx).right = mathExpr3();
+				((BinaryOpPowContext)_localctx).right = mathExpr3();
 				}
 				break;
 			case 2:
@@ -1890,27 +1968,51 @@ public class Buff_1_1Parser extends Parser {
 	}
 
 	public static class StmtParamsContext extends ParserRuleContext {
+		public StmtParamsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_stmtParams; }
+	 
+		public StmtParamsContext() { }
+		public void copyFrom(StmtParamsContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class StmtParamscontainedContext extends StmtParamsContext {
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
 		public ExprMoreParamsContext exprMoreParams() {
 			return getRuleContext(ExprMoreParamsContext.class,0);
 		}
-		public StmtParamsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_stmtParams; }
+		public StmtParamscontainedContext(StmtParamsContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterStmtParams(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterStmtParamscontained(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitStmtParams(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitStmtParamscontained(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitStmtParams(this);
+			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitStmtParamscontained(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StmtParamsEmptyContext extends StmtParamsContext {
+		public StmtParamsEmptyContext(StmtParamsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterStmtParamsEmpty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitStmtParamsEmpty(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitStmtParamsEmpty(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1927,6 +2029,7 @@ public class Buff_1_1Parser extends Parser {
 			case BOOLVAL:
 			case LPAREN:
 			case NEGATE:
+				_localctx = new StmtParamscontainedContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(207);
@@ -1936,6 +2039,7 @@ public class Buff_1_1Parser extends Parser {
 				}
 				break;
 			case RPAREN:
+				_localctx = new StmtParamsEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				}
@@ -1956,6 +2060,17 @@ public class Buff_1_1Parser extends Parser {
 	}
 
 	public static class ExprMoreParamsContext extends ParserRuleContext {
+		public ExprMoreParamsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_exprMoreParams; }
+	 
+		public ExprMoreParamsContext() { }
+		public void copyFrom(ExprMoreParamsContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ExprMoreParamsContainedContext extends ExprMoreParamsContext {
 		public TerminalNode COMMA() { return getToken(Buff_1_1Parser.COMMA, 0); }
 		public StmtContext stmt() {
 			return getRuleContext(StmtContext.class,0);
@@ -1963,21 +2078,34 @@ public class Buff_1_1Parser extends Parser {
 		public ExprMoreParamsContext exprMoreParams() {
 			return getRuleContext(ExprMoreParamsContext.class,0);
 		}
-		public ExprMoreParamsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_exprMoreParams; }
+		public ExprMoreParamsContainedContext(ExprMoreParamsContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterExprMoreParams(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterExprMoreParamsContained(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitExprMoreParams(this);
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitExprMoreParamsContained(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitExprMoreParams(this);
+			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitExprMoreParamsContained(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprMoreParamsEmptyContext extends ExprMoreParamsContext {
+		public ExprMoreParamsEmptyContext(ExprMoreParamsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).enterExprMoreParamsEmpty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Buff_1_1Listener ) ((Buff_1_1Listener)listener).exitExprMoreParamsEmpty(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Buff_1_1Visitor ) return ((Buff_1_1Visitor<? extends T>)visitor).visitExprMoreParamsEmpty(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1990,6 +2118,7 @@ public class Buff_1_1Parser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case COMMA:
+				_localctx = new ExprMoreParamsContainedContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(213);
@@ -2001,6 +2130,7 @@ public class Buff_1_1Parser extends Parser {
 				}
 				break;
 			case RPAREN:
+				_localctx = new ExprMoreParamsEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				}

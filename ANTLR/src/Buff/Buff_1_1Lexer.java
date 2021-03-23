@@ -1,4 +1,4 @@
-// Generated from Buff_1_1.g4 by ANTLR 4.9
+// Generated from ./Buff_1_1.g4 by ANTLR 4.9
 package Buff;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

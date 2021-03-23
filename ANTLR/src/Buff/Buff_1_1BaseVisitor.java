@@ -1,4 +1,4 @@
-// Generated from Buff_1_1.g4 by ANTLR 4.9
+// Generated from ./Buff_1_1.g4 by ANTLR 4.9
 package Buff;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -66,14 +66,28 @@ public class Buff_1_1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDclParams(Buff_1_1Parser.DclParamsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDclParamscontained(Buff_1_1Parser.DclParamscontainedContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDclMoreParams(Buff_1_1Parser.DclMoreParamsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDclParamsEmpty(Buff_1_1Parser.DclParamsEmptyContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitDclMoreParamscontained(Buff_1_1Parser.DclMoreParamscontainedContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitDclMoreParamsEmpty(Buff_1_1Parser.DclMoreParamsEmptyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -87,7 +101,14 @@ public class Buff_1_1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStmts(Buff_1_1Parser.StmtsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStmtsContained(Buff_1_1Parser.StmtsContainedContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitStmtsEmpty(Buff_1_1Parser.StmtsEmptyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -185,7 +206,7 @@ public class Buff_1_1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBinaryOpPoe(Buff_1_1Parser.BinaryOpPoeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBinaryOpPow(Buff_1_1Parser.BinaryOpPowContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -255,12 +276,26 @@ public class Buff_1_1BaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStmtParams(Buff_1_1Parser.StmtParamsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStmtParamscontained(Buff_1_1Parser.StmtParamscontainedContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExprMoreParams(Buff_1_1Parser.ExprMoreParamsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStmtParamsEmpty(Buff_1_1Parser.StmtParamsEmptyContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitExprMoreParamsContained(Buff_1_1Parser.ExprMoreParamsContainedContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitExprMoreParamsEmpty(Buff_1_1Parser.ExprMoreParamsEmptyContext ctx) { return visitChildren(ctx); }
 }

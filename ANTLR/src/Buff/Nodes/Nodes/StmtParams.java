@@ -3,12 +3,12 @@ package Buff.Nodes.Nodes;
 import Buff.Nodes.Abstract.Node;
 
 public class StmtParams implements Node {
-    public StmtParams(Node stmt, Node stmtMoreParams) {
-        Stmt = stmt;
-        StmtMoreParams = stmtMoreParams;
+    public StmtParams(Node expr, Node exprMoreParams) {
+        Expr = expr;
+        ExprMoreParams = exprMoreParams;
     }
 
     public String NodeType = "StmtParams";
-    public Node Stmt;
-    public Node StmtMoreParams;
+    public Node Expr;
+    public Node ExprMoreParams;
 }

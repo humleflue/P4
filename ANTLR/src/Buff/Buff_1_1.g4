@@ -9,13 +9,16 @@ dcl : type ID LPAREN dclParams RPAREN ASSIGN stmt                               
      ;
 type : NUMBERDCL
       | BOOLEAN ;
-dclParams : dclParam dclMoreParams
-           | ;
-dclMoreParams : COMMA dclParam dclMoreParams
-               | ;
+dclParams : dclParam dclMoreParams                                 #dclParamscontained
+           |                                                       #dclParamsEmpty
+           ;
+dclMoreParams : COMMA dclParam dclMoreParams                       #dclMoreParamscontained
+               |                                                   #dclMoreParamsEmpty
+               ;
 dclParam : type ID ;
-stmts : IF LPAREN expr RPAREN RETURN stmt stmts
-       | ;
+stmts : IF LPAREN expr RPAREN RETURN stmt stmts                    #stmtsContained
+       |                                                           #stmtsEmpty
+       ;
 stmt : expr SEMICOLON ;
 expr : left=lgclExpr op=LOGOR right=expr                            #logOr
       | lgclExpr                                                    #logExp
@@ -41,7 +44,7 @@ mathExpr2 :  left=mathExpr3 op=MULTIPLY right=mathExpr2             #binaryOpDiv
            | left=mathExpr3 op=DIVIDE   right=mathExpr2             #binaryOpDivMul
            | mathExpr3                                              #mathPow
            ;
-mathExpr3 :  left=lgclExpr4 op=POWER right=mathExpr3                #binaryOpPoe
+mathExpr3 :  left=lgclExpr4 op=POWER right=mathExpr3                #binaryOpPow
            | lgclExpr4                                              #logUnary
            ;
 lgclExpr4 : op=NEGATE val                                           #negate
@@ -56,10 +59,12 @@ termVal : NUMBERVAL
         | BOOLVAL
         | ID ;
 funcCall : ID LPAREN stmtParams RPAREN ;
-stmtParams : expr exprMoreParams
-            | ;
-exprMoreParams : COMMA stmt exprMoreParams
-                | ;
+stmtParams : expr exprMoreParams                                    #stmtParamscontained
+            |                                                       #stmtParamsEmpty
+            ;
+exprMoreParams : COMMA stmt exprMoreParams                          #exprMoreParamsContained
+                |                                                   #exprMoreParamsEmpty
+                ;
 
 NUMBERDCL : 'number' ;
 TEXTDCL : 'text' ;

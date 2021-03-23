@@ -1,4 +1,4 @@
-// Generated from Buff_1_1.g4 by ANTLR 4.9
+// Generated from ./Buff_1_1.g4 by ANTLR 4.9
 package Buff;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -58,17 +58,33 @@ public interface Buff_1_1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(Buff_1_1Parser.TypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Buff_1_1Parser#dclParams}.
+	 * Visit a parse tree produced by the {@code dclParamscontained}
+	 * labeled alternative in {@link Buff_1_1Parser#dclParams}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDclParams(Buff_1_1Parser.DclParamsContext ctx);
+	T visitDclParamscontained(Buff_1_1Parser.DclParamscontainedContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Buff_1_1Parser#dclMoreParams}.
+	 * Visit a parse tree produced by the {@code dclParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#dclParams}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDclMoreParams(Buff_1_1Parser.DclMoreParamsContext ctx);
+	T visitDclParamsEmpty(Buff_1_1Parser.DclParamsEmptyContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code dclMoreParamscontained}
+	 * labeled alternative in {@link Buff_1_1Parser#dclMoreParams}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDclMoreParamscontained(Buff_1_1Parser.DclMoreParamscontainedContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code dclMoreParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#dclMoreParams}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDclMoreParamsEmpty(Buff_1_1Parser.DclMoreParamsEmptyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Buff_1_1Parser#dclParam}.
 	 * @param ctx the parse tree
@@ -76,11 +92,19 @@ public interface Buff_1_1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDclParam(Buff_1_1Parser.DclParamContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Buff_1_1Parser#stmts}.
+	 * Visit a parse tree produced by the {@code stmtsContained}
+	 * labeled alternative in {@link Buff_1_1Parser#stmts}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStmts(Buff_1_1Parser.StmtsContext ctx);
+	T visitStmtsContained(Buff_1_1Parser.StmtsContainedContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stmtsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#stmts}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtsEmpty(Buff_1_1Parser.StmtsEmptyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Buff_1_1Parser#stmt}.
 	 * @param ctx the parse tree
@@ -172,12 +196,12 @@ public interface Buff_1_1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMathPow(Buff_1_1Parser.MathPowContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code binaryOpPoe}
+	 * Visit a parse tree produced by the {@code binaryOpPow}
 	 * labeled alternative in {@link Buff_1_1Parser#mathExpr3}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBinaryOpPoe(Buff_1_1Parser.BinaryOpPoeContext ctx);
+	T visitBinaryOpPow(Buff_1_1Parser.BinaryOpPowContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code logUnary}
 	 * labeled alternative in {@link Buff_1_1Parser#mathExpr3}.
@@ -240,15 +264,31 @@ public interface Buff_1_1Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFuncCall(Buff_1_1Parser.FuncCallContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Buff_1_1Parser#stmtParams}.
+	 * Visit a parse tree produced by the {@code stmtParamscontained}
+	 * labeled alternative in {@link Buff_1_1Parser#stmtParams}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStmtParams(Buff_1_1Parser.StmtParamsContext ctx);
+	T visitStmtParamscontained(Buff_1_1Parser.StmtParamscontainedContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Buff_1_1Parser#exprMoreParams}.
+	 * Visit a parse tree produced by the {@code stmtParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#stmtParams}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprMoreParams(Buff_1_1Parser.ExprMoreParamsContext ctx);
+	T visitStmtParamsEmpty(Buff_1_1Parser.StmtParamsEmptyContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprMoreParamsContained}
+	 * labeled alternative in {@link Buff_1_1Parser#exprMoreParams}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprMoreParamsContained(Buff_1_1Parser.ExprMoreParamsContainedContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprMoreParamsEmpty}
+	 * labeled alternative in {@link Buff_1_1Parser#exprMoreParams}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprMoreParamsEmpty(Buff_1_1Parser.ExprMoreParamsEmptyContext ctx);
 }
