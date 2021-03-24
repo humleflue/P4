@@ -5,38 +5,46 @@ import Buff.Nodes.Nodes.*;
 public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
     @Override
     public Node visitStart(Buff_1_1Parser.StartContext ctx) {
-        if (ctx.prog() instanceof Buff_1_1Parser.DclProgContext)
-            return visitDclProg((Buff_1_1Parser.DclProgContext) ctx.prog());
-        else if (ctx.prog() instanceof Buff_1_1Parser.StmtProgContext)
-            return visitStmtProg((Buff_1_1Parser.StmtProgContext) ctx.prog());
+        return visitProg(ctx.prog());
+    }
+
+    public Node visitProg(Buff_1_1Parser.ProgContext ctx){
+        if (IsDclProgContext(ctx))
+            return visitDclProg((Buff_1_1Parser.DclProgContext) ctx);
+        else if (IsStmtProgContext(ctx))
+            return visitStmtProg((Buff_1_1Parser.StmtProgContext) ctx);
         else
             return null;
+    }
+
+    boolean IsDclProgContext(Buff_1_1Parser.ProgContext ctx){
+        return ctx instanceof Buff_1_1Parser.DclProgContext;
+    }
+
+    boolean IsStmtProgContext(Buff_1_1Parser.ProgContext ctx){
+        return ctx instanceof Buff_1_1Parser.StmtProgContext;
     }
 
     @Override
     public Node visitDclProg(Buff_1_1Parser.DclProgContext ctx) {
-        if (ctx.dcl() instanceof Buff_1_1Parser.OneLineStmtContext) {
-            if (ctx.prog() instanceof Buff_1_1Parser.DclProgContext)
+        if (IsOneLineStmt(ctx.dcl())) {
+            if (IsDclProgContext(ctx.prog()))
                 return new DclProg(visitOneLineStmt((Buff_1_1Parser.OneLineStmtContext) ctx.dcl()),
                         visitDclProg((Buff_1_1Parser.DclProgContext) ctx.prog()));
-            else if (ctx.prog() instanceof Buff_1_1Parser.StmtProgContext)
+            else if (IsStmtProgContext(ctx.prog()))
                 return new StmtProg(visitOneLineStmt((Buff_1_1Parser.OneLineStmtContext) ctx.dcl()),
                         visitStmtProg((Buff_1_1Parser.StmtProgContext) ctx.prog()));
             else
                 return new StmtProg(visitOneLineStmt((Buff_1_1Parser.OneLineStmtContext) ctx.dcl()),
                         visitProgEmpty((Buff_1_1Parser.ProgEmptyContext) ctx.prog()));
         }
-        else if (ctx.dcl() instanceof Buff_1_1Parser.MultiLineStmtContext){
-            if (ctx.prog() instanceof Buff_1_1Parser.DclProgContext)
+        else if (IsMultiLineStmt(ctx.dcl())){
+            if (IsDclProgContext(ctx.prog()))
                 return new DclProg(visitMultiLineStmt((Buff_1_1Parser.MultiLineStmtContext) ctx.dcl()),
                         visitDclProg((Buff_1_1Parser.DclProgContext) ctx.prog()));
-            else if (ctx.prog() instanceof Buff_1_1Parser.StmtProgContext)
+            else if (IsStmtProgContext(ctx.prog()))
                 return new StmtProg(visitMultiLineStmt((Buff_1_1Parser.MultiLineStmtContext) ctx.dcl()),
                         visitStmtProg((Buff_1_1Parser.StmtProgContext) ctx.prog()));
-
-            if (ctx.prog() instanceof Buff_1_1Parser.DclProgContext)
-                return new DclProg(visitMultiLineStmt((Buff_1_1Parser.MultiLineStmtContext) ctx.dcl()),
-                        visitProgEmpty((Buff_1_1Parser.ProgEmptyContext) ctx.prog()));
             else
                 return new StmtProg(visitMultiLineStmt((Buff_1_1Parser.MultiLineStmtContext) ctx.dcl()),
                         visitProgEmpty((Buff_1_1Parser.ProgEmptyContext) ctx.prog()));
@@ -45,12 +53,19 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
             return null;
     }
 
+    boolean IsOneLineStmt(Buff_1_1Parser.DclContext ctx){
+        return ctx instanceof Buff_1_1Parser.OneLineStmtContext;
+    }
+
+    boolean IsMultiLineStmt(Buff_1_1Parser.DclContext ctx){
+        return ctx instanceof Buff_1_1Parser.MultiLineStmtContext;
+    }
 
     @Override
     public Node visitStmtProg(Buff_1_1Parser.StmtProgContext ctx) {
-        if (ctx.prog() instanceof Buff_1_1Parser.DclProgContext)
+        if (IsDclProgContext(ctx.prog()))
             return new StmtProg(visitStmt(ctx.stmt()), visitDclProg((Buff_1_1Parser.DclProgContext) ctx.prog()));
-        else if (ctx.prog() instanceof Buff_1_1Parser.StmtProgContext)
+        else if (IsStmtProgContext(ctx.prog()))
             return new StmtProg(visitStmt(ctx.stmt()), visitStmtProg((Buff_1_1Parser.StmtProgContext) ctx.prog()));
         else
             return new StmtProg(visitStmt(ctx.stmt()), visitProgEmpty((Buff_1_1Parser.ProgEmptyContext) ctx.prog()));
@@ -154,10 +169,14 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
     }
 
     private Node visitExpr(Buff_1_1Parser.ExprContext expr) {
-        if (expr instanceof Buff_1_1Parser.LogOrContext)
+        if (IsLogOr(expr))
             return visitLogOr((Buff_1_1Parser.LogOrContext) expr);
         else
             return visitLogExp((Buff_1_1Parser.LogExpContext) expr);
+    }
+
+    boolean IsLogOr(Buff_1_1Parser.ExprContext ctx){
+        return ctx instanceof Buff_1_1Parser.LogOrContext;
     }
 
     @Override
@@ -167,8 +186,8 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
 
     @Override
     public Node visitStmt(Buff_1_1Parser.StmtContext ctx) {
-        if (ctx.expr() instanceof Buff_1_1Parser.LogOrContext)
-            return new Stmt(visitLogExp((Buff_1_1Parser.LogExpContext) ctx.expr()));
+        if (IsLogOr(ctx.expr()))
+            return new Stmt(visitLogOr((Buff_1_1Parser.LogOrContext) ctx.expr()));
         else {
             return new Stmt(visitLogExp((Buff_1_1Parser.LogExpContext) ctx.expr()));
         }
@@ -176,74 +195,66 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
 
     @Override
     public Node visitLogOr(Buff_1_1Parser.LogOrContext ctx) {
-        if (ctx.left instanceof Buff_1_1Parser.LogAndContext) {
-            if (ctx.right instanceof Buff_1_1Parser.LogOrContext)
+        if (IsLogAnd(ctx.left)) {
+            if (IsLogOr(ctx.right))
                 return new LogOr(visitLogAnd((Buff_1_1Parser.LogAndContext) ctx.left),
                         visitLogOr((Buff_1_1Parser.LogOrContext) ctx.right));
-            else // if (ctx.right instanceof Buff_1_1Parser.LogExpContext)
+            else
                 return new LogOr(visitLogAnd((Buff_1_1Parser.LogAndContext) ctx.left),
                         visitLogExp((Buff_1_1Parser.LogExpContext) ctx.right));
-            //else
-            //    return new LogOr(visitLogAnd((Buff_1_1Parser.LogAndContext) ctx.left), null);
         }
         else {
-            if (ctx.right instanceof Buff_1_1Parser.LogOrContext)
+            if (IsLogOr(ctx.right))
                 return new LogOr(visitLog2((Buff_1_1Parser.Log2Context) ctx.left),
                         visitLogOr((Buff_1_1Parser.LogOrContext) ctx.right));
-            else // if (ctx.right instanceof Buff_1_1Parser.LogExpContext)
+            else
                 return new LogOr(visitLog2((Buff_1_1Parser.Log2Context) ctx.left),
                         visitLogExp((Buff_1_1Parser.LogExpContext) ctx.right));
-            //else
-            //    return new LogOr(visitLog2((Buff_1_1Parser.Log2Context) ctx.left), null);
         }
+    }
+
+    boolean IsLogAnd(Buff_1_1Parser.LgclExprContext ctx){
+        return ctx instanceof Buff_1_1Parser.LogAndContext;
     }
 
     @Override
     public Node visitLogExp(Buff_1_1Parser.LogExpContext ctx) {
-        if (ctx.lgclExpr() instanceof Buff_1_1Parser.LogAndContext)
+        if (IsLogAnd(ctx.lgclExpr()))
+            return visitLogAnd((Buff_1_1Parser.LogAndContext) ctx.lgclExpr());
+        else
             return visitLog2((Buff_1_1Parser.Log2Context) ctx.lgclExpr());
-        else // if (ctx.lgclExpr() instanceof Buff_1_1Parser.Log2Context)
-            return visitLog2((Buff_1_1Parser.Log2Context) ctx.lgclExpr());
-        // else
-        //     return null;
     }
 
     @Override
     public Node visitLogAnd(Buff_1_1Parser.LogAndContext ctx) {
-        if (ctx.left instanceof Buff_1_1Parser.LogEqualsOpContext){
-            if (ctx.right instanceof Buff_1_1Parser.LogAndContext)
+        if (IsLogEqualsOp(ctx.left)){
+            if (IsLogAnd(ctx.right))
                 return new LogAnd(visitLogEqualsOp((Buff_1_1Parser.LogEqualsOpContext) ctx.left),
                         visitLogAnd((Buff_1_1Parser.LogAndContext) ctx.right));
-            else // if (ctx.right instanceof Buff_1_1Parser.Log2Context)
+            else
                     return new LogAnd(visitLogEqualsOp((Buff_1_1Parser.LogEqualsOpContext) ctx.left),
                             visitLog2((Buff_1_1Parser.Log2Context) ctx.right));
-               // else
-               //     return new LogAnd(visitLogEqualsOp((Buff_1_1Parser.LogEqualsOpContext) ctx.left),
-               //             null);
         }
-        else /* if (ctx.left instanceof Buff_1_1Parser.MathLogContext)*/{
-            if (ctx.right instanceof Buff_1_1Parser.LogAndContext)
+        else{
+            if (IsLogAnd(ctx.right))
                 return new LogAnd(visitMathLog((Buff_1_1Parser.MathLogContext) ctx.left),
                         visitLogAnd((Buff_1_1Parser.LogAndContext) ctx.right));
-            else // if (ctx.right instanceof Buff_1_1Parser.Log2Context)
+            else
                 return new LogAnd(visitMathLog((Buff_1_1Parser.MathLogContext) ctx.left),
                         visitLog2((Buff_1_1Parser.Log2Context) ctx.right));
-            // else
-            //     return new LogAnd(visitMathLog((Buff_1_1Parser.MathLogContext) ctx.left),
-            //             null);
         }
-        // else
-            // return null;
+    }
+
+    boolean IsLogEqualsOp(Buff_1_1Parser.LgclExpr2Context ctx){
+        return ctx instanceof Buff_1_1Parser.LogEqualsOpContext;
     }
 
     @Override
     public Node visitLog2(Buff_1_1Parser.Log2Context ctx) {
-        if (ctx.lgclExpr2() instanceof Buff_1_1Parser.LogEqualsOpContext)
+        if (IsLogEqualsOp(ctx.lgclExpr2()))
             return visitLogEqualsOp((Buff_1_1Parser.LogEqualsOpContext) ctx.lgclExpr2());
-        else // if (ctx.lgclExpr2() instanceof Buff_1_1Parser.MathLogContext)
+        else
             return visitMathLog((Buff_1_1Parser.MathLogContext) ctx.lgclExpr2());
-        // else
-        //     return null;
     }
 
     @Override
@@ -297,10 +308,8 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
     public Node visitMathLog(Buff_1_1Parser.MathLogContext ctx) {
         if (ctx.lgclExpr3() instanceof Buff_1_1Parser.LogicalOpContext)
             return visitLogicalOp((Buff_1_1Parser.LogicalOpContext) ctx.lgclExpr3());
-        else // if (ctx.lgclExpr3() instanceof Buff_1_1Parser.MathContext)
+        else
             return visitMath((Buff_1_1Parser.MathContext) ctx.lgclExpr3());
-        // else
-        //     return null;
     }
 
     @Override
@@ -383,12 +392,10 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
 
     @Override
     public Node visitMath(Buff_1_1Parser.MathContext ctx) {
-        if (ctx.mathExpr() instanceof Buff_1_1Parser.BinaryOpPlusMinusContext)
+        if (IsBinaryPlusMinus(ctx.mathExpr()))
             return visitBinaryOpPlusMinus((Buff_1_1Parser.BinaryOpPlusMinusContext) ctx.mathExpr());
-        else // if (ctx.mathExpr() instanceof Buff_1_1Parser.MathDivMulContext)
+        else
             return visitMathDivMul((Buff_1_1Parser.MathDivMulContext) ctx.mathExpr());
-        // else
-        //     return null;
     }
 
     @Override
@@ -447,16 +454,9 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
     public Node visitMathDivMul(Buff_1_1Parser.MathDivMulContext ctx) {
         if (IsBinaryOpDivMul(ctx.mathExpr2()))
             return visitBinaryOpDivMul((Buff_1_1Parser.BinaryOpDivMulContext) ctx.mathExpr2());
-        else // if (IsMathPow(ctx.mathExpr2()))
+        else
             return visitMathPow((Buff_1_1Parser.MathPowContext) ctx.mathExpr2());
-        // else
-        //     return null;
     }
-
-    private boolean IsMathPow(Buff_1_1Parser.MathExpr2Context ctx) {
-        return ctx instanceof Buff_1_1Parser.MathPowContext;
-    }
-
 
     @Override
     public Node visitBinaryOpDivMul(Buff_1_1Parser.BinaryOpDivMulContext ctx) {
@@ -504,12 +504,10 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
 
     @Override
     public Node visitMathPow(Buff_1_1Parser.MathPowContext ctx) {
-        if (ctx.mathExpr3() instanceof Buff_1_1Parser.BinaryOpPowContext)
+        if (IsPowExp(ctx.mathExpr3()))
             return visitBinaryOpPow((Buff_1_1Parser.BinaryOpPowContext) ctx.mathExpr3());
-        else // if (ctx.mathExpr3() instanceof Buff_1_1Parser.LogUnaryContext)
+        else
             return visitLogUnary((Buff_1_1Parser.LogUnaryContext) ctx.mathExpr3());
-        //else
-        //    return null;
     }
 
     @Override
@@ -538,7 +536,7 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
 
     @Override
     public Node visitLogUnary(Buff_1_1Parser.LogUnaryContext ctx) {
-        if (ctx.lgclExpr4() instanceof Buff_1_1Parser.NegateContext)
+        if (IsNegate(ctx.lgclExpr4()))
             return visitNegate((Buff_1_1Parser.NegateContext) ctx.lgclExpr4());
         else
             return visitValue((Buff_1_1Parser.ValueContext) ctx.lgclExpr4());
@@ -555,26 +553,34 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
     }
 
     public Node visitValue(Buff_1_1Parser.ValContext ctx) {
-        if (ctx instanceof Buff_1_1Parser.ParensExpContext)
+        if (IsParensExp(ctx))
             return visitParensExp((Buff_1_1Parser.ParensExpContext) ctx);
-        else if (ctx instanceof Buff_1_1Parser.ValFuncCallContext)
+        else if (IsValFuncCall(ctx))
             return visitValFuncCall((Buff_1_1Parser.ValFuncCallContext) ctx);
-        else if (ctx instanceof Buff_1_1Parser.ValFuncCallDebugContext)
+        else if (IsValFuncCallDebug(ctx))
             return visitValFuncCallDebug((Buff_1_1Parser.ValFuncCallDebugContext) ctx);
-        else // if (ctx instanceof Buff_1_1Parser.ValTerminalContext)
+        else
             return visitValTerminal((Buff_1_1Parser.ValTerminalContext) ctx);
-        // else
-        //     return null;
+    }
+
+    boolean IsParensExp(Buff_1_1Parser.ValContext ctx){
+        return ctx instanceof Buff_1_1Parser.ParensExpContext;
+    }
+
+    boolean IsValFuncCall(Buff_1_1Parser.ValContext ctx){
+        return ctx instanceof Buff_1_1Parser.ValFuncCallContext;
+    }
+
+    boolean IsValFuncCallDebug(Buff_1_1Parser.ValContext ctx){
+        return ctx instanceof Buff_1_1Parser.ValFuncCallDebugContext;
     }
 
     @Override
     public Node visitParensExp(Buff_1_1Parser.ParensExpContext ctx) {
-        if (ctx.expr() instanceof Buff_1_1Parser.LogOrContext)
+        if (IsLogOr(ctx.expr()))
             return new ParensExp(visitLogOr((Buff_1_1Parser.LogOrContext) ctx.expr()));
-        else // if (ctx.expr() instanceof Buff_1_1Parser.LogExpContext)
+        else
             return new ParensExp(visitLogExp((Buff_1_1Parser.LogExpContext) ctx.expr()));
-        // else
-        //     return null;
     }
 
     @Override
@@ -584,7 +590,13 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
 
     @Override
     public Node visitValFuncCallDebug(Buff_1_1Parser.ValFuncCallDebugContext ctx) {
-        return visitFuncCall(ctx.funcCall());
+        if (IsStmtParamsContained(ctx.funcCall().stmtParams()))
+            return new FuncCall(ctx.funcCall().ID().getText(),
+                    visitStmtParamscontained((Buff_1_1Parser.StmtParamscontainedContext) ctx.funcCall().stmtParams()), true);
+        else
+            return new FuncCall(ctx.funcCall().ID().getText(),
+                    visitStmtParamsEmpty((Buff_1_1Parser.StmtParamsEmptyContext) ctx.funcCall().stmtParams()),
+                    true);
     }
 
     @Override
@@ -605,6 +617,7 @@ public class BuildASTVisitor extends Buff_1_1BaseVisitor<Node>{
         else
             return new FuncCall(ctx.ID().getText(), visitStmtParamsEmpty((Buff_1_1Parser.StmtParamsEmptyContext) ctx.stmtParams()));
     }
+
 
     private boolean IsStmtParamsContained(Buff_1_1Parser.StmtParamsContext ctx) {
         return ctx instanceof Buff_1_1Parser.StmtParamscontainedContext;
