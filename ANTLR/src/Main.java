@@ -14,6 +14,7 @@ import java.io.StringReader;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        System.out.println("Please enter a source program:");
         String test = System.console().readLine();
         CodePointCharStream stream = CharStreams.fromReader(new StringReader(test));
         Buff_1_1Lexer lexer = new Buff_1_1Lexer(stream);
