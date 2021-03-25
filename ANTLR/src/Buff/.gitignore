@@ -1,5 +1,5 @@
 *
-!./Nodes
+!./Nodes/**/*.java
 !*.g4
 !BuildASTVisitor.java
 !Gen.java
