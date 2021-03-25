@@ -1,4 +1,62 @@
-grammar Buff_1_1;
+grammar B; // B for Buff
+
+prog : code EOF ;
+code : funcdef code                                                           #codeFuncdef
+     | stmt code                                                              #codeStmt
+     |                                                                        #codeEmpty
+     ;
+funcdef : type ID LPAREN funcdefparams RPAREN ASSIGN stmts RETURN stmt ENDF ;
+type : NUMBERTYPE
+     | BOOLTYPE ;
+funcdefparams : funcdefparam funcdefmoreparams                                #funcdefparamsIncluded
+              |                                                               #funcdefparamsEmpty
+              ;
+funcdefmoreparams : COMMA funcdefparam funcdefmoreparams                      #funcdefmoreparamsIncluded
+                  |                                                           #funcdefmoreparamsEmpty
+                  ;
+funcdefparam : type ID ;
+stmts : IF LPAREN expr RPAREN RETURN stmt stmts                               #stmtsIncluded
+      |                                                                       #stmtsEmpty
+      ;
+stmt : expr SEMICOLON ;
+expr : left=logexpr op=LOGOR right=expr                                       #logOr
+     | logexpr                                                                #logExpr
+     ;                                                             
+logexpr : left=logexpr2 op=LOGAND right=logexpr                               #logAnd
+         | logexpr2                                                           #logExpr2
+         ;                                                         
+logexpr2 : left=logexpr3 op=LOGEQ right=logexpr2 
+          | left=logexpr3 op=LOGNOTEQ right=logexpr2 
+          | logexpr3 ;
+logexpr3 : left=mathexpr op=LOGLESS right=logexpr3 
+          | left=mathexpr op=LOGGREATER right=logexpr3 
+          | left=mathexpr op=LOGLESSOREQ right=logexpr3 
+          | left=mathexpr op=LOGGREATEROREQ right=logexpr3 
+          | mathexpr ;
+mathexpr : left=mathexpr2 op=PLUS right=mathexpr 
+         | left=mathexpr2 op=MINUS right=mathexpr 
+         | mathexpr2 ;
+mathexpr2 : left=mathexpr3 op=MULTIPLY right=mathexpr2 
+          | left=mathexpr3 op=DIVIDE right=mathexpr2 
+          | mathexpr3 ;
+mathexpr3 : left=logexpr4 op=POW right=mathexpr3 
+          | logexpr4 ;
+logexpr4 : op=NEGATE val 
+          | val ;
+val : LPAREN expr RPAREN
+    | funccall
+    | funccall PRINTCHAR
+    | NUMLITERAL 
+    | BOOLLITERAL 
+    | ID ;
+funccall : ID LPAREN exprparams RPAREN ;
+exprparams : expr exprmoreparams
+           | 
+           ;
+exprmoreparams : COMMA expr exprmoreparams
+               | 
+               ;
+
 start : prog EOF;
 prog : dcl prog                                                                 #dclProg
       | stmt prog                                                               #stmtProg
@@ -66,33 +124,28 @@ exprMoreParams : COMMA stmt exprMoreParams                          #exprMorePar
                 |                                                   #exprMoreParamsEmpty
                 ;
 
-NUMBERDCL : 'number' ;
-TEXTDCL : 'text' ;
-BOOLEAN : 'bool' ;
+// Reserved keywords gets matched first
+NUMBERTYPE : 'number' ;
+BOOLTYPE : 'bool' ;
 ENDF    : 'endf' ;
-PRINTDEBUG : '?' ;
-
-ID : TEXTVAL ;
-TEXTVAL : ['A-Za-z]['A-Za-z_0-9]* ;
-NUMBERVAL : ('0'..'9')+|('0'..'9')+'.'('0'..'9')+;
-BOOLVAL : 'true' | 'false' ;
+PRINTCHAR : '?' ;
+RETURN : 'return' ;
+IF : 'if' ;
 
 LPAREN : '(' ;
 RPAREN : ')' ;
 LCURLY : '{' ;
 RCURLY : '}' ;
-RETURN : 'return' ;
-LOGAND : '&&' ;
 LOGOR : '||' ;
-IF : 'if' ;
-LOGEQUALS : '==' ;
-LOGNEQUALS : '!=' ;
+LOGAND : '&&' ;
+LOGEQ : '==' ;
+LOGNOTEQ : '!=' ;
 LOGLESS : '<' ;
 LOGGREATER : '>' ;
-LOGLESSOREQUAL : '<=' ;
-LOGGREATEROREQUAL : '>=' ;
+LOGLESSOREQ : '<=' ;
+LOGGREATEROREQ : '>=' ;
 NEGATE : '!' ;
-POWER : '^' ;
+POW : '^' ;
 COMMA : ',' ;
 ASSIGN : '=' ;
 PLUS : '+' ;
@@ -102,3 +155,8 @@ DIVIDE : '/' ;
 SEMICOLON : ';' ;
 WS: (' '|'\t' | NEWLINE)+ -> skip;
 NEWLINE : ('\r\n'|'\n'|'\r');
+
+ID : TEXTLITERAL ;
+TEXTLITERAL : ['A-Za-z]['A-Za-z_0-9]* ;
+NUMLITERAL : ('0'..'9')+|('0'..'9')+'.'('0'..'9')+;
+BOOLLITERAL : 'true' | 'false' ;
