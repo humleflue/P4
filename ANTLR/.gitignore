@@ -1,12 +1,3 @@
-# All class files are ignored
-*.class
-
-# Project specific files, which doesn't need to be synced
-Lexer.java*
-parser.java*
-sym.java*
-
-# FROM TEMPLATE #
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
