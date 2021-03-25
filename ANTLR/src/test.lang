@@ -1,0 +1,2 @@
+number xd(number a, bool b) = {return 2 + c;}
+number y(number a) = xd(1);
