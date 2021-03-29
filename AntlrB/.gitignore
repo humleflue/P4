@@ -94,6 +94,10 @@ fabric.properties
 *.tar.gz
 *.rar
 
+# Don't ignore antlr libraries for convenience
+!antlr-4.9.2-complete.jar
+!antlr-runtime-4.9.2.jar
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
