@@ -18,8 +18,8 @@ public class Main {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         Lang.LangParser parser = new Lang.LangParser(tokens);
         try{
-            ParseTree tree = parser.code();
             System.out.println("building cst");
+            ParseTree tree = parser.code();
             System.out.println("done building cst");
         }
         catch (Exception exception){
