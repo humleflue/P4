@@ -4,10 +4,14 @@ A compiler built for a close-to-pure functional programming language for beginne
 Follow the [Getting Started with ANTLR](https://github.com/antlr/antlr4/blob/master/doc/getting-started.md) guide.
 ### Windows (with WSL)
 To be able to generate the ANTLR files, run the following sequence of commands in WSL from the root directory:
-```
+```bash
 $ cd src/Compiler/Lang
 $ dos2unix *.sh
 $ ./generatefiles.sh
+```
+**Note:** you may need to install dos2unix for the above to work. This can easily be done, by running the following command in WSL:
+```bash
+$ sudo apt install dos2unix 
 ```
 Now you should be all set an ready to compile the program.
 
