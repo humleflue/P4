@@ -3,7 +3,11 @@ package Buff;
 import Buff.SymbolTable.BaseScope;
 import Buff.SymbolTable.Scope;
 import Buff.SymbolTable.Symbol;
+import Buff.SymbolTable.Type;
+import org.antlr.v4.runtime.Vocabulary;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
+
+import javax.swing.*;
 
 public class SymbolRefListener extends Buff_1_1BaseListener{
     ParseTreeProperty<Scope> scopes = new ParseTreeProperty<Scope>();
@@ -26,15 +30,8 @@ public class SymbolRefListener extends Buff_1_1BaseListener{
     }
 
     @Override
-    public void exitOneLineStmt(Buff_1_1Parser.OneLineStmtContext ctx) throws IllegalArgumentException {
-        String name = ctx.ID().getSymbol().getText();
-        Symbol symbol = currentScope.getSymbol(name);
-        if ( symbol==null ) {
-            throw new IllegalArgumentException(name + " is not defined");
-        }
-        if ( symbol.getType().getVal() != ctx.start.getType()) {
-            throw new IllegalArgumentException(name + " is called as a wrong type");
-        }
+    public void exitOneLineStmt(Buff_1_1Parser.OneLineStmtContext ctx) {
+        CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
 
         currentScope = currentScope.getEnclosingScope();
     }
@@ -46,27 +43,35 @@ public class SymbolRefListener extends Buff_1_1BaseListener{
 
     @Override
     public void exitMultiLineStmt(Buff_1_1Parser.MultiLineStmtContext ctx) {
-        String name = ctx.ID().getSymbol().getText();
-        Symbol symbol = currentScope.getSymbol(name);
-        if ( symbol==null ) {
-            throw new IllegalArgumentException(name + " is not defined");
-        }
-        if ( symbol.getType().getVal() != ctx.start.getType()) {
-            throw new IllegalArgumentException(name + " is called as a wrong type"); // Svært at teste da vi kun har en type.
-        }
+        CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
 
         currentScope = currentScope.getEnclosingScope();
     }
 
     @Override
     public void enterDclParam(Buff_1_1Parser.DclParamContext ctx) {
-        String name = ctx.ID().getSymbol().getText();
+        CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
+    }
+
+    @Override
+    public void exitTermVal(Buff_1_1Parser.TermValContext ctx) {
+        if (ctx.ID() != null){
+            System.out.println("TermVal: " + ctx.ID().toString());
+            CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
+        }
+    }
+
+    @Override
+    public void exitFuncCall(Buff_1_1Parser.FuncCallContext ctx) {
+        CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
+    }
+
+    void CheckSymbolType(String name, int typeVal) throws IllegalArgumentException {
         Symbol symbol = currentScope.getSymbol(name);
         if ( symbol==null ) {
             throw new IllegalArgumentException(name + " is not defined");
         }
-        if ( symbol.getType().getVal() != ctx.start.getType()) {
-            throw new IllegalArgumentException(name + " is called as a wrong type. " + symbol.getType().getVal());
-        }
     }
+
 }
+
