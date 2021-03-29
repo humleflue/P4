@@ -18,7 +18,7 @@ stmts : IF LPAREN expr RPAREN RETURN stmt stmts                               #s
 stmt : expr SEMICOLON ;
 expr : val                                                                    #value
      | op=NEGATE val                                                          #uneryOp
-     | left=expr op=POW<assoc=right> right=expr                               #binaryOp
+     | left=expr op=POW right=expr                                            #binaryOp
      | left=expr op=DIVIDE right=expr                                         #binaryOp
      | left=expr op=MULTIPLY right=expr                                       #binaryOp
      | left=expr op=PLUS right=expr                                           #binaryOp

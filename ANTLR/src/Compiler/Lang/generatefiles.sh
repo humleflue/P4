@@ -5,3 +5,4 @@ antlr4 -package Compiler.Lang Lang.g4
 #javac *.java
 echo Done.
 
+
