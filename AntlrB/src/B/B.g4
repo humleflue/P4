@@ -8,12 +8,9 @@ code : funcdef code                                                           #c
 funcdef : type ID LPAREN funcdefparams RPAREN ASSIGN stmts RETURN stmt ENDF ;
 type : NUMBERTYPE
      | BOOLTYPE ;
-funcdefparams : funcdefparam funcdefmoreparams                                #funcdefparamsNotEmpty //dclparams
+funcdefparams : funcdefparam (COMMA funcdefparam)*                            #funcdefparamsNotEmpty //dclparams
               |                                                               #funcdefparamsEmpty
               ;
-funcdefmoreparams : COMMA funcdefparam funcdefmoreparams                      #funcdefmoreparamsNotEmpty //dclMoreParams
-                  |                                                           #funcdefmoreparamsEmpty
-                  ;
 funcdefparam : type ID ;
 stmts : IF LPAREN expr RPAREN RETURN stmt stmts                               #stmtsNotEmpty
       |                                                                       #stmtsEmpty
@@ -44,12 +41,9 @@ val : LPAREN expr RPAREN                                                      #v
     | ID                                                                      #valId
     ;
 funccall : ID LPAREN exprparams RPAREN ;
-exprparams : expr exprmoreparams                                              #exprparamsNotEmpty //stmtparamscontained
+exprparams : expr (COMMA expr)*                                               #exprparamsNotEmpty //stmtparamscontained
            |                                                                  #exprparamsEmpty
            ;
-exprmoreparams : COMMA expr exprmoreparams                                    #exprmoreparamsNotEmpty //exprmoreparamscontained
-               |                                                              #exprmoreparamsEmpty
-               ;
 
 // *** Lexing *** //
 // Reserved keywords gets matched first
