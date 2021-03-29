@@ -1,4 +1,4 @@
- grammar B; // B for Buff
+ grammar Lang;
 
 prog : code EOF ;
 code : funcdef code                                                           #codeFuncdef

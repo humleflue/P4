@@ -1,7 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7569995b-054c-4eeb-90b7-5f000a7fa2e6" name="Default Changelist" comment="" />
+    <list default="true" id="5161e4ee-9a64-4901-9d6f-573b3205d412" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/description.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/project-template.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ANTLR.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/.antlr/B.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/.antlr/B.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/.antlr/BLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/.antlr/BLexer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/.antlr/BLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/.antlr/BParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/B.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/B.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/BBaseListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/BLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/BLexer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/BLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/BListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/BParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/Buff_1_1.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/Buff_1_1.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/Buff_1_1BaseListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/Buff_1_1Lexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/Buff_1_1Lexer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/Buff_1_1Lexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/Buff_1_1Listener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buff/Buff_1_1Parser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/antlr-4.9.2-complete.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/antlr-runtime-4.9.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/B.g4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/B.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/B.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/BBaseListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/BBaseVisitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/BLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/BLexer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/BLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/BListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/BParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/BVisitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/BuildASTVisitor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Gen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Abstract/BinaryNode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Abstract/Code.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Abstract/Dcl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Abstract/Expr.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Abstract/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/CodeFuncDef.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/CodeStmt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/Divide.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/ExprMoreParams.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/ExprParams.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/FuncCall.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/FuncDef.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/FuncDefMoreParams.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/FuncDefParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/FuncDefParams.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/LogAnd.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/LogEquals.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/LogGreater.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/LogGreaterOrEqual.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/LogLess.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/LogLessOrEqual.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/LogNotEquals.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/LogOr.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/Minus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/Mulitply.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/Negate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/ParensExp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/Plus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/Power.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/Stmt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/Stmts.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/Type.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/B/Nodes/Nodes/ValTerminal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AntlrB/src/Main.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,28 +93,102 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1qQO9itKtfcSw3076VmLOeB4zI8" />
+  <component name="ProjectId" id="1qQU8SCIqze4QSeeQFYYkStUKCz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="company" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AntlrB" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Dependencies/antlr-runtime-4.9.2.jar" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
+      <module name="ANTLR" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7569995b-054c-4eeb-90b7-5f000a7fa2e6" name="Default Changelist" comment="" />
-      <created>1617008201929</created>
+      <changelist id="5161e4ee-9a64-4901-9d6f-573b3205d412" name="Default Changelist" comment="" />
+      <created>1617011151109</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1617008201929</updated>
-      <workItem from="1617008204004" duration="57000" />
+      <updated>1617011151109</updated>
+      <workItem from="1617011153313" duration="2542000" />
     </task>
     <servers />
   </component>
