@@ -19,36 +19,23 @@ stmts : IF LPAREN expr RPAREN RETURN stmt stmts                               #s
       |                                                                       #stmtsEmpty
       ;
 stmt : expr SEMICOLON ;
-expr : left=logexpr op=LOGOR right=expr                                       #logOr
-     | logexpr                                                                #log // logexp
+expr : val                                                                    #value
+     | op=NEGATE val                                                          #uneryOp
+     | left=expr op=POW right=expr                                            #binaryOp
+     | left=expr op=DIVIDE right=expr                                         #binaryOp
+     | left=expr op=MULTIPLY right=expr                                       #binaryOp
+     | left=expr op=PLUS right=expr                                           #binaryOp
+     | left=expr op=MINUS right=expr                                          #binaryOp
+     | left=expr op=LOGEQ right=expr                                          #binaryOp
+     | left=expr op=LOGNOTEQ right=expr                                       #binaryOp
+     | left=expr op=LOGLESS right=expr                                        #binaryOp
+     | left=expr op=LOGGREATER right=expr                                     #binaryOp
+     | left=expr op=LOGLESSOREQ right=expr                                    #binaryOp
+     | left=expr op=LOGGREATEROREQ right=expr                                 #binaryOp
+     | left=expr op=LOGAND right=expr                                         #binaryOp
+     | left=expr op=LOGOR right=expr                                          #binaryOp
      ;
-logexpr : left=logexpr2 op=LOGAND right=logexpr                               #logAnd
-         | logexpr2                                                           #log2
-         ;
-logexpr2 : left=logexpr3 op=LOGEQ right=logexpr2                              #logEqualsOp
-          | left=logexpr3 op=LOGNOTEQ right=logexpr2                          #logEqualsOp
-          | logexpr3                                                          #log3  // mathlog
-          ;
-logexpr3 : left=mathexpr op=LOGLESS right=logexpr3                            #logOp //logicalop
-          | left=mathexpr op=LOGGREATER right=logexpr3                        #logOp
-          | left=mathexpr op=LOGLESSOREQ right=logexpr3                       #logOp
-          | left=mathexpr op=LOGGREATEROREQ right=logexpr3                    #logOp
-          | mathexpr                                                          #math
-          ;
-mathexpr : left=mathexpr2 op=PLUS right=mathexpr                              #plusMinus // binaryopplusminus
-         | left=mathexpr2 op=MINUS right=mathexpr                             #plusMinus
-         | mathexpr2                                                          #math2 //mathdivmul
-         ;
-mathexpr2 : left=mathexpr3 op=MULTIPLY right=mathexpr2                        #multDiv //binaryopdivmul
-          | left=mathexpr3 op=DIVIDE right=mathexpr2                          #multDiv
-          | mathexpr3                                                         #math3 //mathpow
-          ;
-mathexpr3 : left=logexpr4 op=POW right=mathexpr3                              #pow  //binaryoppow
-          | logexpr4                                                          #log4  //logunary
-          ;
-logexpr4 : op=NEGATE val                                                      #negate
-          | val                                                               #value
-          ;
+
 val : LPAREN expr RPAREN                                                      #valParenthesisedExpr //parensexp
     | funccall                                                                #valFunccall
     | funccall PRINTCHAR                                                      #valFunccallPrint  //valfunccalldebug
