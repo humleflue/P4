@@ -1,6 +1,6 @@
 #!/bin/bash
 echo Running antlr...
-antlr4 -package Lang Lang.g4
+antlr4 -package Compiler.Lang Lang.g4
 #echo Compiling...
 #javac *.java
 echo Done.

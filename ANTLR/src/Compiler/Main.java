@@ -1,5 +1,6 @@
 package Compiler;
 
+import Compiler.Lang.*;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -14,9 +15,9 @@ public class Main {
         System.out.println("Please enter a source program:");
         String test = System.console().readLine();
         CodePointCharStream stream = CharStreams.fromReader(new StringReader(test));
-        Lang.LangLexer lexer = new Lang.LangLexer(stream);
+        LangLexer lexer = new LangLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        Lang.LangParser parser = new Lang.LangParser(tokens);
+        LangParser parser = new LangParser(tokens);
         try{
             System.out.println("building cst");
             ParseTree tree = parser.code();
