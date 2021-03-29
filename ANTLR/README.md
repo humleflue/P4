@@ -16,6 +16,8 @@ $ sudo apt install dos2unix
 Now you should be all set an ready to compile the program.
 
 ## Running the compiler with IntelliJ IDEA
+Open this folder as an IntelliJ IDEA project.
+
 Follow [this guide](https://stackoverflow.com/a/1051705/12545726) to add the two `.jar` files in the `./Dependencies` directory to the project.
 
 To be able to run the compiler from IntelliJ IDEA, left click the `Main` file in the Project tool window and select `Run 'Main'` from the dropdown menu. 
