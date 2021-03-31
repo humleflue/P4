@@ -1,6 +1,8 @@
 package Compiler;
 
 import Compiler.Lang.*;
+import Compiler.SymbolTable.SymbolDefListener;
+import Compiler.SymbolTable.SymbolRefListener;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

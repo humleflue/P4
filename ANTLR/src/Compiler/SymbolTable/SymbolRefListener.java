@@ -1,10 +1,7 @@
-package Compiler;
+package Compiler.SymbolTable;
 
 import Compiler.Lang.LangBaseListener;
 import Compiler.Lang.LangParser;
-import Compiler.SymbolTable.BaseScope;
-import Compiler.SymbolTable.Scope;
-import Compiler.SymbolTable.Symbol;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class SymbolRefListener extends LangBaseListener{

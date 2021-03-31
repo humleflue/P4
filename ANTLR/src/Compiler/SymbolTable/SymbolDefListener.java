@@ -1,4 +1,4 @@
-package Compiler;
+package Compiler.SymbolTable;
 
 import Compiler.SymbolTable.*;
 import Compiler.Lang.*;
