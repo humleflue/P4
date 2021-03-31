@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class CheckSymbols {
     public static void main(String[] args) throws IOException {
-        CharStream stream = CharStreams.fromString("2+x;");
+        CharStream stream = CharStreams.fromString("number test(number a, number b) = return a; endf test(1, 2);");
         LangLexer lexer = new LangLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         LangParser parser = new LangParser(tokens);

@@ -1,9 +1,12 @@
 package Compiler.SymbolTable;
 
-import Compiler.SymbolTable.*;
-import Compiler.Lang.*;
+import Compiler.Lang.LangBaseListener;
+import Compiler.Lang.LangParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SymbolDefListener extends LangBaseListener{
     public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<Scope>();
@@ -17,7 +20,18 @@ public class SymbolDefListener extends LangBaseListener{
 
     @Override
     public void enterFuncdef(LangParser.FuncdefContext ctx) {
-        currentScope.defineSymbol(new Symbol(ctx.ID().getText(), new BaseType(ctx.start.getType())));
+        //Gets lists of parameters as ParseRuleContexts
+        List<LangParser.FuncdefparamContext> params =  ctx.getRuleContext(LangParser.FuncdefparamsContext.class, 0)
+                .getRuleContexts(LangParser.FuncdefparamContext.class);
+
+        List<Type> argumentList = new ArrayList<Type>() ;
+        for (LangParser.FuncdefparamContext param : params){
+            argumentList.add(new BaseType(param.start.getType()));
+        }
+
+        Type type = new FunctionType(ctx.start.getType(), argumentList);
+        currentScope.defineSymbol(new Symbol(ctx.ID().getText(), type));
+
         Scope newScope = new BaseScope(currentScope);
         saveScope(ctx, newScope);
         currentScope = newScope;

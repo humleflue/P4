@@ -15,4 +15,8 @@ public class FunctionType implements Type{
     public int getVal() {
         return val;
     }
+
+    public List<Type> getArgumentList(){
+        return argumentList;
+    }
 }

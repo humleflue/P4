@@ -26,28 +26,37 @@ public class SymbolRefListener extends LangBaseListener{
 
     @Override
     public void exitFuncdef(LangParser.FuncdefContext ctx) {
-        CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
+        CheckSymbol(ctx.ID().getSymbol().getText());
 
         currentScope = currentScope.getEnclosingScope();
     }
 
     @Override
-    public void exitFuncdefparam(LangParser.FuncdefparamContext ctx) {
-        CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
-    }
-
-    @Override
     public void exitValId(LangParser.ValIdContext ctx) {
         System.out.println("Found valID: " + ctx.ID().getText());
-        CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
+        CheckSymbol(ctx.ID().getSymbol().getText());
     }
 
     @Override
-    public void exitFunccall(LangParser.FunccallContext ctx) {
-        CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
+    public void exitFunccall(LangParser.FunccallContext ctx) throws IllegalArgumentException {
+        CheckSymbol(ctx.ID().getSymbol().getText());
+
+        int callArgCount = 0;
+        //Check for null required, as it would otherwise crash when getting Expressions
+        if(ctx.getRuleContext(LangParser.ExprparamsNotEmptyContext.class,0) != null){
+            callArgCount = ctx.getRuleContext(LangParser.ExprparamsNotEmptyContext.class,0)
+                              .getRuleContexts(LangParser.ExprContext.class)
+                              .size();
+        }
+        int expectedArgCount = ((FunctionType)(currentScope.getSymbol(ctx.ID().getText()).getType())).getArgumentList().size();
+
+        if(callArgCount != expectedArgCount) {
+            throw new IllegalArgumentException(ctx.ID().getText() + " expects " + expectedArgCount + " arguments but was called with " + callArgCount);
+        }
+
     }
 
-    void CheckSymbolType(String name, int typeVal) throws IllegalArgumentException {
+    void CheckSymbol(String name) throws IllegalArgumentException {
         Symbol symbol = currentScope.getSymbol(name);
         if ( symbol==null ) {
             throw new IllegalArgumentException(name + " is not defined");
