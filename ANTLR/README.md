@@ -18,7 +18,7 @@ Now you should be all set an ready to compile the program.
 ## Running the compiler with IntelliJ IDEA
 Open this folder as an IntelliJ IDEA project.
 
-Follow [this guide](https://stackoverflow.com/a/1051705/12545726) to add the two `.jar` files in the `./Dependencies` directory to the project.
+Follow [this guide](https://stackoverflow.com/a/1051705/12545726) to add the two `.jar` files found in the `./Dependencies` directory to the project.
 
 After doing the above, you should be able to build and run the program from the top right of IntelliJ IDEA by pressing the `Run selected configuration` button symbolized by the tilted green triangle.
 
