@@ -1,8 +1,7 @@
+
 #!/bin/bash
 echo Running antlr...
-antlr4 -package Compiler.Lang Lang.g4
-#echo Compiling...
-#javac *.java
+java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.Tool -package Compiler.Lang Lang.g4
 echo Done.
 
 
