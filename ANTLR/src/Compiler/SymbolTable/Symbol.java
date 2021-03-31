@@ -1,4 +1,4 @@
-package Buff.SymbolTable;
+package Compiler.SymbolTable;
 
 public class Symbol {
     protected String name;

@@ -1,23 +1,22 @@
-import Buff.*;
-import Buff.Nodes.Abstract.Node;
+package Compiler;
+
+import Compiler.Lang.*;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.IOException;
-import java.io.StringReader;
 
 public class CheckSymbols {
     public static void main(String[] args) throws IOException {
-        CharStream stream = CharStreams.fromFileName("test.lang");
-        Buff_1_1Lexer lexer = new Buff_1_1Lexer(stream);
+        CharStream stream = CharStreams.fromString("2+x;");
+        LangLexer lexer = new LangLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        Buff_1_1Parser parser = new Buff_1_1Parser(tokens);
+        LangParser parser = new LangParser(tokens);
 
-        ParseTree tree = parser.start();
+        ParseTree tree = parser.prog();
         System.out.println("building cst");
         System.out.println(tree.getText());
 

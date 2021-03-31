@@ -1,15 +1,13 @@
-package Buff;
+package Compiler;
 
-import Buff.SymbolTable.BaseScope;
-import Buff.SymbolTable.Scope;
-import Buff.SymbolTable.Symbol;
-import Buff.SymbolTable.Type;
-import org.antlr.v4.runtime.Vocabulary;
+import Compiler.Lang.LangBaseListener;
+import Compiler.Lang.LangParser;
+import Compiler.SymbolTable.BaseScope;
+import Compiler.SymbolTable.Scope;
+import Compiler.SymbolTable.Symbol;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
-import javax.swing.*;
-
-public class SymbolRefListener extends Buff_1_1BaseListener{
+public class SymbolRefListener extends LangBaseListener{
     ParseTreeProperty<Scope> scopes = new ParseTreeProperty<Scope>();
     BaseScope globalScope;
     Scope currentScope;
@@ -20,49 +18,35 @@ public class SymbolRefListener extends Buff_1_1BaseListener{
     }
 
     @Override
-    public void enterStart(Buff_1_1Parser.StartContext ctx) {
+    public void enterProg(LangParser.ProgContext ctx) {
         currentScope = globalScope;
     }
 
     @Override
-    public void enterOneLineStmt(Buff_1_1Parser.OneLineStmtContext ctx) {
+    public void enterFuncdef(LangParser.FuncdefContext ctx) {
         currentScope = scopes.get(ctx);
     }
 
     @Override
-    public void exitOneLineStmt(Buff_1_1Parser.OneLineStmtContext ctx) {
+    public void exitFuncdef(LangParser.FuncdefContext ctx) {
         CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
 
         currentScope = currentScope.getEnclosingScope();
     }
 
     @Override
-    public void enterMultiLineStmt(Buff_1_1Parser.MultiLineStmtContext ctx) {
-        currentScope = scopes.get(ctx);
-    }
-
-    @Override
-    public void exitMultiLineStmt(Buff_1_1Parser.MultiLineStmtContext ctx) {
-        CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
-
-        currentScope = currentScope.getEnclosingScope();
-    }
-
-    @Override
-    public void enterDclParam(Buff_1_1Parser.DclParamContext ctx) {
+    public void exitFuncdefparam(LangParser.FuncdefparamContext ctx) {
         CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
     }
 
     @Override
-    public void exitTermVal(Buff_1_1Parser.TermValContext ctx) {
-        if (ctx.ID() != null){
-            System.out.println("TermVal: " + ctx.ID().toString());
-            CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
-        }
+    public void exitValId(LangParser.ValIdContext ctx) {
+        System.out.println("Found valID: " + ctx.ID().getText());
+        CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
     }
 
     @Override
-    public void exitFuncCall(Buff_1_1Parser.FuncCallContext ctx) {
+    public void exitFunccall(LangParser.FunccallContext ctx) {
         CheckSymbolType(ctx.ID().getSymbol().getText(), ctx.start.getType());
     }
 

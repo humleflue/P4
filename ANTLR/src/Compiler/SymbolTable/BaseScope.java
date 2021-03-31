@@ -1,4 +1,4 @@
-package Buff.SymbolTable;
+package Compiler.SymbolTable;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
