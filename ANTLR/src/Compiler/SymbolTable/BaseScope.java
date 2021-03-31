@@ -8,7 +8,8 @@ public class BaseScope implements Scope{
 
     protected Map<String, Symbol> symbols = new LinkedHashMap<>();
 
-    public BaseScope(){}
+    //Only use this to create the global scope
+    public BaseScope() { }
 
     public BaseScope(Scope enclosingScope){
         setEnclosingScope(enclosingScope);
@@ -35,11 +36,12 @@ public class BaseScope implements Scope{
     @Override
     public Symbol getSymbol(String name) {
         Symbol s = symbols.get(name);
-        if ( s!=null ) {
+        if (s != null) {
             return s;
         }
         // if not here, check any enclosing scope
         if ( enclosingScope != null ) return enclosingScope.getSymbol(name);
-        return null; // not found
+        // Below return statement only happens when symbol is not found in globalscope
+        return null;
     }
 }

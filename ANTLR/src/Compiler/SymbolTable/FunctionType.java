@@ -3,20 +3,20 @@ package Compiler.SymbolTable;
 import java.util.List;
 
 public class FunctionType implements Type{
-    protected int val;
-    protected List<Type> argumentList;
+    protected int returnType;
+    protected List<Type> argumentTypeList;
 
-    public FunctionType(int val, List<Type> argumentList){
-        this.val = val;
-        this.argumentList = argumentList;
+    public FunctionType(int returnType, List<Type> argumentTypeList){
+        this.returnType = returnType;
+        this.argumentTypeList = argumentTypeList;
     }
 
     @Override
     public int getVal() {
-        return val;
+        return returnType;
     }
 
-    public List<Type> getArgumentList(){
-        return argumentList;
+    public List<Type> getArgumentTypeList(){
+        return argumentTypeList;
     }
 }

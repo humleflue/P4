@@ -1,7 +1,7 @@
 package Compiler.SymbolTable;
 
 import Compiler.Lang.LangBaseListener;
-import Compiler.Lang.LangParser;
+import Compiler.Lang.LangParser.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
@@ -14,18 +14,19 @@ public class SymbolDefListener extends LangBaseListener{
     Scope currentScope;
 
     @Override
-    public void enterProg(LangParser.ProgContext ctx) {
+    public void enterProg(ProgContext ctx) {
         currentScope = globalScope;
     }
 
     @Override
-    public void enterFuncdef(LangParser.FuncdefContext ctx) {
+    public void enterFuncdef(FuncdefContext ctx) {
         //Gets lists of parameters as ParseRuleContexts
-        List<LangParser.FuncdefparamContext> params =  ctx.getRuleContext(LangParser.FuncdefparamsContext.class, 0)
-                .getRuleContexts(LangParser.FuncdefparamContext.class);
+        List<FuncdefparamContext> params =  ctx.getRuleContext(FuncdefparamsContext.class, 0)
+                .getRuleContexts(FuncdefparamContext.class);
 
-        List<Type> argumentList = new ArrayList<Type>() ;
-        for (LangParser.FuncdefparamContext param : params){
+        //Might be usefull for type-checking. Delete otherwise
+        List<Type> argumentList = new ArrayList<Type>();
+        for (FuncdefparamContext param : params){
             argumentList.add(new BaseType(param.start.getType()));
         }
 
@@ -33,21 +34,21 @@ public class SymbolDefListener extends LangBaseListener{
         currentScope.defineSymbol(new Symbol(ctx.ID().getText(), type));
 
         Scope newScope = new BaseScope(currentScope);
-        saveScope(ctx, newScope);
+        attachScope(ctx, newScope);
         currentScope = newScope;
     }
 
     @Override
-    public void exitFuncdef(LangParser.FuncdefContext ctx) {
+    public void exitFuncdef(FuncdefContext ctx) {
         currentScope = currentScope.getEnclosingScope();
     }
 
     @Override
-    public void exitFuncdefparam(LangParser.FuncdefparamContext ctx) {
+    public void exitFuncdefparam(FuncdefparamContext ctx) {
         Type paramType = new BaseType(ctx.start.getType());
         Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
         currentScope.defineSymbol(paramSymbol);
     }
 
-    void saveScope(ParserRuleContext ctx, Scope s) { scopes.put(ctx, s); }
+    void attachScope(ParserRuleContext ctx, Scope s) { scopes.put(ctx, s); }
 }
