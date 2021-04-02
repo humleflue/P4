@@ -17,7 +17,7 @@ public class BaseScope implements Scope{
 
     @Override
     public Scope getEnclosingScope() {
-        return enclosingScope;
+        return this.enclosingScope;
     }
 
     @Override
