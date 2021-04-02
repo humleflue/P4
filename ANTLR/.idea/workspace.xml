@@ -2,26 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/Lang.g4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/generatefiles.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/rmfiles.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeDecorator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/Lang.g4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/Lang.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/Lang.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangBaseListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangLexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangLexer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangLexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/generatefiles.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/rmfiles.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/CheckSymbols.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Lang/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Lang/Lang.g4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Lang/generatefiles.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Lang/rmfiles.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/SymbolTable/SymbolDefListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ANTLR/Compiler/SymbolTable/SymbolDefListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/SymbolTable/SymbolRefListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ANTLR/Compiler/SymbolTable/SymbolRefListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolDefListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolDefListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,10 +30,19 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="ProjectId" id="1qcaGocVwLkoEKS1iZtdAzeICch" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -49,7 +50,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
-  <component name="RunManager" selected="Application.CheckSymbols">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="CheckSymbols" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.CheckSymbols" />
       <module name="ANTLR" />
@@ -76,26 +77,40 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.CheckSymbols" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.CheckSymbols" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="" />
+      <created>1617381247052</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1617381247052</updated>
+      <workItem from="1617381251246" duration="1961000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
