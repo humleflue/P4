@@ -1,0 +1,4 @@
+test; result;
+"number func() = return 2; endf";1;
+"number test(number numb1, number numb2) = return 2; endf";1;
+"number test() = return test(2); endf";1;
