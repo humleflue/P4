@@ -1,7 +1,4 @@
-# ignore everything
+# Ignore everything
 *
-# except these files
+# Except this file
 !.gitignore
-!*.g4
-!README*
-!*.sh

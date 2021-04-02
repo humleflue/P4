@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeChecker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeDecorator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/CheckSymbols.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Lang/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Lang/Lang.g4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Lang/generatefiles.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Lang/rmfiles.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ANTLR/Compiler/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/SymbolTable/SymbolDefListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ANTLR/Compiler/SymbolTable/SymbolDefListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ANTLR/Compiler/SymbolTable/SymbolRefListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ANTLR/Compiler/SymbolTable/SymbolRefListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/Lang.g4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/generatefiles.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/rmfiles.sh" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +97,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1617381247052</updated>
-      <workItem from="1617381251246" duration="1961000" />
+      <workItem from="1617381251246" duration="2220000" />
     </task>
     <servers />
   </component>

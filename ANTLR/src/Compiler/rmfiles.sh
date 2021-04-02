@@ -1,5 +1,5 @@
 #!/bin/bash
 shopt -s extglob
 echo Removing all unnecessary files...
-rm !(README*|*.g4|*.sh)
+rm -r AntlrGenerated/*
 echo All files removed successfully.
