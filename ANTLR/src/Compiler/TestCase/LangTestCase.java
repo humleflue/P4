@@ -1,5 +1,9 @@
 package Compiler.TestCase;//package Compiler.TestCase;
 // import Compiler.TestCase.LangTestCase;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import Compiler.Lang.LangLexer;
 import Compiler.Lang.LangParser;
 import org.antlr.v4.runtime.CharStreams;
@@ -24,9 +28,8 @@ public class LangTestCase {
     private final String GREEN = "\u001B[32m";
     private final String YELLOW = "\u001B[33m";
     private final String RED = "\u001B[31m";
+    private final String GRAY = "\u001B[37m";
     private final String RESET = "\u001B[0m";
-    private int errors = 0;
-    private int tests = 0;
 
     // Used to capture Error output
     private ByteArrayOutputStream baos;
@@ -97,13 +100,10 @@ public class LangTestCase {
         if (this.lexerTokens.isEmpty() == false){
             testCaseSuccess = lexerTokensValidation(tokens);
         }
-        else if (this.shouldPass == null);
-        else if (this.shouldPass == false && baos.toString().isEmpty() == true){
-            errorOccurred("Pass succeeded but should fail", this, new String[]{});
-            testCaseSuccess = false;
-        }
-        else if (this.shouldPass == true && baos.toString().isEmpty() == false){
-            errorOccurred("Pass failed but should pass:", this, new String[]{});
+        else if (this.shouldPass != null && this.shouldPass != baos.toString().isEmpty()){
+            errorOccurred((this.shouldPass) ? "Failed but should succeed"
+                                            : "Succeeded but should fail",
+                                    this, new String[]{});
             testCaseSuccess = false;
         }
 
@@ -151,11 +151,18 @@ public class LangTestCase {
 
     // points are further information descriping the problem.
     private void printTestResult(String description, LangTestCase langTestCase, String[] points){
+        String[] antlrErrors = baos.toString().split("\n");
+        String[] testInput = langTestCase.test.split("\n");
+
+        testInput = addRedColorsToTestInput(testInput, antlrErrors);
+
         System.out.println(YELLOW + description);
 
+        int lineNumber = 1;
         System.out.println("\t---------- Test Input ----------");
-        for (String test : langTestCase.test.split("\n")){
-            System.out.println("\t" + test);
+        for (String test : testInput){
+            System.out.println(GRAY + lineNumber + YELLOW + "\t" + test);
+            lineNumber++;
         }
         System.out.println("\t--------------------------------");
 
@@ -167,10 +174,33 @@ public class LangTestCase {
         }
 
         // Print saved output from Lexer, or other antlr errors.
-        for (String line : baos.toString().split("\n")){
+        for (String line : antlrErrors){
             System.out.println("\t" + line);
         }
 
         System.out.println(RESET);
+    }
+
+    private String[] addRedColorsToTestInput(String[] testInput, String[] antlrErrors){
+        Pattern inputPattern = Pattern.compile("line ([\\d]+):([\\d]+).*input '([^']+)'");
+        Matcher matcher;
+        int lineNumber, position;
+        String mismatchedString, testInputLine;
+
+        for (String line : antlrErrors){
+            matcher = inputPattern.matcher(line);
+            // Finds first result
+            if (matcher.find()) {
+                lineNumber = Integer.parseInt(matcher.group(1));
+                position = Integer.parseInt(matcher.group(2));
+                mismatchedString = matcher.group(3);
+                testInputLine = testInput[lineNumber-1];
+
+                testInput[lineNumber-1] = testInputLine.substring(0, position) +
+                                          RED + mismatchedString +
+                                          YELLOW + testInputLine.substring(position + mismatchedString.length());
+            }
+        }
+        return testInput;
     }
 }
