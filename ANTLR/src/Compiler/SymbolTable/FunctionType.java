@@ -17,6 +17,6 @@ public class FunctionType implements Type{
     }
 
     public List<Type> getArgumentTypeList(){
-        return argumentTypeList;
+        return this.argumentTypeList;
     }
 }
