@@ -40,7 +40,7 @@ public class BaseScope implements Scope{
             return s;
         }
         // if not here, check any enclosing scope
-        if ( enclosingScope != null ) return enclosingScope.getSymbol(name);
+        if ( this.enclosingScope != null ) return this.enclosingScope.getSymbol(name);
         // Below return statement only happens when symbol is not found in globalscope
         return null;
     }
