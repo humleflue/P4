@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5161e4ee-9a64-4901-9d6f-573b3205d412" name="Default Changelist" comment="" />
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/Lang.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/generatefiles.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/rmfiles.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/Lang.g4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/Lang.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/Lang.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangBaseListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangLexer.interp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangLexer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangLexer.tokens" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/generatefiles.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/rmfiles.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolDefListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolDefListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -68,6 +98,15 @@
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

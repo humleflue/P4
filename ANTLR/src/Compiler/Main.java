@@ -1,7 +1,7 @@
 package Compiler;
 
-import Compiler.Lang.LangLexer;
-import Compiler.Lang.LangParser;
+import Compiler.AntlrGenerated.LangLexer;
+import Compiler.AntlrGenerated.LangParser;
 import Compiler.SymbolTable.SymbolDefListener;
 import Compiler.SymbolTable.SymbolRefListener;
 import org.antlr.v4.runtime.CharStream;
