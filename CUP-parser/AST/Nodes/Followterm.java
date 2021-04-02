@@ -4,7 +4,7 @@ import AST.Master.Node;
 
 public class Followterm implements Node {
     public Followterm(Simpleops simpleops, Math math) {
-        Simpleops = simpleops;
+        this.Simpleops = simpleops;
         this.Math = math;
     }
 
