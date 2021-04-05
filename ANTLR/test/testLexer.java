@@ -62,4 +62,15 @@ public class testLexer {
 
         assertTrue(testCaseSuccess);
     }
+
+    @ParameterizedTest
+    @DisplayName("Functions test")
+    @CsvFileSource(resources = testPath + "functionsTest.csv", numLinesToSkip = 1, delimiter=';')
+    void functionsTest(String testAsString, int shouldPass) throws IOException {
+        LangTestCase testCase = new LangTestCase(unescape(testAsString), (shouldPass == 1));
+
+        Boolean testCaseSuccess = testCase.test();
+
+        assertTrue(testCaseSuccess);
+    }
 }
