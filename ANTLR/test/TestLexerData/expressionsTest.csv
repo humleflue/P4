@@ -4,4 +4,4 @@ Test expression;Should pass
         return 1;
     return 2;
 endf";1;
-
+"test()?;";1;
