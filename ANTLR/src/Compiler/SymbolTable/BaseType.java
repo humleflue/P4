@@ -1,6 +1,6 @@
 package Compiler.SymbolTable;
 
-public class BaseType implements Type{
+public class BaseType implements Type {
     protected int val;
 
     public BaseType (int val){
@@ -8,7 +8,7 @@ public class BaseType implements Type{
     }
 
     @Override
-    public int getVal() {
+    public int getType() {
         return val;
     }
 }

@@ -1,5 +1,5 @@
 package Compiler.SymbolTable;
 
 public interface Type {
-    int getVal();
+    int getType();
 }

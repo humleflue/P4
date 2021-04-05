@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/Lang.g4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/generatefiles.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/rmfiles.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/BaseType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/BaseType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/FunctionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/FunctionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/Type.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeDecorator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +26,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1qcaGocVwLkoEKS1iZtdAzeICch" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -98,6 +111,8 @@
       <option name="presentableId" value="Default" />
       <updated>1617381247052</updated>
       <workItem from="1617381251246" duration="2220000" />
+      <workItem from="1617608073206" duration="166000" />
+      <workItem from="1617608264301" duration="5684000" />
     </task>
     <servers />
   </component>

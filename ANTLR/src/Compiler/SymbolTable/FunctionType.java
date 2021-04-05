@@ -12,7 +12,7 @@ public class FunctionType implements Type{
     }
 
     @Override
-    public int getVal() {
+    public int getType() {
         return this.returnType;
     }
 

@@ -5,7 +5,7 @@ import Compiler.AntlrGenerated.LangParser.*;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class SymbolRefListener extends LangBaseListener{
-    ParseTreeProperty<Scope> scopes = new ParseTreeProperty<Scope>();
+    ParseTreeProperty<Scope> scopes;
     Scope globalScope;
     Scope currentScope;
 

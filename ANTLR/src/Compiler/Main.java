@@ -15,8 +15,8 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
-        String input = "number plus(number x, number y) = return x + y; endf\nplus(1,2)?;";
+    public static void main(String[] args)  {
+        String input = "number plus(number x, number y) = return 2 * 2; endf\nplus(1,2)?;";
 
         CharStream stream = CharStreams.fromString(input);
         LangLexer lexer = new LangLexer(stream);
@@ -29,22 +29,15 @@ public class Main {
         System.out.println(tree.getText());
         System.out.println(">>> End of pretty print <<<");
 
+        // Symbol table stuff
         ParseTreeWalker walker = new ParseTreeWalker();
-        InitializeSymbolTable(walker, tree);
-
-        ParseTreeVisitor visitor = new TypeChecker();
-        PerformTypeChecking(visitor, tree);
-    }
-
-    public static void InitializeSymbolTable(ParseTreeWalker walker, ParseTree tree) {
         SymbolDefListener symbolDefListener = new SymbolDefListener();
         walker.walk(symbolDefListener, tree);
-
         SymbolRefListener symbolRefListener = new SymbolRefListener(symbolDefListener.globalScope, symbolDefListener.scopes);
         walker.walk(symbolRefListener, tree);
-    }
 
-    public static void PerformTypeChecking(ParseTreeVisitor visitor, ParseTree tree) {
-
+        // Type checking stuff
+        ParseTreeVisitor visitor = new TypeChecker(symbolDefListener.globalScope, symbolDefListener.scopes);
+        visitor.visit(tree);
     }
 }
