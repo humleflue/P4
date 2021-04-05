@@ -2,7 +2,6 @@ package Compiler;
 
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
-import Compiler.AntlrGenerated.LangVisitor;
 import Compiler.SymbolTable.SymbolDefListener;
 import Compiler.SymbolTable.SymbolRefListener;
 import Compiler.TypeChecker.TypeChecker;
@@ -16,7 +15,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 public class Main {
 
     public static void main(String[] args)  {
-        String input = "number plus(number x, number y) = return 2 * 2; endf\nplus(1,2)?;";
+        String input = "number plus(number x, number y) = return 2 + 2; endf\nnumber mult(number x, number y) = return x * y; endf";
 
         CharStream stream = CharStreams.fromString(input);
         LangLexer lexer = new LangLexer(stream);

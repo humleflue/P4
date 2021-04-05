@@ -32,7 +32,6 @@ public class SymbolDefListener extends LangBaseListener{
 
         Type type = new FunctionType(ctx.start.getType(), argumentList);
         currentScope.defineSymbol(new Symbol(ctx.ID().getText(), type));
-
         Scope newScope = new BaseScope(currentScope);
         attachScope(ctx, newScope);
         currentScope = newScope;
@@ -48,6 +47,7 @@ public class SymbolDefListener extends LangBaseListener{
         Type paramType = new BaseType(ctx.start.getType());
         Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
         currentScope.defineSymbol(paramSymbol);
+        attachScope(ctx, currentScope);
     }
 
     // Scopes attatched to ID and Funccall for easy access in type checking using scopes.get(ctx)

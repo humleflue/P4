@@ -1,7 +1,6 @@
 package Compiler.TypeChecker;
 
 import Compiler.AntlrGenerated.LangBaseVisitor;
-import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser.*;
 import Compiler.SymbolTable.BaseType;
 import Compiler.SymbolTable.Scope;
@@ -29,6 +28,27 @@ public class TypeChecker extends LangBaseVisitor<Type> {
         this.globalScope = globalScope;
     }
 
+    private Type checkType(int left, int right, BinaryOpContext ctx, int expectedType) {
+        Type returnType = null;
+        if(left == expectedType && right == expectedType) {
+            returnType =  new BaseType(expectedType);
+        }
+        else {
+            throwTypeError(left, right, ctx.op.getText());
+        }
+
+        return returnType;
+    }
+
+    private void throwTypeError(int left, int right, String operand) {
+        String leftType = VOCABULARY.getLiteralName(left);
+        String rightType = VOCABULARY.getLiteralName(right);
+        throw new IllegalArgumentException(
+                String.format("Incompatible type: Type %s is incompatible with %s on operation '%s'.",
+                        leftType, rightType, operand)
+        );
+    }
+
     @Override
     public Type visitBinaryOp(BinaryOpContext ctx) {
         Type returnType;
@@ -37,15 +57,11 @@ public class TypeChecker extends LangBaseVisitor<Type> {
         int right = visit(ctx.right).getType();
 
         switch (ctx.op.getType()) {
-            case MULTIPLY:
-                if(left == NUMBERTYPE && right == NUMBERTYPE) {
-                    returnType = new BaseType(NUMBERTYPE);
-                }
-                else {
-                    throw new IllegalArgumentException("SHiiet");
-                }
-                break;
-            default: throw new IllegalArgumentException("This should not happen.");
+            case PLUS, MINUS, MULTIPLY, DIVIDE, POW ->
+                returnType = checkType(left, right, ctx, NUMBERTYPE);
+            case LOGEQ, LOGNOTEQ, LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ, LOGAND, LOGOR ->
+                returnType = checkType(left, right, ctx, BOOLTYPE);
+            default -> throw new IllegalArgumentException("This should not happen.");
         }
 
         return returnType;
@@ -61,17 +77,22 @@ public class TypeChecker extends LangBaseVisitor<Type> {
         return new BaseType(BOOLTYPE);
     }
 
-    //    @Override
-//    public Type visitFunccall(FunccallContext ctx) {
-//        currentScope = scopes.get(ctx);
-//        Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
-//        return symbol.getType();
-//    }
+    @Override
+    public Type visitFunccall(FunccallContext ctx) {
+        currentScope = scopes.get(ctx);
+        Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
+        return symbol.getType();
+    }
 
     @Override
     public Type visitValId(ValIdContext ctx) {
         currentScope = scopes.get(ctx);
         Symbol symbol = currentScope.getSymbol(ctx.ID().getText());
         return symbol.getType();
+    }
+
+    @Override
+    public Type visitFuncdef(FuncdefContext ctx) {
+        currentScope = scopes.get(ctx);
     }
 }

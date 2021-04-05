@@ -51,7 +51,6 @@ public class SymbolRefListener extends LangBaseListener{
         if(callArgCount != expectedArgCount) {
             throw new IllegalArgumentException(ctx.ID().getText() + " expects " + expectedArgCount + " arguments but was called with " + callArgCount);
         }
-
     }
 
     void CheckSymbol(String name) throws IllegalArgumentException {
