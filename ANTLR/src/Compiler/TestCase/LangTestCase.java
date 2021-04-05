@@ -4,8 +4,8 @@ package Compiler.TestCase;//package Compiler.TestCase;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Compiler.Lang.LangLexer;
-import Compiler.Lang.LangParser;
+import Compiler.AntlrGenerated.LangLexer;
+import Compiler.AntlrGenerated.LangParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;

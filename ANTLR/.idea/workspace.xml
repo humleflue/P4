@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/Lang.g4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/generatefiles.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/rmfiles.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/TestCase/LangTestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/TestCase/LangTestCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +42,20 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.testLexer">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CheckSymbols" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.CheckSymbols" />
       <module name="ANTLR" />
@@ -69,21 +82,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+    <configuration name="testLexer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ANTLR" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="testLexer" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.testLexer" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.CheckSymbols" />
       </list>
