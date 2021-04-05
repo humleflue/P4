@@ -34,18 +34,21 @@ public class TypeChecker extends LangBaseVisitor<Type> {
             returnType =  new BaseType(expectedType);
         }
         else {
-            throwTypeError(left, right, ctx.op.getText());
+            throwTypeError(left, right, "On operation " + ctx.op.getText());
         }
 
         return returnType;
     }
 
-    private void throwTypeError(int left, int right, String operand) {
+    private void throwTypeError(int type1, int type2) {
+        throwTypeError(type1, type2, "");
+    }
+    private void throwTypeError(int left, int right, String optionalText) {
         String leftType = VOCABULARY.getLiteralName(left);
         String rightType = VOCABULARY.getLiteralName(right);
         throw new IllegalArgumentException(
-                String.format("Incompatible type: Type %s is incompatible with %s on operation '%s'.",
-                        leftType, rightType, operand)
+                String.format("Incompatible type: Type %s is incompatible with %s. %s.",
+                        leftType, rightType, optionalText)
         );
     }
 
@@ -93,6 +96,25 @@ public class TypeChecker extends LangBaseVisitor<Type> {
 
     @Override
     public Type visitFuncdef(FuncdefContext ctx) {
+        Type returnType = null;
+
         currentScope = scopes.get(ctx);
+        Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
+        Type funcdefReturnType = symbol.getType();
+        int stmtType = visit(ctx.stmt()).getType();
+
+        if(funcdefReturnType.getType() == stmtType) {
+            returnType = funcdefReturnType;
+        }
+        else {
+            throwTypeError(
+                    funcdefReturnType.getType(), stmtType, "In function definition: " + ctx.ID().getText());
+        }
+        return returnType;
+    }
+
+    @Override
+    public Type visitStmt(StmtContext ctx) {
+        return visit(ctx.expr());
     }
 }

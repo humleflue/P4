@@ -15,7 +15,8 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 public class Main {
 
     public static void main(String[] args)  {
-        String input = "number plus(number x, number y) = return 2 + 2; endf\nnumber mult(number x, number y) = return x * y; endf";
+        String input = "number plus(number x, number y) = return mult(x, y) + 2; endf\n" +
+                "number mult(number x, number y) = return x * y; endf";
 
         CharStream stream = CharStreams.fromString(input);
         LangLexer lexer = new LangLexer(stream);
