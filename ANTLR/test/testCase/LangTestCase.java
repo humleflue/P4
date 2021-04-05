@@ -1,4 +1,4 @@
-package Compiler.TestCase;//package Compiler.TestCase;
+package testCase;//package Compiler.TestCase;
 // import Compiler.TestCase.LangTestCase;
 
 import java.util.regex.Matcher;
