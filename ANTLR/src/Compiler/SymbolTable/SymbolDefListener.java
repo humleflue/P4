@@ -50,5 +50,16 @@ public class SymbolDefListener extends LangBaseListener{
         currentScope.defineSymbol(paramSymbol);
     }
 
+    // Scopes attatched to ID and Funccall for easy access in type checking using scopes.get(ctx)
+    @Override
+    public void exitValId(ValIdContext ctx) {
+        attachScope(ctx, currentScope);
+    }
+
+    @Override
+    public void exitFunccall(FunccallContext ctx) {
+        attachScope(ctx, currentScope);
+    }
+
     void attachScope(ParserRuleContext ctx, Scope s) { scopes.put(ctx, s); }
 }
