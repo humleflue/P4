@@ -1,4 +1,8 @@
 //package Compiler.Test;
+import Compiler.Lang.LangLexer;
+import junit.framework.TestCase;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import testCase.LangTestCase;
 
 // import Compiler.Lang.BuildASTVisitor;
@@ -9,6 +13,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.BooleanSupplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,5 +80,17 @@ public class testLexer {
         Boolean testCaseSuccess = testCase.test();
 
         assertTrue(testCaseSuccess);
+    }
+    @Test
+    @DisplayName("Testcases that should be valid")
+    public void TestLexerCases() throws IOException {
+        Assertions.assertAll(
+                () -> assertTrue(new LangTestCase("number test() = 2;", Arrays.asList(LangLexer.NUMBERTYPE, LangLexer.ID,
+                                    LangLexer.LPAREN, LangLexer.RPAREN, LangLexer.ASSIGN, LangLexer.NUMLITERAL, LangLexer.SEMICOLON,
+                                    LangLexer.EOF)).test()),
+                () -> assertTrue(new LangTestCase("number test(number numb1) = 2;", Arrays.asList(LangLexer.NUMBERTYPE,
+                                    LangLexer.ID, LangLexer.LPAREN, LangLexer.NUMBERTYPE, LangLexer.ID, LangLexer.RPAREN,
+                                    LangLexer.ASSIGN, LangLexer.NUMLITERAL, LangLexer.SEMICOLON, LangLexer.EOF)).test())
+        );
     }
 }
