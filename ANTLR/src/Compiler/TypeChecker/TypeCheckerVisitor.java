@@ -14,7 +14,7 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 // instead we can just write NUMBERTYPE
 import static Compiler.AntlrGenerated.LangLexer.*;
 
-public class TypeChecker extends LangBaseVisitor<Type> {
+public class TypeCheckerVisitor extends LangBaseVisitor<Type> {
     // Scope stuff
     Scope globalScope;
     ParseTreeProperty<Scope> scopes;
@@ -23,7 +23,7 @@ public class TypeChecker extends LangBaseVisitor<Type> {
     // Type stuff
 //    ParseTreeProperty<Type> types = new ParseTreeProperty<Type>();
 
-    public TypeChecker(Scope globalScope, ParseTreeProperty<Scope> scopes) {
+    public TypeCheckerVisitor(Scope globalScope, ParseTreeProperty<Scope> scopes) {
         this.scopes = scopes;
         this.globalScope = globalScope;
     }
@@ -126,7 +126,6 @@ public class TypeChecker extends LangBaseVisitor<Type> {
         int StmtsNotEmptyExprReturnType = visit(ctx.expr()).getType();
         Type expectedType = new BaseType(BOOLTYPE);
 
-        System.out.println(StmtsNotEmptyExprReturnType + " " + expectedType.getType());
         if(StmtsNotEmptyExprReturnType == expectedType.getType()){
             returnType = new BaseType(StmtsNotEmptyExprReturnType);
         }

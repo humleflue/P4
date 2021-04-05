@@ -4,7 +4,7 @@ import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
 import Compiler.SymbolTable.SymbolDefListener;
 import Compiler.SymbolTable.SymbolRefListener;
-import Compiler.TypeChecker.TypeChecker;
+import Compiler.TypeChecker.TypeCheckerVisitor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -15,7 +15,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 public class Main {
 
     public static void main(String[] args)  {
-        String input = "number plus(number x, number y) = if (2) return 2; return 3; endf\n" +
+        String input = "number plus(number x, number y) = if (false) return 2; return 3; endf\n" +
                 "number mult(number x, number y) = return x * y; endf";
 
         CharStream stream = CharStreams.fromString(input);
@@ -37,7 +37,7 @@ public class Main {
         walker.walk(symbolRefListener, tree);
 
         // Type checking stuff
-        ParseTreeVisitor visitor = new TypeChecker(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
         visitor.visit(tree);
     }
 }
