@@ -98,6 +98,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Type> {
     public Type visitFuncdef(FuncdefContext ctx) {
         Type returnType = null;
 
+        // Retrieve the function's return type from the symbol table
         currentScope = scopes.get(ctx);
         Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
         Type funcdefReturnType = symbol.getType();
@@ -108,9 +109,16 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Type> {
         }
         else {
             throwTypeError(
-                    funcdefReturnType.getType(), stmtType, "In function definition: " + ctx.ID().getText());
+                    funcdefReturnType.getType(),
+                    stmtType,
+                    "In function definition: " + ctx.ID().getText());
         }
-        visitChildren(ctx);
+
+        // Visit the rest of the children
+        visit(ctx.type());
+        visit(ctx.funcdefparams());
+        visit(ctx.stmts());
+
         return returnType;
     }
 
@@ -131,8 +139,14 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Type> {
         }
         else {
             throwTypeError(
-                    StmtsNotEmptyExprReturnType, expectedType.getType(), "In an if statement ");
+                    StmtsNotEmptyExprReturnType,
+                    expectedType.getType(),
+                    "In an if statement ");
         }
+
+        // Visit the rest of the children
+        visit(ctx.stmt());
+        visit(ctx.stmts());
 
         return returnType;
     }
