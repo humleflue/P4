@@ -110,11 +110,31 @@ public class TypeChecker extends LangBaseVisitor<Type> {
             throwTypeError(
                     funcdefReturnType.getType(), stmtType, "In function definition: " + ctx.ID().getText());
         }
+        visitChildren(ctx);
         return returnType;
     }
 
     @Override
     public Type visitStmt(StmtContext ctx) {
         return visit(ctx.expr());
+    }
+
+    @Override
+    public Type visitStmtsNotEmpty(StmtsNotEmptyContext ctx) {
+        Type returnType = null;
+
+        int StmtsNotEmptyExprReturnType = visit(ctx.expr()).getType();
+        Type expectedType = new BaseType(BOOLTYPE);
+
+        System.out.println(StmtsNotEmptyExprReturnType + " " + expectedType.getType());
+        if(StmtsNotEmptyExprReturnType == expectedType.getType()){
+            returnType = new BaseType(StmtsNotEmptyExprReturnType);
+        }
+        else {
+            throwTypeError(
+                    StmtsNotEmptyExprReturnType, expectedType.getType(), "In an if statement ");
+        }
+
+        return returnType;
     }
 }
