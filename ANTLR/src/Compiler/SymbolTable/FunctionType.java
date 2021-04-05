@@ -13,10 +13,10 @@ public class FunctionType implements Type{
 
     @Override
     public int getVal() {
-        return returnType;
+        return this.returnType;
     }
 
     public List<Type> getArgumentTypeList(){
-        return argumentTypeList;
+        return this.argumentTypeList;
     }
 }

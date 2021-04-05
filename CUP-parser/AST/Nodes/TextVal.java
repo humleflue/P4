@@ -4,7 +4,7 @@ import AST.Abstract.*;
 
 public class TextVal extends Terminal {
     public TextVal(String spelling) {
-        Spelling = spelling;
+        this.Spelling = spelling;
     }
 
     public String NodeType = "TextVal";
