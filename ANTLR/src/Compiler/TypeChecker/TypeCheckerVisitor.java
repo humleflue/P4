@@ -14,7 +14,7 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 // instead we can just write NUMBERTYPE
 import static Compiler.AntlrGenerated.LangLexer.*;
 
-public class TypeCheckerVisitor extends LangBaseVisitor<Type> {
+public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
     // Scope stuff
     Scope globalScope;
     ParseTreeProperty<Scope> scopes;
@@ -28,10 +28,10 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Type> {
         this.globalScope = globalScope;
     }
 
-    private Type checkType(int left, int right, BinaryOpContext ctx, int expectedType) {
-        Type returnType = null;
+    private Integer checkType(int left, int right, BinaryOpContext ctx, int expectedType) {
+        Integer returnType = null;
         if(left == expectedType && right == expectedType) {
-            returnType =  new BaseType(expectedType);
+            returnType =  expectedType;
         }
         else {
             throwTypeError(left, right, "On operation " + ctx.op.getText());
@@ -53,11 +53,11 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Type> {
     }
 
     @Override
-    public Type visitBinaryOp(BinaryOpContext ctx) {
-        Type returnType;
+    public Integer visitBinaryOp(BinaryOpContext ctx) {
+        Integer returnType;
 
-        int left = visit(ctx.left).getType();
-        int right = visit(ctx.right).getType();
+        int left = visit(ctx.left);
+        int right = visit(ctx.right);
 
         switch (ctx.op.getType()) {
             case PLUS, MINUS, MULTIPLY, DIVIDE, POW ->
@@ -71,47 +71,45 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Type> {
     }
 
     @Override
-    public Type visitValNumber(ValNumberContext ctx) {
-        return new BaseType(NUMBERTYPE);
+    public Integer visitValNumber(ValNumberContext ctx) {
+        return NUMBERTYPE;
     }
 
     @Override
-    public Type visitValBoolean(ValBooleanContext ctx) {
-        return new BaseType(BOOLTYPE);
+    public Integer visitValBoolean(ValBooleanContext ctx) {
+        return BOOLTYPE;
     }
 
     @Override
-    public Type visitFunccall(FunccallContext ctx) {
+    public Integer visitFunccall(FunccallContext ctx) {
         currentScope = scopes.get(ctx);
         Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
-        return symbol.getType();
+        return symbol.getType().getType();
     }
 
     @Override
-    public Type visitValId(ValIdContext ctx) {
+    public Integer visitValId(ValIdContext ctx) {
         currentScope = scopes.get(ctx);
         Symbol symbol = currentScope.getSymbol(ctx.ID().getText());
-        return symbol.getType();
+        return symbol.getType().getType();
     }
 
     @Override
-    public Type visitFuncdef(FuncdefContext ctx) {
-        Type returnType = null;
+    public Integer visitFuncdef(FuncdefContext ctx) {
+        Integer returnType = null;
 
         // Retrieve the function's return type from the symbol table
         currentScope = scopes.get(ctx);
         Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
-        Type funcdefReturnType = symbol.getType();
-        int stmtType = visit(ctx.stmt()).getType();
+        Integer funcdefReturnType = symbol.getType().getType();
+        int stmtType = visit(ctx.stmt());
 
-        if(funcdefReturnType.getType() == stmtType) {
+        if(funcdefReturnType == stmtType) {
             returnType = funcdefReturnType;
         }
         else {
             throwTypeError(
-                    funcdefReturnType.getType(),
-                    stmtType,
-                    "In function definition: " + ctx.ID().getText());
+                    funcdefReturnType, stmtType, "In function definition: " + ctx.ID().getText());
         }
 
         // Visit the rest of the children
@@ -123,25 +121,23 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Type> {
     }
 
     @Override
-    public Type visitStmt(StmtContext ctx) {
+    public Integer visitStmt(StmtContext ctx) {
         return visit(ctx.expr());
     }
 
     @Override
-    public Type visitStmtsNotEmpty(StmtsNotEmptyContext ctx) {
-        Type returnType = null;
+    public Integer visitStmtsNotEmpty(StmtsNotEmptyContext ctx) {
+        Integer returnType = null;
 
-        int StmtsNotEmptyExprReturnType = visit(ctx.expr()).getType();
-        Type expectedType = new BaseType(BOOLTYPE);
+        int StmtsNotEmptyExprReturnType = visit(ctx.expr());
+        Integer expectedType = BOOLTYPE;
 
-        if(StmtsNotEmptyExprReturnType == expectedType.getType()){
-            returnType = new BaseType(StmtsNotEmptyExprReturnType);
+        if(StmtsNotEmptyExprReturnType == expectedType){
+            returnType = StmtsNotEmptyExprReturnType;
         }
         else {
             throwTypeError(
-                    StmtsNotEmptyExprReturnType,
-                    expectedType.getType(),
-                    "In an if statement ");
+                    StmtsNotEmptyExprReturnType, expectedType, "In an if statement");
         }
 
         // Visit the rest of the children
