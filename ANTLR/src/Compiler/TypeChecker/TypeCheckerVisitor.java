@@ -101,8 +101,6 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
             Integer type = visit(ctx.expr(i));
             actualTypes.add(type);
         }
-//        List<Integer> exprParamTypes = params.stream().map(x -> x.start.getType())
-//                .collect(Collectors.toList()); // Convert stream to List
         FunccallContext funccallContext = (FunccallContext) ctx.parent;
         FunctionSymbol symbol = (FunctionSymbol) globalScope.getSymbol(funccallContext.ID().getText());
         List<Integer> formalParamTypes = symbol.getParameterTypes();
