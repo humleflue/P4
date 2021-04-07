@@ -25,13 +25,13 @@ public class SymbolDefListener extends LangBaseListener{
                 .getRuleContexts(FuncdefparamContext.class);
 
         //Might be usefull for type-checking. Delete otherwise
-        List<Type> argumentList = new ArrayList<Type>();
+        ArrayList<Integer> argumentList = new ArrayList<Integer>();
         for (FuncdefparamContext param : params){
-            argumentList.add(new BaseType(param.start.getType()));
+            argumentList.add(param.start.getType());
         }
 
-        Type type = new FunctionType(ctx.start.getType(), argumentList);
-        currentScope.defineSymbol(new Symbol(ctx.ID().getText(), type));
+        FunctionSymbol symbol = new FunctionSymbol(ctx.ID().getText(), ctx.start.getType(), argumentList);
+        currentScope.defineSymbol(symbol);
         Scope newScope = new BaseScope(currentScope);
         attachScope(ctx, newScope);
         currentScope = newScope;
@@ -44,7 +44,7 @@ public class SymbolDefListener extends LangBaseListener{
 
     @Override
     public void exitFuncdefparam(FuncdefparamContext ctx) {
-        Type paramType = new BaseType(ctx.start.getType());
+        Integer paramType = ctx.start.getType();
         Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
         currentScope.defineSymbol(paramSymbol);
         attachScope(ctx, currentScope);

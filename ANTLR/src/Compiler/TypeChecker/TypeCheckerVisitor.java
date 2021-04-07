@@ -2,10 +2,8 @@ package Compiler.TypeChecker;
 
 import Compiler.AntlrGenerated.LangBaseVisitor;
 import Compiler.AntlrGenerated.LangParser.*;
-import Compiler.SymbolTable.BaseType;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
-import Compiler.SymbolTable.Type;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 // WARNING: This might be a bad idea !!!
@@ -84,14 +82,14 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
     public Integer visitFunccall(FunccallContext ctx) {
         currentScope = scopes.get(ctx);
         Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
-        return symbol.getType().getType();
+        return symbol.getType();
     }
 
     @Override
     public Integer visitValId(ValIdContext ctx) {
         currentScope = scopes.get(ctx);
         Symbol symbol = currentScope.getSymbol(ctx.ID().getText());
-        return symbol.getType().getType();
+        return symbol.getType();
     }
 
     @Override
@@ -101,7 +99,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
         // Retrieve the function's return type from the symbol table
         currentScope = scopes.get(ctx);
         Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
-        Integer funcdefReturnType = symbol.getType().getType();
+        Integer funcdefReturnType = symbol.getType();
         int stmtType = visit(ctx.stmt());
 
         if(funcdefReturnType == stmtType) {
