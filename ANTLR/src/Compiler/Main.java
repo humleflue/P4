@@ -16,7 +16,9 @@ public class Main {
 
     public static void main(String[] args)  {
         String input = "number plus(number x, number y) = if (false) return 2; return 3; endf\n" +
-                "number mult(number x, number y) = return x * y; endf";
+                "number mult(number x, number y) = return x * y; endf\n" +
+                "plus(2, 3);\n" +
+                "bool returnsBool() = return true; endf";
 
         CharStream stream = CharStreams.fromString(input);
         LangLexer lexer = new LangLexer(stream);

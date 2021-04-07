@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/FunctionSymbol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/BaseType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/FunctionType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/Symbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolDefListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolDefListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/Type.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeCheckerVisitor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +107,7 @@
       <workItem from="1617608264301" duration="15360000" />
       <workItem from="1617637138469" duration="1612000" />
       <workItem from="1617796287792" duration="47000" />
-      <workItem from="1617796430628" duration="1162000" />
+      <workItem from="1617796430628" duration="4266000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>

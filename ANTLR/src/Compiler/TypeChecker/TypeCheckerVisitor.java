@@ -2,6 +2,7 @@ package Compiler.TypeChecker;
 
 import Compiler.AntlrGenerated.LangBaseVisitor;
 import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.SymbolTable.FunctionSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
@@ -10,6 +11,11 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 // This imports all of our enums from LangLexer,
 // so that we don't have to write LangLexer.NUMBERTYPE,
 // instead we can just write NUMBERTYPE
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import static Compiler.AntlrGenerated.LangLexer.*;
 
 public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
@@ -80,9 +86,36 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
 
     @Override
     public Integer visitFunccall(FunccallContext ctx) {
-        currentScope = scopes.get(ctx);
         Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
+        visitChildren(ctx);
         return symbol.getType();
+    }
+
+    @Override
+    public Integer visitExprparamsNotEmpty(ExprparamsNotEmptyContext ctx) {
+        //Gets lists of expression nodes in the actual parameters
+        List<ExprContext> params =  ctx.getRuleContexts(ExprContext.class);
+
+        ArrayList<Integer> actualTypes = new ArrayList<>();
+        for(int i = 0; i < params.size(); i++) {
+            Integer type = visit(ctx.expr(i));
+            actualTypes.add(type);
+        }
+//        List<Integer> exprParamTypes = params.stream().map(x -> x.start.getType())
+//                .collect(Collectors.toList()); // Convert stream to List
+        FunccallContext funccallContext = (FunccallContext) ctx.parent;
+        FunctionSymbol symbol = (FunctionSymbol) globalScope.getSymbol(funccallContext.ID().getText());
+        List<Integer> formalParamTypes = symbol.getParameterTypes();
+
+        for (int i = 0; i < actualTypes.size(); i++) {
+            Integer actualType = actualTypes.get(i);
+            Integer formalType = formalParamTypes.get(i);
+            if(actualType != formalType) {
+                throwTypeError(actualType, formalType);
+            }
+        }
+
+        return 0;
     }
 
     @Override
@@ -128,7 +161,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
         Integer returnType = null;
 
         int StmtsNotEmptyExprReturnType = visit(ctx.expr());
-        Integer expectedType = BOOLTYPE;
+        int expectedType = BOOLTYPE;
 
         if(StmtsNotEmptyExprReturnType == expectedType){
             returnType = StmtsNotEmptyExprReturnType;
