@@ -144,7 +144,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
         for (int i = 0; i < actualTypes.size(); i++) {
             Integer actualType = actualTypes.get(i);
             Integer formalType = formalParamTypes.get(i);
-            if(actualType.equals(formalType)) {
+            if(!actualType.equals(formalType)) {
                 throwTypeError(actualType, formalType);
             }
         }
