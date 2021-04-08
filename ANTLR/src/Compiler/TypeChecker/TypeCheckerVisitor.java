@@ -13,8 +13,6 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 // instead we can just write NUMBERTYPE
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static Compiler.AntlrGenerated.LangLexer.*;
 
@@ -22,10 +20,6 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
     // Scope stuff
     Scope globalScope;
     ParseTreeProperty<Scope> scopes;
-    Scope currentScope;
-
-    // Type stuff
-//    ParseTreeProperty<Type> types = new ParseTreeProperty<Type>();
 
     public TypeCheckerVisitor(Scope globalScope, ParseTreeProperty<Scope> scopes) {
         this.scopes = scopes;
@@ -101,8 +95,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
             Integer type = visit(ctx.expr(i));
             actualTypes.add(type);
         }
-//        List<Integer> exprParamTypes = params.stream().map(x -> x.start.getType())
-//                .collect(Collectors.toList()); // Convert stream to List
+
         FunccallContext funccallContext = (FunccallContext) ctx.parent;
         FunctionSymbol symbol = (FunctionSymbol) globalScope.getSymbol(funccallContext.ID().getText());
         List<Integer> formalParamTypes = symbol.getParameterTypes();
@@ -120,7 +113,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
 
     @Override
     public Integer visitValId(ValIdContext ctx) {
-        currentScope = scopes.get(ctx);
+        Scope currentScope = scopes.get(ctx);
         Symbol symbol = currentScope.getSymbol(ctx.ID().getText());
         return symbol.getType();
     }
@@ -130,7 +123,6 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
         Integer returnType = null;
 
         // Retrieve the function's return type from the symbol table
-        currentScope = scopes.get(ctx);
         Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
         Integer funcdefReturnType = symbol.getType();
         int stmtType = visit(ctx.stmt());

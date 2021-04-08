@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeCheckerVisitor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,17 +75,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
@@ -108,6 +96,7 @@
       <workItem from="1617637138469" duration="1612000" />
       <workItem from="1617796287792" duration="47000" />
       <workItem from="1617796430628" duration="4266000" />
+      <workItem from="1617864625986" duration="291000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
