@@ -149,7 +149,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
             }
         }
 
-        return 0; // This is an arbitrary Integer as this value is not used
+        return this.defaultResult(); // This is an arbitrary Integer as this value is not used
     }
 
     /**
