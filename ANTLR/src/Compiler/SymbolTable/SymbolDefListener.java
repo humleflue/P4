@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SymbolDefListener extends LangBaseListener{
-    public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<Scope>();
+    public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
     public BaseScope globalScope = new BaseScope();
     Scope currentScope;
 
@@ -25,12 +25,12 @@ public class SymbolDefListener extends LangBaseListener{
                 .getRuleContexts(FuncdefparamContext.class);
 
         //Might be usefull for type-checking. Delete otherwise
-        ArrayList<Integer> argumentList = new ArrayList<Integer>();
+        ArrayList<Integer> argumentList = new ArrayList<>();
         for (FuncdefparamContext param : params){
             argumentList.add(param.start.getType());
         }
 
-        FunctionSymbol symbol = new FunctionSymbol(ctx.ID().getText(), ctx.start.getType(), argumentList);
+        FuncdefSymbol symbol = new FuncdefSymbol(ctx.ID().getText(), ctx.start.getType(), argumentList);
         currentScope.defineSymbol(symbol);
         Scope newScope = new BaseScope(currentScope);
         attachScope(ctx, newScope);

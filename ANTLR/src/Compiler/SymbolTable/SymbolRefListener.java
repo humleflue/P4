@@ -4,8 +4,6 @@ import Compiler.AntlrGenerated.LangBaseListener;
 import Compiler.AntlrGenerated.LangParser.*;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
-import java.util.function.Function;
-
 public class SymbolRefListener extends LangBaseListener{
     ParseTreeProperty<Scope> scopes;
     Scope globalScope;
@@ -48,7 +46,7 @@ public class SymbolRefListener extends LangBaseListener{
                               .size();
         }
 
-        FunctionSymbol function = (FunctionSymbol) currentScope.getSymbol(ctx.ID().getText());
+        FuncdefSymbol function = (FuncdefSymbol) currentScope.getSymbol(ctx.ID().getText());
         Integer functionType = function.getType();
         int expectedArgCount = function.getParameterTypes().size();
 
