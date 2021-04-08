@@ -44,10 +44,8 @@ public class LangTestCase {
     private final String GRAY = "\u001B[37m";
     private final String RESET = "\u001B[0m";
 
-    // Used to capture Error output
-    // 'baos' contains errors from ANTLER
-    private ByteArrayOutputStream baos;
-    private PrintStream old;
+    // Contains errors from ANTLER
+    private ByteArrayOutputStream capturedErrorOutput;
 
     /**
      *  Tests case for checking input program is parsed by ANTLER parser
@@ -81,24 +79,30 @@ public class LangTestCase {
         this.lexerTokensStr = lexerTokensStringBuilder.toString().replaceFirst(".$","");
     }
 
-    // Copied from: https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
-    // Captures output insted of sending it to stdout. This is used for propper formatting of errors.
-    private void CaptureStdout(){
-        // Create a stream to hold the output
-        baos = new ByteArrayOutputStream();
-        PrintStream ps = new PrintStream(baos);
-        // IMPORTANT: Save the old System.out!
-        old = System.err;
-        // Tell Java to use your special stream
-        System.setErr(ps);
+    /**
+     *  Captures output instead of sending it to error output. This is used for proper formatting of errors.
+     */
+    private void captureErrOut(){
+        // Makes sure all output is out of the buffer.
+        System.err.flush();
+        
+        // This variable is used to read errors from, by using .toString();
+        capturedErrorOutput = new ByteArrayOutputStream();
+        
+        // Sets the error output to go to 'capturedErrorOutput' instead of the console.
+        System.setErr(new PrintStream(capturedErrorOutput));
     }
 
-    // Copied from: https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
-    private String SaveAndFlushCaptureStdout(){
-        // Put things back
-        System.out.flush();
-        System.setErr(old);
-        return baos.toString();
+    /**
+     * @return returns captured error output
+     */
+    private String stopCapturingErrOut(){
+        System.err.flush();
+        
+        // Set errors to go to console again.
+        System.setErr(System.out);
+        
+        return capturedErrorOutput.toString();
     }
 
     /**
@@ -111,7 +115,7 @@ public class LangTestCase {
         CommonTokenStream tokens = null;
 
         // Capture error from ANTLER and don't send them to System.out yet.
-        CaptureStdout();
+        captureErrOut();
 
         try{
             tokens = compileProg();
@@ -122,14 +126,14 @@ public class LangTestCase {
         }
 
         // Stop capturing ANTLER errors and save them to class variable 'baos'
-        SaveAndFlushCaptureStdout();
+        stopCapturingErrOut();
 
         if (this.lexerTokens.isEmpty() == false){
             assert tokens != null;
             testCaseSuccess = lexerTokensValidation(tokens);
         }
         // If test should pass and error occurred OR test passed but should fail
-        else if (this.shouldPass != null && this.shouldPass != baos.toString().isEmpty()){
+        else if (this.shouldPass != null && this.shouldPass != capturedErrorOutput.toString().isEmpty()){
             errorOccurred((this.shouldPass) ? "Failed but should succeed"
                                             : "Succeeded but should fail",
                                     this, new String[]{});
@@ -207,11 +211,11 @@ public class LangTestCase {
      * @param points        Further information about the problem (string array)
      */
     private void printTestResult(String description, LangTestCase langTestCase, String[] points){
-        String[] antlrErrors = baos.toString().split("\n");
+        String[] antlrErrors = capturedErrorOutput.toString().split("\n");
         String[] testInput = langTestCase.test.split("\n");
 
         // Add ANTLER errors if any exist
-        if (baos.toString().isEmpty() == false)
+        if (capturedErrorOutput.toString().isEmpty() == false)
             testInput = addRedColorsToTestInput(testInput, antlrErrors);
 
         System.out.println(YELLOW + description);
