@@ -88,7 +88,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
                 returnType = checkBinaryOpType(left, right, ctx, NUMBERTYPE);
             case LOGEQ, LOGNOTEQ, LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ, LOGAND, LOGOR ->
                 returnType = checkBinaryOpType(left, right, ctx, BOOLTYPE);
-            default -> throw new IllegalArgumentException("This should not happen.");
+            default -> throw new IllegalArgumentException("Type not found by typechecker.");
         }
 
         return returnType;
