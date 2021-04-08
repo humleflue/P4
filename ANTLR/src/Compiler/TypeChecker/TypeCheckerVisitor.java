@@ -7,13 +7,13 @@ import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // WARNING: This might be a bad idea !!!
 // This imports all of our enums from LangLexer,
 // so that we don't have to write LangLexer.NUMBERTYPE,
 // instead we can just write NUMBERTYPE
-import java.util.ArrayList;
-import java.util.List;
-
 import static Compiler.AntlrGenerated.LangLexer.*;
 
 public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
