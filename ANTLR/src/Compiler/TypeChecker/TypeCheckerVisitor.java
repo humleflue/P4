@@ -26,8 +26,8 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
      * @param scopes A hash map used for finding the scope of a tree node.
      */
     public TypeCheckerVisitor(Scope globalScope, ParseTreeProperty<Scope> scopes) {
-        this.scopes = scopes;
         this.globalScope = globalScope;
+        this.scopes = scopes;
     }
 
     /**
