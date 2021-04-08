@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/Lang.g4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/generatefiles.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/AntlrGenerated/rmfiles.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Lang.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,19 +67,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
@@ -98,6 +83,7 @@
       <option name="presentableId" value="Default" />
       <updated>1617381247052</updated>
       <workItem from="1617381251246" duration="2220000" />
+      <workItem from="1617865637742" duration="588000" />
     </task>
     <servers />
   </component>

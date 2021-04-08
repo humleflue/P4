@@ -19,16 +19,10 @@ stmt : expr SEMICOLON ;
 expr : val                                                                    #value
      | op=NEGATE val                                                          #uneryOp
      | left=expr op=POW right=expr                                            #binaryOp
-     | left=expr op=DIVIDE right=expr                                         #binaryOp
-     | left=expr op=MULTIPLY right=expr                                       #binaryOp
-     | left=expr op=PLUS right=expr                                           #binaryOp
-     | left=expr op=MINUS right=expr                                          #binaryOp
-     | left=expr op=LOGEQ right=expr                                          #binaryOp
-     | left=expr op=LOGNOTEQ right=expr                                       #binaryOp
-     | left=expr op=LOGLESS right=expr                                        #binaryOp
-     | left=expr op=LOGGREATER right=expr                                     #binaryOp
-     | left=expr op=LOGLESSOREQ right=expr                                    #binaryOp
-     | left=expr op=LOGGREATEROREQ right=expr                                 #binaryOp
+     | left=expr op=(DIVIDE|MULTIPLY) right=expr                                         #binaryOp
+     | left=expr op=(PLUS|MINUS) right=expr                                           #binaryOp
+     | left=expr op=LOGRELATION right=expr                                    #binaryOp
+     | left=expr op=LOGEQUALITY right=expr                                       #binaryOp
      | left=expr op=LOGAND right=expr                                         #binaryOp
      | left=expr op=LOGOR right=expr                                          #binaryOp
      ;
@@ -66,8 +60,10 @@ LCURLY : '{' ;
 RCURLY : '}' ;
 LOGOR : '||' ;
 LOGAND : '&&' ;
+LOGEQUALITY : (LOGEQ | LOGNOTEQ) ;
 LOGEQ : '==' ;
 LOGNOTEQ : '!=' ;
+LOGRELATION : (LOGLESS | LOGGREATER | LOGLESSOREQ | LOGGREATEROREQ) ;
 LOGLESS : '<' ;
 LOGGREATER : '>' ;
 LOGLESSOREQ : '<=' ;
