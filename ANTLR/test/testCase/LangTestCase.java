@@ -151,7 +151,7 @@ public class LangTestCase {
 
     private boolean lexerTokensValidation(CommonTokenStream tokens){
         boolean testSuccess = false;
-        String actualLexerTokenStr = checkTokensAndPrettyPrintTokens(tokens.getTokens());
+        String actualLexerTokenStr = checkAndPrettyPrintTokens(tokens.getTokens());
 
         if (tokensOutOfRange == true)
             errorOccurred("Pass failed because expected token stream and actual token stream did not have the same size",
@@ -169,7 +169,7 @@ public class LangTestCase {
         return testSuccess;
     }
 
-    public String checkTokensAndPrettyPrintTokens(List<Token> tokens){
+    public String checkAndPrettyPrintTokens(List<Token> tokens){
         int tokenNumb = 0;
         tokensDoesMatch = true;
         tokensOutOfRange = false;
@@ -200,7 +200,7 @@ public class LangTestCase {
      * Prints test results
      * @param description   Short description describing the problem
      * @param langTestCase  The test program input as String
-     * @param points        Further information about the problem
+     * @param points        Further information about the problem (string array)
      */
     private void printTestResult(String description, LangTestCase langTestCase, String[] points){
         String[] antlrErrors = baos.toString().split("\n");
@@ -274,8 +274,8 @@ public class LangTestCase {
             skipChars = 0;
         errorPosition += skipChars;
 
-        // Catch 'mismatchedString' being out of bunch.
-        // This only happen then it matches something at string end etc. missing <EOF>
+        // Catch 'mismatchedString' being out of bound.
+        // This should only happen then it matches something at string end etc. missing <EOF>
         try {
             // Get input line from test case input program
             mismatchedString = testInputLine.substring(errorPosition, errorPosition + errorTestInputLength);
