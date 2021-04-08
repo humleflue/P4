@@ -5,7 +5,7 @@ import Compiler.AntlrGenerated.LangParser.*;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class SymbolRefListener extends LangBaseListener{
-    ParseTreeProperty<Scope> scopes = new ParseTreeProperty<Scope>();
+    ParseTreeProperty<Scope> scopes;
     Scope globalScope;
     Scope currentScope;
 
@@ -45,13 +45,14 @@ public class SymbolRefListener extends LangBaseListener{
                               .getRuleContexts(ExprContext.class)
                               .size();
         }
-        FunctionType functionType = (FunctionType) currentScope.getSymbol(ctx.ID().getText()).getType();
-        int expectedArgCount = functionType.getArgumentTypeList().size();
+
+        FuncdefSymbol function = (FuncdefSymbol) currentScope.getSymbol(ctx.ID().getText());
+        Integer functionType = function.getType();
+        int expectedArgCount = function.getParameterTypes().size();
 
         if(callArgCount != expectedArgCount) {
             throw new IllegalArgumentException(ctx.ID().getText() + " expects " + expectedArgCount + " arguments but was called with " + callArgCount);
         }
-
     }
 
     void CheckSymbol(String name) throws IllegalArgumentException {
