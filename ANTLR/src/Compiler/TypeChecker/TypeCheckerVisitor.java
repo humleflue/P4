@@ -70,7 +70,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
         String leftType = VOCABULARY.getLiteralName(type1);
         String rightType = VOCABULARY.getLiteralName(type2);
         throw new IllegalArgumentException(
-                String.format("Incompatible type: Type %s is incompatible with %s. %s.",
+                String.format("Incompatible type: Type %s is incompatible with %s. %s",
                         leftType, rightType, optionalText)
         );
     }
