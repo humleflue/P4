@@ -68,15 +68,17 @@ public class LangTestCase {
     public LangTestCase(String test, List<Integer> lexerValues){
         this.test = test;
         this.lexerTokens = lexerValues;
-        this.lexerTokensStr = "";
 
+        StringBuilder lexerTokensStringBuilder = new StringBuilder();
         // Convert Lexer tokens to user readable string
         for (int tokenEnum : lexerTokens) {
-            this.lexerTokensStr += "<" + LangLexer.VOCABULARY.getSymbolicName(tokenEnum) + "> ";
+            lexerTokensStringBuilder.append("<")
+                                    .append(LangLexer.VOCABULARY.getSymbolicName(tokenEnum))
+                                    .append("> ");
         }
 
         // Remove last space
-        this.lexerTokensStr.replaceFirst(".$","");
+        this.lexerTokensStr = lexerTokensStringBuilder.toString().replaceFirst(".$","");
     }
 
     // Copied from: https://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
@@ -102,9 +104,8 @@ public class LangTestCase {
     /**
      * Runs this test.
      * @return <code>true</code> for pass and <code>false</code> for failure.
-     * @throws IOException
      */
-    public boolean test() throws IOException
+    public boolean test()
     {
         boolean testCaseSuccess = true;
         CommonTokenStream tokens = null;
@@ -124,6 +125,7 @@ public class LangTestCase {
         SaveAndFlushCaptureStdout();
 
         if (this.lexerTokens.isEmpty() == false){
+            assert tokens != null;
             testCaseSuccess = lexerTokensValidation(tokens);
         }
         // If test should pass and error occurred OR test passed but should fail
@@ -138,7 +140,7 @@ public class LangTestCase {
     }
 
     private CommonTokenStream compileProg() throws IOException {
-        CommonTokenStream tokens = null;
+        CommonTokenStream tokens;
 
         CodePointCharStream stream = CharStreams.fromReader(new StringReader(this.test));
         LangLexer lexer = new LangLexer(stream);
@@ -173,7 +175,7 @@ public class LangTestCase {
         int tokenNumb = 0;
         tokensDoesMatch = true;
         tokensOutOfRange = false;
-        String prettyPrintedTokens = "";
+        StringBuilder prettyPrintedTokens = new StringBuilder();
 
         for (Token token : tokens){
             if (this.lexerTokens.size() <= tokenNumb)
@@ -181,12 +183,14 @@ public class LangTestCase {
             else if (token.getType() != this.lexerTokens.get(tokenNumb))
                 tokensDoesMatch = false;
 
-            prettyPrintedTokens += "<" + LangLexer.VOCABULARY.getSymbolicName(token.getType()) + "> ";
+            prettyPrintedTokens.append("<")
+                               .append(LangLexer.VOCABULARY.getSymbolicName(token.getType()))
+                               .append("> ");
             tokenNumb++;
         }
 
         // Remove last space
-        return prettyPrintedTokens.replaceFirst(".$","");
+        return prettyPrintedTokens.toString().replaceFirst(".$","");
     }
 
     /**

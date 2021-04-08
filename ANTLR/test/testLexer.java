@@ -8,15 +8,11 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import testCase.LangTestCase;
 
 import java.io.IOException;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-// import Compiler.Lang.BuildASTVisitor;
-// import Compiler.Lang.Nodes.Abstract.Node;
 
 public class testLexer {
     private final String testPath = "TestLexerData/";
@@ -31,7 +27,7 @@ public class testLexer {
     void newLine(String testAsString, int shouldPass) throws IOException {
         LangTestCase testCase = new LangTestCase(unescape(testAsString), (shouldPass == 1));
 
-        Boolean testCaseSuccess = testCase.test();
+        boolean testCaseSuccess = testCase.test();
 
         assertTrue(testCaseSuccess);
     }
@@ -42,7 +38,7 @@ public class testLexer {
     void declarations(String testAsString, int shouldPass) throws IOException {
         LangTestCase testCase = new LangTestCase(unescape(testAsString), (shouldPass == 1));
 
-        Boolean testCaseSuccess = testCase.test();
+        boolean testCaseSuccess = testCase.test();
 
         assertTrue(testCaseSuccess);
     }
@@ -53,7 +49,7 @@ public class testLexer {
     void expressions(String testAsString, int shouldPass) throws IOException {
         LangTestCase testCase = new LangTestCase(unescape(testAsString), (shouldPass == 1));
 
-        Boolean testCaseSuccess = testCase.test();
+        boolean testCaseSuccess = testCase.test();
 
         assertTrue(testCaseSuccess);
     }
@@ -61,10 +57,10 @@ public class testLexer {
     @ParameterizedTest
     @DisplayName("if else tests")
     @CsvFileSource(resources = testPath + "ifElseTests.csv", numLinesToSkip = 1, delimiter=';')
-    void ifelse(String testAsString, int shouldPass) throws IOException {
+    void if_else(String testAsString, int shouldPass) throws IOException {
         LangTestCase testCase = new LangTestCase(unescape(testAsString), (shouldPass == 1));
 
-        Boolean testCaseSuccess = testCase.test();
+        boolean testCaseSuccess = testCase.test();
 
         assertTrue(testCaseSuccess);
     }
@@ -75,7 +71,7 @@ public class testLexer {
     void functionsTest(String testAsString, int shouldPass) throws IOException {
         LangTestCase testCase = new LangTestCase(unescape(testAsString), (shouldPass == 1));
 
-        Boolean testCaseSuccess = testCase.test();
+        boolean testCaseSuccess = testCase.test();
 
         assertTrue(testCaseSuccess);
     }
