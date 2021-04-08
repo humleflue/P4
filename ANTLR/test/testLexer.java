@@ -1,24 +1,22 @@
 //package Compiler.Test;
-import Compiler.Lang.LangLexer;
-import junit.framework.TestCase;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
+
+import Compiler.AntlrGenerated.LangLexer;
 import testCase.LangTestCase;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import testCase.LangTestCase;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // import Compiler.Lang.BuildASTVisitor;
 // import Compiler.Lang.Nodes.Abstract.Node;
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.BooleanSupplier;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class testLexer {
     private final String testPath = "TestLexerData/";
@@ -81,16 +79,41 @@ public class testLexer {
 
         assertTrue(testCaseSuccess);
     }
-    @Test
-    @DisplayName("Testcases that should be valid")
-    public void TestLexerCases() throws IOException {
-        Assertions.assertAll(
-                () -> assertTrue(new LangTestCase("number test() = 2;", Arrays.asList(LangLexer.NUMBERTYPE, LangLexer.ID,
-                                    LangLexer.LPAREN, LangLexer.RPAREN, LangLexer.ASSIGN, LangLexer.NUMLITERAL, LangLexer.SEMICOLON,
-                                    LangLexer.EOF)).test()),
-                () -> assertTrue(new LangTestCase("number test(number numb1) = 2;", Arrays.asList(LangLexer.NUMBERTYPE,
-                                    LangLexer.ID, LangLexer.LPAREN, LangLexer.NUMBERTYPE, LangLexer.ID, LangLexer.RPAREN,
-                                    LangLexer.ASSIGN, LangLexer.NUMLITERAL, LangLexer.SEMICOLON, LangLexer.EOF)).test())
-        );
+
+    @Nested
+    @DisplayName("Tests by Lexer tokens order, types and amount")
+    class LexerTokensTests {
+        @Test
+        void functionDefinition() throws IOException{
+            // Arrange
+            String test = "number test() = return 2; endf";
+            //System.out.println(test);
+            LangTestCase testCase = new LangTestCase(test, Arrays.asList(LangLexer.NUMBERTYPE, LangLexer.ID,
+                    LangLexer.LPAREN, LangLexer.RPAREN, LangLexer.ASSIGN, LangLexer.RETURN, LangLexer.NUMLITERAL, LangLexer.SEMICOLON,
+                    LangLexer.ENDF, LangLexer.EOF));
+
+            // Act
+            boolean result = testCase.test();
+
+            // Assert
+            assertTrue(result);
+        }
+
+        @Test
+        void  parameterizedFunctionDefinition() throws IOException {
+            // Arrange
+            String test = "number test(number numb1) = return 2; endf";
+            System.out.println(test);
+            LangTestCase testCase = new LangTestCase(test, Arrays.asList(LangLexer.NUMBERTYPE,
+                    LangLexer.ID, LangLexer.LPAREN, LangLexer.NUMBERTYPE, LangLexer.ID, LangLexer.RPAREN,
+                    LangLexer.ASSIGN, LangLexer.RETURN, LangLexer.NUMLITERAL, LangLexer.SEMICOLON,
+                    LangLexer.ENDF, LangLexer.EOF));
+
+            // Act
+            boolean result = testCase.test();
+
+            // Assert
+            assertTrue(result);
+        }
     }
 }

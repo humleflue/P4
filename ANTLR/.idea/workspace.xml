@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test/tempTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ANTLR.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ANTLR.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestSymboltable.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestSymboltable.java" afterDir="false" />
-    </list>
-    <list id="a8b5140c-9b35-4440-8455-22c682786a1a" name="Changes by info" comment="">
-      <change beforePath="$PROJECT_DIR$/test/TestSymboltable.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestSymboltable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestLexerData/newLineTests.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestLexerData/newLineTests.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testCase/LangTestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/testCase/LangTestCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/testLexer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,21 +31,6 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/test/TestSymboltable.java">
-      <ranges>
-        <range start1="2" end1="2" start2="2" end2="4" changelist="a8b5140c-9b35-4440-8455-22c682786a1a" />
-        <range start1="6" end1="6" start2="8" end2="9" changelist="a8b5140c-9b35-4440-8455-22c682786a1a" />
-        <range start1="20" end1="21" start2="23" end2="24" changelist="ec002e3b-f500-4cca-aa7f-57cd4de3b265" />
-        <range start1="24" end1="24" start2="27" end2="35" changelist="ec002e3b-f500-4cca-aa7f-57cd4de3b265" />
-        <range start1="25" end1="27" start2="36" end2="38" changelist="ec002e3b-f500-4cca-aa7f-57cd4de3b265" />
-        <range start1="29" end1="29" start2="40" end2="42" changelist="ec002e3b-f500-4cca-aa7f-57cd4de3b265" />
-        <range start1="30" end1="31" start2="43" end2="45" changelist="ec002e3b-f500-4cca-aa7f-57cd4de3b265" />
-        <range start1="33" end1="34" start2="47" end2="48" changelist="ec002e3b-f500-4cca-aa7f-57cd4de3b265" />
-        <range start1="35" end1="35" start2="49" end2="65" changelist="a8b5140c-9b35-4440-8455-22c682786a1a" />
-      </ranges>
-    </file>
   </component>
   <component name="ProjectId" id="1qcaGocVwLkoEKS1iZtdAzeICch" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -75,14 +59,25 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.tempTest">
+  <component name="RunManager" selected="JUnit.testLexer">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
@@ -92,17 +87,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
