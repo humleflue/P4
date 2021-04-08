@@ -1,7 +1,6 @@
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
 import Compiler.SymbolTable.SymbolDefListener;
-import Compiler.SymbolTable.SymbolRefListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -13,6 +12,10 @@ import java.io.IOException;
 import java.io.StringReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/*
+ * DENNE FIL ER IKKE KLAR TIL REVIEW ENDNU!
+ */
 
 public class TestSymboltable {
 
@@ -48,6 +51,7 @@ public class TestSymboltable {
         assertEquals(expected, actual);
     }
 
+    /* Work in progress...
     @Test
     @DisplayName("Check scopes'")
     public void scopeCheck() throws IOException {
@@ -63,4 +67,5 @@ public class TestSymboltable {
         System.out.println("test");
         assertEquals(expected, true);
     }
+    */
 }
