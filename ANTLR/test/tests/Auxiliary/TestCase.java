@@ -1,4 +1,4 @@
-package testCase;
+package tests.Auxiliary;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,14 +17,14 @@ import java.util.*;
 /**
  * Class holding test data for testing of parser and lexer, and the {@link #test()}, method for executing the test.
  *
- * Use constructor <code>LangTestCase(String test, Boolean shouldPass)</code> to test
+ * Use constructor <code>testCase(String test, Boolean shouldPass)</code> to test
  * if input program is passed successfully my ANTLER parser.
  *
- * Use constructor <code>LangTestCase(String test, List<Integer> lexerValues)</code> to test
+ * Use constructor <code>testCase(String test, List<Integer> lexerValues)</code> to test
  * if input program produce ANTLER lexer tokens matching provided list of ANTLER tokens.
  * An ANTLER token is etc. <code>LangLexer.NUMBERTYPE</code>.
  */
-public class LangTestCase {
+public class TestCase {
     public String test;
     public List<Integer> lexerTokens = new ArrayList<>();
     public String lexerTokensStr = null;
@@ -49,7 +49,7 @@ public class LangTestCase {
      * @param test          Test input as a String
      * @param shouldPass    <code>true</code> if test should pass, and <code>false</code> if test should fail
      */
-    public LangTestCase(String test, Boolean shouldPass) {
+    public TestCase(String test, Boolean shouldPass) {
         this.test = test;
         this.shouldPass = shouldPass;
     }
@@ -60,7 +60,7 @@ public class LangTestCase {
      * @param lexerValues   List of Lexer Tokens denoted by etc. <code>LangLexer.NUMBERTYPE</code> (enum)
      */
     // Lexer values are enums and are therefor integers.
-    public LangTestCase(String test, List<Integer> lexerValues){
+    public TestCase(String test, List<Integer> lexerValues){
         this.test = test;
         this.lexerTokens = lexerValues;
 
@@ -195,21 +195,21 @@ public class LangTestCase {
     }
 
     /**
-     * Handle Error. See {@link #printTestResult(String, LangTestCase, String[])} for more details.
+     * Handle Error. See {@link #printTestResult(String, TestCase, String[])} for more details.
      */
-    private void errorOccurred(String description, LangTestCase langTestCase, String[] points){
-        printTestResult(description, langTestCase, points);
+    private void errorOccurred(String description, TestCase testCase, String[] points){
+        printTestResult(description, testCase, points);
     }
 
     /**
      * Prints test results
      * @param description   Short description describing the problem
-     * @param langTestCase  The test program input as String
+     * @param testCase  The test program input as String
      * @param points        Further information about the problem (string array)
      */
-    private void printTestResult(String description, LangTestCase langTestCase, String[] points){
+    private void printTestResult(String description, TestCase testCase, String[] points){
         String[] antlrErrors = capturedErrorOutput.toString().split("\n");
-        String[] testInput = langTestCase.test.split("\n");
+        String[] testInput = testCase.test.split("\n");
 
         // Add ANTLER errors if any exist
         if (capturedErrorOutput.toString().isEmpty() == false)
@@ -314,5 +314,14 @@ public class LangTestCase {
         CommonTokenStream tokens = new CommonTokenStream(ts);
 
         return new LangParser(tokens);
+    }
+
+    static public ParseTree createTree(String testSourceCode) throws IOException {
+        CodePointCharStream stream = CharStreams.fromReader(new StringReader(testSourceCode));
+        LangLexer lexer = new LangLexer(stream);
+        var tokens = new CommonTokenStream(lexer);
+        LangParser parser = new LangParser(tokens);
+        ParseTree tree = parser.prog();
+        return tree;
     }
 }

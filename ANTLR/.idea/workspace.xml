@@ -2,14 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Corrected wrong refactoring.">
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/Lang.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/Lang.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangBaseListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangLexer.interp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangLexer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangLexer.tokens" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang/LangParser.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/correctReturnType.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestLexerData/declarationTests.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer/declarationTests.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestLexerData/expressionsTest.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer/expressionsTest.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestLexerData/functionsTest.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer/functionsTest.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestLexerData/ifelseTests.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer/ifelseTests.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestLexerData/newLineTests.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer/newLineTests.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestSymboltable.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Symboltable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestTestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Auxiliary/TestTestCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tempTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/temp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testCase/LangTestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Auxiliary/TestCase.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +70,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\GitRepos\P4\ANTLR\test\tests\Lexer\Data" />
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
   </component>
@@ -93,13 +99,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -112,28 +120,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestLexer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LexerTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ANTLR" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestLexer" />
+      <option name="PACKAGE_NAME" value="tests.Lexer" />
+      <option name="MAIN_CLASS_NAME" value="tests.Lexer.LexerTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestSymboltable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SymbolTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ANTLR" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestSymboltable" />
+      <option name="PACKAGE_NAME" value="tests.SymbolTable" />
+      <option name="MAIN_CLASS_NAME" value="tests.SymbolTable.SymbolTable" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="tempTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="temp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ANTLR" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="tempTest" />
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.temp" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -142,10 +150,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in ANTLR" />
-        <item itemvalue="JUnit.TestLexer" />
-        <item itemvalue="JUnit.tempTest" />
-        <item itemvalue="JUnit.TestSymboltable" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.LexerTests" />
+        <item itemvalue="JUnit.tempTest" />
+        <item itemvalue="JUnit.SymbolTable" />
       </list>
     </recent_temporary>
   </component>
@@ -169,6 +177,7 @@
       <workItem from="1617637138469" duration="1612000" />
       <workItem from="1617796287792" duration="47000" />
       <workItem from="1617796430628" duration="4266000" />
+      <workItem from="1617971584981" duration="4428000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>

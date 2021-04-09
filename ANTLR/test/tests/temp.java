@@ -1,3 +1,5 @@
+package tests;
+
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
 import Compiler.SymbolTable.SymbolDefListener;
@@ -15,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
-public class tempTest {
+public class temp {
     public ParseTree createTree(String test) throws IOException {
         CodePointCharStream stream = CharStreams.fromReader(new StringReader(test));
         LangLexer lexer = new LangLexer(stream);
