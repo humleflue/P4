@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Corrected wrong refactoring.">
-      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/correctReturnType.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestLexerData/declarationTests.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer/declarationTests.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestLexerData/expressionsTest.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer/expressionsTest.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestLexerData/functionsTest.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer/functionsTest.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestLexerData/ifelseTests.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer/ifelseTests.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestLexerData/newLineTests.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer/newLineTests.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestSymboltable.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Symboltable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestTestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Auxiliary/TestTestCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tempTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/temp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testCase/LangTestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Auxiliary/TestCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ANTLR.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/Auxiliary/TestTestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Auxiliary/TestCaseTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +168,7 @@
       <workItem from="1617637138469" duration="1612000" />
       <workItem from="1617796287792" duration="47000" />
       <workItem from="1617796430628" duration="4266000" />
-      <workItem from="1617971584981" duration="4428000" />
+      <workItem from="1617971584981" duration="6299000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>

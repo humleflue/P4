@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Tests the LangTestCase class we created
  */
-public class TestTestCase {
+public class TestCaseTests {
     @Test
     @DisplayName("Generate Parser from tokens")
     void  parameterizedFunctionDefinition() throws Exception {

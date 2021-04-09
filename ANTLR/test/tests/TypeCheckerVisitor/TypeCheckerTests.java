@@ -8,12 +8,10 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.api.Assertions;
 import tests.Auxiliary.TestCase;
 
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TypeCheckerTests {
     private ParseTree tree;
@@ -37,7 +35,7 @@ public class TypeCheckerTests {
         generateTreeWithSymbols(testSourceCode);
         ParseTreeVisitor visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
         // Act & Assert
-        assertDoesNotThrow(() -> visitor.visit(tree));
+        Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
     }
 
     @ParameterizedTest
@@ -47,7 +45,7 @@ public class TypeCheckerTests {
         generateTreeWithSymbols(testSourceCode);
         ParseTreeVisitor visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
         // Act & Assert
-        assertThrows(RuntimeException.class, () -> visitor.visit(tree));
+        Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }
 
 }
