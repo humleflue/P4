@@ -5,14 +5,13 @@ import Compiler.AntlrGenerated.LangParser;
 import Compiler.AntlrGenerated.LangVisitor;
 import Compiler.SymbolTable.SymbolDefListener;
 import Compiler.SymbolTable.SymbolRefListener;
-import Compiler.TypeChecker.TypeChecker;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ParserRuleContext;
+import Compiler.TypeChecker.TypeCheckerVisitor;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+
+import java.util.Arrays;
 
 public class Main {
 
@@ -21,7 +20,9 @@ public class Main {
 
         CharStream stream = CharStreams.fromString(input);
         LangLexer lexer = new LangLexer(stream);
+        //lexer.
         CommonTokenStream tokens = new CommonTokenStream(lexer);
+        
         LangParser parser = new LangParser(tokens);
 
         System.out.println("Building CST...");

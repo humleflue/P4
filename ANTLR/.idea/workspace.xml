@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/test/TestTestCase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/TestSymboltable.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestSymboltable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tempTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tempTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testCase/LangTestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/testCase/LangTestCase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/testLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestLexer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,6 +139,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in ANTLR" />
+        <item itemvalue="JUnit.TestLexer" />
         <item itemvalue="JUnit.tempTest" />
         <item itemvalue="JUnit.TestSymboltable" />
         <item itemvalue="Application.Main" />

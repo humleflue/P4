@@ -5,10 +5,7 @@ import java.util.regex.Pattern;
 
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CodePointCharStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.ByteArrayOutputStream;
@@ -256,9 +253,8 @@ public class LangTestCase {
         for (String line : antlrErrors){
             matcher = inputPattern.matcher(line);
             // Matches RegEx and finds first result.
-            if (matcher.find()) {
+            if (matcher.find())
                 testInput = addRedColorError(matcher, testInput);
-            }
             else
                 throw new IndexOutOfBoundsException("Could not understand ANTLER error:\n\t".concat(line));
         }
@@ -300,5 +296,23 @@ public class LangTestCase {
         }
 
         return testInput;
+    }
+
+    /**
+     * Converts list of tokens represented by integers to a parser.
+     * @param tokensAsIntegers List of tokens represented by integers. Use <code>LangLexer.INSERT_TYPE_HERE</code> to get integer.
+     * @return A ANTLER parser
+     */
+    static public LangParser getParserFromTokens(List<Integer> tokensAsIntegers) {
+        List<CommonToken> commonTokens = new ArrayList<CommonToken>();
+        for (int i : tokensAsIntegers){
+            commonTokens.add(new CommonToken(i));
+        }
+
+        ListTokenSource ts = new ListTokenSource(commonTokens);
+
+        CommonTokenStream tokens = new CommonTokenStream(ts);
+
+        return new LangParser(tokens);
     }
 }
