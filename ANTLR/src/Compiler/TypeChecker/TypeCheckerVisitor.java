@@ -39,16 +39,10 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
      * @param expectedType The expected type of {@param left} and {@param right}
      * @return Returns {@param expectedType} if the types are compatible. Throws an error if the types are incompatible.
      */
-    private Integer checkBinaryOpType(Integer left, Integer right, BinaryOpContext ctx, Integer expectedType) {
-        Integer returnType = null;
-        if(left.equals(expectedType) && right.equals(expectedType)) {
-            returnType =  expectedType;
-        }
-        else {
+    private void checkBinaryOpType(Integer left, Integer right, BinaryOpContext ctx) {
+        if(!left.equals(right)) {
             throwTypeError(left, right, "On operation " + ctx.op.getText());
         }
-
-        return returnType;
     }
 
     /**
@@ -83,11 +77,12 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
 
+        checkBinaryOpType(left, right, ctx);
         switch (ctx.op.getType()) {
             case PLUS, MINUS, MULTIPLY, DIVIDE, POW ->
-                returnType = checkBinaryOpType(left, right, ctx, NUMBERTYPE);
-            case LOGEQ, LOGNOTEQ, LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ, LOGAND, LOGOR ->
-                returnType = checkBinaryOpType(left, right, ctx, BOOLTYPE);
+                returnType = NUMBERTYPE;
+            case LOGAND, LOGOR, LOGEQ, LOGNOTEQ, LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ ->
+                returnType = BOOLTYPE;
             default -> throw new IllegalArgumentException("Type not found by typechecker.");
         }
 

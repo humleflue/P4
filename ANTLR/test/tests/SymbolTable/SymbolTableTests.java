@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * DENNE FIL ER IKKE KLAR TIL REVIEW ENDNU!
  */
 
-public class SymbolTable {
+public class SymbolTableTests {
     private SymbolDefListener getWalker(ParseTree tree) throws IOException {
         ParseTreeWalker walker = new ParseTreeWalker();
 

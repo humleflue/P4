@@ -1,4 +1,0 @@
-"number func() = return true; endf"
-"number func() = return false; endf"
-"bool func() = return 2; endf"
-"bool func() = return 2.5; endf"
