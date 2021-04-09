@@ -12,6 +12,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args)  {
@@ -22,7 +24,9 @@ public class Main {
 
         CharStream stream = CharStreams.fromString(input);
         LangLexer lexer = new LangLexer(stream);
+        //lexer.
         CommonTokenStream tokens = new CommonTokenStream(lexer);
+        
         LangParser parser = new LangParser(tokens);
 
         System.out.println("Building CST...");
