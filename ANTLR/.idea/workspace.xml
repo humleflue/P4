@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test/TestTestCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testCase/LangTestCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/testCase/LangTestCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestLexer.java" afterDir="false" />
-    </list>
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -160,7 +154,7 @@
       <workItem from="1617793810457" duration="5088000" />
       <workItem from="1617969200088" duration="597000" />
       <workItem from="1617969828857" duration="131000" />
-      <workItem from="1617969986129" duration="325000" />
+      <workItem from="1617969986129" duration="633000" />
     </task>
     <servers />
   </component>
