@@ -43,7 +43,7 @@ public class tempTest {
 
         // Act
         int expected = LangLexer.BOOLTYPE;
-        int actual = symbolTable.globalScope.getSymbol("func").getType().getVal();
+        int actual = symbolTable.globalScope.getSymbol("func").getType();
 
         // Assert
         assertFalse(expected == actual);
@@ -57,7 +57,7 @@ public class tempTest {
 
         // Act
         int expected = LangLexer.BOOLTYPE;
-        int actual = symbolTable.globalScope.getSymbol("func").getType().getVal();
+        int actual = symbolTable.globalScope.getSymbol("func").getType();
 
         // Assert
         assertEquals(expected, actual);

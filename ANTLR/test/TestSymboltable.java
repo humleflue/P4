@@ -45,7 +45,7 @@ public class TestSymboltable {
 
         // Act
         int expected = LangLexer.NUMBERTYPE;
-        int actual = symbolTable.globalScope.getSymbol("func").getType().getVal();
+        int actual = symbolTable.globalScope.getSymbol("func").getType();
 
         // Assert
         assertEquals(expected, actual);
