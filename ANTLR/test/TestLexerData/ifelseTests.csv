@@ -1,0 +1,8 @@
+Test expression;Should pass
+"number func() =
+     if (2)
+         return 2;
+     if (1)
+         return func();
+     return 0;
+endf";1;

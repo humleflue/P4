@@ -2,10 +2,9 @@ package Compiler;
 
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
-import Compiler.AntlrGenerated.LangVisitor;
 import Compiler.SymbolTable.SymbolDefListener;
 import Compiler.SymbolTable.SymbolRefListener;
-import Compiler.TypeChecker.TypeChecker;
+import Compiler.TypeChecker.TypeCheckerVisitor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -13,14 +12,21 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import java.util.Arrays;
+
 public class Main {
 
-    public static void main(String[] args) throws Exception {
-        String input = "number plus(number x, number y) = return x + y; endf\nplus(1,2)?;";
+    public static void main(String[] args)  {
+        String input = "number plus(number x, number y) = if (false) return 2; return 3; endf\n" +
+                "number mult(number x, number y) = return x * y; endf\n" +
+                "plus(2, 3);\n" +
+                "bool returnsBool() = return true; endf";
 
         CharStream stream = CharStreams.fromString(input);
         LangLexer lexer = new LangLexer(stream);
+        //lexer.
         CommonTokenStream tokens = new CommonTokenStream(lexer);
+        
         LangParser parser = new LangParser(tokens);
 
         System.out.println("Building CST...");
@@ -29,22 +35,15 @@ public class Main {
         System.out.println(tree.getText());
         System.out.println(">>> End of pretty print <<<");
 
+        // Symbol table stuff
         ParseTreeWalker walker = new ParseTreeWalker();
-        InitializeSymbolTable(walker, tree);
-
-        ParseTreeVisitor visitor = new TypeChecker();
-        PerformTypeChecking(visitor, tree);
-    }
-
-    public static void InitializeSymbolTable(ParseTreeWalker walker, ParseTree tree) {
         SymbolDefListener symbolDefListener = new SymbolDefListener();
         walker.walk(symbolDefListener, tree);
-
         SymbolRefListener symbolRefListener = new SymbolRefListener(symbolDefListener.globalScope, symbolDefListener.scopes);
         walker.walk(symbolRefListener, tree);
-    }
 
-    public static void PerformTypeChecking(ParseTreeVisitor visitor, ParseTree tree) {
-
+        // Type checking stuff
+        ParseTreeVisitor visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        visitor.visit(tree);
     }
 }

@@ -1,0 +1,7 @@
+Test expression;Should pass
+"number first(number second) =
+    if(true)
+        return 2+3^4*second;
+    return second();
+ endf
+ first(2)?;";1;
