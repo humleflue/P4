@@ -21,7 +21,7 @@ expr : val                                                                    #v
      | left=expr op=POW right=expr                                            #binaryOp
      | left=expr op=(DIVIDE|MULTIPLY) right=expr                              #binaryOp
      | left=expr op=(PLUS|MINUS) right=expr                                   #binaryOp
-     | left=expr op=LOGRELATION right=expr                                    #binaryOp
+     | left=expr op=(LOGLESS | LOGGREATER | LOGLESSOREQ | LOGGREATEROREQ) right=expr                                    #binaryOp
      | left=expr op=LOGEQUALITY right=expr                                    #binaryOp
      | left=expr op=LOGAND right=expr                                         #binaryOp
      | left=expr op=LOGOR right=expr                                          #binaryOp
