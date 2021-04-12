@@ -2,6 +2,7 @@ package Compiler;
 
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.SymbolDefListener;
 import Compiler.SymbolTable.SymbolRefListener;
 import Compiler.TypeChecker.TypeCheckerVisitor;
@@ -19,15 +20,21 @@ public class Main {
     public static void main(String[] args)  {
         String input = "number plus(number x, number y) = if (false) return 2; return 3; endf\n" +
                 "number mult(number x, number y) = return x * y; endf\n" +
-                "plus(2, 3);\n" +
+                "plus(2, x);\n" +
                 "bool returnsBool() = return true; endf";
+
+        UnderlineErrorListener errorListener = new UnderlineErrorListener();
 
         CharStream stream = CharStreams.fromString(input);
         LangLexer lexer = new LangLexer(stream);
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(errorListener);
         //lexer.
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         
         LangParser parser = new LangParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(errorListener);
 
         System.out.println("Building CST...");
         ParseTree tree = parser.prog();
@@ -37,9 +44,10 @@ public class Main {
 
         // Symbol table stuff
         ParseTreeWalker walker = new ParseTreeWalker();
-        SymbolDefListener symbolDefListener = new SymbolDefListener();
+        SymbolDefListener symbolDefListener = new SymbolDefListener(errorListener);
         walker.walk(symbolDefListener, tree);
-        SymbolRefListener symbolRefListener = new SymbolRefListener(symbolDefListener.globalScope, symbolDefListener.scopes);
+        SymbolRefListener symbolRefListener =
+                new SymbolRefListener(symbolDefListener.globalScope, symbolDefListener.scopes, errorListener);
         walker.walk(symbolRefListener, tree);
 
         // Type checking stuff

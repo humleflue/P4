@@ -2,6 +2,7 @@ package Compiler.SymbolTable;
 
 import Compiler.AntlrGenerated.LangBaseListener;
 import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
@@ -9,9 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SymbolDefListener extends LangBaseListener{
+    //Would like to make the Error Listener more generic, but that would be at the cost of more code in each listener.
+    private UnderlineErrorListener errorListener;
     public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
     public BaseScope globalScope = new BaseScope();
     Scope currentScope;
+
+    public SymbolDefListener(UnderlineErrorListener errorListener) {
+        this.errorListener = errorListener;
+    }
 
     @Override
     public void enterProg(ProgContext ctx) {
@@ -31,7 +38,13 @@ public class SymbolDefListener extends LangBaseListener{
         }
 
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.ID().getText(), ctx.start.getType(), argumentList);
-        currentScope.defineSymbol(symbol);
+        try {
+            currentScope.defineSymbol(symbol);
+        } catch (Exception e){
+            errorListener.GeneralError(e.getMessage(), ctx.ID().getSymbol());
+        }
+
+        // Making new scope for function body
         Scope newScope = new BaseScope(currentScope);
         attachScope(ctx, newScope);
         currentScope = newScope;
@@ -46,7 +59,12 @@ public class SymbolDefListener extends LangBaseListener{
     public void exitFuncdefparam(FuncdefparamContext ctx) {
         Integer paramType = ctx.start.getType();
         Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
-        currentScope.defineSymbol(paramSymbol);
+        try {
+            currentScope.defineSymbol(paramSymbol);
+        } catch (Exception e){
+            errorListener.GeneralError(e.getMessage(), ctx.ID().getSymbol());
+        }
+
         attachScope(ctx, currentScope);
     }
 

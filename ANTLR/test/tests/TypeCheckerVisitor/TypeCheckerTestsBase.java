@@ -1,5 +1,6 @@
 package tests.TypeCheckerVisitor;
 
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.SymbolDefListener;
 import Compiler.SymbolTable.SymbolRefListener;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -20,9 +21,9 @@ public abstract class TypeCheckerTestsBase {
         tree = TestCase.createTree(testSourceCode);
 
         ParseTreeWalker walker = new ParseTreeWalker();
-        symbolDefListener = new SymbolDefListener();
+        symbolDefListener = new SymbolDefListener(new UnderlineErrorListener());
         walker.walk(symbolDefListener, tree);
-        SymbolRefListener symbolRefListener = new SymbolRefListener(symbolDefListener.globalScope, symbolDefListener.scopes);
+        SymbolRefListener symbolRefListener = new SymbolRefListener(symbolDefListener.globalScope, symbolDefListener.scopes, new UnderlineErrorListener());
         walker.walk(symbolRefListener, tree);
     }
 }

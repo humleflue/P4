@@ -35,20 +35,19 @@ public class UnderlineErrorListener extends BaseErrorListener {
 
         printUnderlinedError(line, badTokenStartPos, badTokenEndPos);
 
-        throw new ParseCancellationException("fejl");
+        throw new ParseCancellationException("Error");
     }
 
     /**
      * A method that simplifies calling GeneralError, to reduce copy-paste code in the other Listeners/Visitors.
      *
      * @param errorMsg The text explaining what caused the error
-     * @param startToken The token for the beginning of the line which caused the error. Usually given with: "ctx.getStart()"
      * @param errorToken The token which caused the error. If the error was caused by a terminal use:
      *                   "example.getSymbol()" with example replaced with the name of the terminal
      */
-    public void GeneralError(String errorMsg, Token startToken, Token errorToken) {
-        int lineNumber = startToken.getLine();
-        String line = startToken.getInputStream().toString().split("\n")[lineNumber - 1];
+    public void GeneralError(String errorMsg, Token errorToken) {
+        int lineNumber = errorToken.getLine();
+        String line = errorToken.getInputStream().toString().split("\n")[lineNumber - 1];
         int badTokenStartPos = errorToken.getCharPositionInLine();
         int badTokenEndpos = badTokenStartPos + errorToken.getText().length() - 1;
 

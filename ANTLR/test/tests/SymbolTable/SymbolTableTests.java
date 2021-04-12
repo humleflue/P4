@@ -1,6 +1,7 @@
 package tests.SymbolTable;
 
 import Compiler.AntlrGenerated.LangLexer;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.SymbolDefListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -19,7 +20,7 @@ public class SymbolTableTests {
     private SymbolDefListener getWalker(ParseTree tree) throws IOException {
         ParseTreeWalker walker = new ParseTreeWalker();
 
-        SymbolDefListener symbolDefListener = new SymbolDefListener();
+        SymbolDefListener symbolDefListener = new SymbolDefListener(new UnderlineErrorListener());
         walker.walk(symbolDefListener, tree);
         return symbolDefListener;
     }
