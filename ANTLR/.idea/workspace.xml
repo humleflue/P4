@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ANTLR.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ANTLR.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Test/TestLexerData/declarationTests.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Test/TestLexerData/expressionsTest.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Test/TestLexerData/ifelseTests.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Test/TestLexerData/newLineTests.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Test/testLexer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/TestCase/LangTestCase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" afterDir="false" />
-    </list>
-    <list id="a8b5140c-9b35-4440-8455-22c682786a1a" name="Changes by info" comment="" />
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Corrected naming of classes and added a couple more type checker tests" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +17,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="1qcaGocVwLkoEKS1iZtdAzeICch" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -39,40 +34,37 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\GitRepos\P4\ANTLR\test\tests\TypeCheckerVisitor\Data" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\GitRepos\P4\ANTLR\test\tests\Lexer\Data" />
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.testLexer">
-    <configuration name="CheckSymbols" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Compiler.CheckSymbols" />
-      <module name="ANTLR" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Compiler.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.All in ANTLR">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
@@ -97,19 +89,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestSymboltable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in ANTLR" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ANTLR" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestSymboltable" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LexerTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ANTLR" />
+      <option name="PACKAGE_NAME" value="tests.Lexer" />
+      <option name="MAIN_CLASS_NAME" value="tests.Lexer.LexerTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="testLexer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SymbolTableTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ANTLR" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="testLexer" />
+      <option name="PACKAGE_NAME" value="tests.SymbolTable" />
+      <option name="MAIN_CLASS_NAME" value="tests.SymbolTable.SymbolTableTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="temp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ANTLR" />
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.temp" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -117,10 +126,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.testLexer" />
-        <item itemvalue="JUnit.TestSymboltable" />
+        <item itemvalue="JUnit.All in ANTLR" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.CheckSymbols" />
+        <item itemvalue="JUnit.LexerTests" />
+        <item itemvalue="JUnit.SymbolTableTests" />
       </list>
     </recent_temporary>
   </component>
@@ -133,8 +142,59 @@
       <option name="presentableId" value="Default" />
       <updated>1617381247052</updated>
       <workItem from="1617381251246" duration="2220000" />
-      <workItem from="1617614083336" duration="3565000" />
+      <workItem from="1617865637742" duration="682000" />
+      <workItem from="1617880327505" duration="33000" />
+      <workItem from="1617614083336" duration="5414000" />
+      <workItem from="1617619985917" duration="6812000" />
+      <workItem from="1617793810457" duration="5088000" />
+      <workItem from="1617969200088" duration="597000" />
+      <workItem from="1617969828857" duration="131000" />
+      <workItem from="1617969986129" duration="633000" />
+      <workItem from="1617608073206" duration="166000" />
+      <workItem from="1617608264301" duration="15360000" />
+      <workItem from="1617637138469" duration="1612000" />
+      <workItem from="1617796287792" duration="47000" />
+      <workItem from="1617796430628" duration="4266000" />
+      <workItem from="1617971584981" duration="9643000" />
+      <workItem from="1618212006178" duration="2187000" />
+      <workItem from="1618216679236" duration="1865000" />
     </task>
+    <task id="LOCAL-00001" summary="WIP">
+      <created>1617614552494</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1617614552494</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Type checking documentation.">
+      <created>1617868098089</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1617868098089</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Corrected wrong refactoring.">
+      <created>1617868281235</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1617868281235</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Fixed merge error in workspace.xml">
+      <created>1618224733166</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1618224733166</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Corrected naming of classes and added a couple more type checker tests">
+      <created>1618224875827</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1618224875827</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,5 +211,23 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="WIP" />
+    <MESSAGE value="Type checking documentation." />
+    <MESSAGE value="Corrected wrong refactoring." />
+    <MESSAGE value="Fixed merge error in workspace.xml" />
+    <MESSAGE value="Corrected naming of classes and added a couple more type checker tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected naming of classes and added a couple more type checker tests" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

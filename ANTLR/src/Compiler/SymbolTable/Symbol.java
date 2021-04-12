@@ -2,9 +2,9 @@ package Compiler.SymbolTable;
 
 public class Symbol {
     protected String name;
-    protected Type type;
+    protected Integer type;
 
-    public Symbol(String name, Type symbol){
+    public Symbol(String name, Integer symbol){
         this.name = name;
         this.type = symbol;
     }
@@ -13,7 +13,7 @@ public class Symbol {
         return this.name;
     }
 
-    public Type getType() {return this.type; }
+    public Integer getType() {return this.type; }
 
     @Override
     public int hashCode() {
