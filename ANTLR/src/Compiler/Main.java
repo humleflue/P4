@@ -2,6 +2,7 @@ package Compiler;
 
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
+import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
 import Compiler.SymbolTable.SymbolDefListener;
 import Compiler.SymbolTable.SymbolRefListener;
 import Compiler.TypeChecker.TypeCheckerVisitor;
@@ -19,7 +20,7 @@ public class Main {
     public static void main(String[] args)  {
         String input = "number plus(number x, number y) = if (false) return 2; return 3; endf\n" +
                 "number mult(number x, number y) = return x * y; endf\n" +
-                "plus(2, 3);\n" +
+                "plus(2, 3)?;\n" +
                 "bool returnsBool() = return true; endf";
 
         CharStream stream = CharStreams.fromString(input);
@@ -43,7 +44,13 @@ public class Main {
         walker.walk(symbolRefListener, tree);
 
         // Type checking stuff
-        ParseTreeVisitor visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
-        visitor.visit(tree);
+        ParseTreeVisitor typeChecker = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        typeChecker.visit(tree);
+
+        // Code generation stuff
+        var generator = new JavaScriptCodeGenerationVisitor();
+        String res = generator.visit(tree);
+
+        System.out.println(res);
     }
 }
