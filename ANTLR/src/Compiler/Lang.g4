@@ -16,15 +16,15 @@ stmts : IF LPAREN expr RPAREN RETURN stmt stmts                               #s
       |                                                                       #stmtsEmpty
       ;
 stmt : expr SEMICOLON ;
-expr : val                                                                    #value
-     | op=NEGATE val                                                          #uneryOp
-     | left=expr op=POW right=expr                                            #binaryOp
-     | left=expr op=(DIVIDE|MULTIPLY) right=expr                              #binaryOp
-     | left=expr op=(PLUS|MINUS) right=expr                                   #binaryOp
-     | left=expr op=(LOGLESS | LOGGREATER | LOGLESSOREQ | LOGGREATEROREQ) right=expr                                    #binaryOp
-     | left=expr op=(LOGEQ | LOGNOTEQ) right=expr                                    #binaryOp
-     | left=expr op=LOGAND right=expr                                         #binaryOp
-     | left=expr op=LOGOR right=expr                                          #binaryOp
+expr : val                                                                            #value
+     | op=NEGATE val                                                                  #uneryOp
+     | left=expr op=POW right=expr                                                    #binaryOp
+     | left=expr op=(DIVIDE|MULTIPLY) right=expr                                      #binaryOp
+     | left=expr op=(PLUS|MINUS) right=expr                                           #binaryOp
+     | left=expr op=(LOGLESS | LOGGREATER | LOGLESSOREQ | LOGGREATEROREQ) right=expr  #binaryOp
+     | left=expr op=(LOGEQ | LOGNOTEQ) right=expr                                     #binaryOp
+     | left=expr op=LOGAND right=expr                                                 #binaryOp
+     | left=expr op=LOGOR right=expr                                                  #binaryOp
      ;
 
 val : LPAREN expr RPAREN                                                      #valParenthesisedExpr //parensexp
