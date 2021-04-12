@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Corrected wrong refactoring.">
-      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/binaryBooleanTypes.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/differentReturnTypes.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/simpleBooleanTypes.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/numbers.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTestsBase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeCheckerVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/SymbolTable/SymbolTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/SymbolTable/SymbolTableTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/correctReturnType.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/incorrectReturnType.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +57,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
@@ -76,17 +72,6 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.All in ANTLR">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
@@ -100,15 +85,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -153,7 +136,6 @@
         <item itemvalue="JUnit.All in ANTLR" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.LexerTests" />
-        <item itemvalue="JUnit.tempTest" />
         <item itemvalue="JUnit.SymbolTableTests" />
       </list>
     </recent_temporary>
@@ -179,6 +161,8 @@
       <workItem from="1617796287792" duration="47000" />
       <workItem from="1617796430628" duration="4266000" />
       <workItem from="1617971584981" duration="9643000" />
+      <workItem from="1618212006178" duration="2187000" />
+      <workItem from="1618216679236" duration="1865000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
