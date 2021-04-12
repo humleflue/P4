@@ -31,27 +31,6 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
     }
 
     /**
-     * An auxiliary method which compares two types in a binary operation,
-     * and checks if they are the same as an expected type.
-     * @param left The left operand of the binary expression.
-     * @param right The right operand of the binary expression.
-     * @param ctx The tree node in question.
-     * @param expectedType The expected type of {@param left} and {@param right}
-     * @return Returns {@param expectedType} if the types are compatible. Throws an error if the types are incompatible.
-     */
-    private Integer checkBinaryOpType(Integer left, Integer right, BinaryOpContext ctx, Integer expectedType) {
-        Integer returnType = null;
-        if(left.equals(expectedType) && right.equals(expectedType)) {
-            returnType =  expectedType;
-        }
-        else {
-            throwTypeError(left, right, "On operation " + ctx.op.getText());
-        }
-
-        return returnType;
-    }
-
-    /**
      * An auxiliary method for throwing a type related error.
      * @param type1 The first type.
      * @param type2 The second type.
@@ -77,17 +56,28 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
 
     @Override
     public Integer visitBinaryOp(BinaryOpContext ctx) {
-        Integer returnType;
+        int returnType;
 
         // Visit the children to thereby get their type.
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
 
+        if(!left.equals(right)) {
+            throwTypeError(left, right, "On operation " + ctx.op.getText());
+        }
+
+        // Now we know that the two operators are of the same type: 'left == right' // true
+
         switch (ctx.op.getType()) {
             case PLUS, MINUS, MULTIPLY, DIVIDE, POW ->
-                returnType = checkBinaryOpType(left, right, ctx, NUMBERTYPE);
-            case LOGEQ, LOGNOTEQ, LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ, LOGAND, LOGOR ->
-                returnType = checkBinaryOpType(left, right, ctx, BOOLTYPE);
+                returnType = NUMBERTYPE;
+            case LOGAND, LOGOR ->
+                returnType = BOOLTYPE;
+            case LOGEQ, LOGNOTEQ, LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
+                if(left != NUMBERTYPE) // You cannot compare eg. 'true == true'
+                    throwTypeError(left, right, "On operation " + ctx.op.getText());
+                returnType = BOOLTYPE;
+            }
             default -> throw new IllegalArgumentException("Type not found by typechecker.");
         }
 

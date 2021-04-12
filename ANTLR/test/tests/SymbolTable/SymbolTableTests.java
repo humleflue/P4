@@ -1,15 +1,13 @@
+package tests.SymbolTable;
+
 import Compiler.AntlrGenerated.LangLexer;
-import Compiler.AntlrGenerated.LangParser;
 import Compiler.SymbolTable.SymbolDefListener;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CodePointCharStream;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.*;
+import tests.Auxiliary.TestCase;
 
 import java.io.IOException;
-import java.io.StringReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,18 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * DENNE FIL ER IKKE KLAR TIL REVIEW ENDNU!
  */
 
-public class TestSymboltable {
-
-    public ParseTree createTree(String test) throws IOException {
-        CodePointCharStream stream = CharStreams.fromReader(new StringReader(test));
-        LangLexer lexer = new LangLexer(stream);
-        var tokens = new CommonTokenStream(lexer);
-        LangParser parser = new LangParser(tokens);
-        ParseTree tree = parser.prog();
-        return tree;
-    }
-
-    private SymbolDefListener walker(ParseTree tree) throws IOException {
+public class SymbolTableTests {
+    private SymbolDefListener getWalker(ParseTree tree) throws IOException {
         ParseTreeWalker walker = new ParseTreeWalker();
 
         SymbolDefListener symbolDefListener = new SymbolDefListener();
@@ -38,10 +26,10 @@ public class TestSymboltable {
 
     @Test
     @DisplayName("Check type for 'number func' - given number - is true")
-    public void funcDef_GivenNumberType_ReturnsNumberType() throws IOException {
+    public void GivenNumberType_ReturnsNumberType() throws IOException {
         // Arrange
-        ParseTree tree = createTree("number func() = return 1; endf");
-        SymbolDefListener symbolTable = walker(tree);
+        ParseTree tree = TestCase.createTree("number func() = return 1; endf");
+        SymbolDefListener symbolTable = getWalker(tree);
 
         // Act
         int expected = LangLexer.NUMBERTYPE;
