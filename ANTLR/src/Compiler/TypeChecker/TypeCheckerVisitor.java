@@ -56,7 +56,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
 
     @Override
     public Integer visitBinaryOp(BinaryOpContext ctx) {
-        Integer returnType;
+        int returnType;
 
         // Visit the children to thereby get their type.
         Integer left = visit(ctx.left);
