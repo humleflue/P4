@@ -2,6 +2,7 @@ package Compiler.TypeChecker;
 
 import Compiler.AntlrGenerated.LangBaseVisitor;
 import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
@@ -17,6 +18,7 @@ import java.util.List;
 import static Compiler.AntlrGenerated.LangLexer.*;
 
 public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
+    UnderlineErrorListener errorListener;
     Scope globalScope;
     ParseTreeProperty<Scope> scopes;
 
@@ -25,9 +27,10 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
      * @param globalScope The global scope defined by the symbol table.
      * @param scopes A hash map used for finding the scope of a tree node.
      */
-    public TypeCheckerVisitor(Scope globalScope, ParseTreeProperty<Scope> scopes) {
+    public TypeCheckerVisitor(Scope globalScope, ParseTreeProperty<Scope> scopes, UnderlineErrorListener errorListener) {
         this.globalScope = globalScope;
         this.scopes = scopes;
+        this.errorListener = errorListener;
     }
 
     /**

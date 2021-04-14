@@ -1,7 +1,12 @@
 package Compiler.ErrorHandling;
 
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
+
+import java.net.Inet4Address;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class UnderlineErrorListener extends BaseErrorListener {
     /**
@@ -17,25 +22,9 @@ public class UnderlineErrorListener extends BaseErrorListener {
 
         //Gets the token that caused the error. Gets parsed from Object to token to get position
         Token offendingToken = (Token)offendingSymbol;
+        Interval offendingTokenInterval = new Interval(offendingToken.getStartIndex(), offendingToken.getStopIndex());
 
-        GeneralError(msg, errorLine, line, offendingToken.getStartIndex(), offendingToken.getStopIndex());
-    }
-
-    /**
-     * Stops the compiler and prints out an error message with the line, line number and position of the error origin.
-     *
-     * @param errorMsg The text explaining what caused the error
-     * @param line The source code line in which the error occurred
-     * @param lineNumber The line number for the line in which the error occurred
-     * @param badTokenStartPos The number for the first char in the token that caused the error
-     * @param badTokenEndPos The number for the last char in the token that caused the error
-     */
-    public void GeneralError(String errorMsg, String line, int lineNumber, int badTokenStartPos, int badTokenEndPos) {
-        System.err.println("Error at line " + lineNumber + ", position " + badTokenStartPos + " : " + errorMsg);
-
-        printUnderlinedError(line, badTokenStartPos, badTokenEndPos);
-
-        throw new ParseCancellationException("Error");
+        ThrowUnderlinedError(msg, offendingToken);
     }
 
     /**
@@ -45,31 +34,74 @@ public class UnderlineErrorListener extends BaseErrorListener {
      * @param errorToken The token which caused the error. If the error was caused by a terminal use:
      *                   "example.getSymbol()" with example replaced with the name of the terminal
      */
-    public void GeneralError(String errorMsg, Token errorToken) {
+    public void ThrowUnderlinedError(String errorMsg, Token errorToken, Token... additionalErrorTokens) {
+        //Gets the source code line in which the error occurred.
         int lineNumber = errorToken.getLine();
         String line = errorToken.getInputStream().toString().split("\n")[lineNumber - 1];
-        int badTokenStartPos = errorToken.getCharPositionInLine();
-        int badTokenEndpos = badTokenStartPos + errorToken.getText().length() - 1;
 
-        GeneralError(errorMsg, line, lineNumber, badTokenStartPos, badTokenEndpos);
+        //Gets the interval of the errorToken and adds it to list.
+        ArrayList<Interval> underlineIntervals = new ArrayList<Interval>();
+        underlineIntervals.add(GetTokenInterval(errorToken));
+
+        //Gets the interval of the additional tokens
+        for (Token token : additionalErrorTokens) {
+            underlineIntervals.add(GetTokenInterval(token));
+        }
+        underlineIntervals.sort(Comparator.comparingInt(interval -> interval.a));
+
+        //Gets the start position of all offending tokens.
+        ArrayList<Integer> offendingTokensStartPos = new ArrayList<Integer>();
+        for (Interval interval : underlineIntervals) {
+            offendingTokensStartPos.add(interval.a);
+        }
+
+        printErrorMsg(errorMsg, line, lineNumber, offendingTokensStartPos);
+        printUnderlinedError(line, underlineIntervals);
+
+        throw new ParseCancellationException("Error");
+    }
+
+    private Interval GetTokenInterval(Token token) {
+        int tokenStartPos = token.getCharPositionInLine();
+        int tokenEndpos = tokenStartPos + token.getText().length() - 1;
+
+        return new Interval(tokenStartPos, tokenEndpos);
+    }
+
+    protected void printErrorMsg(String errorMsg, String line, int lineNumber, ArrayList<Integer> tokenPositions){
+        String result = "";
+        result += "Error at line " + lineNumber;
+        result += ", position " + tokenPositions.get(0);
+        if(tokenPositions.size() > 1){
+            for (int i = 1; i < tokenPositions.size(); i++) {
+                result += " and " + tokenPositions.get(i);
+            }
+        }
+        result += " : "  + errorMsg + "\n";
+        result += line;
+
+        System.err.println(result);
     }
 
     /**
      * Prints a line of source code ander underlines the chars between badTokenStartPos and badTokenEndPos
-     *
-     * @param line The input line from the source file
-     * @param badTokenStartPos The start position of the token that should be underlined
-     * @param badTokenEndPos THe end position of the token that should be underlined
      */
-    protected void printUnderlinedError(String line, int badTokenStartPos, int badTokenEndPos) {
-        System.err.println(line);
+    protected void printUnderlinedError(String line, ArrayList<Interval> offendingTokenInterval) {
+        int printPos = 0;
 
-        for (int i = 0; i < badTokenStartPos; i++) {
-            System.err.print(" ");
+        for (Interval interval : offendingTokenInterval){
+            while (printPos < interval.a) {
+                System.err.print(" ");
+                printPos++;
+            }
+            if ( interval.a >= 0 && interval.b >= 0) {
+                for (int i = interval.a; i <= interval.b; i++) {
+                    System.err.print("^");
+                    printPos++;
+                }
+            }
+            System.err.println();
         }
-        if ( badTokenStartPos>=0 && badTokenEndPos>=0 ) {
-            for (int i=badTokenStartPos; i<=badTokenEndPos; i++) System.err.print("^");
-        }
-        System.err.println();
+
     }
 }

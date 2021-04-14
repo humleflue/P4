@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Corrected naming of classes and added a couple more type checker tests" />
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Corrected naming of classes and added a couple more type checker tests">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANTLR.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ANTLR.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolDefListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolDefListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeCheckerVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/temp.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/temp.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +41,7 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -64,7 +76,7 @@
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in ANTLR">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
@@ -126,8 +138,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in ANTLR" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.All in ANTLR" />
         <item itemvalue="JUnit.LexerTests" />
         <item itemvalue="JUnit.SymbolTableTests" />
       </list>

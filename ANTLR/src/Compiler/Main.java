@@ -19,8 +19,8 @@ public class Main {
 
     public static void main(String[] args)  {
         String input = "number plus(number x, number y) = if (false) return 2; return 3; endf\n" +
-                "number mult(number x, number y) = return x * y; endf\n" +
-                "plus(2, x);\n" +
+                "bool mult(number x, number y) = return x * y; endf\n" +
+                "plus(2, 3);\n" +
                 "bool returnsBool() = return true; endf";
 
         UnderlineErrorListener errorListener = new UnderlineErrorListener();
@@ -51,7 +51,7 @@ public class Main {
         walker.walk(symbolRefListener, tree);
 
         // Type checking stuff
-        ParseTreeVisitor visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes, errorListener);
         visitor.visit(tree);
     }
 }

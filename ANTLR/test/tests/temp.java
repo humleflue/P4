@@ -2,6 +2,7 @@ package tests;
 
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.SymbolDefListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
@@ -32,7 +33,7 @@ public class temp {
 
         ParseTreeWalker walker = new ParseTreeWalker();
 
-        SymbolDefListener symbolDefListener = new SymbolDefListener();
+        SymbolDefListener symbolDefListener = new SymbolDefListener(new UnderlineErrorListener());
         walker.walk(symbolDefListener, tree);
         return symbolDefListener;
     }

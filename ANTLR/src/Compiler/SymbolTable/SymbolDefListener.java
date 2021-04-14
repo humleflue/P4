@@ -41,7 +41,7 @@ public class SymbolDefListener extends LangBaseListener{
         try {
             currentScope.defineSymbol(symbol);
         } catch (Exception e){
-            errorListener.GeneralError(e.getMessage(), ctx.ID().getSymbol());
+            errorListener.ThrowUnderlinedError(e.getMessage(), ctx.ID().getSymbol());
         }
 
         // Making new scope for function body
@@ -62,7 +62,7 @@ public class SymbolDefListener extends LangBaseListener{
         try {
             currentScope.defineSymbol(paramSymbol);
         } catch (Exception e){
-            errorListener.GeneralError(e.getMessage(), ctx.ID().getSymbol());
+            errorListener.ThrowUnderlinedError(e.getMessage(), ctx.ID().getSymbol());
         }
 
         attachScope(ctx, currentScope);

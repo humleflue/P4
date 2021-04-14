@@ -3,7 +3,6 @@ package Compiler.SymbolTable;
 import Compiler.AntlrGenerated.LangBaseListener;
 import Compiler.AntlrGenerated.LangParser.*;
 import Compiler.ErrorHandling.UnderlineErrorListener;
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
@@ -59,7 +58,7 @@ public class SymbolRefListener extends LangBaseListener{
         if(callArgCount != expectedArgCount) {
             String errorMsg = " Function " + ctx.ID().getText() + " expects " + expectedArgCount +
                     " arguments but was called with " + callArgCount;
-            errorListener.GeneralError(errorMsg, ctx.exprparams().getStart());
+            errorListener.ThrowUnderlinedError(errorMsg, ctx.exprparams().getStart());
         }
     }
 
@@ -72,7 +71,7 @@ public class SymbolRefListener extends LangBaseListener{
     void CheckSymbol(String name, Token token) {
         Symbol symbol = currentScope.getSymbol(name);
         if ( symbol==null ) {
-            errorListener.GeneralError(name + " is not defined", token);
+            errorListener.ThrowUnderlinedError(name + " is not defined", token);
         }
     }
 
