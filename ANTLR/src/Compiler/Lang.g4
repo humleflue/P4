@@ -1,23 +1,29 @@
 grammar Lang;
 
 prog : code EOF ;
-code : funcdef code                                                           #codeFuncdef
-     | stmt code                                                              #codeStmt
-     |                                                                        #codeEmpty
+code : funcdef code #codeFuncdef
+     | stmt code    #codeStmt
+     |              #codeEmpty
      ;
-funcdef : type ID LPAREN funcdefparams RPAREN ASSIGN stmts RETURN stmt ENDF ;
+funcdef : type ID LPAREN funcdefparams RPAREN ASSIGN stmts returnstmt ENDF ;
+returnstmt : RETURN stmt ;
 type : NUMBERTYPE
      | BOOLTYPE ;
-funcdefparams : funcdefparam (COMMA funcdefparam)*                            #funcdefparamsNotEmpty //dclparams
-              |                                                               #funcdefparamsEmpty
+funcdefparams : funcdefparam (COMMA funcdefparam)* #funcdefparamsNotEmpty
+              |                                    #funcdefparamsEmpty
               ;
 funcdefparam : type ID ;
-stmts : IF LPAREN expr RPAREN RETURN stmt stmts                               #stmtsNotEmpty
-      |                                                                       #stmtsEmpty
+stmts : IF LPAREN expr RPAREN returnstmt stmts #stmtsNotEmpty
+      |                                        #stmtsEmpty
       ;
 stmt : expr SEMICOLON ;
-expr : val                                                                            #value
-     | op=NEGATE val                                                                  #uneryOp
+expr : LPAREN expr RPAREN                                                             #exprParenthesised
+     | funccall                                                                       #exprFunccall
+     | funccall PRINTCHAR                                                             #exprFunccallPrint
+     | NUMLITERAL                                                                     #exprNumber
+     | BOOLLITERAL                                                                    #exprBoolean
+     | ID                                                                             #exprId
+     | op=NEGATE expr                                                                 #unaryOp
      | left=expr op=POW right=expr                                                    #binaryOp
      | left=expr op=(DIVIDE|MULTIPLY) right=expr                                      #binaryOp
      | left=expr op=(PLUS|MINUS) right=expr                                           #binaryOp
@@ -27,16 +33,9 @@ expr : val                                                                      
      | left=expr op=LOGOR right=expr                                                  #binaryOp
      ;
 
-val : LPAREN expr RPAREN                                                      #valParenthesisedExpr //parensexp
-    | funccall                                                                #valFunccall
-    | funccall PRINTCHAR                                                      #valFunccallPrint  //valfunccalldebug
-    | NUMLITERAL                                                              #valNumber //valterminal
-    | BOOLLITERAL                                                             #valBoolean
-    | ID                                                                      #valId
-    ;
 funccall : ID LPAREN exprparams RPAREN ;
-exprparams : expr (COMMA expr)*                                               #exprparamsNotEmpty //stmtparamscontained
-           |                                                                  #exprparamsEmpty
+exprparams : expr (COMMA expr)* #exprparamsNotEmpty
+           |                    #exprparamsEmpty
            ;
 
 // *** Lexing *** //
@@ -46,9 +45,9 @@ NUMBERTYPE : 'number' ;
 BOOLTYPE : 'bool' ;
 // Literals
 BOOLLITERAL : 'true' | 'false' ;
-NUMLITERAL : ('0'..'9')+|('0'..'9')+'.'('0'..'9')+;
+NUMLITERAL : '-'?('0'..'9')+|'-'?('0'..'9')+'.'('0'..'9')+;
 // Other reserved keywords
-ENDF    : 'endf' ;
+ENDF    : 'end' ;
 RETURN : 'return' ;
 IF : 'if' ;
 
