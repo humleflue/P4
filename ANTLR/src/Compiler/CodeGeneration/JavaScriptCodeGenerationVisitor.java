@@ -118,7 +118,6 @@ public class JavaScriptCodeGenerationVisitor extends LangBaseVisitor<String> {
             case LOGNOTEQ ->       "!=";
             case LOGAND ->         "&&";
             case LOGOR ->          "||";
-            case POW -> throw new IllegalArgumentException("POW operator should've already been handled.");
             default -> throw new IllegalArgumentException(
                     "Could not recognize " + ctx.op.getText() + "as a binary operator.");
         };
