@@ -5,14 +5,15 @@ code : funcdef code #codeFuncdef
      | stmt code    #codeStmt
      |              #codeEmpty
      ;
-funcdef : type ID LPAREN funcdefparams RPAREN ASSIGN stmts returnstmt ENDF ;
+funcdef : type id LPAREN funcdefparams RPAREN ASSIGN stmts returnstmt ENDF ;
 returnstmt : RETURN stmt ;
 type : NUMBERTYPE
      | BOOLTYPE ;
 funcdefparams : funcdefparam (COMMA funcdefparam)* #funcdefparamsNotEmpty
               |                                    #funcdefparamsEmpty
               ;
-funcdefparam : type ID ;
+funcdefparam : type id ;
+id : ID ;
 stmts : IF LPAREN expr RPAREN returnstmt stmts #stmtsNotEmpty
       |                                        #stmtsEmpty
       ;
@@ -22,18 +23,18 @@ expr : LPAREN expr RPAREN                                                       
      | funccall PRINTCHAR                                                             #exprFunccallPrint
      | NUMLITERAL                                                                     #exprNumber
      | BOOLLITERAL                                                                    #exprBoolean
-     | ID                                                                             #exprId
-     | op=NEGATE expr                                                                 #unaryOp
-     | left=expr op=POW right=expr                                                    #binaryOp
-     | left=expr op=(DIVIDE|MULTIPLY) right=expr                                      #binaryOp
-     | left=expr op=(PLUS|MINUS) right=expr                                           #binaryOp
-     | left=expr op=(LOGLESS | LOGGREATER | LOGLESSOREQ | LOGGREATEROREQ) right=expr  #binaryOp
-     | left=expr op=(LOGEQ | LOGNOTEQ) right=expr                                     #binaryOp
-     | left=expr op=LOGAND right=expr                                                 #binaryOp
-     | left=expr op=LOGOR right=expr                                                  #binaryOp
+     | id                                                                             #exprId
+     | op=NEGATE expr                                                                 #exprUnaryOp
+     | left=expr op=POW right=expr                                                    #exprBinaryOp
+     | left=expr op=(DIVIDE|MULTIPLY) right=expr                                      #exprBinaryOp
+     | left=expr op=(PLUS|MINUS) right=expr                                           #exprBinaryOp
+     | left=expr op=(LOGLESS | LOGGREATER | LOGLESSOREQ | LOGGREATEROREQ) right=expr  #exprBinaryOp
+     | left=expr op=(LOGEQ | LOGNOTEQ) right=expr                                     #exprBinaryOp
+     | left=expr op=LOGAND right=expr                                                 #exprBinaryOp
+     | left=expr op=LOGOR right=expr                                                  #exprBinaryOp
      ;
 
-funccall : ID LPAREN exprparams RPAREN ;
+funccall : id LPAREN exprparams RPAREN ;
 exprparams : expr (COMMA expr)* #exprparamsNotEmpty
            |                    #exprparamsEmpty
            ;
