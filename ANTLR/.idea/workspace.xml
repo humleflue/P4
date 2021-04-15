@@ -3,15 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Corrected naming of classes and added a couple more type checker tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ANTLR.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ANTLR.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolDefListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolDefListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolRefListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/TypeChecker/TypeCheckerVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/temp.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/temp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,13 +84,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -170,6 +166,7 @@
       <workItem from="1617971584981" duration="9643000" />
       <workItem from="1618212006178" duration="2187000" />
       <workItem from="1618216679236" duration="1865000" />
+      <workItem from="1618469032792" duration="9815000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
@@ -238,6 +235,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.IllegalArgumentException" package="java.lang" />
           <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.util.NoSuchElementException" package="java.util" />
+          <option name="timeStamp" value="2" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
