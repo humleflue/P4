@@ -213,6 +213,11 @@ public class JavaScriptCodeGenerationVisitor extends LangBaseVisitor<String> {
         return ctx.ID().getText() + "(" + visit(ctx.exprparams()) + ")";
     }
 
+    /**
+     * Generates code for a function call's parameter list.
+     * @param ctx The tree node in question.
+     * @return A string of the form: "{@code expr0, expr1, ... , exprN}".
+     */
     @Override
     public String visitExprparamsNotEmpty(ExprparamsNotEmptyContext ctx) {
         //Gets lists of parameter nodes in the formal parameters

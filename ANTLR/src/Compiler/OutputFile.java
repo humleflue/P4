@@ -22,18 +22,18 @@ public class OutputFile {
     OutputFile(String targetCode, String[] args) {
         this.targetCode = targetCode;
         this.args = Arrays.asList(args);
-        parseCommandLineArguments();
     }
 
     /**
      * Parses and evaluates the command line arguments provided by the user.
-     * WARNING! This method should not ever throw an exception, as it is called from the constructor!
-     * Instead; create a new method, which can be executed by the caller.
      */
-    private void parseCommandLineArguments() {
+    public void parseCommandLineArguments() throws IOException {
+        // Option -o will specify a custom name for the target file
         if(args.contains("-o")) {
             int index = args.indexOf("-o");
-            outputFilePath = args.get(index + 1) + ".js";
+            if(args.size() <= index + 1)
+                throw new IOException("You must provide a filename for the output file when using option -o.");
+            this.outputFilePath = args.get(index + 1) + ".js";
         }
     }
 

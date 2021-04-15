@@ -13,15 +13,30 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        if(args.length < 1)
-            throw new IOException("You must provide the filepath to the file you wish to compile.");
+        if(args.length < 1 || args[0].contains("-help"))
+            displayHelp();
         else if(!args[0].endsWith(".buff"))
-            throw new IOException("Filename must have the suffix: '.buff'.");
+            System.out.println("ERROR: File format not recognized. Filename should have the suffix: '.buff'.");
+        else
+            compile(args);
+    }
 
+    private static void displayHelp() {
+        try {
+            System.out.println(Files.readString(Path.of("helpMessage.txt")));
+        }
+        catch(IOException e) {
+            System.out.println("usage: buff <file>");
+        }
+    }
+
+    private static void compile(String[] args) throws IOException {
         CharStream stream = CharStreams.fromFileName(args[0]);
 
         // Syntax analysis
@@ -49,6 +64,7 @@ public class Main {
         String targetCode = codeGenerator.visit(tree);
 
         OutputFile output = new OutputFile(targetCode, args);
+        output.parseCommandLineArguments();
         output.execute();
     }
 }
