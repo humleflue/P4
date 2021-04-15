@@ -1,15 +1,19 @@
-package Compiler.SymbolTable;
+package Compiler.ContextualAnalysis;
 
 import Compiler.AntlrGenerated.LangBaseListener;
 import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.SymbolTable.BaseScope;
+import Compiler.SymbolTable.FuncdefSymbol;
+import Compiler.SymbolTable.Scope;
+import Compiler.SymbolTable.Symbol;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
-public class SymbolRefListener extends LangBaseListener{
+public class ReferenceCheckerListener extends LangBaseListener{
     ParseTreeProperty<Scope> scopes;
     Scope globalScope;
     Scope currentScope;
 
-    public SymbolRefListener(BaseScope globalScope, ParseTreeProperty<Scope> scopes) {
+    public ReferenceCheckerListener(BaseScope globalScope, ParseTreeProperty<Scope> scopes) {
         this.scopes = scopes;
         this.globalScope = globalScope;
     }

@@ -1,4 +1,4 @@
-package Compiler.TypeChecker;
+package Compiler.ContextualAnalysis;
 
 import Compiler.AntlrGenerated.LangBaseVisitor;
 import Compiler.AntlrGenerated.LangParser.*;

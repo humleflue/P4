@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SymbolDefListener extends LangBaseListener{
+public class SymbolTableGeneratorListener extends LangBaseListener{
     public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
     public BaseScope globalScope = new BaseScope();
     Scope currentScope;
