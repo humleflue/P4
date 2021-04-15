@@ -1,0 +1,24 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ANTLR:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ANTLR_jar</output-path>
+    <root id="archive" name="ANTLR.jar">
+      <element id="module-output" name="ANTLR" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter/5.4.2/junit-jupiter-5.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-params/5.4.2/junit-jupiter-params-5.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.4.2/junit-platform-engine-1.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../Javalib/antlr-4.9.2-complete.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/antlr-runtime-4.9.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/antlr-4.9.2-complete.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/commons-lang3-3.12.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/commons-lang3-3.12.0-tests.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/commons-lang3-3.12.0-javadoc.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/commons-lang3-3.12.0-sources.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Dependencies/commons-lang3-3.12.0-test-sources.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
