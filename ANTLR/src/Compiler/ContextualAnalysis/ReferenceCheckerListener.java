@@ -59,7 +59,7 @@ public class ReferenceCheckerListener extends LangBaseListener{
         }
     }
 
-    void CheckSymbol(String name) throws IllegalArgumentException {
+    private void CheckSymbol(String name) throws IllegalArgumentException {
         Symbol symbol = currentScope.getSymbol(name);
         if ( symbol==null ) {
             throw new IllegalArgumentException(name + " is not defined");
