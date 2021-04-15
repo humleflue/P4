@@ -14,14 +14,15 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        if(args.length < 1)
+            throw new IOException("You must provide the filepath to the file you wish to compile.");
+        else if(!args[0].endsWith(".buff"))
+            throw new IOException("Filename must have the suffix: '.buff'.");
+
         CharStream stream = CharStreams.fromFileName(args[0]);
 
         // Syntax analysis

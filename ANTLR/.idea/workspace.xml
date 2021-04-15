@@ -7,7 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Merge with HEAD">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +95,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="All in ANTLR" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ANTLR" />
       <option name="PACKAGE_NAME" value="" />
@@ -172,7 +186,7 @@
       <workItem from="1618216679236" duration="1865000" />
       <workItem from="1618232636437" duration="480000" />
       <workItem from="1618398321411" duration="6454000" />
-      <workItem from="1618470394844" duration="5147000" />
+      <workItem from="1618470394844" duration="6387000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
@@ -209,7 +223,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618224875827</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Merge with HEAD">
+      <created>1618481408952</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1618481408953</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,7 +255,8 @@
     <MESSAGE value="Corrected wrong refactoring." />
     <MESSAGE value="Fixed merge error in workspace.xml" />
     <MESSAGE value="Corrected naming of classes and added a couple more type checker tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected naming of classes and added a couple more type checker tests" />
+    <MESSAGE value="Merge with HEAD" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge with HEAD" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
