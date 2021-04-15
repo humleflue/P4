@@ -1,6 +1,6 @@
 package tests.TypeCheckerVisitor;
 
-import Compiler.TypeChecker.TypeCheckerVisitor;
+import Compiler.ContextualAnalysis.TypeCheckerVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,7 +14,7 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     public void CorrespondingReturnTypes_ShouldPass(String type, String expr) throws IOException {
         // Arrange
         generateTreeWithSymbols(String.format("%s f() = return %s; endf", type, expr));
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
     }
@@ -24,7 +24,7 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     public void DifferentReturnTypes_ShouldThrow(String type, String expr) throws IOException {
         // Arrange
         generateTreeWithSymbols(String.format("%s f() = return %s; endf", type, expr));
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }

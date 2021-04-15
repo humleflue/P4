@@ -3,14 +3,13 @@ package Compiler;
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
-import Compiler.SymbolTable.SymbolDefListener;
-import Compiler.SymbolTable.SymbolRefListener;
-import Compiler.TypeChecker.TypeCheckerVisitor;
+import Compiler.SymbolTable.SymbolTableGeneratorListener;
+import Compiler.ContextualAnalysis.ReferenceCheckerListener;
+import Compiler.ContextualAnalysis.TypeCheckerVisitor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.IOException;
@@ -33,20 +32,21 @@ public class Main {
 
         // Symbol table generation
         ParseTreeWalker walker = new ParseTreeWalker();
-        SymbolDefListener symbolDefListener = new SymbolDefListener();
-        walker.walk(symbolDefListener, tree);
+        SymbolTableGeneratorListener symbolTable = new SymbolTableGeneratorListener();
+        walker.walk(symbolTable, tree);
 
 
         // Contextual analysis
-        SymbolRefListener symbolRefListener = new SymbolRefListener(symbolDefListener.globalScope, symbolDefListener.scopes);
-        walker.walk(symbolRefListener, tree);
-        ParseTreeVisitor typeChecker = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ReferenceCheckerListener referenceChecker = new ReferenceCheckerListener(symbolTable.globalScope, symbolTable.scopes);
+        walker.walk(referenceChecker, tree);
+
+        TypeCheckerVisitor typeChecker = new TypeCheckerVisitor(symbolTable.globalScope, symbolTable.scopes);
         typeChecker.visit(tree);
 
 
         // Code generation
-        var generator = new JavaScriptCodeGenerationVisitor();
-        String targetCode = generator.visit(tree);
+        JavaScriptCodeGenerationVisitor codeGenerator = new JavaScriptCodeGenerationVisitor();
+        String targetCode = codeGenerator.visit(tree);
 
         OutputFile output = new OutputFile(targetCode, args);
         output.execute();

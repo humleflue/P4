@@ -1,6 +1,6 @@
 package tests.TypeCheckerVisitor;
 
-import Compiler.TypeChecker.TypeCheckerVisitor;
+import Compiler.ContextualAnalysis.TypeCheckerVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,7 +15,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     public void SimpleBooleanTypeInIfSentence_ShouldPass(String trueOrFalse) throws IOException {
         // Arrange
         generateTreeWithSymbols(String.format("bool f() = if(%s) return true; return true; endf", trueOrFalse));
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
     }
@@ -25,7 +25,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     public void NumberTypeInIfSentence_ShouldThrow(String number) throws IOException {
         // Arrange
         generateTreeWithSymbols(String.format("bool f() = if(%s) return true; return true; endf", number));
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }
@@ -36,7 +36,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
         // Arrange
         generateTreeWithSymbols(String.format(
                 "bool f() = if(true %s true) return true; return true; endf", binaryBoolOperator));
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
     }
@@ -45,7 +45,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     public void NegateWithBoolInIfSentence_ShouldPass() throws IOException {
         // Arrange
         generateTreeWithSymbols("bool f() = if(!true) return true; return true; endf");
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
     }
@@ -54,7 +54,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     public void NegateWithNumberInIfSentence_ShouldThrow() throws IOException {
         // Arrange
         generateTreeWithSymbols("bool f() = if(!1) return true; return true; endf");
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }
@@ -64,7 +64,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     public void NumberComparisonInIfSentence_ShouldPass(String operator) throws IOException {
         // Arrange
         generateTreeWithSymbols(String.format("bool f() = if(1 %s 1) return true; return true; endf", operator));
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
     }
@@ -74,7 +74,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     public void BoolNumberComparisonInIfSentence_ShouldThrow(String operator) throws IOException {
         // Arrange
         generateTreeWithSymbols(String.format("bool f() = if(true %s 1) return true; return true; endf", operator));
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }
@@ -84,7 +84,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     public void BoolComparisonInIfSentence_ShouldThrow(String operator) throws IOException {
         // Arrange
         generateTreeWithSymbols(String.format("bool f() = if(true %s true) return true; return true; endf", operator));
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }
