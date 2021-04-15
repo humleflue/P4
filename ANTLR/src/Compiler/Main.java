@@ -3,6 +3,7 @@ package Compiler;
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.SymbolDefListener;
 import Compiler.SymbolTable.SymbolRefListener;
 import Compiler.TypeChecker.TypeCheckerVisitor;
@@ -25,22 +26,29 @@ public class Main {
 
         CharStream stream = CharStreams.fromFileName(args[0]);
 
+        //Error handling
+        UnderlineErrorListener errorListener = new UnderlineErrorListener();
+
         // Syntax analysis
         LangLexer lexer = new LangLexer(stream);
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(errorListener);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         LangParser parser = new LangParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(errorListener);
         ParseTree tree = parser.prog();
 
         // Symbol table generation
         ParseTreeWalker walker = new ParseTreeWalker();
-        SymbolDefListener symbolDefListener = new SymbolDefListener();
+        SymbolDefListener symbolDefListener = new SymbolDefListener(errorListener);
         walker.walk(symbolDefListener, tree);
 
 
         // Contextual analysis
-        SymbolRefListener symbolRefListener = new SymbolRefListener(symbolDefListener.globalScope, symbolDefListener.scopes);
+        SymbolRefListener symbolRefListener = new SymbolRefListener(symbolDefListener.globalScope, symbolDefListener.scopes, errorListener);
         walker.walk(symbolRefListener, tree);
-        ParseTreeVisitor typeChecker = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        ParseTreeVisitor typeChecker = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes, errorListener);
         typeChecker.visit(tree);
 
 
