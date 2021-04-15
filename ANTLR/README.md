@@ -14,6 +14,8 @@ A compiler built for a close-to-pure functional programming language for beginne
 
 Run the following commands in your terminal:
 ```shell
+$ sudo add-apt-repository ppa:linuxuprising/java
+$ sudo apt update
 $ sudo apt install oracle-java15-installer
 ```
 
