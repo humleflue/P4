@@ -19,7 +19,9 @@ $ sudo apt update
 $ sudo apt install oracle-java15-installer
 ```
 
-1. Download the jar file
+1. Download the jar file 
+   
+Run the following commands in your terminal:
 ```shell
 $ cd /usr/local/lib
 $ sudo curl -O https://skaalum.tech/downloads/buff-0.1.jar
@@ -27,11 +29,15 @@ $ sudo curl -O https://skaalum.tech/downloads/buff-0.1.jar
 Or just download in browser from website: https://skaalum.tech/downloads/buff-0.1.jar and put it somewhere rational like `/usr/local/lib`.
 
 2. Create an alias for the Buff tool
+
+Run the following command in your terminal:
 ```shell
 $ alias buff='java -jar /usr/local/lib/buff-0.1.jar'
 ```
 
 2. 1. OPTIONAL: It's a good idea to put the alias in your `.bashrc` file
+
+Run the following command in your terminal:
 ```shell
 $ vim ~/.bashrc
 ```
@@ -41,7 +47,7 @@ $ vim ~/.bashrc
 - Paste in `alias buff='java -jar /usr/local/lib/buff-0.1.jar'`.
 - Save and close the file with the following keystrokes: `ESCAPE`, `:`, `w`, `q`, `ENTER`
 
-Now you should be able to compile a file with:
+Now you should be able to compile a file by running the following command in your terminal:
 ```shell
 $ buff hello_world.buff
 ```
