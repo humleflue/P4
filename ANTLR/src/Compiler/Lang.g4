@@ -46,7 +46,7 @@ NUMBERTYPE : 'number' ;
 BOOLTYPE : 'bool' ;
 // Literals
 BOOLLITERAL : 'true' | 'false' ;
-NUMLITERAL : '-'?('0'..'9')+|'-'?('0'..'9')+'.'('0'..'9')+;
+NUMLITERAL : '-'?(('0'..'9')+|('0'..'9')+'.'('0'..'9')+);
 // Other reserved keywords
 ENDF    : 'end' ;
 RETURN : 'return' ;
