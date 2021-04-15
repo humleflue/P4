@@ -55,7 +55,7 @@ public class Main {
             ParseTreeVisitor visitor = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes, errorListener);
             visitor.visit(tree);
         } catch (Exception e){
-
+            //Nothing is currently being done as i am unsure what makes sense to do here.
         }
 
     }

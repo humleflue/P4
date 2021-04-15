@@ -136,8 +136,8 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
             Integer formalType = formalParamTypes.get(i);
             if(!actualType.equals(formalType)) {
                 throwTypeError(actualType, formalType,
-                        "Parameter type at \"" + funccallContext.ID().getText() + "\" call does not match expected type from definition",
-                        params.get(i).start);
+                        "Parameter type at \"" + funccallContext.ID().getText() +
+                                "\" call does not match expected type from definition", params.get(i).start);
             }
         }
 
