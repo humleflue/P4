@@ -27,7 +27,7 @@ public class Main {
         CliLexer lexer = new CliLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CliParser parser = new CliParser(tokens);
-        ParseTree tree = parser.prog();
+        ParseTree tree = parser.args();
 
         ParseTreeWalker walker = new ParseTreeWalker();
         CliListener parsedUserInput = new CliListener();

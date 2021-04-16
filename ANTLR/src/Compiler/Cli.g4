@@ -1,6 +1,6 @@
 grammar Cli;
 
-prog : id SUFFIX optionaloptions #compile
+args : id SUFFIX optionaloptions #compile
      | '-help'                   #help
      ;
 id : ID ;
