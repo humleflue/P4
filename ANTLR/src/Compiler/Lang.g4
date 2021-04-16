@@ -43,7 +43,7 @@ exprparams : expr (COMMA expr)* #exprparamsNotEmpty
 // Reserved keywords gets matched first
 // Types
 NUMBERTYPE : 'number' ;
-BOOLTYPE : 'bool' ;
+BOOLTYPE : 'boolean' ;
 // Literals
 BOOLLITERAL : 'true' | 'false' ;
 NUMLITERAL : '-'?(('0'..'9')+|('0'..'9')+'.'('0'..'9')+);
