@@ -2,6 +2,7 @@ package Compiler.ContextualAnalysis;
 
 import Compiler.AntlrGenerated.LangBaseListener;
 import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.ErrorHandling.BuffErrorListener;
 import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.BaseScope;
 import Compiler.SymbolTable.FuncdefSymbol;
@@ -11,12 +12,12 @@ import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class ReferenceCheckerListener extends LangBaseListener{
-    UnderlineErrorListener errorListener;
+    BuffErrorListener errorListener;
     ParseTreeProperty<Scope> scopes;
     Scope globalScope;
     Scope currentScope;
 
-    public ReferenceCheckerListener(BaseScope globalScope, ParseTreeProperty<Scope> scopes, UnderlineErrorListener errorListener) {
+    public ReferenceCheckerListener(BaseScope globalScope, ParseTreeProperty<Scope> scopes, BuffErrorListener errorListener) {
         this.scopes = scopes;
         this.globalScope = globalScope;
         this.errorListener = errorListener;
@@ -61,7 +62,7 @@ public class ReferenceCheckerListener extends LangBaseListener{
         if(callArgCount != expectedArgCount) {
             String errorMsg = " Function " + ctx.ID().getText() + " expects " + expectedArgCount +
                     " arguments but was called with " + callArgCount;
-            errorListener.ThrowUnderlinedError(errorMsg, ctx.exprparams().getStart());
+            errorListener.ThrowError(errorMsg, ctx.exprparams().getStart());
         }
     }
 
@@ -74,7 +75,7 @@ public class ReferenceCheckerListener extends LangBaseListener{
     void CheckSymbol(String name, Token token) {
         Symbol symbol = currentScope.getSymbol(name);
         if ( symbol==null ) {
-            errorListener.ThrowUnderlinedError(name + " is not defined", token);
+            errorListener.ThrowError(name + " is not defined", token);
         }
     }
 

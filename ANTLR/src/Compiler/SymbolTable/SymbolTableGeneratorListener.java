@@ -2,6 +2,7 @@ package Compiler.SymbolTable;
 
 import Compiler.AntlrGenerated.LangBaseListener;
 import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.ErrorHandling.BuffErrorListener;
 import Compiler.ErrorHandling.UnderlineErrorListener;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
@@ -10,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SymbolTableGeneratorListener extends LangBaseListener{
-    private UnderlineErrorListener errorListener;
+    private BuffErrorListener errorListener;
     public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
     public BaseScope globalScope = new BaseScope();
     Scope currentScope;
 
-    public SymbolTableGeneratorListener(UnderlineErrorListener errorListener) {
+    public SymbolTableGeneratorListener(BuffErrorListener errorListener) {
         this.errorListener = errorListener;
     }
 
@@ -40,7 +41,7 @@ public class SymbolTableGeneratorListener extends LangBaseListener{
         try {
             currentScope.defineSymbol(symbol);
         } catch (Exception e){
-            errorListener.ThrowUnderlinedError(e.getMessage(), ctx.ID().getSymbol());
+            errorListener.ThrowError(e.getMessage(), ctx.ID().getSymbol());
         }
 
         // Making new scope for function body
@@ -61,7 +62,7 @@ public class SymbolTableGeneratorListener extends LangBaseListener{
         try {
             currentScope.defineSymbol(paramSymbol);
         } catch (Exception e){
-            errorListener.ThrowUnderlinedError(e.getMessage(), ctx.ID().getSymbol());
+            errorListener.ThrowError(e.getMessage(), ctx.ID().getSymbol());
         }
 
         attachScope(ctx, currentScope);

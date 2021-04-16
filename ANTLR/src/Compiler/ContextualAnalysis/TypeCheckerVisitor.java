@@ -2,6 +2,7 @@ package Compiler.ContextualAnalysis;
 
 import Compiler.AntlrGenerated.LangBaseVisitor;
 import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.ErrorHandling.BuffErrorListener;
 import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
@@ -20,7 +21,7 @@ import java.util.List;
 import static Compiler.AntlrGenerated.LangLexer.*;
 
 public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
-    UnderlineErrorListener errorListener;
+    BuffErrorListener errorListener;
     Scope globalScope;
     ParseTreeProperty<Scope> scopes;
 
@@ -29,7 +30,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
      * @param globalScope The global scope defined by the symbol table.
      * @param scopes A hash map used for finding the scope of a tree node.
      */
-    public TypeCheckerVisitor(Scope globalScope, ParseTreeProperty<Scope> scopes, UnderlineErrorListener errorListener) {
+    public TypeCheckerVisitor(Scope globalScope, ParseTreeProperty<Scope> scopes, BuffErrorListener errorListener) {
         this.globalScope = globalScope;
         this.scopes = scopes;
         this.errorListener = errorListener;
@@ -51,7 +52,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
         ArrayList<Token> allOffendingTokens = new ArrayList<Token>(Arrays.asList(additionalOffendingTokens));
         allOffendingTokens.add(offendingToken);
 
-        errorListener.ThrowUnderlinedError(errorMsg, allOffendingTokens);
+        errorListener.ThrowError(errorMsg, allOffendingTokens);
     }
 
     @Override

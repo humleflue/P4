@@ -4,11 +4,10 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
-import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class UnderlineErrorListener extends BaseErrorListener {
+public class UnderlineErrorListener extends BaseErrorListener implements BuffErrorListener {
 
     private class LineWithError {
         String line;
@@ -48,7 +47,7 @@ public class UnderlineErrorListener extends BaseErrorListener {
         Token offendingToken = (Token)offendingSymbol;
         Interval offendingTokenInterval = new Interval(offendingToken.getStartIndex(), offendingToken.getStopIndex());
 
-        ThrowUnderlinedError(msg, offendingToken);
+        ThrowError(msg, offendingToken);
     }
 
     /**
@@ -56,7 +55,7 @@ public class UnderlineErrorListener extends BaseErrorListener {
      * @param errorMsg Message that explains the cause of the error
      * @param offendingTokens The list of tokens which will be underlined
      */
-    public void ThrowUnderlinedError(String errorMsg, ArrayList<Token> offendingTokens) {
+    public void ThrowError(String errorMsg, ArrayList<Token> offendingTokens) {
         //Gets the source code line in which the error occurred.
         ArrayList<LineWithError> errorLines = GetLineWithErrorArray(offendingTokens);
 
@@ -79,7 +78,7 @@ public class UnderlineErrorListener extends BaseErrorListener {
      * @param offendingToken A tokens which will be underlined
      * @param additionalOffendingTokens The additional tokens which will be underlined
      */
-    public void ThrowUnderlinedError(String errorMsg, Token offendingToken, Token... additionalOffendingTokens) {
+    public void ThrowError(String errorMsg, Token offendingToken, Token... additionalOffendingTokens) {
         ArrayList<Token> allOffendingTokens = new ArrayList<Token>();
         allOffendingTokens.add(offendingToken);
 
@@ -87,7 +86,7 @@ public class UnderlineErrorListener extends BaseErrorListener {
             allOffendingTokens.add(token);
         }
 
-        ThrowUnderlinedError(errorMsg, allOffendingTokens);
+        ThrowError(errorMsg, allOffendingTokens);
     }
 
     /**
