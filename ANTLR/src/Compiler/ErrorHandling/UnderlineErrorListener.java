@@ -140,15 +140,13 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
         int printPos = 0;
 
         for (Interval interval : offendingTokenInterval){
-            while (printPos < interval.a) {
-                System.out.print(" ");
-                printPos++;
+            if (printPos < interval.a) {
+                System.out.print(" ".repeat(interval.a - printPos));
+                printPos = interval.a;
             }
             if ( interval.a >= 0 && interval.b >= 0) {
-                for (int i = interval.a; i <= interval.b; i++) {
-                    printRed("^");
-                    printPos++;
-                }
+                printRed("^".repeat(interval.b - interval.a));
+                printPos += interval.b - interval.a;
             }
         }
         System.out.println("\n--------------------");

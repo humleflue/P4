@@ -62,7 +62,9 @@ public class Main {
             OutputFile output = new OutputFile(targetCode, args);
             output.execute();
         }catch (Exception e){
-            //Do not know what makes sense to do here if anything, so empty for now.
+            /** Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
+             *  given a message explaining the error and nothing more should be done here.
+             */
         }
 
     }
