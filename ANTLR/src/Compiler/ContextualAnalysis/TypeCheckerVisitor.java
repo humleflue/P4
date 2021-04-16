@@ -7,9 +7,11 @@ import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 // WARNING: This might be a bad idea !!!
@@ -169,11 +171,9 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      */
     @Override
     public Integer visitFuncdef(FuncdefContext ctx) {
-        String functionId = ctx.ID().getText();
-
         // Check return statement's return type
         Integer stmtType = visit(ctx.stmt());
-        Integer returnType = checkReturnTypeCorrespondence(stmtType, functionId);
+        Integer returnType = checkReturnTypeCorrespondence(stmtType, ctx);
 
         // Check each statement's return type
         //Gets lists of expression nodes in the actual parameters
@@ -189,7 +189,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         // Check that the types correspond to each other.
         for (int i = 0; i < stmtsTypes.size(); i++) {
             Integer someStmtType = stmtsTypes.get(i);
-            checkReturnTypeCorrespondence(someStmtType, functionId);
+            checkReturnTypeCorrespondence(someStmtType, ctx);
         }
 
         // Visit the rest of the children
@@ -199,7 +199,9 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return returnType;
     }
 
-    private Integer checkReturnTypeCorrespondence(Integer stmtType, String functionId) {
+    private Integer checkReturnTypeCorrespondence(Integer stmtType, FuncdefContext ctx) {
+        String functionId = ctx.ID().getText();
+
         // Retrieve the function's return type from the symbol table
         Symbol symbol = globalScope.getSymbol(functionId);
         Integer funcdefReturnType = symbol.getType();
@@ -207,9 +209,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         // Evaluate if the types are the same.
         if(!funcdefReturnType.equals(stmtType)) {
             throwTypeError(
-                    funcdefReturnType, stmtType, "Does not return expected type in function definition: " + ctx.ID().getText(),
+                    funcdefReturnType, stmtType, "Does not return expected type in function definition: " + functionId,
                     ctx.type().start, ctx.RETURN().getSymbol());
-                    funcdefReturnType, stmtType, "In function definition: " + functionId);
         }
 
         return funcdefReturnType;

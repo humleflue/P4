@@ -6,6 +6,7 @@ import Compiler.AntlrGenerated.BuffLexer;
 import Compiler.AntlrGenerated.BuffParser;
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
 import Compiler.ContextualAnalysis.CliListener;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import Compiler.ContextualAnalysis.ReferenceCheckerListener;
 import Compiler.ContextualAnalysis.TypeCheckerVisitor;
