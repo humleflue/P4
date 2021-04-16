@@ -1,4 +1,4 @@
-grammar Lang;
+grammar Buff;
 
 prog : code EOF ;
 code : funcdef code                                                           #codeFuncdef

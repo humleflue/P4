@@ -1,8 +1,11 @@
 package Compiler;
 
+import Compiler.AntlrGenerated.CliLexer;
+import Compiler.AntlrGenerated.CliParser;
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
+import Compiler.ContextualAnalysis.CliListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import Compiler.ContextualAnalysis.ReferenceCheckerListener;
 import Compiler.ContextualAnalysis.TypeCheckerVisitor;
@@ -19,12 +22,21 @@ import java.nio.file.Path;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        if(args.length < 1 || args[0].contains("-help"))
+        // Parse command line input
+        CharStream stream = CharStreams.fromString(String.join(" ", args));
+        CliLexer lexer = new CliLexer(stream);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        CliParser parser = new CliParser(tokens);
+        ParseTree tree = parser.prog();
+
+        ParseTreeWalker walker = new ParseTreeWalker();
+        CliListener parsedUserInput = new CliListener();
+        walker.walk(parsedUserInput, tree);
+
+        if(parsedUserInput.wantsHelp())
             displayHelp();
-        else if(!args[0].endsWith(".buff"))
-            System.out.println("ERROR: File format not recognized. Filename should have the suffix: '.buff'.");
         else
-            compile(args);
+            compile(parsedUserInput);
     }
 
     private static void displayHelp() {
@@ -36,8 +48,8 @@ public class Main {
         }
     }
 
-    private static void compile(String[] args) throws IOException {
-        CharStream stream = CharStreams.fromFileName(args[0]);
+    private static void compile(CliListener userInput) throws IOException {
+        CharStream stream = CharStreams.fromFileName(userInput.getInputFileName());
 
         // Syntax analysis
         LangLexer lexer = new LangLexer(stream);
@@ -50,7 +62,6 @@ public class Main {
         SymbolTableGeneratorListener symbolTable = new SymbolTableGeneratorListener();
         walker.walk(symbolTable, tree);
 
-
         // Contextual analysis
         ReferenceCheckerListener referenceChecker = new ReferenceCheckerListener(symbolTable.globalScope, symbolTable.scopes);
         walker.walk(referenceChecker, tree);
@@ -58,13 +69,10 @@ public class Main {
         TypeCheckerVisitor typeChecker = new TypeCheckerVisitor(symbolTable.globalScope, symbolTable.scopes);
         typeChecker.visit(tree);
 
-
         // Code generation
         JavaScriptCodeGenerationVisitor codeGenerator = new JavaScriptCodeGenerationVisitor();
         String targetCode = codeGenerator.visit(tree);
 
-        OutputFile output = new OutputFile(targetCode, args);
-        output.parseCommandLineArguments();
-        output.execute();
+        Files.writeString(Path.of(userInput.getOutfileName()), targetCode);
     }
 }
