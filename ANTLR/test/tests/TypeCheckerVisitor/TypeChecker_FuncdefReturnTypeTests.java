@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import tests.Auxiliary.MockErrorListener;
 
 import java.io.IOException;
 
@@ -16,7 +17,8 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     public void CorrespondingReturnTypes_ShouldPass(String type, String expr) throws IOException {
         // Arrange
         generateTreeWithSymbols(String.format("%s f() = return %s; endf", type, expr));
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new UnderlineErrorListener());
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
+                symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
     }
@@ -26,7 +28,7 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     public void DifferentReturnTypes_ShouldThrow(String type, String expr) throws IOException {
         // Arrange
         generateTreeWithSymbols(String.format("%s f() = return %s; endf", type, expr));
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new UnderlineErrorListener());
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }
@@ -39,7 +41,7 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
                 "    if(false) return 2;\n" +
                 "    return 2;\n" +
                 "    endf");
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }
@@ -52,7 +54,7 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
                 "    if(false) return true;\n" +
                 "    return 2;\n" +
                 "    endf");
-        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes);
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }

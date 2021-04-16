@@ -1,4 +1,4 @@
-package tests.Lexer;//package Compiler.Test;
+package tests.Lexer;
 
 import Compiler.AntlrGenerated.BuffLexer;
 import tests.Auxiliary.TestCase;

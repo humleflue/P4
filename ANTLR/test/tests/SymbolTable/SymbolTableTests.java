@@ -6,6 +6,7 @@ import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.*;
+import tests.Auxiliary.MockErrorListener;
 import tests.Auxiliary.TestCase;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class SymbolTableTests {
     private SymbolTableGeneratorListener getWalker(ParseTree tree) {
         ParseTreeWalker walker = new ParseTreeWalker();
 
-        SymbolTableGeneratorListener symbolTableGeneratorListener = new SymbolTableGeneratorListener(new UnderlineErrorListener());
+        SymbolTableGeneratorListener symbolTableGeneratorListener = new SymbolTableGeneratorListener(new MockErrorListener());
         walker.walk(symbolTableGeneratorListener, tree);
         return symbolTableGeneratorListener;
     }
