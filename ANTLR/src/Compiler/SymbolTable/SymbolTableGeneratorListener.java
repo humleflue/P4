@@ -1,14 +1,14 @@
 package Compiler.SymbolTable;
 
-import Compiler.AntlrGenerated.LangBaseListener;
-import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.AntlrGenerated.BuffBaseListener;
+import Compiler.AntlrGenerated.BuffParser.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SymbolTableGeneratorListener extends LangBaseListener{
+public class SymbolTableGeneratorListener extends BuffBaseListener{
     public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
     public BaseScope globalScope = new BaseScope();
     Scope currentScope;
@@ -58,6 +58,11 @@ public class SymbolTableGeneratorListener extends LangBaseListener{
 
     @Override
     public void exitFunccall(FunccallContext ctx) {
+        attachScope(ctx, currentScope);
+    }
+
+    @Override
+    public void exitStmts(StmtsContext ctx) {
         attachScope(ctx, currentScope);
     }
 

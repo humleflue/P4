@@ -1,6 +1,6 @@
 package tests.Lexer;//package Compiler.Test;
 
-import Compiler.AntlrGenerated.LangLexer;
+import Compiler.AntlrGenerated.BuffLexer;
 import tests.Auxiliary.TestCase;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -84,9 +84,9 @@ public class LexerTests {
             // Arrange
             String test = "number test() = return 2; endf";
             //System.out.println(test);
-            TestCase testCase = new TestCase(test, Arrays.asList(LangLexer.NUMBERTYPE, LangLexer.ID,
-                    LangLexer.LPAREN, LangLexer.RPAREN, LangLexer.ASSIGN, LangLexer.RETURN, LangLexer.NUMLITERAL, LangLexer.SEMICOLON,
-                    LangLexer.ENDF, LangLexer.EOF));
+            TestCase testCase = new TestCase(test, Arrays.asList(BuffLexer.NUMBERTYPE, BuffLexer.ID,
+                    BuffLexer.LPAREN, BuffLexer.RPAREN, BuffLexer.ASSIGN, BuffLexer.RETURN, BuffLexer.NUMLITERAL, BuffLexer.SEMICOLON,
+                    BuffLexer.ENDF, BuffLexer.EOF));
 
             // Act
             boolean result = testCase.test();

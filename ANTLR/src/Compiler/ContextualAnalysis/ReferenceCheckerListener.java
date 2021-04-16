@@ -1,14 +1,14 @@
 package Compiler.ContextualAnalysis;
 
-import Compiler.AntlrGenerated.LangBaseListener;
-import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.AntlrGenerated.BuffBaseListener;
+import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.SymbolTable.BaseScope;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
-public class ReferenceCheckerListener extends LangBaseListener{
+public class ReferenceCheckerListener extends BuffBaseListener{
     ParseTreeProperty<Scope> scopes;
     Scope globalScope;
     Scope currentScope;

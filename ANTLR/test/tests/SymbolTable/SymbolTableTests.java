@@ -1,6 +1,6 @@
 package tests.SymbolTable;
 
-import Compiler.AntlrGenerated.LangLexer;
+import Compiler.AntlrGenerated.BuffLexer;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -32,7 +32,7 @@ public class SymbolTableTests {
         SymbolTableGeneratorListener symbolTable = getWalker(tree);
 
         // Act
-        int expected = LangLexer.NUMBERTYPE;
+        int expected = BuffLexer.NUMBERTYPE;
         int actual = symbolTable.globalScope.getSymbol("func").getType();
 
         // Assert
@@ -48,7 +48,7 @@ public class SymbolTableTests {
         SymbolDefListener symbolTable = walker(tree);
 
         // Act
-        int expected = LangLexer.NUMBERTYPE;
+        int expected = BuffLexer.NUMBERTYPE;
         //Type func = symbolTable.globalScope.getSymbol("func").getType()
         //symbolTable.
         // Assert

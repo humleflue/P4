@@ -3,8 +3,8 @@ package tests.Auxiliary;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Compiler.AntlrGenerated.LangLexer;
-import Compiler.AntlrGenerated.LangParser;
+import Compiler.AntlrGenerated.BuffLexer;
+import Compiler.AntlrGenerated.BuffParser;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -22,7 +22,7 @@ import java.util.*;
  *
  * Use constructor <code>testCase(String test, List<Integer> lexerValues)</code> to test
  * if input program produce ANTLER lexer tokens matching provided list of ANTLER tokens.
- * An ANTLER token is etc. <code>LangLexer.NUMBERTYPE</code>.
+ * An ANTLER token is etc. <code>BuffLexer.NUMBERTYPE</code>.
  */
 public class TestCase {
     public String test;
@@ -57,7 +57,7 @@ public class TestCase {
     /**
      * Test case for checking input program produce ANTLER lexer tokens matching provided list of ANTLER tokens
      * @param test          Test input program as a String
-     * @param lexerValues   List of Lexer Tokens denoted by etc. <code>LangLexer.NUMBERTYPE</code> (enum)
+     * @param lexerValues   List of Lexer Tokens denoted by etc. <code>BuffLexer.NUMBERTYPE</code> (enum)
      */
     // Lexer values are enums and are therefor integers.
     public TestCase(String test, List<Integer> lexerValues){
@@ -68,7 +68,7 @@ public class TestCase {
         // Convert Lexer tokens to user readable string
         for (int tokenEnum : lexerTokens) {
             lexerTokensStringBuilder.append("<")
-                                    .append(LangLexer.VOCABULARY.getSymbolicName(tokenEnum))
+                                    .append(BuffLexer.VOCABULARY.getSymbolicName(tokenEnum))
                                     .append("> ");
         }
 
@@ -144,9 +144,9 @@ public class TestCase {
         CommonTokenStream tokens;
 
         CodePointCharStream stream = CharStreams.fromReader(new StringReader(this.test));
-        LangLexer lexer = new LangLexer(stream);
+        BuffLexer lexer = new BuffLexer(stream);
         tokens = new CommonTokenStream(lexer);
-        LangParser parser = new LangParser(tokens);
+        BuffParser parser = new BuffParser(tokens);
         ParseTree tree = parser.code();
 
         return tokens;
@@ -185,7 +185,7 @@ public class TestCase {
                 tokensDoesMatch = false;
 
             prettyPrintedTokens.append("<")
-                               .append(LangLexer.VOCABULARY.getSymbolicName(token.getType()))
+                               .append(BuffLexer.VOCABULARY.getSymbolicName(token.getType()))
                                .append("> ");
             tokenNumb++;
         }
@@ -300,10 +300,10 @@ public class TestCase {
 
     /**
      * Converts list of tokens represented by integers to a parser.
-     * @param tokensAsIntegers List of tokens represented by integers. Use <code>LangLexer.INSERT_TYPE_HERE</code> to get integer.
+     * @param tokensAsIntegers List of tokens represented by integers. Use <code>BuffLexer.INSERT_TYPE_HERE</code> to get integer.
      * @return A ANTLER parser
      */
-    static public LangParser getParserFromTokens(List<Integer> tokensAsIntegers) {
+    static public BuffParser getParserFromTokens(List<Integer> tokensAsIntegers) {
         List<CommonToken> commonTokens = new ArrayList<CommonToken>();
         for (int i : tokensAsIntegers){
             commonTokens.add(new CommonToken(i));
@@ -313,14 +313,14 @@ public class TestCase {
 
         CommonTokenStream tokens = new CommonTokenStream(ts);
 
-        return new LangParser(tokens);
+        return new BuffParser(tokens);
     }
 
     static public ParseTree createTree(String testSourceCode) throws IOException {
         CodePointCharStream stream = CharStreams.fromReader(new StringReader(testSourceCode));
-        LangLexer lexer = new LangLexer(stream);
+        BuffLexer lexer = new BuffLexer(stream);
         var tokens = new CommonTokenStream(lexer);
-        LangParser parser = new LangParser(tokens);
+        BuffParser parser = new BuffParser(tokens);
         ParseTree tree = parser.prog();
         return tree;
     }

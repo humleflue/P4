@@ -2,8 +2,8 @@ package Compiler;
 
 import Compiler.AntlrGenerated.CliLexer;
 import Compiler.AntlrGenerated.CliParser;
-import Compiler.AntlrGenerated.LangLexer;
-import Compiler.AntlrGenerated.LangParser;
+import Compiler.AntlrGenerated.BuffLexer;
+import Compiler.AntlrGenerated.BuffParser;
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
 import Compiler.ContextualAnalysis.CliListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
@@ -52,9 +52,9 @@ public class Main {
         CharStream stream = CharStreams.fromFileName(userInput.getInputFileName());
 
         // Syntax analysis
-        LangLexer lexer = new LangLexer(stream);
+        BuffLexer lexer = new BuffLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        LangParser parser = new LangParser(tokens);
+        BuffParser parser = new BuffParser(tokens);
         ParseTree tree = parser.prog();
 
         // Symbol table generation

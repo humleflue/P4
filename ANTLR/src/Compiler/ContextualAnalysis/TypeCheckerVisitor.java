@@ -1,7 +1,7 @@
 package Compiler.ContextualAnalysis;
 
-import Compiler.AntlrGenerated.LangBaseVisitor;
-import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.AntlrGenerated.BuffBaseVisitor;
+import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
@@ -14,7 +14,7 @@ import java.util.List;
 // This imports all of our enums from LangLexer,
 // so that we don't have to write LangLexer.NUMBERTYPE,
 // instead we can just write NUMBERTYPE
-import static Compiler.AntlrGenerated.LangLexer.*;
+import static Compiler.AntlrGenerated.BuffLexer.*;
 
 /**
  * The type checker validates the type for:
@@ -23,7 +23,7 @@ import static Compiler.AntlrGenerated.LangLexer.*;
  * - expression operations
  * - function call parameters/function definition type correspondence
  */
-public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
+public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     Scope globalScope;
     ParseTreeProperty<Scope> scopes;
 
@@ -124,7 +124,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
         List<ExprContext> params =  ctx.getRuleContexts(ExprContext.class);
 
         // Visits each expression node in the actual params,
-        // and thereby gets their type.
+        // and thereby gets their types.
         ArrayList<Integer> actualTypes = new ArrayList<>();
         for(int i = 0; i < params.size(); i++) {
             Integer type = visit(ctx.expr(i));
@@ -168,23 +168,46 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
      */
     @Override
     public Integer visitFuncdef(FuncdefContext ctx) {
-        // Retrieve the function's return type from the symbol table
-        Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
-        Integer funcdefReturnType = symbol.getType();
+        String functionId = ctx.ID().getText();
 
-        // Retrieve the statement's return type
+        // Check return statement's return type
         Integer stmtType = visit(ctx.stmt());
+        Integer returnType = checkReturnTypeCorrespondence(stmtType, functionId);
 
-        // Evaluate if the types are the same.
-        if(!funcdefReturnType.equals(stmtType)) {
-            throwTypeError(
-                    funcdefReturnType, stmtType, "In function definition: " + ctx.ID().getText());
+        // Check each statement's return type
+        //Gets lists of expression nodes in the actual parameters
+        List<StmtsContext> stmts =  ctx.getRuleContexts(StmtsContext.class);
+
+        // Visits each stmts node, and thereby gets their types.
+        ArrayList<Integer> stmtsTypes = new ArrayList<>();
+        for(int i = 0; i < stmts.size(); i++) {
+            Integer type = visit(ctx.stmts(i));
+            stmtsTypes.add(type);
+        }
+
+        // Check that the types correspond to each other.
+        for (int i = 0; i < stmtsTypes.size(); i++) {
+            Integer someStmtType = stmtsTypes.get(i);
+            checkReturnTypeCorrespondence(someStmtType, functionId);
         }
 
         // Visit the rest of the children
         visit(ctx.type());
         visit(ctx.funcdefparams());
-        visit(ctx.stmts());
+
+        return returnType;
+    }
+
+    private Integer checkReturnTypeCorrespondence(Integer stmtType, String functionId) {
+        // Retrieve the function's return type from the symbol table
+        Symbol symbol = globalScope.getSymbol(functionId);
+        Integer funcdefReturnType = symbol.getType();
+
+        // Evaluate if the types are the same.
+        if(!funcdefReturnType.equals(stmtType)) {
+            throwTypeError(
+                    funcdefReturnType, stmtType, "In function definition: " + functionId);
+        }
 
         return funcdefReturnType;
     }
@@ -200,7 +223,8 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
      * @return Returns the type of the expression.
      */
     @Override
-    public Integer visitStmtsNotEmpty(StmtsNotEmptyContext ctx) {
+    public Integer visitStmts(StmtsContext ctx) {
+        // Check if statement expression type
         Integer actualType = visit(ctx.expr());
         Integer expectedType = BOOLTYPE;
 
@@ -208,10 +232,6 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
             throwTypeError(actualType, expectedType, "In an if statement");
         }
 
-        // Visit the rest of the children
-        visit(ctx.stmt());
-        visit(ctx.stmts());
-
-        return expectedType;
+        return visit(ctx.stmt());
     }
 }

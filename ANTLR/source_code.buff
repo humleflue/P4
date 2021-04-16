@@ -4,3 +4,9 @@ number fib(number x) =
     endf
 
 fib(20)?;
+
+number shouldNotWork() =
+    if(true) return true;
+    if(false) return 2;
+    return 2;
+    endf
