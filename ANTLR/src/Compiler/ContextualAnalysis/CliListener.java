@@ -14,6 +14,7 @@ public class CliListener extends CliBaseListener {
         String fileName = ctx.id().ID().getText();
         String suffix = ctx.SUFFIX().getText();
         inputFileName = fileName + suffix;
+
     }
 
     @Override
