@@ -2,7 +2,7 @@ package tests.SymbolTable;
 
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.ErrorHandling.UnderlineErrorListener;
-import Compiler.SymbolTable.SymbolDefListener;
+import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.*;
@@ -17,12 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 
 public class SymbolTableTests {
-    private SymbolDefListener getWalker(ParseTree tree) throws IOException {
+    private SymbolTableGeneratorListener getWalker(ParseTree tree) {
         ParseTreeWalker walker = new ParseTreeWalker();
 
-        SymbolDefListener symbolDefListener = new SymbolDefListener(new UnderlineErrorListener());
-        walker.walk(symbolDefListener, tree);
-        return symbolDefListener;
+        SymbolTableGeneratorListener symbolTableGeneratorListener = new SymbolTableGeneratorListener(new UnderlineErrorListener());
+        walker.walk(symbolTableGeneratorListener, tree);
+        return symbolTableGeneratorListener;
     }
 
     @Test
@@ -30,7 +30,7 @@ public class SymbolTableTests {
     public void GivenNumberType_ReturnsNumberType() throws IOException {
         // Arrange
         ParseTree tree = TestCase.createTree("number func() = return 1; endf");
-        SymbolDefListener symbolTable = getWalker(tree);
+        SymbolTableGeneratorListener symbolTable = getWalker(tree);
 
         // Act
         int expected = LangLexer.NUMBERTYPE;

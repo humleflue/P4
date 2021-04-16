@@ -1,4 +1,4 @@
-package Compiler.TypeChecker;
+package Compiler.ContextualAnalysis;
 
 import Compiler.AntlrGenerated.LangBaseVisitor;
 import Compiler.AntlrGenerated.LangParser.*;
@@ -173,7 +173,7 @@ public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
         // Evaluate if the types are the same.
         if(!funcdefReturnType.equals(stmtType)) {
             throwTypeError(
-                    funcdefReturnType, stmtType, "In function definition: " + ctx.ID().getText(),
+                    funcdefReturnType, stmtType, "Does not return expected type in function definition: " + ctx.ID().getText(),
                     ctx.type().start, ctx.RETURN().getSymbol());
         }
 

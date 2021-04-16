@@ -9,14 +9,13 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SymbolDefListener extends LangBaseListener{
-    //Would like to make the Error Listener more generic, but that would be at the cost of more code in each listener.
+public class SymbolTableGeneratorListener extends LangBaseListener{
     private UnderlineErrorListener errorListener;
     public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
     public BaseScope globalScope = new BaseScope();
     Scope currentScope;
 
-    public SymbolDefListener(UnderlineErrorListener errorListener) {
+    public SymbolTableGeneratorListener(UnderlineErrorListener errorListener) {
         this.errorListener = errorListener;
     }
 

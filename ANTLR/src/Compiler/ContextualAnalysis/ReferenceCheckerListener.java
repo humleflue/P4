@@ -1,19 +1,22 @@
-package Compiler.SymbolTable;
+package Compiler.ContextualAnalysis;
 
 import Compiler.AntlrGenerated.LangBaseListener;
 import Compiler.AntlrGenerated.LangParser.*;
 import Compiler.ErrorHandling.UnderlineErrorListener;
+import Compiler.SymbolTable.BaseScope;
+import Compiler.SymbolTable.FuncdefSymbol;
+import Compiler.SymbolTable.Scope;
+import Compiler.SymbolTable.Symbol;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
-public class SymbolRefListener extends LangBaseListener{
-    //Would like to make the Error Listener more generic, but that would be at the cost of more code in each listener.
-    private UnderlineErrorListener errorListener;
+public class ReferenceCheckerListener extends LangBaseListener{
+    UnderlineErrorListener errorListener;
     ParseTreeProperty<Scope> scopes;
     Scope globalScope;
     Scope currentScope;
 
-    public SymbolRefListener(BaseScope globalScope, ParseTreeProperty<Scope> scopes, UnderlineErrorListener errorListener) {
+    public ReferenceCheckerListener(BaseScope globalScope, ParseTreeProperty<Scope> scopes, UnderlineErrorListener errorListener) {
         this.scopes = scopes;
         this.globalScope = globalScope;
         this.errorListener = errorListener;
