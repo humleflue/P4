@@ -5,10 +5,12 @@ import Compiler.AntlrGenerated.CliParser;
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.ContextualAnalysis.CliListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import Compiler.ContextualAnalysis.ReferenceCheckerListener;
 import Compiler.ContextualAnalysis.TypeCheckerVisitor;
+import org.antlr.v4.codegen.model.OutputFile;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -51,28 +53,46 @@ public class Main {
     private static void compile(CliListener userInput) throws IOException {
         CharStream stream = CharStreams.fromFileName(userInput.getInputFileName());
 
-        // Syntax analysis
-        LangLexer lexer = new LangLexer(stream);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        LangParser parser = new LangParser(tokens);
-        ParseTree tree = parser.prog();
+        try{
+            //Error handling
+            UnderlineErrorListener errorListener = new UnderlineErrorListener();
 
-        // Symbol table generation
-        ParseTreeWalker walker = new ParseTreeWalker();
-        SymbolTableGeneratorListener symbolTable = new SymbolTableGeneratorListener();
-        walker.walk(symbolTable, tree);
+            // Syntax analysis
+            LangLexer lexer = new LangLexer(stream);
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(errorListener);
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            LangParser parser = new LangParser(tokens);
+            parser.removeErrorListeners();
+            parser.addErrorListener(errorListener);
+            ParseTree tree = parser.prog();
 
-        // Contextual analysis
-        ReferenceCheckerListener referenceChecker = new ReferenceCheckerListener(symbolTable.globalScope, symbolTable.scopes);
-        walker.walk(referenceChecker, tree);
+            // Symbol table generation
+            ParseTreeWalker walker = new ParseTreeWalker();
+            SymbolTableGeneratorListener symbolTable = new SymbolTableGeneratorListener(errorListener);
+            walker.walk(symbolTable, tree);
 
-        TypeCheckerVisitor typeChecker = new TypeCheckerVisitor(symbolTable.globalScope, symbolTable.scopes);
-        typeChecker.visit(tree);
+            // Contextual analysis
+            ReferenceCheckerListener referenceChecker =
+                    new ReferenceCheckerListener(symbolTable.globalScope, symbolTable.scopes, errorListener);
+            walker.walk(referenceChecker, tree);
 
-        // Code generation
-        JavaScriptCodeGenerationVisitor codeGenerator = new JavaScriptCodeGenerationVisitor();
-        String targetCode = codeGenerator.visit(tree);
+            TypeCheckerVisitor typeChecker =
+                    new TypeCheckerVisitor(symbolTable.globalScope, symbolTable.scopes, errorListener);
+            typeChecker.visit(tree);
 
-        Files.writeString(Path.of(userInput.getOutfileName()), targetCode);
+
+            // Code generation
+            JavaScriptCodeGenerationVisitor codeGenerator = new JavaScriptCodeGenerationVisitor();
+            String targetCode = codeGenerator.visit(tree);
+
+            Files.writeString(Path.of(userInput.getOutfileName()), targetCode);
+
+            }catch (Exception e){
+                /** Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
+                 *  given a message explaining the error and nothing more should be done here.
+                 */
+            }
+
     }
 }

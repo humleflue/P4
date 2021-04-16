@@ -2,20 +2,25 @@ package Compiler.ContextualAnalysis;
 
 import Compiler.AntlrGenerated.LangBaseListener;
 import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.ErrorHandling.BuffErrorListener;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.BaseScope;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class ReferenceCheckerListener extends LangBaseListener{
+    BuffErrorListener errorListener;
     ParseTreeProperty<Scope> scopes;
     Scope globalScope;
     Scope currentScope;
 
-    public ReferenceCheckerListener(BaseScope globalScope, ParseTreeProperty<Scope> scopes) {
+    public ReferenceCheckerListener(BaseScope globalScope, ParseTreeProperty<Scope> scopes, BuffErrorListener errorListener) {
         this.scopes = scopes;
         this.globalScope = globalScope;
+        this.errorListener = errorListener;
     }
 
     @Override
@@ -35,12 +40,12 @@ public class ReferenceCheckerListener extends LangBaseListener{
 
     @Override
     public void exitValId(ValIdContext ctx) {
-        CheckSymbol(ctx.ID().getSymbol().getText());
+        CheckSymbol(ctx.ID().getSymbol().getText(), ctx.ID().getSymbol());
     }
 
     @Override
     public void exitFunccall(FunccallContext ctx) throws IllegalArgumentException {
-        CheckSymbol(ctx.ID().getSymbol().getText());
+        CheckSymbol(ctx.ID().getSymbol().getText(), ctx.ID().getSymbol());
 
         int callArgCount = 0;
         //Check for null required, as it would otherwise crash when getting Expressions
@@ -55,14 +60,22 @@ public class ReferenceCheckerListener extends LangBaseListener{
         int expectedArgCount = function.getParameterTypes().size();
 
         if(callArgCount != expectedArgCount) {
-            throw new IllegalArgumentException(ctx.ID().getText() + " expects " + expectedArgCount + " arguments but was called with " + callArgCount);
+            String errorMsg = " Function " + ctx.ID().getText() + " expects " + expectedArgCount +
+                    " arguments but was called with " + callArgCount;
+            errorListener.ThrowError(errorMsg, ctx.exprparams().getStart());
         }
     }
 
-    private void CheckSymbol(String name) throws IllegalArgumentException {
+    /**
+     * Checks if a symbol exists in the current scope.
+     *
+     * @param name Name of the Symbol
+     * @param token The token for the symbol. Used to point it out in the Error Listener.
+     */
+    void CheckSymbol(String name, Token token) {
         Symbol symbol = currentScope.getSymbol(name);
         if ( symbol==null ) {
-            throw new IllegalArgumentException(name + " is not defined");
+            errorListener.ThrowError(name + " is not defined", token);
         }
     }
 
