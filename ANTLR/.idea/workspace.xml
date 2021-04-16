@@ -7,8 +7,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Merge with HEAD">
+      <change afterPath="$PROJECT_DIR$/helpMessage.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/Cli.g4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/CliListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/ReferenceCheckerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/ReferenceCheckerListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Lang.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Buff.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/OutputFile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +45,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/.idea/workspace.xml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Compiler/TypeChecker/TypeCheckerVisitor.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1qcaGocVwLkoEKS1iZtdAzeICch" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -84,10 +94,10 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
-      <option name="PROGRAM_PARAMETERS" value="source_code.buff -o execute" />
+      <option name="PROGRAM_PARAMETERS" value="source_code.buff -o executeMe" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Compiler.*" />
+          <option name="PATTERN" value="Compiler.OutputFile" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -186,7 +196,9 @@
       <workItem from="1618216679236" duration="1865000" />
       <workItem from="1618232636437" duration="480000" />
       <workItem from="1618398321411" duration="6454000" />
-      <workItem from="1618470394844" duration="6387000" />
+      <workItem from="1618470394844" duration="7749000" />
+      <workItem from="1618506749454" duration="1063000" />
+      <workItem from="1618559210532" duration="4974000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
@@ -264,6 +276,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.IllegalArgumentException" package="java.lang" />
           <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
+          <option name="timeStamp" value="4" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

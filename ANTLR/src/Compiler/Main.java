@@ -1,12 +1,16 @@
 package Compiler;
 
+import Compiler.AntlrGenerated.CliLexer;
+import Compiler.AntlrGenerated.CliParser;
 import Compiler.AntlrGenerated.LangLexer;
 import Compiler.AntlrGenerated.LangParser;
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
 import Compiler.ErrorHandling.UnderlineErrorListener;
+import Compiler.ContextualAnalysis.CliListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import Compiler.ContextualAnalysis.ReferenceCheckerListener;
 import Compiler.ContextualAnalysis.TypeCheckerVisitor;
+import org.antlr.v4.codegen.model.OutputFile;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -14,18 +18,42 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        if(args.length < 1)
-            throw new IOException("You must provide the filepath to the file you wish to compile.");
-        else if(!args[0].endsWith(".buff"))
-            throw new IOException("Filename must have the suffix: '.buff'.");
+        // Parse command line input
+        CharStream stream = CharStreams.fromString(String.join(" ", args));
+        CliLexer lexer = new CliLexer(stream);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        CliParser parser = new CliParser(tokens);
+        ParseTree tree = parser.args();
+
+        ParseTreeWalker walker = new ParseTreeWalker();
+        CliListener parsedUserInput = new CliListener();
+        walker.walk(parsedUserInput, tree);
+
+        if(parsedUserInput.wantsHelp())
+            displayHelp();
+        else
+            compile(parsedUserInput);
+    }
+
+    private static void displayHelp() {
+        try {
+            System.out.println(Files.readString(Path.of("helpMessage.txt")));
+        }
+        catch(IOException e) {
+            System.out.println("usage: buff <file>");
+        }
+    }
+
+    private static void compile(CliListener userInput) throws IOException {
+        CharStream stream = CharStreams.fromFileName(userInput.getInputFileName());
 
         try{
-            CharStream stream = CharStreams.fromFileName(args[0]);
-
             //Error handling
             UnderlineErrorListener errorListener = new UnderlineErrorListener();
 
@@ -44,7 +72,6 @@ public class Main {
             SymbolTableGeneratorListener symbolTable = new SymbolTableGeneratorListener(errorListener);
             walker.walk(symbolTable, tree);
 
-
             // Contextual analysis
             ReferenceCheckerListener referenceChecker =
                     new ReferenceCheckerListener(symbolTable.globalScope, symbolTable.scopes, errorListener);
@@ -59,13 +86,13 @@ public class Main {
             JavaScriptCodeGenerationVisitor codeGenerator = new JavaScriptCodeGenerationVisitor();
             String targetCode = codeGenerator.visit(tree);
 
-            OutputFile output = new OutputFile(targetCode, args);
-            output.execute();
-        }catch (Exception e){
-            /** Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
-             *  given a message explaining the error and nothing more should be done here.
-             */
-        }
+            Files.writeString(Path.of(userInput.getOutfileName()), targetCode);
+
+            }catch (Exception e){
+                /** Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
+                 *  given a message explaining the error and nothing more should be done here.
+                 */
+            }
 
     }
 }

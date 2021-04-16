@@ -20,6 +20,13 @@ import java.util.List;
 // instead we can just write NUMBERTYPE
 import static Compiler.AntlrGenerated.LangLexer.*;
 
+/**
+ * The type checker validates the type for:
+ * - return statement/return type correspondence in function definition
+ * - if-statement conditions (should be of type bool)
+ * - expression operations
+ * - function call parameters/function definition type correspondence
+ */
 public class TypeCheckerVisitor extends LangBaseVisitor<Integer> {
     BuffErrorListener errorListener;
     Scope globalScope;

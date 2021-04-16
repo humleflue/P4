@@ -145,8 +145,8 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
                 printPos = interval.a;
             }
             if ( interval.a >= 0 && interval.b >= 0) {
-                printRed("^".repeat(interval.b - interval.a));
-                printPos += interval.b - interval.a;
+                printRed("^".repeat(interval.b - interval.a + 1));
+                printPos += interval.b - interval.a + 1;
             }
         }
         System.out.println("\n--------------------");
