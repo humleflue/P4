@@ -1,6 +1,7 @@
 package tests.SymbolTable;
 
 import Compiler.AntlrGenerated.BuffLexer;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -19,7 +20,7 @@ public class SymbolTableTests {
     private SymbolTableGeneratorListener getWalker(ParseTree tree) {
         ParseTreeWalker walker = new ParseTreeWalker();
 
-        SymbolTableGeneratorListener symbolTableGeneratorListener = new SymbolTableGeneratorListener();
+        SymbolTableGeneratorListener symbolTableGeneratorListener = new SymbolTableGeneratorListener(new UnderlineErrorListener());
         walker.walk(symbolTableGeneratorListener, tree);
         return symbolTableGeneratorListener;
     }

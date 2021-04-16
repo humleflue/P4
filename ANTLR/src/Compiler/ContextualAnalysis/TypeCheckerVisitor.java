@@ -2,6 +2,8 @@ package Compiler.ContextualAnalysis;
 
 import Compiler.AntlrGenerated.BuffBaseVisitor;
 import Compiler.AntlrGenerated.BuffParser.*;
+import Compiler.ErrorHandling.BuffErrorListener;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
@@ -24,6 +26,7 @@ import static Compiler.AntlrGenerated.BuffLexer.*;
  * - function call parameters/function definition type correspondence
  */
 public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
+    BuffErrorListener errorListener;
     Scope globalScope;
     ParseTreeProperty<Scope> scopes;
 
@@ -32,18 +35,10 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @param globalScope The global scope defined by the symbol table.
      * @param scopes A hash map used for finding the scope of a tree node.
      */
-    public TypeCheckerVisitor(Scope globalScope, ParseTreeProperty<Scope> scopes) {
+    public TypeCheckerVisitor(Scope globalScope, ParseTreeProperty<Scope> scopes, BuffErrorListener errorListener) {
         this.globalScope = globalScope;
         this.scopes = scopes;
-    }
-
-    /**
-     * An auxiliary method for throwing a type related error.
-     * @param type1 The first type.
-     * @param type2 The second type.
-     */
-    private void throwTypeError(Integer type1, Integer type2) {
-        throwTypeError(type1, type2, "");
+        this.errorListener = errorListener;
     }
 
     /**
@@ -52,13 +47,17 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @param type2 The second type.
      * @param optionalText Text to be shown in the error message
      */
-    private void throwTypeError(Integer type1, Integer type2, String optionalText) {
+    private void throwTypeError(Integer type1, Integer type2, String optionalText,
+                                Token offendingToken, Token... additionalOffendingTokens) {
         String leftType = VOCABULARY.getLiteralName(type1);
         String rightType = VOCABULARY.getLiteralName(type2);
-        throw new IllegalArgumentException(
-                String.format("Incompatible type: Type %s is incompatible with %s. %s",
-                        leftType, rightType, optionalText)
-        );
+        String errorMsg = String.format("Incompatible type: Type %s is incompatible with %s. %s",
+                                        leftType, rightType, optionalText);
+
+        ArrayList<Token> allOffendingTokens = new ArrayList<Token>(Arrays.asList(additionalOffendingTokens));
+        allOffendingTokens.add(offendingToken);
+
+        errorListener.ThrowError(errorMsg, allOffendingTokens);
     }
 
     @Override
@@ -70,7 +69,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer right = visit(ctx.right);
 
         if(!left.equals(right)) {
-            throwTypeError(left, right, "On operation " + ctx.op.getText());
+            throwTypeError(left, right, "On operation " + ctx.op.getText(), ctx.op);
         }
 
         // Now we know that the two operators are of the same type: 'left == right' // true
@@ -82,7 +81,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
                 returnType = BOOLTYPE;
             case LOGEQ, LOGNOTEQ, LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
                 if(left != NUMBERTYPE) // You cannot compare eg. 'true == true'
-                    throwTypeError(left, right, "On operation " + ctx.op.getText());
+                    throwTypeError(left, right, "On operation " + ctx.op.getText(), ctx.op);
                 returnType = BOOLTYPE;
             }
             default -> throw new IllegalArgumentException("Type not found by typechecker.");
@@ -142,7 +141,9 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
             Integer actualType = actualTypes.get(i);
             Integer formalType = formalParamTypes.get(i);
             if(!actualType.equals(formalType)) {
-                throwTypeError(actualType, formalType);
+                throwTypeError(actualType, formalType,
+                        "Parameter type at \"" + funccallContext.ID().getText() +
+                                "\" call does not match expected type from definition", params.get(i).start);
             }
         }
 
@@ -206,6 +207,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         // Evaluate if the types are the same.
         if(!funcdefReturnType.equals(stmtType)) {
             throwTypeError(
+                    funcdefReturnType, stmtType, "Does not return expected type in function definition: " + ctx.ID().getText(),
+                    ctx.type().start, ctx.RETURN().getSymbol());
                     funcdefReturnType, stmtType, "In function definition: " + functionId);
         }
 
@@ -229,7 +232,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer expectedType = BOOLTYPE;
 
         if(!actualType.equals(expectedType)){
-            throwTypeError(actualType, expectedType, "In an if statement");
+            throwTypeError(actualType, expectedType, "In an if statement", ctx.expr().start);
         }
 
         return visit(ctx.stmt());
