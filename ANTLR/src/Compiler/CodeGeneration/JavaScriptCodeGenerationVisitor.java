@@ -1,7 +1,7 @@
 package Compiler.CodeGeneration;
 
-import Compiler.AntlrGenerated.LangBaseVisitor;
-import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.AntlrGenerated.BuffBaseVisitor;
+import Compiler.AntlrGenerated.BuffParser.*;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import java.util.List;
 // This imports all of our enums from LangLexer,
 // so that we don't have to write LangLexer.NUMBERTYPE,
 // instead we can just write NUMBERTYPE
-import static Compiler.AntlrGenerated.LangLexer.*;
+import static Compiler.AntlrGenerated.BuffLexer.*;
 
-public class JavaScriptCodeGenerationVisitor extends LangBaseVisitor<String> {
+public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
     /**
      * This is the result, which is returned, when we visit empty productions.
@@ -54,7 +54,11 @@ public class JavaScriptCodeGenerationVisitor extends LangBaseVisitor<String> {
         result += "(";
         result += visit(ctx.funcdefparams());
         result += ") { ";
-        result += visit(ctx.stmts());
+
+        List<StmtsContext> stmts =  ctx.getRuleContexts(StmtsContext.class);
+        for(int i = 0; i < stmts.size(); i++)
+            result += visit(ctx.stmts(i)) + " ";
+
         result += "return ";
         result += visit(ctx.stmt());
         result += "} ";
@@ -98,13 +102,12 @@ public class JavaScriptCodeGenerationVisitor extends LangBaseVisitor<String> {
      * @return A string of the form: "{@code if(expression) return statement statements}".
      */
     @Override
-    public String visitStmtsNotEmpty(StmtsNotEmptyContext ctx) {
+    public String visitStmts(StmtsContext ctx) {
         String result = "if(";
 
         result += visit(ctx.expr());
         result += ") return ";
         result += visit(ctx.stmt());
-        result += visit(ctx.stmts());
 
         return result;
     }

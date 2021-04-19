@@ -1,7 +1,7 @@
 package tests;
 
-import Compiler.AntlrGenerated.LangLexer;
-import Compiler.AntlrGenerated.LangParser;
+import Compiler.AntlrGenerated.BuffLexer;
+import Compiler.AntlrGenerated.BuffParser;
 import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import org.antlr.v4.runtime.CharStreams;
@@ -20,9 +20,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class temp {
     public ParseTree createTree(String test) throws IOException {
         CodePointCharStream stream = CharStreams.fromReader(new StringReader(test));
-        LangLexer lexer = new LangLexer(stream);
+        BuffLexer lexer = new BuffLexer(stream);
         var tokens = new CommonTokenStream(lexer);
-        LangParser parser = new LangParser(tokens);
+        BuffParser parser = new BuffParser(tokens);
         return parser.prog();
     }
 
@@ -30,7 +30,6 @@ public class temp {
         ParseTree tree = createTree(sourceProg);
 
         ParseTreeWalker walker = new ParseTreeWalker();
-
 
         SymbolTableGeneratorListener symbolTableGeneratorListener = new SymbolTableGeneratorListener(new UnderlineErrorListener());
         walker.walk(symbolTableGeneratorListener, tree);
@@ -44,7 +43,7 @@ public class temp {
         SymbolTableGeneratorListener symbolTable = walker("number func() = return 1; endf");
 
         // Act
-        int expected = LangLexer.BOOLTYPE;
+        int expected = BuffLexer.BOOLTYPE;
         int actual = symbolTable.globalScope.getSymbol("func").getType();
 
         // Assert
@@ -58,7 +57,7 @@ public class temp {
         SymbolTableGeneratorListener symbolTable = walker("bool func() = return 1; endf");
 
         // Act
-        int expected = LangLexer.BOOLTYPE;
+        int expected = BuffLexer.BOOLTYPE;
         int actual = symbolTable.globalScope.getSymbol("func").getType();
 
         // Assert

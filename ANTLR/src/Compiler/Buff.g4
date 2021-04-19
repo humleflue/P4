@@ -5,16 +5,14 @@ code : funcdef code                                                           #c
      | stmt code                                                              #codeStmt
      |                                                                        #codeEmpty
      ;
-funcdef : type ID LPAREN funcdefparams RPAREN ASSIGN stmts RETURN stmt ENDF ;
+funcdef : type ID LPAREN funcdefparams RPAREN ASSIGN stmts* RETURN stmt ENDF ;
 type : NUMBERTYPE
      | BOOLTYPE ;
 funcdefparams : funcdefparam (COMMA funcdefparam)*                            #funcdefparamsNotEmpty //dclparams
               |                                                               #funcdefparamsEmpty
               ;
 funcdefparam : type ID ;
-stmts : IF LPAREN expr RPAREN RETURN stmt stmts                               #stmtsNotEmpty
-      |                                                                       #stmtsEmpty
-      ;
+stmts : IF LPAREN expr RPAREN RETURN stmt ;
 stmt : expr SEMICOLON ;
 expr : val                                                                            #value
      | op=NEGATE val                                                                  #uneryOp
