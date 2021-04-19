@@ -10,6 +10,10 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Listener responsible for making the symbol table. Provides {@code scopes} and {@code globalScope}
+ * for use by other listeners/visitors
+ */
 public class SymbolTableGeneratorListener extends LangBaseListener{
     private BuffErrorListener errorListener;
     public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
@@ -31,7 +35,7 @@ public class SymbolTableGeneratorListener extends LangBaseListener{
         List<FuncdefparamContext> params =  ctx.getRuleContext(FuncdefparamsContext.class, 0)
                 .getRuleContexts(FuncdefparamContext.class);
 
-        //Might be usefull for type-checking. Delete otherwise
+        //Might be useful for type-checking. Delete otherwise
         ArrayList<Integer> argumentList = new ArrayList<>();
         for (FuncdefparamContext param : params){
             argumentList.add(param.start.getType());
@@ -79,5 +83,10 @@ public class SymbolTableGeneratorListener extends LangBaseListener{
         attachScope(ctx, currentScope);
     }
 
+    /**
+     * Adds a scope as a ParseTreeProperty to a node
+     * @param ctx The node which should have a reference to a scope
+     * @param s The scope which should be added to a node.
+     */
     void attachScope(ParserRuleContext ctx, Scope s) { scopes.put(ctx, s); }
 }
