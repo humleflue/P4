@@ -4,9 +4,9 @@ public class Symbol {
     protected String name;
     protected Integer type;
 
-    public Symbol(String name, Integer symbol){
+    public Symbol(String name, Integer type){
         this.name = name;
-        this.type = symbol;
+        this.type = type;
     }
 
     public String getName(){
