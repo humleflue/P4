@@ -1,7 +1,7 @@
 package Compiler.SymbolTable;
 
-import Compiler.AntlrGenerated.LangBaseListener;
-import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.AntlrGenerated.BuffBaseListener;
+import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.ErrorHandling.BuffErrorListener;
 import Compiler.ErrorHandling.UnderlineErrorListener;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -14,7 +14,7 @@ import java.util.List;
  * Listener responsible for making the symbol table. Provides {@code scopes} and {@code globalScope}
  * for use by other listeners/visitors
  */
-public class SymbolTableGeneratorListener extends LangBaseListener{
+public class SymbolTableGeneratorListener extends BuffBaseListener{
     private BuffErrorListener errorListener;
     public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
     public BaseScope globalScope = new BaseScope();

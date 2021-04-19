@@ -1,7 +1,7 @@
 package Compiler.ContextualAnalysis;
 
-import Compiler.AntlrGenerated.LangBaseListener;
-import Compiler.AntlrGenerated.LangParser.*;
+import Compiler.AntlrGenerated.BuffBaseListener;
+import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.ErrorHandling.BuffErrorListener;
 import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.BaseScope;
@@ -11,7 +11,7 @@ import Compiler.SymbolTable.Symbol;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
-public class ReferenceCheckerListener extends LangBaseListener{
+public class ReferenceCheckerListener extends BuffBaseListener{
     BuffErrorListener errorListener;
     ParseTreeProperty<Scope> scopes;
     Scope globalScope;
