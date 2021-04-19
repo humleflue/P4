@@ -55,7 +55,7 @@ $ buff hello_world.buff
 ## Development setup
 Follow the [Getting Started with ANTLR](https://github.com/antlr/antlr4/blob/master/doc/getting-started.md) guide.
 ### Windows (with WSL)
-To be able to generate the ANTLR files, run the following sequence of commands in WSL from the `ANTLR/src/Compiler/Lang` directory:
+To be able to generate the ANTLR files, run the following sequence of commands in WSL from the `ANTLR/src/Compiler` directory:
 
 ```
 $ sudo apt install dos2unix 
