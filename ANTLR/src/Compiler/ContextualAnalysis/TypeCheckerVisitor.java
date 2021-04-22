@@ -1,12 +1,13 @@
 package Compiler.ContextualAnalysis;
 
 import Compiler.AntlrGenerated.BuffBaseVisitor;
+import Compiler.AntlrGenerated.BuffParser;
 import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.ErrorHandling.BuffErrorListener;
-import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
@@ -124,13 +125,10 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         //Gets lists of expression nodes in the actual parameters
         List<ExprContext> params =  ctx.getRuleContexts(ExprContext.class);
 
+        ArrayList<Integer> actualTypes = new ArrayList<>();
         // Visits each expression node in the actual params,
         // and thereby gets their types.
-        ArrayList<Integer> actualTypes = new ArrayList<>();
-        for(int i = 0; i < params.size(); i++) {
-            Integer type = visit(ctx.expr(i));
-            actualTypes.add(type);
-        }
+        actualTypes = getListOfTypes(ctx, params.size());
 
         // Retrieves the formal parameter's types
         // from the function definition found in the symbol table.
@@ -175,10 +173,10 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer stmtType = visit(ctx.stmt());
         Integer returnType = checkReturnTypeCorrespondence(stmtType, ctx);
 
-        // Check each statement's return type
-        //Gets lists of expression nodes in the actual parameters
+        //Gets lists of stmt nodes in the actual parameters
         List<StmtsContext> stmts =  ctx.getRuleContexts(StmtsContext.class);
 
+        ArrayList<Integer> stmtsTypes = new ArrayList<>();
         // Visits each stmts node, and thereby gets their types.
         stmtsTypes = getListOfTypes(ctx, stmts.size());
 
@@ -194,6 +192,36 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         visit(ctx.funcdefparams());
 
         return returnType;
+    }
+
+    private <T extends ParserRuleContext> ArrayList<Integer> getListOfTypes(T node, Integer size){
+        switch (node.getRuleContext().getRuleIndex()) {
+            case BuffParser.RULE_exprparams:
+                return listCreatedByLoop((ExprparamsNotEmptyContext)node, size);
+            case BuffParser.RULE_funcdef:
+                return listCreatedByLoop((FuncdefContext)node, size);
+        };
+        return null;
+    }
+
+    private ArrayList<Integer> listCreatedByLoop(ExprparamsNotEmptyContext node, Integer size) {
+        ArrayList<Integer> types = new ArrayList<>();
+        for (int i = 0; i < size; i++){
+
+            Integer type = visit((node).expr(i));
+            types.add(type);
+        }
+        return types;
+    }
+
+    private ArrayList<Integer> listCreatedByLoop(FuncdefContext node, Integer size) {
+        ArrayList<Integer> types = new ArrayList<>();
+
+        for (int i = 0; i < size; i++){
+            Integer type = visit(node.stmts(i));
+            types.add(type);
+        }
+        return types;
     }
 
     private Integer checkReturnTypeCorrespondence(Integer stmtType, FuncdefContext ctx) {
