@@ -208,7 +208,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         ArrayList<Integer> types = new ArrayList<>();
         for (int i = 0; i < size; i++){
 
-            Integer type = visit((node).expr(i));
+            Integer type = visit(node.expr(i));
             types.add(type);
         }
         return types;
