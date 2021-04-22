@@ -177,13 +177,26 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     /**
      * Generates code for a function call, where the result has to get printed to the user's screen.
      * @param ctx The tree node in question.
-     * @return A string of the form: "{@code console.log(id(param0, param1, ... , paramN))}"
+     * @return A string of the form: "{@code console.log(id(param0, param1, ... , paramN) => result)}"
      */
     @Override
     public String visitValFunccallPrint(ValFunccallPrintContext ctx) {
-        return "console.log(" + visit(ctx.funccall()) + ")";
+        String result = "(()=>{";
+        result += String.format("let res = %s(%s);", GetFuncName(ctx.funccall()), visit(ctx.funccall().exprparams()));
+        result += String.format("console.log(`%s(${%s}) => ${res}`); return res;})()",
+                GetFuncName(ctx.funccall()), visit(ctx.funccall().exprparams())
+        );
+        return result;
     }
 
+    /**
+     *
+     * @param ctx The tree node in question
+     * @return the ID (name) of the function call
+     */
+    String GetFuncName(FunccallContext ctx){
+        return ctx.ID().getText();
+    }
     /**
      * Generates code for a number.
      * @param ctx The tree node in question.
