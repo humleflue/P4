@@ -194,7 +194,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return returnType;
     }
 
-    private <T extends ParserRuleContext> ArrayList<Integer> getListOfTypes(T node, Integer size){
+    private ArrayList<Integer> getListOfTypes(ParserRuleContext node, Integer size){
         switch (node.getRuleContext().getRuleIndex()) {
             case BuffParser.RULE_exprparams:
                 return listCreatedByLoop((ExprparamsNotEmptyContext)node, size);
