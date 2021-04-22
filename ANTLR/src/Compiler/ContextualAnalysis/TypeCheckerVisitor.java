@@ -180,11 +180,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         List<StmtsContext> stmts =  ctx.getRuleContexts(StmtsContext.class);
 
         // Visits each stmts node, and thereby gets their types.
-        ArrayList<Integer> stmtsTypes = new ArrayList<>();
-        for(int i = 0; i < stmts.size(); i++) {
-            Integer type = visit(ctx.stmts(i));
-            stmtsTypes.add(type);
-        }
+        stmtsTypes = getListOfTypes(ctx, stmts.size());
+
 
         // Check that the types correspond to each other.
         for (int i = 0; i < stmtsTypes.size(); i++) {
