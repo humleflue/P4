@@ -185,13 +185,20 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         String result = "(()=>{";
         result += String.format("let res = %s(%s);", GetFuncName(ctx.funccall()), visit(ctx.funccall().exprparams()));
         result += String.format("console.log(`%s(", GetFuncName(ctx.funccall()));
-        String[] exprParams = visit(ctx.funccall().exprparams()).split(",");
-        for(int i = 0; i < exprParams.length; i++){
-            if (i == exprParams.length - 1)
-                result += String.format("${%s}", exprParams[i]);
-            else
-                result += String.format("${%s},", exprParams[i]);
+
+        String exprParams = visit(ctx.funccall().exprparams());
+        if (!exprParams.isEmpty()) {
+            String[] exprParamsArray = exprParams.split(",");
+
+            for (int i = 0; i < exprParamsArray.length; i++) {
+                if (i == exprParamsArray.length - 1)
+                    result += String.format("${%s}", exprParamsArray[i]);
+                else
+                    result += String.format("${%s},", exprParamsArray[i]);
+            }
+            
         }
+
         result += ") => ${res}`); return res;})()";
         return result;
     }
