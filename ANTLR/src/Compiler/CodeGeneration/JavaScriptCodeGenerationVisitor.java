@@ -3,6 +3,7 @@ package Compiler.CodeGeneration;
 import Compiler.AntlrGenerated.BuffBaseVisitor;
 import Compiler.AntlrGenerated.BuffParser.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // WARNING: This might be a bad idea !!!
@@ -183,9 +184,15 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     public String visitValFunccallPrint(ValFunccallPrintContext ctx) {
         String result = "(()=>{";
         result += String.format("let res = %s(%s);", GetFuncName(ctx.funccall()), visit(ctx.funccall().exprparams()));
-        result += String.format("console.log(`%s(${%s}) => ${res}`); return res;})()",
-                GetFuncName(ctx.funccall()), visit(ctx.funccall().exprparams())
-        );
+        result += String.format("console.log(`%s(", GetFuncName(ctx.funccall()));
+        String[] exprParams = visit(ctx.funccall().exprparams()).split(",");
+        for(int i = 0; i < exprParams.length; i++){
+            if (i == exprParams.length - 1)
+                result += String.format("${%s}", exprParams[i]);
+            else
+                result += String.format("${%s},", exprParams[i]);
+        }
+        result += ") => ${res}`); return res;})()";
         return result;
     }
 
