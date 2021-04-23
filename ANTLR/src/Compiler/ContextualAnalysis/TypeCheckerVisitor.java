@@ -14,6 +14,8 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.function.UnaryOperator;
 
 // WARNING: This might be a bad idea !!!
 // This imports all of our enums from LangLexer,
@@ -125,10 +127,9 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         //Gets lists of expression nodes in the actual parameters
         List<ExprContext> params =  ctx.getRuleContexts(ExprContext.class);
 
-        ArrayList<Integer> actualTypes = new ArrayList<>();
         // Visits each expression node in the actual params,
         // and thereby gets their types.
-        actualTypes = getListOfTypes(ctx, params.size());
+        ArrayList<Integer> actualTypes = visitChildren(i -> visit(ctx.expr(i)), params.size());
 
         // Retrieves the formal parameter's types
         // from the function definition found in the symbol table.
@@ -178,7 +179,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
         ArrayList<Integer> stmtsTypes = new ArrayList<>();
         // Visits each stmts node, and thereby gets their types.
-        stmtsTypes = getListOfTypes(ctx, stmts.size());
+        stmtsTypes = visitChildren(i -> visit(ctx.stmts(i)), stmts.size());
 
 
         // Check that the types correspond to each other.
@@ -194,31 +195,10 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return returnType;
     }
 
-    private ArrayList<Integer> getListOfTypes(ParserRuleContext node, Integer size){
-        switch (node.getRuleContext().getRuleIndex()) {
-            case BuffParser.RULE_exprparams:
-                return listCreatedByLoop((ExprparamsNotEmptyContext)node, size);
-            case BuffParser.RULE_funcdef:
-                return listCreatedByLoop((FuncdefContext)node, size);
-        };
-        return null;
-    }
-
-    private ArrayList<Integer> listCreatedByLoop(ExprparamsNotEmptyContext node, Integer size) {
+    private ArrayList<Integer> visitChildren(Lambda<Integer> visitChild, Integer size) {
         ArrayList<Integer> types = new ArrayList<>();
         for (int i = 0; i < size; i++){
-
-            Integer type = visit(node.expr(i));
-            types.add(type);
-        }
-        return types;
-    }
-
-    private ArrayList<Integer> listCreatedByLoop(FuncdefContext node, Integer size) {
-        ArrayList<Integer> types = new ArrayList<>();
-
-        for (int i = 0; i < size; i++){
-            Integer type = visit(node.stmts(i));
+            Integer type = visitChild.execute(i);
             types.add(type);
         }
         return types;
