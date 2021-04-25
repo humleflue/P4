@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Simplest implementation of the Scope interface.
+ * The base implementation of the Scope interface.
  */
 public class BaseScope implements Scope{
     protected Scope enclosingScope;
