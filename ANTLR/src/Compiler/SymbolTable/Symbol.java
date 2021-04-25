@@ -1,7 +1,7 @@
 package Compiler.SymbolTable;
 
 /**
- * Simplest implementation of a symbol, used in scopes to save information about a symbols type.
+ * The base implementation of a symbol, used in scopes to save information about a symbols type.
  */
 public class Symbol {
     protected String name;
