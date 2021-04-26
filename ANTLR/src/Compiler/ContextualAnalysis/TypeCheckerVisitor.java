@@ -1,13 +1,11 @@
 package Compiler.ContextualAnalysis;
 
 import Compiler.AntlrGenerated.BuffBaseVisitor;
-import Compiler.AntlrGenerated.BuffParser;
 import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.ErrorHandling.BuffErrorListener;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
@@ -138,7 +136,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
         // Visits each expression node in the actual params,
         // and thereby gets their types.
-        ArrayList<Integer> actualTypes = visitChildren(i -> visit(ctx.expr(i)), params.size());
+        ArrayList<Integer> actualTypes = visitAndGetChildrenTypes(i -> visit(ctx.expr(i)), params.size());
 
         // Retrieves the formal parameter's types
         // from the function definition found in the symbol table.
@@ -187,7 +185,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer stmtsLength =  ctx.getRuleContexts(StmtsContext.class).size();
 
         // Visits each stmts node, and thereby gets their types.
-        ArrayList<Integer> stmtsTypes = visitChildren(i -> visit(ctx.stmts(i)), stmtsLength);
+        ArrayList<Integer> stmtsTypes = visitAndGetChildrenTypes(i -> visit(ctx.stmts(i)), stmtsLength);
 
 
         // Check that the types correspond to each other.
@@ -203,7 +201,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return returnType;
     }
 
-    private ArrayList<Integer> visitChildren(Lambda<Integer> visitChild, Integer size) {
+    private ArrayList<Integer> visitAndGetChildrenTypes(Lambda<Integer> visitChild, Integer size) {
         ArrayList<Integer> types = new ArrayList<>();
         for (int i = 0; i < size; i++){
             Integer type = visitChild.execute(i);
