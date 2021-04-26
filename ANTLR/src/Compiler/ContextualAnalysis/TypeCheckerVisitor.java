@@ -173,7 +173,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer returnType = checkReturnTypeCorrespondence(stmtType, ctx);
 
         //Gets lists of stmt nodes in the actual parameters
-        List<StmtsContext> stmts =  ctx.getRuleContexts(StmtsContext.class);
+        Integer stmtsLength =  ctx.getRuleContexts(StmtsContext.class).size();
 
         ArrayList<Integer> stmtsTypes = new ArrayList<>();
         // Visits each stmts node, and thereby gets their types.
