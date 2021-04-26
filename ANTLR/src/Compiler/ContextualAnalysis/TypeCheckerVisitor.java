@@ -65,7 +65,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     @Override
     public Integer visitBinaryOp(BinaryOpContext ctx) {
-        int returnType;
+        int returnType = -1; // initialized to -1 to check if switchcase evaluated
 
         // Visit the children to thereby get their type.
         Integer left = visit(ctx.left);
@@ -82,10 +82,21 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
                 returnType = NUMBERTYPE;
             case LOGAND, LOGOR ->
                 returnType = BOOLTYPE;
-            case LOGEQ, LOGNOTEQ, LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
-                if(left != NUMBERTYPE) // You cannot compare eg. 'true == true'
-                    throwTypeError(left, right, "On operation " + ctx.op.getText(), ctx.op);
-                returnType = BOOLTYPE;
+            case LOGEQ, LOGNOTEQ -> {
+                if (left != right) {
+                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be same type",
+                            ctx.op);
+                }
+                else
+                    returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
+            }
+            case LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
+                if (left != NUMBERTYPE || right != NUMBERTYPE) {
+                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be number type",
+                            ctx.op);
+                }
+                else
+                    returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
             }
             default -> throw new IllegalArgumentException("Type not found by typechecker.");
         }
