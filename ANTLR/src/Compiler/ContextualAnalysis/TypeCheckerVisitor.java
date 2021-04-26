@@ -175,7 +175,6 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         //Gets lists of stmt nodes in the actual parameters
         Integer stmtsLength =  ctx.getRuleContexts(StmtsContext.class).size();
 
-        ArrayList<Integer> stmtsTypes = new ArrayList<>();
         // Visits each stmts node, and thereby gets their types.
         ArrayList<Integer> stmtsTypes = visitChildren(i -> visit(ctx.stmts(i)), stmtsLength);
 
