@@ -9,10 +9,12 @@ import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 // WARNING: This might be a bad idea !!!
 // This imports all of our enums from LangLexer,
@@ -173,7 +175,13 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     public Integer visitFuncdef(FuncdefContext ctx) {
         // Check return statement's return type
         Integer stmtType = visit(ctx.stmt());
-        Integer returnType = checkReturnTypeCorrespondence(stmtType, ctx);
+        Integer returnType = null;
+        try {
+            returnType = checkReturnTypeCorrespondence(stmtType, ctx);
+        } catch (Exception e){
+            errorListener.ThrowError(e.getMessage(), ctx.type().start, ctx.stmt().start);
+        }
+
 
         // Check each statement's return type
         //Gets lists of expression nodes in the actual parameters
@@ -189,7 +197,12 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         // Check that the types correspond to each other.
         for (int i = 0; i < stmtsTypes.size(); i++) {
             Integer someStmtType = stmtsTypes.get(i);
-            checkReturnTypeCorrespondence(someStmtType, ctx);
+            try {
+                checkReturnTypeCorrespondence(someStmtType, ctx);
+            } catch (Exception e){
+                errorListener.ThrowError(e.getMessage(), stmts.get(i).stmt(), ctx.type().start);
+            }
+
         }
 
         // Visit the rest of the children
@@ -199,7 +212,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return returnType;
     }
 
-    private Integer checkReturnTypeCorrespondence(Integer stmtType, FuncdefContext ctx) {
+    private Integer checkReturnTypeCorrespondence(Integer stmtType, FuncdefContext ctx) throws Exception {
         String functionId = ctx.ID().getText();
 
         // Retrieve the function's return type from the symbol table
@@ -208,9 +221,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
         // Evaluate if the types are the same.
         if(!funcdefReturnType.equals(stmtType)) {
-            throwTypeError(
-                    funcdefReturnType, stmtType, "Does not return expected type in function definition: " + functionId,
-                    ctx.type().start, ctx.RETURN().getSymbol());
+            throw new Exception("Does not return expected type in function definition: " + functionId.toString());
         }
 
         return funcdefReturnType;
