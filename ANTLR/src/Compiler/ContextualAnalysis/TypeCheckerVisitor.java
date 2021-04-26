@@ -88,8 +88,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
             }
             case LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
                 if (left != NUMBERTYPE || right != NUMBERTYPE)
-                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be number type",
-                            ctx.op);
+                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be number type", ctx.op);
                 }
                 else
                     returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
