@@ -9,6 +9,7 @@
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Merge with HEAD">
       <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonEqualityTypes.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
@@ -60,7 +61,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -71,7 +72,8 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.13908207" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.updates" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -198,6 +200,12 @@
       <workItem from="1618470394844" duration="7749000" />
       <workItem from="1618506749454" duration="1063000" />
       <workItem from="1618559210532" duration="4974000" />
+      <workItem from="1619094835964" duration="2032000" />
+      <workItem from="1619100494969" duration="739000" />
+      <workItem from="1619171361829" duration="286000" />
+      <workItem from="1619171665122" duration="110000" />
+      <workItem from="1619171789128" duration="1295000" />
+      <workItem from="1619427035478" duration="1475000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
