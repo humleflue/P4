@@ -110,7 +110,7 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
     }
 
     /**
-     * Gets all
+     * Gets all TerminalNodes in a ParseTree
      * @param tree The ParseTree which terminal nodes should be returned.
      */
     private ArrayList<TerminalNode> getTerminalNodes(ParseTree tree){
