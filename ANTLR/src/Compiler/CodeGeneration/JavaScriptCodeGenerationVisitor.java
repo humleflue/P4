@@ -182,11 +182,12 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      */
     @Override
     public String visitValFunccallPrint(ValFunccallPrintContext ctx) {
+        String exprParams = visit(ctx.funccall().exprparams());
+
         String result = "(()=>{";
-        result += String.format("let res = %s(%s);", GetFuncName(ctx.funccall()), visit(ctx.funccall().exprparams()));
+        result += String.format("let res = %s(%s);", GetFuncName(ctx.funccall()), exprParams);
         result += String.format("console.log(`%s(", GetFuncName(ctx.funccall()));
 
-        String exprParams = visit(ctx.funccall().exprparams());
         if (!exprParams.isEmpty()) {
             String[] exprParamsArray = exprParams.split(",");
 
