@@ -191,13 +191,10 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         if (!exprParams.isEmpty()) {
             String[] exprParamsArray = exprParams.split(",");
 
-            for (int i = 0; i < exprParamsArray.length; i++) {
-                if (i == exprParamsArray.length - 1)
-                    result += String.format("${%s}", exprParamsArray[i]);
-                else
-                    result += String.format("${%s},", exprParamsArray[i]);
+            for (int i = 0; i < exprParamsArray.length - 1; i++) {
+                result += String.format("${%s},", exprParamsArray[i]);
             }
-            
+            result += String.format("${%s}", exprParamsArray[exprParamsArray.length - 1]);
         }
 
         result += ") => ${res}`); return res;})()";
