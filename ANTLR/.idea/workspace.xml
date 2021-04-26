@@ -7,8 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Merge with HEAD">
+      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonEqualityTypes.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
