@@ -1,5 +1,6 @@
 package Compiler.ErrorHandling;
 
+import Compiler.AntlrGenerated.BuffLexer;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
@@ -105,7 +106,9 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
         for (Token token : additionalOffendingTokens){
             offendingTokens.add(token);
         }
-
+        // Should not hightligt ";"
+        offendingTokens.removeIf(x -> x.getType() == BuffLexer.SEMICOLON);
+        
         ThrowError(errorMsg, offendingTokens);
     }
 
