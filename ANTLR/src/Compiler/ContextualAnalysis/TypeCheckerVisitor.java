@@ -81,7 +81,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
             case LOGAND, LOGOR ->
                 returnType = BOOLTYPE;
             case LOGEQ, LOGNOTEQ -> {
-                if (left != right) {
+                if (left != right)
                     throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be same type",
                             ctx.op);
                 }
