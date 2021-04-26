@@ -3,7 +3,6 @@ package Compiler.ContextualAnalysis;
 import Compiler.AntlrGenerated.BuffBaseVisitor;
 import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.ErrorHandling.BuffErrorListener;
-import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
@@ -64,7 +63,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     @Override
     public Integer visitBinaryOp(BinaryOpContext ctx) {
-        int returnType;
+        int returnType = -1; // initialized to -1 to check if switchcase evaluated
 
         // Visit the children to thereby get their type.
         Integer left = visit(ctx.left);
@@ -81,10 +80,16 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
                 returnType = NUMBERTYPE;
             case LOGAND, LOGOR ->
                 returnType = BOOLTYPE;
-            case LOGEQ, LOGNOTEQ, LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
-                if(left != NUMBERTYPE) // You cannot compare eg. 'true == true'
-                    throwTypeError(left, right, "On operation " + ctx.op.getText(), ctx.op);
-                returnType = BOOLTYPE;
+            case LOGEQ, LOGNOTEQ -> {
+                if (left != right)
+                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be same type", ctx.op);
+                }
+                returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
+            }
+            case LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
+                if (left != NUMBERTYPE || right != NUMBERTYPE)
+                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be number type", ctx.op);
+                returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
             }
             default -> throw new IllegalArgumentException("Type not found by typechecker.");
         }
@@ -126,11 +131,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
         // Visits each expression node in the actual params,
         // and thereby gets their types.
-        ArrayList<Integer> actualTypes = new ArrayList<>();
-        for(int i = 0; i < params.size(); i++) {
-            Integer type = visit(ctx.expr(i));
-            actualTypes.add(type);
-        }
+        ArrayList<Integer> actualTypes = visitAndGetChildrenTypes(i -> visit(ctx.expr(i)), params.size());
 
         // Retrieves the formal parameter's types
         // from the function definition found in the symbol table.
@@ -175,16 +176,12 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer stmtType = visit(ctx.stmt());
         Integer returnType = checkReturnTypeCorrespondence(stmtType, ctx);
 
-        // Check each statement's return type
-        //Gets lists of expression nodes in the actual parameters
-        List<StmtsContext> stmts =  ctx.getRuleContexts(StmtsContext.class);
+        //Gets lists of stmt nodes in the actual parameters
+        Integer stmtsLength =  ctx.getRuleContexts(StmtsContext.class).size();
 
         // Visits each stmts node, and thereby gets their types.
-        ArrayList<Integer> stmtsTypes = new ArrayList<>();
-        for(int i = 0; i < stmts.size(); i++) {
-            Integer type = visit(ctx.stmts(i));
-            stmtsTypes.add(type);
-        }
+        ArrayList<Integer> stmtsTypes = visitAndGetChildrenTypes(i -> visit(ctx.stmts(i)), stmtsLength);
+
 
         // Check that the types correspond to each other.
         for (int i = 0; i < stmtsTypes.size(); i++) {
@@ -197,6 +194,15 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         visit(ctx.funcdefparams());
 
         return returnType;
+    }
+
+    private ArrayList<Integer> visitAndGetChildrenTypes(Lambda<Integer> visitChild, Integer size) {
+        ArrayList<Integer> types = new ArrayList<>();
+        for (int i = 0; i < size; i++){
+            Integer type = visitChild.execute(i);
+            types.add(type);
+        }
+        return types;
     }
 
     private Integer checkReturnTypeCorrespondence(Integer stmtType, FuncdefContext ctx) {
