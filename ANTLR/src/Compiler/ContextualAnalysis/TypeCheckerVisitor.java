@@ -177,7 +177,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
         ArrayList<Integer> stmtsTypes = new ArrayList<>();
         // Visits each stmts node, and thereby gets their types.
-        stmtsTypes = visitChildren(i -> visit(ctx.stmts(i)), stmts.size());
+        ArrayList<Integer> stmtsTypes = visitChildren(i -> visit(ctx.stmts(i)), stmtsLength);
 
 
         // Check that the types correspond to each other.
