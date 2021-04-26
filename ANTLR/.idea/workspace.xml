@@ -7,14 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Merge with HEAD">
+      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonEqualityTypes.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source_code.buff" beforeDir="false" afterPath="$PROJECT_DIR$/source_code.buff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/Auxiliary/MockErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Auxiliary/MockErrorListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/Lexer/LexerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Lexer/LexerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/SymbolTable/SymbolTableTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/SymbolTable/SymbolTableTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTestsBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTestsBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -102,15 +98,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

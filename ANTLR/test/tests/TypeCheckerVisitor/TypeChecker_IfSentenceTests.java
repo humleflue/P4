@@ -97,4 +97,37 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = testPath + "comparisonEqualityTypes.csv", numLinesToSkip = 1)
+    public void BoolEqualityComparisonInIfSentence_ShouldPass(String operator) throws IOException {
+        // Arrange
+        generateTreeWithSymbols(String.format("bool f() = if(true %s true) return true; return true; endf", operator));
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
+                symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
+        // Act & Assert
+        Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = testPath + "comparisonEqualityTypes.csv", numLinesToSkip = 1)
+    public void NumberEqualityComparisonInIfSentence_ShouldPass(String operator) throws IOException {
+        // Arrange
+        generateTreeWithSymbols(String.format("bool f() = if(12 %s 12) return true; return true; endf", operator));
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
+                symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
+        // Act & Assert
+        Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = testPath + "comparisonEqualityTypes.csv", numLinesToSkip = 1)
+    public void EqualityComparisonInIfSentence_ShouldThrow(String operator) throws IOException {
+        // Arrange
+        generateTreeWithSymbols(String.format("bool f() = if(12 %s true) return true; return true; endf", operator));
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
+                symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
+        // Act & Assert
+        Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
+    }
 }
