@@ -154,8 +154,8 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
             case LOGGREATER ->     ">";
             case LOGLESSOREQ ->    "<=";
             case LOGGREATEROREQ -> ">=";
-            case LOGEQ ->          "==";
-            case LOGNOTEQ ->       "!=";
+            case LOGEQ ->          "===";
+            case LOGNOTEQ ->       "!==";
             case LOGAND ->         "&&";
             case LOGOR ->          "||";
             default -> throw new IllegalArgumentException(
