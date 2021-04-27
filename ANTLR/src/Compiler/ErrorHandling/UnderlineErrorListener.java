@@ -127,7 +127,7 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
 
             }
         }
-        return list;
+        return terminalNodeList;
     }
 
     /**
