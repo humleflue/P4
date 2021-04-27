@@ -119,12 +119,12 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
     private ArrayList<TerminalNode> getTerminalNodes(ParseTree tree){
         ArrayList<TerminalNode> terminalNodeList = new ArrayList<>();
         for (int i = 0; i < tree.getChildCount(); i++) {
-            if (tree.getChild(i) instanceof TerminalNode) {
-                terminalNodeList.add((TerminalNode)tree.getChild(i));
+            ParseTree node = tree.getChild(i);
+            if (node instanceof TerminalNode) {
+                terminalNodeList.add((TerminalNode)node);
             }
             else{
-                terminalNodeList.addAll(getTerminalNodes(tree.getChild(i)));
-
+                terminalNodeList.addAll(getTerminalNodes(node));
             }
         }
         return terminalNodeList;
