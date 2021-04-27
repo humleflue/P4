@@ -174,8 +174,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     @Override
     public Integer visitFuncdef(FuncdefContext ctx) {
         // Check return statement's return type
-        Integer stmtType = visit(ctx.stmt());
-        checkReturnTypeCorrespondence(stmtType, ctx, ctx.stmt());
+        Integer returnStmtType = visit(ctx.stmt());
+        checkReturnTypeCorrespondence(returnStmtType, ctx, ctx.stmt());
 
         // Check each statement's return type
         //Gets lists of expression nodes in the actual parameters
@@ -199,7 +199,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         visit(ctx.funcdefparams());
 
         // Returns the type of the function
-        return globalScope.getSymbol(ctx.ID().getText()).getType();
+        return returnStmtType;
     }
 
     /**
@@ -208,7 +208,6 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @param stmtType The type that the statement returns
      * @param ctx The node for the function definition
      * @param stmt The node for the statement being checked. Used for underlining
-     * @return The return type of the
      */
     private void checkReturnTypeCorrespondence(Integer stmtType, FuncdefContext ctx, StmtContext stmt) {
         String functionId = ctx.ID().getText();
