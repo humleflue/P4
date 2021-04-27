@@ -117,6 +117,11 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return symbol.getType();
     }
 
+    @Override
+    public Integer visitValFunccallPrint(ValFunccallPrintContext ctx) {
+        return visitFunccall(ctx.funccall());
+    }
+
     /**
      * Type checks a function's parameters.
      * @param ctx The function parameters' tree node.
