@@ -175,13 +175,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     public Integer visitFuncdef(FuncdefContext ctx) {
         // Check return statement's return type
         Integer stmtType = visit(ctx.stmt());
-        Integer returnType = null;
-        try {
-            returnType = checkReturnTypeCorrespondence(stmtType, ctx);
-        } catch (Exception e){
-            errorListener.ThrowError(e.getMessage(), ctx.type().start, ctx.stmt().start);
-        }
-
+        checkReturnTypeCorrespondence(stmtType, ctx, ctx.stmt());
 
         // Check each statement's return type
         //Gets lists of expression nodes in the actual parameters
@@ -197,22 +191,26 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         // Check that the types correspond to each other.
         for (int i = 0; i < stmtsTypes.size(); i++) {
             Integer someStmtType = stmtsTypes.get(i);
-            try {
-                checkReturnTypeCorrespondence(someStmtType, ctx);
-            } catch (Exception e){
-                errorListener.ThrowError(e.getMessage(), stmts.get(i).stmt(), ctx.type().start);
-            }
-
+            checkReturnTypeCorrespondence(someStmtType, ctx, stmts.get(i).stmt());
         }
 
         // Visit the rest of the children
         visit(ctx.type());
         visit(ctx.funcdefparams());
 
-        return returnType;
+        // Returns the type of the function
+        return globalScope.getSymbol(ctx.ID().getText()).getType();
     }
 
-    private Integer checkReturnTypeCorrespondence(Integer stmtType, FuncdefContext ctx) throws Exception {
+    /**
+     * Checks whether or not a functions return statement type matches the type defined in function definition.
+     * Calls ThrowError in the errorListener if not.
+     * @param stmtType The type that the statement returns
+     * @param ctx The node for the function definition
+     * @param stmt The node for the statement being checked. Used for underlining
+     * @return The return type of the
+     */
+    private void checkReturnTypeCorrespondence(Integer stmtType, FuncdefContext ctx, StmtContext stmt) {
         String functionId = ctx.ID().getText();
 
         // Retrieve the function's return type from the symbol table
@@ -221,10 +219,9 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
         // Evaluate if the types are the same.
         if(!funcdefReturnType.equals(stmtType)) {
-            throw new Exception("Does not return expected type in function definition: " + functionId.toString());
+            String errorMsg = "Does not return expected type in function definition: " + functionId.toString();
+            errorListener.ThrowError(errorMsg, stmt, ctx.type().start);
         }
-
-        return funcdefReturnType;
     }
 
     @Override
