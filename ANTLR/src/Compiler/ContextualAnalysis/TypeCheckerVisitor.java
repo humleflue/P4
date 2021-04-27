@@ -69,9 +69,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
 
-        if(!left.equals(right)) {
+        if(!left.equals(right))
             throwTypeError(left, right, "On operation " + ctx.op.getText(), ctx.op);
-        }
 
         // Now we know that the two operators are of the same type: 'left == right' // true
 
@@ -142,11 +141,10 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         for (int i = 0; i < actualTypes.size(); i++) {
             Integer actualType = actualTypes.get(i);
             Integer formalType = formalParamTypes.get(i);
-            if(!actualType.equals(formalType)) {
+            if(!actualType.equals(formalType))
                 throwTypeError(actualType, formalType,
                         "Parameter type at \"" + funccallContext.ID().getText() +
                                 "\" call does not match expected type from definition", params.get(i).start);
-            }
         }
 
         return this.defaultResult(); // This is an arbitrary Integer as this value is not used
@@ -212,11 +210,10 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer funcdefReturnType = symbol.getType();
 
         // Evaluate if the types are the same.
-        if(!funcdefReturnType.equals(stmtType)) {
+        if(!funcdefReturnType.equals(stmtType))
             throwTypeError(
                     funcdefReturnType, stmtType, "Does not return expected type in function definition: " + functionId,
                     ctx.type().start, ctx.RETURN().getSymbol());
-        }
 
         return funcdefReturnType;
     }
@@ -237,9 +234,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer actualType = visit(ctx.expr());
         Integer expectedType = BOOLTYPE;
 
-        if(!actualType.equals(expectedType)){
+        if(!actualType.equals(expectedType))
             throwTypeError(actualType, expectedType, "In an if statement", ctx.expr().start);
-        }
 
         return visit(ctx.stmt());
     }
