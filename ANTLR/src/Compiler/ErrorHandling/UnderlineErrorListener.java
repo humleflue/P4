@@ -123,7 +123,7 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
                 list.add((TerminalNode)tree.getChild(i));
             }
             else{
-                list.addAll(getTerminalNodes(tree.getChild(i)));
+                terminalNodeList.addAll(getTerminalNodes(tree.getChild(i)));
 
             }
         }
