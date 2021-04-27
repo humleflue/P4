@@ -117,7 +117,7 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
      * @param tree The ParseTree which terminal nodes should be returned.
      */
     private ArrayList<TerminalNode> getTerminalNodes(ParseTree tree){
-        ArrayList<TerminalNode> list = new ArrayList<>();
+        ArrayList<TerminalNode> terminalNodeList = new ArrayList<>();
         for (int i = 0; i < tree.getChildCount(); i++) {
             if (tree.getChild(i) instanceof TerminalNode) {
                 terminalNodeList.add((TerminalNode)tree.getChild(i));
