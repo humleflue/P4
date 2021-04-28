@@ -118,6 +118,17 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     }
 
     /**
+     * Type checks the print functioncall functionality by calling visit on the
+     * ctx's funccall() property
+     * @param ctx The function parameters' tree node.
+     * @return the function's return type
+     */
+    @Override
+    public Integer visitValFunccallPrint(ValFunccallPrintContext ctx) {
+        return visit(ctx.funccall());
+    }
+
+    /**
      * Type checks a function's parameters.
      * @param ctx The function parameters' tree node.
      * @return An arbitrary Integer as this value is not used.
