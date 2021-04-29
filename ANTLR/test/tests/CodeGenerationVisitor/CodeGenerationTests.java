@@ -22,8 +22,7 @@ public class CodeGenerationTests extends BaseTest {
     @CsvFileSource(resources = testPath + "buffCodeAndTargetCode.csv", numLinesToSkip = 1)
     public void GeneratedCodeAndExpectedCodeTheSame_ShouldPass(String buffCode, String targetCode ) throws IOException {
         // Arrange 
-        BuffParser parser = createParser(buffCode);
-        ParseTree tree = parser.prog();
+        ParseTree tree = createTree(buffCode);
         String generatedCode = codeGenerator.visit(tree);
         // Act & Assert
         Assertions.assertEquals(targetCode, generatedCode);
@@ -34,11 +33,9 @@ public class CodeGenerationTests extends BaseTest {
         // Arrange 
         String buffCode = "number foo(number x) = return 2; endf";
         String targetCode = "";
-        BuffParser parser = createParser(buffCode);
-        ParseTree tree = parser.prog();
+        ParseTree tree = createTree(buffCode);
         String generatedCode = codeGenerator.visit(tree);
         // Act & Assert
         Assertions.assertNotEquals(targetCode, generatedCode);
     }
-    
 }
