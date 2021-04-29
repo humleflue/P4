@@ -1,22 +1,22 @@
 grammar Buff;
 
 prog : code* EOF ;
-code : funcdef #codeFuncdef
+code : funcDef #codeFuncdef
      | stmt    #codeStmt
      ;
-funcdef : type id LPAREN funcdefparams? RPAREN ASSIGN stmts* returnstmt END ;
-returnstmt : RETURN stmt ;
+funcDef : typeAndId LPAREN funcdefParams? RPAREN ASSIGN stmts* returnStmt END ;
+returnStmt : RETURN stmt ;
 type : NUMTYPE
      | BOOLTYPE
      ;
-funcdefparams : funcdefparam (COMMA funcdefparam)* ;
-funcdefparam : type id ;
+funcdefParams : typeAndId (COMMA typeAndId)* ;
+typeAndId : type id ;
 id : ID ;
-stmts : IF LPAREN expr RPAREN returnstmt ;
+stmts : IF LPAREN expr RPAREN returnStmt ;
 stmt : expr SEMICOLON ;
 expr : LPAREN expr RPAREN                                                             #exprParenthesised
-     | funccall                                                                       #exprFunccall
-     | funccall PRINTCHAR                                                             #exprFunccallPrint
+     | funcCall                                                                       #exprFunccall
+     | funcCall PRINTCHAR                                                             #exprFunccallPrint
      | NUMLITERAL                                                                     #exprNumber
      | BOOLLITERAL                                                                    #exprBoolean
      | id                                                                             #exprId
@@ -30,8 +30,8 @@ expr : LPAREN expr RPAREN                                                       
      | left=expr op=LOGOR right=expr                                                  #exprBinaryOp
      ;
 
-funccall : id LPAREN exprparams? RPAREN ;
-exprparams : expr (COMMA expr)* ;
+funcCall : id LPAREN exprParams? RPAREN ;
+exprParams : expr (COMMA expr)* ;
 
 // *** Lexing *** //
 // Reserved keywords gets matched first
