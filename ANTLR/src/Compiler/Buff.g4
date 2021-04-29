@@ -4,7 +4,7 @@ prog : code* EOF ;
 code : funcdef #codeFuncdef
      | stmt    #codeStmt
      ;
-funcdef : type id LPAREN funcdefparams* RPAREN ASSIGN stmts* returnstmt END ;
+funcdef : type id LPAREN funcdefparams? RPAREN ASSIGN stmts* returnstmt END ;
 returnstmt : RETURN stmt ;
 type : NUMTYPE
      | BOOLTYPE
@@ -30,7 +30,7 @@ expr : LPAREN expr RPAREN                                                       
      | left=expr op=LOGOR right=expr                                                  #exprBinaryOp
      ;
 
-funccall : id LPAREN exprparams* RPAREN ;
+funccall : id LPAREN exprparams? RPAREN ;
 exprparams : expr (COMMA expr)* ;
 
 // *** Lexing *** //
