@@ -1,56 +1,100 @@
 package Compiler;
 
-import Compiler.AntlrGenerated.LangLexer;
-import Compiler.AntlrGenerated.LangParser;
+import Compiler.AntlrGenerated.CliLexer;
+import Compiler.AntlrGenerated.CliParser;
+import Compiler.AntlrGenerated.BuffLexer;
+import Compiler.AntlrGenerated.BuffParser;
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
-import Compiler.SymbolTable.SymbolDefListener;
-import Compiler.SymbolTable.SymbolRefListener;
-import Compiler.TypeChecker.TypeCheckerVisitor;
+import Compiler.ContextualAnalysis.CliListener;
+import Compiler.ErrorHandling.UnderlineErrorListener;
+import Compiler.SymbolTable.SymbolTableGeneratorListener;
+import Compiler.ContextualAnalysis.ReferenceCheckerListener;
+import Compiler.ContextualAnalysis.TypeCheckerVisitor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import java.util.Arrays;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Main {
 
-    public static void main(String[] args)  {
-        String input = "number plus(number x, number y) = if (false) return 2; return 3; endf\n" +
-                "number mult(number x, number y) = return x * y; endf\n" +
-                "plus(2, 3)?;\n" +
-                "bool returnsBool() = return true; endf";
+    public static void main(String[] args) throws IOException {
+        try {
+            runCompiler(args);
+        }
+        catch (Exception e){
+            /** Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
+             *  given a message explaining the error and nothing more should be done here.
+             */
+        }
+    }
 
-        CharStream stream = CharStreams.fromString(input);
-        LangLexer lexer = new LangLexer(stream);
-        //lexer.
+    public static void runCompiler(String[] args) throws IOException {
+        // Parse command line input
+        CharStream stream = CharStreams.fromString(String.join(" ", args));
+        CliLexer lexer = new CliLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        
-        LangParser parser = new LangParser(tokens);
+        CliParser parser = new CliParser(tokens);
+        ParseTree tree = parser.args();
 
-        System.out.println("Building CST...");
-        ParseTree tree = parser.prog();
-        System.out.println(">>> Pretty printing tree <<<");
-        System.out.println(tree.getText());
-        System.out.println(">>> End of pretty print <<<");
-
-        // Symbol table stuff
         ParseTreeWalker walker = new ParseTreeWalker();
-        SymbolDefListener symbolDefListener = new SymbolDefListener();
-        walker.walk(symbolDefListener, tree);
-        SymbolRefListener symbolRefListener = new SymbolRefListener(symbolDefListener.globalScope, symbolDefListener.scopes);
-        walker.walk(symbolRefListener, tree);
+        CliListener parsedUserInput = new CliListener();
+        walker.walk(parsedUserInput, tree);
 
-        // Type checking stuff
-        ParseTreeVisitor typeChecker = new TypeCheckerVisitor(symbolDefListener.globalScope, symbolDefListener.scopes);
+        if(parsedUserInput.wantsHelp())
+            displayHelp();
+        else
+            compile(parsedUserInput);
+    }
+
+    private static void displayHelp() {
+        try {
+            System.out.println(Files.readString(Path.of("helpMessage.txt")));
+        }
+        catch(IOException e) {
+            System.out.println("usage: buff <file>");
+        }
+    }
+
+    private static void compile(CliListener userInput) throws IOException {
+        CharStream stream = CharStreams.fromFileName(userInput.getInputFileName());
+
+        //Error handling
+        UnderlineErrorListener errorListener = new UnderlineErrorListener();
+
+        // Syntax analysis
+        BuffLexer lexer = new BuffLexer(stream);
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(errorListener);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        BuffParser parser = new BuffParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(errorListener);
+        ParseTree tree = parser.prog();
+
+        // Symbol table generation
+        ParseTreeWalker walker = new ParseTreeWalker();
+        SymbolTableGeneratorListener symbolTable = new SymbolTableGeneratorListener(errorListener);
+        walker.walk(symbolTable, tree);
+
+        // Contextual analysis
+        ReferenceCheckerListener referenceChecker =
+                new ReferenceCheckerListener(symbolTable.globalScope, symbolTable.scopes, errorListener);
+        walker.walk(referenceChecker, tree);
+
+        TypeCheckerVisitor typeChecker =
+                new TypeCheckerVisitor(symbolTable.globalScope, symbolTable.scopes, errorListener);
         typeChecker.visit(tree);
 
-        // Code generation stuff
-        var generator = new JavaScriptCodeGenerationVisitor();
-        String res = generator.visit(tree);
 
-        System.out.println(res);
+        // Code generation
+        JavaScriptCodeGenerationVisitor codeGenerator = new JavaScriptCodeGenerationVisitor();
+        String targetCode = codeGenerator.visit(tree);
+
+        Files.writeString(Path.of(userInput.getOutfileName()), targetCode);
     }
 }

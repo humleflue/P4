@@ -1,0 +1,1 @@
+usage: buff <file> [-o outfile]
