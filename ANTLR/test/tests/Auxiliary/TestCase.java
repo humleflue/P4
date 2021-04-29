@@ -156,13 +156,13 @@ public class TestCase {
         boolean testSuccess = false;
         String actualLexerTokenStr = checkAndPrettyPrintTokens(tokens.getTokens());
 
-        if (tokensOutOfRange == true)
+        if (tokensOutOfRange)
             errorOccurred("Pass failed because expected token stream and actual token stream did not have the same size",
                     this, new String[]{"Size of actual token stream:   " + tokens.getTokens().size() + tokens.get(7).getText(),
                             "Size of expected token stream: " + this.lexerTokens.size(),
                             "Expected Token Stream: " + this.lexerTokensStr,
                             "Actual Token Stream:   " + actualLexerTokenStr});
-        else if (tokensDoesMatch == false)
+        else if (!tokensDoesMatch)
             errorOccurred("Pass failed because expected token stream and actual token stream did not match and/or wrong grammar",
                     this, new String[]{"Expected Token Stream: " + this.lexerTokensStr,
                             "Actual Token Stream:   " + actualLexerTokenStr});
