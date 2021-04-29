@@ -1,22 +1,18 @@
-grammar Lang;
+grammar Buff;
 
-prog : code EOF ;
-code : funcdef code #codeFuncdef
-     | stmt code    #codeStmt
-     |              #codeEmpty
+prog : code* EOF ;
+code : funcdef #codeFuncdef
+     | stmt    #codeStmt
      ;
-funcdef : type id LPAREN funcdefparams RPAREN ASSIGN stmts returnstmt ENDF ;
+funcdef : type id LPAREN funcdefparams* RPAREN ASSIGN stmts* returnstmt END ;
 returnstmt : RETURN stmt ;
-type : NUMBERTYPE
-     | BOOLTYPE ;
-funcdefparams : funcdefparam (COMMA funcdefparam)* #funcdefparamsNotEmpty
-              |                                    #funcdefparamsEmpty
-              ;
+type : NUMTYPE
+     | BOOLTYPE
+     ;
+funcdefparams : funcdefparam (COMMA funcdefparam)* ;
 funcdefparam : type id ;
 id : ID ;
-stmts : IF LPAREN expr RPAREN returnstmt stmts #stmtsNotEmpty
-      |                                        #stmtsEmpty
-      ;
+stmts : IF LPAREN expr RPAREN returnstmt ;
 stmt : expr SEMICOLON ;
 expr : LPAREN expr RPAREN                                                             #exprParenthesised
      | funccall                                                                       #exprFunccall
@@ -34,21 +30,19 @@ expr : LPAREN expr RPAREN                                                       
      | left=expr op=LOGOR right=expr                                                  #exprBinaryOp
      ;
 
-funccall : id LPAREN exprparams RPAREN ;
-exprparams : expr (COMMA expr)* #exprparamsNotEmpty
-           |                    #exprparamsEmpty
-           ;
+funccall : id LPAREN exprparams* RPAREN ;
+exprparams : expr (COMMA expr)* ;
 
 // *** Lexing *** //
 // Reserved keywords gets matched first
 // Types
-NUMBERTYPE : 'number' ;
-BOOLTYPE : 'bool' ;
+NUMTYPE : 'number' ;
+BOOLTYPE : 'boolean' ;
 // Literals
 BOOLLITERAL : 'true' | 'false' ;
 NUMLITERAL : '-'?(('0'..'9')+|('0'..'9')+'.'('0'..'9')+);
 // Other reserved keywords
-ENDF    : 'end' ;
+END    : 'end' ;
 RETURN : 'return' ;
 IF : 'if' ;
 
