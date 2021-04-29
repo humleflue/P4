@@ -1,11 +1,16 @@
 package Compiler.ErrorHandling;
 
+import Compiler.AntlrGenerated.BuffLexer;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * An error listener that can be used by both ANTLR generated components as the parser and lexer
@@ -53,7 +58,6 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
         //Gets the token that caused the error. Gets parsed from Object to token to get position
         Token offendingToken = (Token)offendingSymbol;
         Interval offendingTokenInterval = new Interval(offendingToken.getStartIndex(), offendingToken.getStopIndex());
-
         ThrowError(msg, offendingToken);
     }
 
@@ -94,6 +98,43 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
         }
 
         ThrowError(errorMsg, allOffendingTokens);
+    }
+
+    /**
+     * An auxiliary function that allows calling ThrowError with a ParseTree. All nodes in the ParseTree will be underlined.
+     * @param errorMsg Message that explains the cause of the error
+     * @param tree The tree with the tokens that should be underlined
+     * @param additionalOffendingTokens The additional tokens which will be underlined
+     */
+    public void ThrowError(String errorMsg, ParseTree tree, Token... additionalOffendingTokens){
+        ArrayList<TerminalNode> terminalNodes = getTerminalNodes(tree);
+        ArrayList<Token> offendingTokens = (ArrayList<Token>) terminalNodes.stream().map(x -> x.getSymbol()).collect(Collectors.toList());
+
+        for (Token token : additionalOffendingTokens){
+            offendingTokens.add(token);
+        }
+        // Should not hightligt ";"
+        offendingTokens.removeIf(x -> x.getType() == BuffLexer.SEMICOLON);
+        
+        ThrowError(errorMsg, offendingTokens);
+    }
+
+    /**
+     * Gets all TerminalNodes in a ParseTree
+     * @param tree The ParseTree which terminal nodes should be returned.
+     */
+    private ArrayList<TerminalNode> getTerminalNodes(ParseTree tree){
+        ArrayList<TerminalNode> terminalNodeList = new ArrayList<>();
+        for (int i = 0; i < tree.getChildCount(); i++) {
+            ParseTree node = tree.getChild(i);
+            if (node instanceof TerminalNode) {
+                terminalNodeList.add((TerminalNode)node);
+            }
+            else{
+                terminalNodeList.addAll(getTerminalNodes(node));
+            }
+        }
+        return terminalNodeList;
     }
 
     /**
