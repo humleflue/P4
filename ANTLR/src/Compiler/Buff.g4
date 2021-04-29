@@ -4,12 +4,12 @@ prog : code* EOF ;
 code : funcDef #codeFuncdef
      | stmt    #codeStmt
      ;
-funcDef : typeAndId LPAREN funcdefParams? RPAREN ASSIGN stmts* returnStmt END ;
+funcDef : typeAndId LPAREN funcDefParams? RPAREN ASSIGN stmts* returnStmt END ;
 returnStmt : RETURN stmt ;
 type : NUMTYPE
      | BOOLTYPE
      ;
-funcdefParams : typeAndId (COMMA typeAndId)* ;
+funcDefParams : typeAndId (COMMA typeAndId)* ;
 typeAndId : type id ;
 id : ID ;
 stmts : IF LPAREN expr RPAREN returnStmt ;
