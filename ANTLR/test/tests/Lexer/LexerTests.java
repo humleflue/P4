@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LexerTests extends BaseTest {
     // Converts etc. "\n" to actual newline in string.
-    private String unescape(String str){
+    private String unEscape(String str){
         return StringEscapeUtils.unescapeJava(str);
     }
 
@@ -24,7 +24,7 @@ public class LexerTests extends BaseTest {
     @DisplayName("New line tests")
     @CsvFileSource(resources = testPath + "newLineTests.csv", numLinesToSkip = 1, delimiter=';')
     void newLine(String testAsString, int shouldPass) throws IOException {
-        TestCase testCase = new TestCase(unescape(testAsString), (shouldPass == 1));
+        TestCase testCase = new TestCase(unEscape(testAsString), (shouldPass == 1));
 
         boolean testCaseSuccess = testCase.test();
 
@@ -35,7 +35,7 @@ public class LexerTests extends BaseTest {
     @DisplayName("Declaration tests")
     @CsvFileSource(resources = testPath + "declarationTests.csv", numLinesToSkip = 1, delimiter=';')
     void declarations(String testAsString, int shouldPass) throws IOException {
-        TestCase testCase = new TestCase(unescape(testAsString), (shouldPass == 1));
+        TestCase testCase = new TestCase(unEscape(testAsString), (shouldPass == 1));
 
         boolean testCaseSuccess = testCase.test();
 
@@ -46,7 +46,7 @@ public class LexerTests extends BaseTest {
     @DisplayName("Expressions test")
     @CsvFileSource(resources = testPath + "expressionsTest.csv", numLinesToSkip = 1, delimiter=';')
     void expressions(String testAsString, int shouldPass) throws IOException {
-        TestCase testCase = new TestCase(unescape(testAsString), (shouldPass == 1));
+        TestCase testCase = new TestCase(unEscape(testAsString), (shouldPass == 1));
 
         boolean testCaseSuccess = testCase.test();
 
@@ -57,7 +57,7 @@ public class LexerTests extends BaseTest {
     @DisplayName("if else tests")
     @CsvFileSource(resources = testPath + "ifElseTests.csv", numLinesToSkip = 1, delimiter=';')
     void if_else(String testAsString, int shouldPass) throws IOException {
-        TestCase testCase = new TestCase(unescape(testAsString), (shouldPass == 1));
+        TestCase testCase = new TestCase(unEscape(testAsString), (shouldPass == 1));
 
         boolean testCaseSuccess = testCase.test();
 
@@ -68,7 +68,7 @@ public class LexerTests extends BaseTest {
     @DisplayName("Functions test")
     @CsvFileSource(resources = testPath + "functionsTest.csv", numLinesToSkip = 1, delimiter=';')
     void functionsTest(String testAsString, int shouldPass) throws IOException {
-        TestCase testCase = new TestCase(unescape(testAsString), (shouldPass == 1));
+        TestCase testCase = new TestCase(unEscape(testAsString), (shouldPass == 1));
 
         boolean testCaseSuccess = testCase.test();
 
