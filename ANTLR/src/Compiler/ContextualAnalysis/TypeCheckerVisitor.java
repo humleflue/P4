@@ -3,11 +3,11 @@ package Compiler.ContextualAnalysis;
 import Compiler.AntlrGenerated.BuffBaseVisitor;
 import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.ErrorHandling.BuffErrorListener;
-import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
 import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.Vocabulary;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -66,15 +66,14 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     @Override
     public Integer visitBinaryOp(BinaryOpContext ctx) {
-        int returnType;
+        int returnType = -1; // initialized to -1 to check if switchcase evaluated
 
         // Visit the children to thereby get their type.
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
 
-        if(!left.equals(right)) {
+        if(!left.equals(right))
             throwTypeError(left, right, "On operation " + ctx.op.getText(), ctx.op);
-        }
 
         // Now we know that the two operators are of the same type: 'left == right' // true
 
@@ -83,10 +82,15 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
                 returnType = NUMBERTYPE;
             case LOGAND, LOGOR ->
                 returnType = BOOLTYPE;
-            case LOGEQ, LOGNOTEQ, LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
-                if(left != NUMBERTYPE) // You cannot compare eg. 'true == true'
-                    throwTypeError(left, right, "On operation " + ctx.op.getText(), ctx.op);
-                returnType = BOOLTYPE;
+            case LOGEQ, LOGNOTEQ -> {
+                if (left != right)
+                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be same type", ctx.op);
+                returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
+            }
+            case LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
+                if (left != NUMBERTYPE || right != NUMBERTYPE)
+                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be number type", ctx.op);
+                returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
             }
             default -> throw new IllegalArgumentException("Type not found by typechecker.");
         }
@@ -117,6 +121,17 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     }
 
     /**
+     * Type checks the print functioncall functionality by calling visit on the
+     * ctx's funccall() property
+     * @param ctx The function parameters' tree node.
+     * @return the function's return type
+     */
+    @Override
+    public Integer visitValFunccallPrint(ValFunccallPrintContext ctx) {
+        return visit(ctx.funccall());
+    }
+
+    /**
      * Type checks a function's parameters.
      * @param ctx The function parameters' tree node.
      * @return An arbitrary Integer as this value is not used.
@@ -128,11 +143,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
         // Visits each expression node in the actual params,
         // and thereby gets their types.
-        ArrayList<Integer> actualTypes = new ArrayList<>();
-        for(int i = 0; i < params.size(); i++) {
-            Integer type = visit(ctx.expr(i));
-            actualTypes.add(type);
-        }
+        ArrayList<Integer> actualTypes = visitAndGetChildrenTypes(i -> visit(ctx.expr(i)), params.size());
 
         // Retrieves the formal parameter's types
         // from the function definition found in the symbol table.
@@ -144,11 +155,10 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         for (int i = 0; i < actualTypes.size(); i++) {
             Integer actualType = actualTypes.get(i);
             Integer formalType = formalParamTypes.get(i);
-            if(!actualType.equals(formalType)) {
+            if(!actualType.equals(formalType))
                 throwTypeError(actualType, formalType,
                         "Parameter type at \"" + funccallContext.ID().getText() +
                                 "\" call does not match expected type from definition", params.get(i).start);
-            }
         }
 
         return this.defaultResult(); // This is an arbitrary Integer as this value is not used
@@ -177,21 +187,17 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer returnStmtType = visit(ctx.stmt());
         checkReturnTypeCorrespondence(returnStmtType, ctx, ctx.stmt());
 
-        // Check each statement's return type
-        //Gets lists of expression nodes in the actual parameters
-        List<StmtsContext> stmts =  ctx.getRuleContexts(StmtsContext.class);
+        //Gets lists of stmt nodes in the actual parameters
+        Integer stmtsLength =  ctx.getRuleContexts(StmtsContext.class).size();
 
         // Visits each stmts node, and thereby gets their types.
-        ArrayList<Integer> stmtsTypes = new ArrayList<>();
-        for(int i = 0; i < stmts.size(); i++) {
-            Integer type = visit(ctx.stmts(i));
-            stmtsTypes.add(type);
-        }
+        ArrayList<Integer> stmtsTypes = visitAndGetChildrenTypes(i -> visit(ctx.stmts(i)), stmtsLength);
+
 
         // Check that the types correspond to each other.
         for (int i = 0; i < stmtsTypes.size(); i++) {
             Integer someStmtType = stmtsTypes.get(i);
-            checkReturnTypeCorrespondence(someStmtType, ctx, stmts.get(i).stmt());
+            checkReturnTypeCorrespondence(someStmtType, ctx, ctx.stmts().get(i).stmt());
         }
 
         // Visit the rest of the children
@@ -200,6 +206,15 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
         // Returns the type of the function
         return returnStmtType;
+    }
+
+    private ArrayList<Integer> visitAndGetChildrenTypes(Lambda<Integer> visitChild, Integer size) {
+        ArrayList<Integer> types = new ArrayList<>();
+        for (int i = 0; i < size; i++){
+            Integer type = visitChild.execute(i);
+            types.add(type);
+        }
+        return types;
     }
 
     /**
@@ -217,8 +232,10 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer funcdefReturnType = symbol.getType();
 
         // Evaluate if the types are the same.
-        if(!funcdefReturnType.equals(stmtType)) {
-            String errorMsg = "Does not return expected type in function definition: " + functionId.toString();
+        if(!funcdefReturnType.equals(stmtType)){
+            String errorMsg = String.format("Incompatible type: Type %s is incompatible with %s. ",
+                    VOCABULARY.getLiteralName(funcdefReturnType), VOCABULARY.getLiteralName(stmtType));
+            errorMsg += "Does not return expected type in function definition: " + functionId.toString();
             errorListener.ThrowError(errorMsg, stmt, ctx.type().start);
         }
     }
@@ -239,9 +256,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer actualType = visit(ctx.expr());
         Integer expectedType = BOOLTYPE;
 
-        if(!actualType.equals(expectedType)){
+        if(!actualType.equals(expectedType))
             throwTypeError(actualType, expectedType, "In an if statement", ctx.expr().start);
-        }
 
         return visit(ctx.stmt());
     }

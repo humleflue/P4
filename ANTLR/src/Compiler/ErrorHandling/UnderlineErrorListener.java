@@ -12,8 +12,15 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * An error listener that can be used by both ANTLR generated components as the parser and lexer
+ * and custom listeners/visitors to print out underlined error messages to the console.sssssd
+ */
 public class UnderlineErrorListener extends BaseErrorListener implements BuffErrorListener {
 
+    /**
+     * Contains information about a line that caused an error, allows easy printing to console.
+     */
     private class LineWithError {
         String line;
         Integer lineNumber;
