@@ -36,6 +36,4 @@ public class BaseTest {
         return parser.prog();
     }
 
-
-
 }

@@ -1,6 +1,7 @@
 package tests.Lexer;
 
 import Compiler.AntlrGenerated.BuffLexer;
+import tests.Auxiliary.BaseTest;
 import tests.Auxiliary.TestCase;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -8,14 +9,12 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-
 import java.io.IOException;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LexerTests {
-    private final String testPath = "./Data/";
+public class LexerTests extends BaseTest {
     // Converts etc. "\n" to actual newline in string.
     private String unescape(String str){
         return StringEscapeUtils.unescapeJava(str);
