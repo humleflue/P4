@@ -2,7 +2,7 @@ package tests;
 
 import Compiler.AntlrGenerated.BuffLexer;
 import Compiler.AntlrGenerated.BuffParser;
-import Compiler.ErrorHandling.UnderlineErrorListener;
+import Compiler.ErrorHandling.UnderliningErrorListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
@@ -31,7 +31,7 @@ public class temp {
 
         ParseTreeWalker walker = new ParseTreeWalker();
 
-        SymbolTableGeneratorListener symbolTableGeneratorListener = new SymbolTableGeneratorListener(new UnderlineErrorListener());
+        SymbolTableGeneratorListener symbolTableGeneratorListener = new SymbolTableGeneratorListener(new UnderliningErrorListener());
         walker.walk(symbolTableGeneratorListener, tree);
         return symbolTableGeneratorListener;
     }

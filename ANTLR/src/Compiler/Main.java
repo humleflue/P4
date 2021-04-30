@@ -6,7 +6,7 @@ import Compiler.AntlrGenerated.BuffLexer;
 import Compiler.AntlrGenerated.BuffParser;
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
 import Compiler.ContextualAnalysis.CliListener;
-import Compiler.ErrorHandling.UnderlineErrorListener;
+import Compiler.ErrorHandling.UnderliningErrorListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import Compiler.ContextualAnalysis.ReferenceCheckerListener;
 import Compiler.ContextualAnalysis.TypeCheckerVisitor;
@@ -22,12 +22,12 @@ import java.nio.file.Path;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try {
             runCompiler(args);
         }
         catch (Exception e){
-            /** Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
+            /* Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
              *  given a message explaining the error and nothing more should be done here.
              */
         }
@@ -61,13 +61,11 @@ public class Main {
     }
 
     private static void compile(CliListener userInput) throws IOException {
-        CharStream stream = CharStreams.fromFileName(userInput.getInputFileName());
-
         //Error handling
-        UnderlineErrorListener errorListener = new UnderlineErrorListener();
+        UnderliningErrorListener errorListener = new UnderliningErrorListener();
 
         // Syntax analysis
-        BuffLexer lexer = new BuffLexer(stream);
+        BuffLexer lexer = new BuffLexer(userInput.getCharStream());
         lexer.removeErrorListeners();
         lexer.addErrorListener(errorListener);
         CommonTokenStream tokens = new CommonTokenStream(lexer);

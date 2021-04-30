@@ -6,20 +6,21 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Merge with HEAD">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/Lambda.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonEqualityTypes.csv" afterDir="false" />
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Added math library with square root support. Resolved various warnings.">
+      <change afterPath="$PROJECT_DIR$/mathlib.buff" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source_code.buff" beforeDir="false" afterPath="$PROJECT_DIR$/source_code.buff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Cli.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Cli.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/CliListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/CliListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/ReferenceCheckerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/ReferenceCheckerListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/BaseScope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/BaseScope.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/FuncdefSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/FuncdefSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/Symbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderliningErrorListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/SymbolTable/SymbolTableTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/SymbolTable/SymbolTableTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTestsBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTestsBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/temp.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/temp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,15 +108,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -292,7 +291,9 @@
     <MESSAGE value="Fixed merge error in workspace.xml" />
     <MESSAGE value="Corrected naming of classes and added a couple more type checker tests" />
     <MESSAGE value="Merge with HEAD" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge with HEAD" />
+    <MESSAGE value="Added math library with square root support" />
+    <MESSAGE value="Added math library with square root support. Resolved various warnings." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added math library with square root support. Resolved various warnings." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

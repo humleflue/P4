@@ -1,6 +1,6 @@
 package tests.TypeCheckerVisitor;
 
-import Compiler.ErrorHandling.UnderlineErrorListener;
+import Compiler.ErrorHandling.UnderliningErrorListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import Compiler.ContextualAnalysis.ReferenceCheckerListener;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -23,7 +23,7 @@ public abstract class TypeCheckerTestsBase {
 
         ParseTreeWalker walker = new ParseTreeWalker();
 
-        symbolTableGeneratorListener = new SymbolTableGeneratorListener(new UnderlineErrorListener());
+        symbolTableGeneratorListener = new SymbolTableGeneratorListener(new UnderliningErrorListener());
         walker.walk(symbolTableGeneratorListener, tree);
         ReferenceCheckerListener referenceCheckerListener = new ReferenceCheckerListener(
                 symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());

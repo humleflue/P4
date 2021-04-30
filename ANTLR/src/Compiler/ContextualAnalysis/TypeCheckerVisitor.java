@@ -58,7 +58,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         String errorMsg = String.format("Incompatible type: Type %s is incompatible with %s. %s",
                                         leftType, rightType, optionalText);
 
-        ArrayList<Token> allOffendingTokens = new ArrayList<Token>(Arrays.asList(additionalOffendingTokens));
+        ArrayList<Token> allOffendingTokens = new ArrayList<>(Arrays.asList(additionalOffendingTokens));
         allOffendingTokens.add(offendingToken);
 
         errorListener.ThrowError(errorMsg, allOffendingTokens);
@@ -66,7 +66,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     @Override
     public Integer visitBinaryOp(BinaryOpContext ctx) {
-        int returnType = -1; // initialized to -1 to check if switchcase evaluated
+        int returnType;
 
         // Visit the children to thereby get their type.
         Integer left = visit(ctx.left);
@@ -83,7 +83,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
             case LOGAND, LOGOR ->
                 returnType = BOOLTYPE;
             case LOGEQ, LOGNOTEQ -> {
-                if (left != right)
+                if (!left.equals(right))
                     throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be same type", ctx.op);
                 returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
             }
@@ -96,6 +96,21 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         }
 
         return returnType;
+    }
+
+    @Override
+    public Integer visitValue(ValueContext ctx) {
+        return visit(ctx.val());
+    }
+
+    @Override
+    public Integer visitUneryOp(UneryOpContext ctx) {
+        return visit(ctx.val());
+    }
+
+    @Override
+    public Integer visitValParenthesisedExpr(ValParenthesisedExprContext ctx) {
+        return visit(ctx.expr());
     }
 
     @Override
@@ -235,7 +250,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         if(!funcdefReturnType.equals(stmtType)){
             String errorMsg = String.format("Incompatible type: Type %s is incompatible with %s. ",
                     VOCABULARY.getLiteralName(funcdefReturnType), VOCABULARY.getLiteralName(stmtType));
-            errorMsg += "Does not return expected type in function definition: " + functionId.toString();
+            errorMsg += "Does not return expected type in function definition: " + functionId;
             errorListener.ThrowError(errorMsg, stmt, ctx.type().start);
         }
     }

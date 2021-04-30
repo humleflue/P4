@@ -1,0 +1,26 @@
+number sqrt(number num) =
+    if(num <= 0)
+        return 0;
+    return sqrt_aux(num, 1);
+    endf
+
+number sqrt_aux(number num, number prev) =
+    if(abs( sqrt_next(num, prev) - prev )
+       < EPSILON() * sqrt_next(num, prev))
+        return sqrt_next(num, prev);
+    return sqrt_aux(num, sqrt_next(num, prev));
+    endf
+
+number sqrt_next(number num, number prev) =
+    return (prev + num / prev) / 2;
+    endf
+
+number abs(number num) =
+    if(num < 0)
+        return num * (0-1);
+    return num;
+    endf
+
+number EPSILON() =
+    return 0.0000000000001;
+    endf
