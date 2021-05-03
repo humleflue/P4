@@ -34,7 +34,7 @@ public class SymbolTableTests {
         SymbolTableGeneratorListener symbolTable = getWalker(tree);
 
         // Act
-        int expected = BuffLexer.NUMBERTYPE;
+        int expected = BuffLexer.NUMTYPE;
         int actual = symbolTable.globalScope.getSymbol("func").getType();
 
         // Assert

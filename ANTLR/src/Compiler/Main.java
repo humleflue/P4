@@ -27,6 +27,7 @@ public class Main {
             runCompiler(args);
         }
         catch (Exception e){
+            System.out.println(e.getStackTrace()[0].getFileName() + ":" + e.getStackTrace()[0].getLineNumber());
             /** Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
              *  given a message explaining the error and nothing more should be done here.
              */

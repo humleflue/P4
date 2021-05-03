@@ -30,22 +30,24 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     }
 
     @Override
-    public void enterFuncdef(FuncdefContext ctx) {
+    public void enterFuncDef(FuncDefContext ctx) {
         //Gets lists of parameters as ParseRuleContexts
-        List<FuncdefparamContext> params =  ctx.getRuleContext(FuncdefparamsContext.class, 0)
-                .getRuleContexts(FuncdefparamContext.class);
+        FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
 
-        //Might be useful for type-checking. Delete otherwise
         ArrayList<Integer> argumentList = new ArrayList<>();
-        for (FuncdefparamContext param : params){
-            argumentList.add(param.start.getType());
+        if (!FuncDefParams.isEmpty()) {
+            //Might be useful for type-checking. Delete otherwise
+            for (int i = 0; i < FuncDefParams.typeAndId().size(); i++) {
+                argumentList.add(FuncDefParams.typeAndId(i).type().start.getType());
+            }
         }
 
-        FuncdefSymbol symbol = new FuncdefSymbol(ctx.ID().getText(), ctx.start.getType(), argumentList);
+
+        FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
         try {
             currentScope.defineSymbol(symbol);
         } catch (Exception e){
-            errorListener.ThrowError(e.getMessage(), ctx.ID().getSymbol());
+            errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
         }
 
         // Making new scope for function body
@@ -55,13 +57,13 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     }
 
     @Override
-    public void exitFuncdef(FuncdefContext ctx) {
+    public void exitFuncDef(FuncDefContext ctx) {
         currentScope = currentScope.getEnclosingScope();
     }
 
     @Override
-    public void exitFuncdefparam(FuncdefparamContext ctx) {
-        Integer paramType = ctx.start.getType();
+    public void exitTypeAndId(TypeAndIdContext ctx) {
+        Integer paramType = ctx.type().start.getType();
         Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
         try {
             currentScope.defineSymbol(paramSymbol);
@@ -74,12 +76,12 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
 
     // Scopes attatched to ID and Funccall for easy access in type checking using scopes.get(ctx)
     @Override
-    public void exitValId(ValIdContext ctx) {
+    public void exitExprId(ExprIdContext ctx) {
         attachScope(ctx, currentScope);
     }
 
     @Override
-    public void exitFunccall(FunccallContext ctx) {
+    public void exitFuncCall(FuncCallContext ctx) {
         attachScope(ctx, currentScope);
     }
 

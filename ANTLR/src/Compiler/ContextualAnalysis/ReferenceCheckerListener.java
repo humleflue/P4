@@ -29,28 +29,28 @@ public class ReferenceCheckerListener extends BuffBaseListener{
     }
 
     @Override
-    public void enterFuncdef(FuncdefContext ctx) {
+    public void enterFuncDef(FuncDefContext ctx) {
         currentScope = scopes.get(ctx);
     }
 
     @Override
-    public void exitFuncdef(FuncdefContext ctx) {
+    public void exitFuncDef(FuncDefContext ctx) {
         currentScope = currentScope.getEnclosingScope();
     }
 
     @Override
-    public void exitValId(ValIdContext ctx) {
+    public void exitExprId(ExprIdContext ctx) {
         CheckSymbol(ctx.ID().getSymbol().getText(), ctx.ID().getSymbol());
     }
 
     @Override
-    public void exitFunccall(FunccallContext ctx) throws IllegalArgumentException {
+    public void exitFuncCall(FuncCallContext ctx) throws IllegalArgumentException {
         CheckSymbol(ctx.ID().getSymbol().getText(), ctx.ID().getSymbol());
 
         int callArgCount = 0;
         //Check for null required, as it would otherwise crash when getting Expressions
-        if(ctx.getRuleContext(ExprparamsNotEmptyContext.class,0) != null){
-            callArgCount = ctx.getRuleContext(ExprparamsNotEmptyContext.class,0)
+        if(ctx.getRuleContext(ExprParamsContext.class,0) != null){
+            callArgCount = ctx.getRuleContext(ExprParamsContext.class,0)
                               .getRuleContexts(ExprContext.class)
                               .size();
         }
@@ -62,7 +62,7 @@ public class ReferenceCheckerListener extends BuffBaseListener{
         if(callArgCount != expectedArgCount) {
             String errorMsg = " Function " + ctx.ID().getText() + " expects " + expectedArgCount +
                     " arguments but was called with " + callArgCount;
-            errorListener.ThrowError(errorMsg, ctx.exprparams().getStart());
+            errorListener.ThrowError(errorMsg, ctx.exprParams().getStart());
         }
     }
 

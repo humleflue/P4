@@ -10,8 +10,7 @@ type : NUMTYPE
      | BOOLTYPE
      ;
 funcDefParams : typeAndId (COMMA typeAndId)* ;
-typeAndId : type id ;
-id : ID ;
+typeAndId : type ID ;
 stmts : IF LPAREN expr RPAREN returnStmt ;
 stmt : expr SEMICOLON ;
 expr : LPAREN expr RPAREN                                                             #exprParenthesised
@@ -19,7 +18,7 @@ expr : LPAREN expr RPAREN                                                       
      | funcCall PRINTCHAR                                                             #exprFunccallPrint
      | NUMLITERAL                                                                     #exprNumber
      | BOOLLITERAL                                                                    #exprBoolean
-     | id                                                                             #exprId
+     | ID                                                                             #exprId
      | op=NEGATE expr                                                                 #exprUnaryOp
      | left=expr op=POW right=expr                                                    #exprBinaryOp
      | left=expr op=(DIVIDE|MULTIPLY) right=expr                                      #exprBinaryOp
@@ -30,7 +29,7 @@ expr : LPAREN expr RPAREN                                                       
      | left=expr op=LOGOR right=expr                                                  #exprBinaryOp
      ;
 
-funcCall : id LPAREN exprParams? RPAREN ;
+funcCall : ID LPAREN exprParams? RPAREN ;
 exprParams : expr (COMMA expr)* ;
 
 // *** Lexing *** //

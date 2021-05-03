@@ -28,17 +28,21 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      */
     @Override
     public String visitProg(ProgContext ctx) {
-        return visit(ctx.code());
+        List<CodeContext> codes = ctx.getRuleContexts(CodeContext.class);
+        String result = "";
+        for (int i = 0; i < codes.size(); i++)
+            result += visit(ctx.code(i));
+        return result;
     }
 
     @Override
     public String visitCodeFuncdef(CodeFuncdefContext ctx) {
-        return visit(ctx.funcdef()) + visit(ctx.code());
+        return visit(ctx.funcDef());
     }
 
     @Override
     public String visitCodeStmt(CodeStmtContext ctx) {
-        return visit(ctx.stmt()) + visit(ctx.code());
+        return visit(ctx.stmt());
     }
 
     /**
@@ -47,23 +51,29 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @return A string of the form: {@code "function id(param0, param1 , ... , paramN) &#123; functionBody &#125;}".
      */
     @Override
-    public String visitFuncdef(FuncdefContext ctx) {
+    public String visitFuncDef(FuncDefContext ctx) {
         String result = "function ";
 
         // The function will have the same id in the generated code.
-        result += ctx.ID().getText();
+        result += ctx.typeAndId().ID().getText();
         result += "(";
-        result += visit(ctx.funcdefparams());
+        result += visit(ctx.funcDefParams());
         result += ") { ";
 
         List<StmtsContext> stmts =  ctx.getRuleContexts(StmtsContext.class);
         for(int i = 0; i < stmts.size(); i++)
             result += visit(ctx.stmts(i)) + " ";
 
-        result += "return ";
-        result += visit(ctx.stmt());
+        result += visitReturnStmt(ctx.returnStmt());
         result += "} ";
 
+        return result;
+    }
+
+    @Override
+    public String visitReturnStmt(ReturnStmtContext ctx) {
+        String result = "return";
+        result += visit(ctx.stmt());
         return result;
     }
 
@@ -73,28 +83,31 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @return A string of the form: "{@code param0, param1, ... , paramN}".
      */
     @Override
-    public String visitFuncdefparamsNotEmpty(FuncdefparamsNotEmptyContext ctx) {
+    public String visitFuncDefParams(FuncDefParamsContext ctx) {
         //Gets lists of parameter nodes in the formal parameters
-        List<FuncdefparamContext> params =  ctx.getRuleContexts(FuncdefparamContext.class);
+        List<TypeAndIdContext> params =  ctx.getRuleContexts(TypeAndIdContext.class);
         // Visit the first parameter outside the for-loop to be able to place the comma correctly inside the loop
-        String result = visit(ctx.funcdefparam(0));
+        String result = visit(ctx.typeAndId(0));
 
         for(int i = 1; i < params.size(); i++) {
             result += ", ";
-            result += visit(ctx.funcdefparam(i));
+            result += visit(ctx.typeAndId(i));
         }
 
         return result;
     }
 
-    /**
-     * Generates code for a function definition's parameter
-     * @param ctx The tree node in question.
-     * @return A string of the form: "{@code id}", as JavaScript is loosely typed, no type has to be provided.
-     */
     @Override
-    public String visitFuncdefparam(FuncdefparamContext ctx) {
-        return ctx.ID().getText();
+    public String visitTypeAndId(TypeAndIdContext ctx) {
+        String result = "";
+        result += visit(ctx.type()) + " ";
+        result += ctx.ID().getText();
+        return result;
+    }
+
+    @Override
+    public String visitType(TypeContext ctx) {
+        return ctx.getText();
     }
 
     /**
@@ -107,8 +120,8 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         String result = "if(";
 
         result += visit(ctx.expr());
-        result += ") return ";
-        result += visit(ctx.stmt());
+        result += ") ";
+        result += visit(ctx.returnStmt());
 
         return result;
     }
@@ -118,14 +131,10 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         return visit(ctx.expr()) + "; ";
     }
 
-    @Override
-    public String visitValue(ValueContext ctx) {
-        return visit(ctx.val());
-    }
 
     @Override
-    public String visitUneryOp(UneryOpContext ctx) {
-        return "!" + visit(ctx.val());
+    public String visitExprUnaryOp(ExprUnaryOpContext ctx) {
+        return "!" + visit(ctx.expr());
     }
 
     /**
@@ -135,7 +144,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * then the string of the form "{@code Math.pow(expr, expr)}" is returned instead.
      */
     @Override
-    public String visitBinaryOp(BinaryOpContext ctx) {
+    public String visitExprBinaryOp(ExprBinaryOpContext ctx) {
         String expr1 = visit(ctx.expr(0));
         String expr2 = visit(ctx.expr(1));
 
@@ -166,13 +175,13 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     }
 
     @Override
-    public String visitValParenthesisedExpr(ValParenthesisedExprContext ctx) {
+    public String visitExprParenthesised(ExprParenthesisedContext ctx) {
         return "(" + visit(ctx.expr()) + ")";
     }
 
     @Override
-    public String visitValFunccall(ValFunccallContext ctx) {
-        return visit(ctx.funccall());
+    public String visitExprFunccall(ExprFunccallContext ctx) {
+        return visit(ctx.funcCall());
     }
 
     /**
@@ -181,12 +190,12 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @return A string of the form: "{@code console.log(id(param0, param1, ... , paramN) => result)}"
      */
     @Override
-    public String visitValFunccallPrint(ValFunccallPrintContext ctx) {
-        String exprParams = visit(ctx.funccall().exprparams());
+    public String visitExprFunccallPrint(ExprFunccallPrintContext ctx) {
+        String exprParams = visit(ctx.funcCall().exprParams());
 
         String result = "(()=>{";
-        result += String.format("let res = %s(%s);", GetFuncName(ctx.funccall()), exprParams);
-        result += String.format("console.log(`%s(", GetFuncName(ctx.funccall()));
+        result += String.format("let res = %s(%s);", GetFuncName(ctx.funcCall()), exprParams);
+        result += String.format("console.log(`%s(", GetFuncName(ctx.funcCall()));
 
         if (!exprParams.isEmpty()) {
             String[] exprParamsArray = exprParams.split(",");
@@ -206,7 +215,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @param ctx The tree node in question
      * @return the ID (name) of the function call
      */
-    String GetFuncName(FunccallContext ctx){
+    String GetFuncName(FuncCallContext ctx){
         return ctx.ID().getText();
     }
     /**
@@ -215,30 +224,23 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @return The same number as in the source code.
      */
     @Override
-    public String visitValNumber(ValNumberContext ctx) {
+    public String visitExprNumber(ExprNumberContext ctx) {
         return ctx.NUMLITERAL().getText();
     }
 
-    /**
-     * Generates code for a boolean.
-     * @param ctx The tree node in question.
-     * @return The same boolean as in the source code.
-     * Therefore, the string, which is returned, can either be "{@code true}" or "{@code false}").
-     */
     @Override
-    public String visitValBoolean(ValBooleanContext ctx) {
+    public String visitExprBoolean(ExprBooleanContext ctx) {
         return ctx.BOOLLITERAL().getText();
     }
 
-
     @Override
-    public String visitValId(ValIdContext ctx) {
-        return ctx.ID().getText();
+    public String visitExprId(ExprIdContext ctx) {
+        return ctx.getText();
     }
 
     @Override
-    public String visitFunccall(FunccallContext ctx) {
-        return ctx.ID().getText() + "(" + visit(ctx.exprparams()) + ")";
+    public String visitFuncCall(FuncCallContext ctx) {
+        return ctx.ID().getText() + "(" + visit(ctx.exprParams()) + ")";
     }
 
     /**
@@ -247,7 +249,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @return A string of the form: "{@code expr0, expr1, ... , exprN}".
      */
     @Override
-    public String visitExprparamsNotEmpty(ExprparamsNotEmptyContext ctx) {
+    public String visitExprParams(ExprParamsContext ctx) {
         //Gets lists of parameter nodes in the formal parameters
         List<ExprContext> params =  ctx.getRuleContexts(ExprContext.class);
         String result = visit(ctx.expr(0));

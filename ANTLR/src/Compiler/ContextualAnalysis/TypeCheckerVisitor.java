@@ -65,7 +65,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     }
 
     @Override
-    public Integer visitBinaryOp(BinaryOpContext ctx) {
+    public Integer visitExprBinaryOp(ExprBinaryOpContext ctx) {
         int returnType = -1; // initialized to -1 to check if switchcase evaluated
 
         // Visit the children to thereby get their type.
@@ -79,7 +79,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
         switch (ctx.op.getType()) {
             case PLUS, MINUS, MULTIPLY, DIVIDE, POW ->
-                returnType = NUMBERTYPE;
+                returnType = NUMTYPE;
             case LOGAND, LOGOR ->
                 returnType = BOOLTYPE;
             case LOGEQ, LOGNOTEQ -> {
@@ -88,7 +88,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
                 returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
             }
             case LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
-                if (left != NUMBERTYPE || right != NUMBERTYPE)
+                if (left != NUMTYPE || right != NUMTYPE)
                     throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be number type", ctx.op);
                 returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
             }
@@ -99,12 +99,12 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     }
 
     @Override
-    public Integer visitValNumber(ValNumberContext ctx) {
-        return NUMBERTYPE;
+    public Integer visitExprNumber(ExprNumberContext ctx) {
+        return NUMTYPE;
     }
 
     @Override
-    public Integer visitValBoolean(ValBooleanContext ctx) {
+    public Integer visitExprBoolean(ExprBooleanContext ctx) {
         return BOOLTYPE;
     }
 
@@ -114,7 +114,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @return The function's return type.
      */
     @Override
-    public Integer visitFunccall(FunccallContext ctx) {
+    public Integer visitFuncCall(FuncCallContext ctx) {
         Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
         visitChildren(ctx);
         return symbol.getType();
@@ -127,8 +127,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @return the function's return type
      */
     @Override
-    public Integer visitValFunccallPrint(ValFunccallPrintContext ctx) {
-        return visit(ctx.funccall());
+    public Integer visitExprFunccallPrint(ExprFunccallPrintContext ctx) {
+        return visit(ctx.funcCall());
     }
 
     /**
@@ -137,7 +137,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @return An arbitrary Integer as this value is not used.
      */
     @Override
-    public Integer visitExprparamsNotEmpty(ExprparamsNotEmptyContext ctx) {
+    public Integer visitExprParams(ExprParamsContext ctx) {
         //Gets lists of expression nodes in the actual parameters
         List<ExprContext> params =  ctx.getRuleContexts(ExprContext.class);
 
@@ -147,7 +147,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
         // Retrieves the formal parameter's types
         // from the function definition found in the symbol table.
-        FunccallContext funccallContext = (FunccallContext) ctx.parent;
+        FuncCallContext funccallContext = (FuncCallContext) ctx.parent;
         FuncdefSymbol symbol = (FuncdefSymbol) globalScope.getSymbol(funccallContext.ID().getText());
         List<Integer> formalParamTypes = symbol.getParameterTypes();
 
@@ -170,7 +170,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @return The id's type.
      */
     @Override
-    public Integer visitValId(ValIdContext ctx) {
+    public Integer visitExprId(ExprIdContext ctx) {
         Scope currentScope = scopes.get(ctx);
         Symbol symbol = currentScope.getSymbol(ctx.ID().getText());
         return symbol.getType();
@@ -182,10 +182,10 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @return The return type of the function definition.
      */
     @Override
-    public Integer visitFuncdef(FuncdefContext ctx) {
+    public Integer visitFuncDef(FuncDefContext ctx) {
         // Check return statement's return type
-        Integer returnStmtType = visit(ctx.stmt());
-        checkReturnTypeCorrespondence(returnStmtType, ctx, ctx.stmt());
+        Integer returnStmtType = visit(ctx.returnStmt());
+        checkReturnTypeCorrespondence(returnStmtType, ctx, ctx.returnStmt().stmt());
 
         //Gets lists of stmt nodes in the actual parameters
         Integer stmtsLength =  ctx.getRuleContexts(StmtsContext.class).size();
@@ -197,12 +197,12 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         // Check that the types correspond to each other.
         for (int i = 0; i < stmtsTypes.size(); i++) {
             Integer someStmtType = stmtsTypes.get(i);
-            checkReturnTypeCorrespondence(someStmtType, ctx, ctx.stmts().get(i).stmt());
+            checkReturnTypeCorrespondence(someStmtType, ctx, ctx.stmts().get(i).returnStmt().stmt());
         }
 
         // Visit the rest of the children
-        visit(ctx.type());
-        visit(ctx.funcdefparams());
+        visit(ctx.returnStmt());
+        visit(ctx.funcDefParams());
 
         // Returns the type of the function
         return returnStmtType;
@@ -224,8 +224,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @param ctx The node for the function definition
      * @param stmt The node for the statement being checked. Used for underlining
      */
-    private void checkReturnTypeCorrespondence(Integer stmtType, FuncdefContext ctx, StmtContext stmt) {
-        String functionId = ctx.ID().getText();
+    private void checkReturnTypeCorrespondence(Integer stmtType, FuncDefContext ctx, StmtContext stmt) {
+        String functionId = ctx.typeAndId().ID().getText();
 
         // Retrieve the function's return type from the symbol table
         Symbol symbol = globalScope.getSymbol(functionId);
@@ -236,7 +236,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
             String errorMsg = String.format("Incompatible type: Type %s is incompatible with %s. ",
                     VOCABULARY.getLiteralName(funcdefReturnType), VOCABULARY.getLiteralName(stmtType));
             errorMsg += "Does not return expected type in function definition: " + functionId.toString();
-            errorListener.ThrowError(errorMsg, stmt, ctx.type().start);
+            errorListener.ThrowError(errorMsg, stmt, ctx.typeAndId().type().start);
         }
     }
 
@@ -259,6 +259,13 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         if(!actualType.equals(expectedType))
             throwTypeError(actualType, expectedType, "In an if statement", ctx.expr().start);
 
+        return visit(ctx.returnStmt());
+    }
+
+    @Override
+    public Integer visitReturnStmt(ReturnStmtContext ctx) {
         return visit(ctx.stmt());
     }
 }
+
+
