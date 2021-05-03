@@ -40,7 +40,7 @@ public class temp {
     @DisplayName("Check type for 'number func' - given bool - is false")
     public void funcDefWithNumber_GivenNumberType_ReturnsFalse() throws IOException {
         // Arrange
-        SymbolTableGeneratorListener symbolTable = walker("number func() = return 1; endf");
+        SymbolTableGeneratorListener symbolTable = walker("number func() = return 1; end");
 
         // Act
         int expected = BuffLexer.BOOLTYPE;
@@ -54,7 +54,7 @@ public class temp {
     @DisplayName("Check type for 'bool func' - given bool - is true")
     public void funcDefWithBool_GivenBoolType_ReturnsTrue() throws IOException {
         // Arrange
-        SymbolTableGeneratorListener symbolTable = walker("bool func() = return 1; endf");
+        SymbolTableGeneratorListener symbolTable = walker("boolean func() = return 1; end");
 
         // Act
         int expected = BuffLexer.BOOLTYPE;

@@ -317,9 +317,9 @@ public class TestCase {
     }
 
     static public ParseTree createTree(String testSourceCode) throws IOException {
-        CodePointCharStream stream = CharStreams.fromReader(new StringReader(testSourceCode));
+        CharStream stream = CharStreams.fromReader(new StringReader(testSourceCode));
         BuffLexer lexer = new BuffLexer(stream);
-        var tokens = new CommonTokenStream(lexer);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
         BuffParser parser = new BuffParser(tokens);
         ParseTree tree = parser.prog();
         return tree;

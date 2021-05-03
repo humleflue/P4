@@ -20,7 +20,7 @@ public abstract class TypeCheckerTestsBase {
 
     protected void generateTreeWithSymbols(String testSourceCode) throws IOException {
         tree = TestCase.createTree(testSourceCode);
-
+        System.out.println(tree.getText());
         ParseTreeWalker walker = new ParseTreeWalker();
 
         symbolTableGeneratorListener = new SymbolTableGeneratorListener(new UnderlineErrorListener());

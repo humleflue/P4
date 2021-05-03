@@ -1,6 +1,5 @@
 number fib(number x) =
-    if(x == 0 || x == 1) return 1;
-    return fib(x - 1)? + fib(x - 2);
-    end
+    return x;
+end
 
-fib(20)?;
+fib(20);

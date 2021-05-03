@@ -56,7 +56,7 @@ public class ReferenceCheckerListener extends BuffBaseListener{
         }
 
         FuncdefSymbol function = (FuncdefSymbol) currentScope.getSymbol(ctx.ID().getText());
-        Integer functionType = function.getType();
+
         int expectedArgCount = function.getParameterTypes().size();
 
         if(callArgCount != expectedArgCount) {

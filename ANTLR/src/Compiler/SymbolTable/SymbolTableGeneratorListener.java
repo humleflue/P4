@@ -35,13 +35,12 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
         FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
 
         ArrayList<Integer> argumentList = new ArrayList<>();
-        if (!FuncDefParams.isEmpty()) {
+        if (FuncDefParams != null) {
             //Might be useful for type-checking. Delete otherwise
             for (int i = 0; i < FuncDefParams.typeAndId().size(); i++) {
                 argumentList.add(FuncDefParams.typeAndId(i).type().start.getType());
             }
         }
-
 
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
         try {
@@ -62,7 +61,14 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     }
 
     @Override
-    public void exitTypeAndId(TypeAndIdContext ctx) {
+    public void exitFuncDefParams(FuncDefParamsContext ctx) {
+        List<TypeAndIdContext> params = ctx.getRuleContexts(TypeAndIdContext.class);
+        for (TypeAndIdContext param: params) {
+            DefineParamSymbol(param);
+        }
+    }
+
+    public void DefineParamSymbol(TypeAndIdContext ctx) {
         Integer paramType = ctx.type().start.getType();
         Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
         try {

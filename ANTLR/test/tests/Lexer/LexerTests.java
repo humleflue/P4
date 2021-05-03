@@ -82,7 +82,7 @@ public class LexerTests {
         @Test
         void functionDefinition() throws IOException{
             // Arrange
-            String test = "number test() = return 2; endf";
+            String test = "number test() = return 2; end";
             //System.out.println(test);
             TestCase testCase = new TestCase(test, Arrays.asList(BuffLexer.NUMTYPE, BuffLexer.ID,
                     BuffLexer.LPAREN, BuffLexer.RPAREN, BuffLexer.ASSIGN, BuffLexer.RETURN, BuffLexer.NUMLITERAL, BuffLexer.SEMICOLON,

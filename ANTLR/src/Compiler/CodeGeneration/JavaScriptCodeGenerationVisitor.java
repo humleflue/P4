@@ -72,7 +72,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
     @Override
     public String visitReturnStmt(ReturnStmtContext ctx) {
-        String result = "return";
+        String result = "return ";
         result += visit(ctx.stmt());
         return result;
     }
@@ -107,7 +107,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
     @Override
     public String visitType(TypeContext ctx) {
-        return ctx.getText();
+        return "";
     }
 
     /**
