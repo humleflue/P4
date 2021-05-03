@@ -16,42 +16,36 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LexerTests extends BaseTest {
     @ParameterizedTest
-    @DisplayName("Newlines in sourcecode")
-    @CsvFileSource(resources = testPath + "newLineTests.csv", delimiter=';')
+    @CsvFileSource(resources = testPath + "newLineTests.csv")
     void newlinesInSourceCode_ShouldPass(String sourceCode) throws IOException { 
         createCommonTokenStream(sourceCode);
     }
 
     @ParameterizedTest
-    @DisplayName("Declarations in sourcecode")
-    @CsvFileSource(resources = testPath + "declarationTests.csv", delimiter=';')
+    @CsvFileSource(resources = testPath + "declarationTests.csv")
     void declarationsInSourceCode_ShouldPass(String sourceCode) throws IOException {
         createCommonTokenStream(sourceCode);
     }
 
     @ParameterizedTest
-    @DisplayName("Expressions in sourcecode")
-    @CsvFileSource(resources = testPath + "expressionsTest.csv", numLinesToSkip = 1, delimiter=';')
+    @CsvFileSource(resources = testPath + "expressionsTest.csv", numLinesToSkip = 1)
     void expressionsInSourceCode_ShouldPass(String sourceCode) throws IOException {
         createCommonTokenStream(sourceCode);
     }
 
     @ParameterizedTest
-    @DisplayName("If statement chain in sourcecode")
-    @CsvFileSource(resources = testPath + "ifElseTests.csv", delimiter=';')
-    void ifChainInSourceCode(String sourceCode) throws IOException {
+    @CsvFileSource(resources = testPath + "ifElseTests.csv")
+    void ifChainInSourceCode_ShouldPass(String sourceCode) throws IOException {
         createCommonTokenStream(sourceCode);
     }
 
     @ParameterizedTest
-    @DisplayName("Function calls in sourcecode")
-    @CsvFileSource(resources = testPath + "functionsTest.csv", delimiter=';')
-    void functionCallsInSourceCode(String sourceCode) throws IOException {
+    @CsvFileSource(resources = testPath + "functionsTest.csv")
+    void functionCallsInSourceCode_ShouldPass(String sourceCode) throws IOException {
         createCommonTokenStream(sourceCode);
     }
 
     @Nested
-    @DisplayName("Tests by Lexer tokens order, types and amount")
     class LexerTokensTests {
         @Test
         void functionDefinition() {
