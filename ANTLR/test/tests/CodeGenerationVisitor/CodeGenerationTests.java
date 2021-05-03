@@ -23,8 +23,9 @@ public class CodeGenerationTests extends BaseTest {
     public void GeneratedCodeAndExpectedCodeTheSame_ShouldPass(String buffCode, String targetCode ) throws IOException {
         // Arrange 
         ParseTree tree = createTree(buffCode);
+         // Act
         String generatedCode = codeGenerator.visit(tree);
-        // Act & Assert
+        // Assert
         Assertions.assertEquals(targetCode, generatedCode);
     }
 
