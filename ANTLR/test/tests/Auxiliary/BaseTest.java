@@ -2,6 +2,7 @@ package tests.Auxiliary;
 
 import Compiler.AntlrGenerated.BuffLexer;
 import Compiler.AntlrGenerated.BuffParser;
+import Compiler.ErrorHandling.UnderlineErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -11,6 +12,8 @@ import java.io.StringReader;
 
 public class BaseTest {
     protected final String testPath = "./Data/";
+    UnderlineErrorListener errorListener = new UnderlineErrorListener();
+
 
     protected CodePointCharStream createCharStream(String sourceCode) throws IOException {
         return CharStreams.fromReader(new StringReader(sourceCode));
@@ -23,6 +26,7 @@ public class BaseTest {
 
     protected CommonTokenStream createCommonTokenStream(String sourceCode) throws IOException {
         BuffLexer lexer = createLexer(sourceCode);
+        lexer.addErrorListener(errorListener);
         return new CommonTokenStream(lexer);
     }
 
@@ -33,6 +37,7 @@ public class BaseTest {
 
     protected ParseTree createTree(String sourceCode) throws IOException {
         BuffParser parser = createParser(sourceCode);
+        parser.addErrorListener(errorListener);
         return parser.prog();
     }
 
