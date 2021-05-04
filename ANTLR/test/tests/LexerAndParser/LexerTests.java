@@ -1,16 +1,10 @@
 package tests.LexerAndParser;
-import Compiler.AntlrGenerated.BuffLexer;
 import tests.Auxiliary.BaseTest;
-import tests.Auxiliary.TestCase;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import java.io.IOException;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LexerTests extends BaseTest {
     @ParameterizedTest
