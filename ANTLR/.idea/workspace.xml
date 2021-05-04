@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Fixed a mistake in the grammar.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/Action.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Buff.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Buff.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,7 +228,7 @@
       <workItem from="1619778716681" duration="1337000" />
       <workItem from="1620024414431" duration="11796000" />
       <workItem from="1620040956728" duration="4001000" />
-      <workItem from="1620126084355" duration="7195000" />
+      <workItem from="1620126084355" duration="7523000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
