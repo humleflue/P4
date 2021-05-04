@@ -201,8 +201,9 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         }
 
         // Visit the rest of the children
-        visit(ctx.returnStmt());
-        visit(ctx.funcDefParams());
+        if (ctx.funcDefParams() != null)
+            visit(ctx.funcDefParams());
+
 
         // Returns the type of the function
         return returnStmtType;
