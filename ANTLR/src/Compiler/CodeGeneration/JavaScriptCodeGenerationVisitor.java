@@ -3,7 +3,6 @@ package Compiler.CodeGeneration;
 import Compiler.AntlrGenerated.BuffBaseVisitor;
 import Compiler.AntlrGenerated.BuffParser.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // WARNING: This might be a bad idea !!!
@@ -154,8 +153,8 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
             case LOGGREATER ->     ">";
             case LOGLESSOREQ ->    "<=";
             case LOGGREATEROREQ -> ">=";
-            case LOGEQ ->          "===";
-            case LOGNOTEQ ->       "!==";
+            case LOGEQ ->          "==";
+            case LOGNOTEQ ->       "!=";
             case LOGAND ->         "&&";
             case LOGOR ->          "||";
             default -> throw new IllegalArgumentException(
@@ -178,37 +177,13 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     /**
      * Generates code for a function call, where the result has to get printed to the user's screen.
      * @param ctx The tree node in question.
-     * @return A string of the form: "{@code console.log(id(param0, param1, ... , paramN) => result)}"
+     * @return A string of the form: "{@code console.log(id(param0, param1, ... , paramN))}"
      */
     @Override
     public String visitValFunccallPrint(ValFunccallPrintContext ctx) {
-        String exprParams = visit(ctx.funccall().exprparams());
-
-        String result = "(()=>{";
-        result += String.format("let res = %s(%s);", GetFuncName(ctx.funccall()), exprParams);
-        result += String.format("console.log(`%s(", GetFuncName(ctx.funccall()));
-
-        if (!exprParams.isEmpty()) {
-            String[] exprParamsArray = exprParams.split(",");
-
-            for (int i = 0; i < exprParamsArray.length - 1; i++) {
-                result += String.format("${%s},", exprParamsArray[i]);
-            }
-            result += String.format("${%s}", exprParamsArray[exprParamsArray.length - 1]);
-        }
-
-        result += ") => ${res}`); return res;})()";
-        return result;
+        return "console.log(" + visit(ctx.funccall()) + ")";
     }
 
-    /**
-     *
-     * @param ctx The tree node in question
-     * @return the ID (name) of the function call
-     */
-    String GetFuncName(FunccallContext ctx){
-        return ctx.ID().getText();
-    }
     /**
      * Generates code for a number.
      * @param ctx The tree node in question.

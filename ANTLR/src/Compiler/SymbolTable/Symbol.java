@@ -1,19 +1,12 @@
 package Compiler.SymbolTable;
 
-/**
- * The base implementation of a symbol, used in scopes to save information about a symbols type.
- */
 public class Symbol {
     protected String name;
     protected Integer type;
 
-    /**
-     * @param name The ID for the symbol. Either function name or parameter name
-     * @param type The value for the type. Usually got from .getType()
-     */
-    public Symbol(String name, Integer type){
+    public Symbol(String name, Integer symbol){
         this.name = name;
-        this.type = type;
+        this.type = symbol;
     }
 
     public String getName(){

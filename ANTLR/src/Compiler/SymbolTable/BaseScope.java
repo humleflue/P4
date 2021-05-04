@@ -3,9 +3,6 @@ package Compiler.SymbolTable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * The base implementation of the Scope interface.
- */
 public class BaseScope implements Scope{
     protected Scope enclosingScope;
 
@@ -28,11 +25,6 @@ public class BaseScope implements Scope{
         this.enclosingScope = scope;
     }
 
-    /**
-     * Define a symbol in the scope. Throws an IllegalArgumentException if the symbol is already defined.
-     * @param symbol The symbol that should be defined
-     * @throws IllegalArgumentException
-     */
     @Override
     public void defineSymbol(Symbol symbol) throws IllegalArgumentException {
         if ( symbols.containsKey(symbol.getName()) ) {
@@ -41,12 +33,6 @@ public class BaseScope implements Scope{
         symbols.put(symbol.getName(), symbol);
     }
 
-    /**
-     * Recursively gets a symbol from this scope. If not found, calls the same function in this scopes enclosing scope.
-     * Returns {@code null} if it is not found.
-     * @param name The name of the symbol that should be returned
-     * @return The symbol with the given name
-     */
     @Override
     public Symbol getSymbol(String name) {
         Symbol s = symbols.get(name);
