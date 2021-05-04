@@ -75,4 +75,4 @@ NEWLINE : ('\r\n'|'\n'|'\r');
 
 // If none of the above regular expressions were true
 // Check if we have an ID (which cannot start with a number)
-ID : ['A-Za-z]['A-Za-z_0-9]* ;
+ID : [A-Za-z][A-Za-z_0-9]* ;
