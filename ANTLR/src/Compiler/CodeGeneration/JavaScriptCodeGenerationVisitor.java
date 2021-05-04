@@ -31,8 +31,9 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     public String visitProg(ProgContext ctx) {
         List<CodeContext> codes = ctx.getRuleContexts(CodeContext.class);
         String result = "";
-        for (int i = 0; i < codes.size(); i++)
-            result += visit(ctx.code(i));
+
+        result += getStringFromTokenList(i -> visit(ctx.code(i)), 0, codes.size(), "");
+
         return result;
     }
 
@@ -62,8 +63,8 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         result += ") { ";
 
         List<StmtsContext> stmts =  ctx.getRuleContexts(StmtsContext.class);
-        for(int i = 0; i < stmts.size(); i++)
-            result += visit(ctx.stmts(i)) + " ";
+
+        result += getStringFromTokenList(i -> visit(ctx.stmts(i)), 0, stmts.size(), " ");
 
         result += visitReturnStmt(ctx.returnStmt());
         result += "} ";
