@@ -1,0 +1,3 @@
+﻿"number test1() = return 1; endf \n number test2() = return 2; endf"
+"number test1() = return 1; endf \r\n number test2() = return 2; endf"
+"2 + print(42); \n\n\n print(42);"
