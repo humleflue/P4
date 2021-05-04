@@ -2,6 +2,7 @@ package Compiler.CodeGeneration;
 
 import Compiler.AntlrGenerated.BuffBaseVisitor;
 import Compiler.AntlrGenerated.BuffParser.*;
+import Compiler.ContextualAnalysis.Lambda;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,10 +90,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         // Visit the first parameter outside the for-loop to be able to place the comma correctly inside the loop
         String result = visit(ctx.typeAndId(0));
 
-        for(int i = 1; i < params.size(); i++) {
-            result += ", ";
-            result += visit(ctx.typeAndId(i));
-        }
+        result += getStringFromTokenList(i -> visit(ctx.typeAndId(i)), 1, params.size(), ", ");
 
         return result;
     }
@@ -200,9 +198,9 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         if (!exprParams.isEmpty()) {
             String[] exprParamsArray = exprParams.split(",");
 
-            for (int i = 0; i < exprParamsArray.length - 1; i++) {
-                result += String.format("${%s},", exprParamsArray[i]);
-            }
+            result += getStringFromTokenList(i -> String.format("${%s},", exprParamsArray[i]), 0,
+                    exprParamsArray.length - 1, "");
+
             result += String.format("${%s}", exprParamsArray[exprParamsArray.length - 1]);
         }
 
@@ -254,11 +252,25 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         List<ExprContext> params =  ctx.getRuleContexts(ExprContext.class);
         String result = visit(ctx.expr(0));
 
-        for(int i = 1; i < params.size(); i++) {
-            result += ", ";
-            result += visit(ctx.expr(i));
-        }
+        result += getStringFromTokenList(i -> visit(ctx.expr(i)), 1, params.size(), ", ");
 
+        return result;
+    }
+
+    /**
+     * Returns a string from a list of tokens.
+     * @param manipulateTokens A lambda function which will be performed on the list of tokens
+     * @param from The start index
+     * @param to The end index
+     * @param delimiter The delimiter you want a string to be seperated by
+     * @return The resulting string
+     */
+    public String getStringFromTokenList(Lambda<String> manipulateTokens, Integer from, Integer to, String delimiter){
+        String result = "";
+        for (int i = from; i < to; i++) {
+            result += delimiter;
+            result += manipulateTokens.execute(i);
+        }
         return result;
     }
 }

@@ -2,4 +2,4 @@ number fib(number x) =
     return x;
 end
 
-fib(20);
+fib(20)?;
