@@ -6,11 +6,13 @@ import Compiler.ErrorHandling.BuffErrorListener;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
+import Compiler.SymbolTable.Action;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.Vocabulary;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -152,16 +154,26 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         List<Integer> formalParamTypes = symbol.getParameterTypes();
 
         // Check that the types correspond to each other.
-        for (int i = 0; i < actualTypes.size(); i++) {
-            Integer actualType = actualTypes.get(i);
-            Integer formalType = formalParamTypes.get(i);
-            if(!actualType.equals(formalType))
-                throwTypeError(actualType, formalType,
-                        "Parameter type at \"" + funccallContext.ID().getText() +
-                                "\" call does not match expected type from definition", params.get(i).start);
-        }
+        checkTypes(i -> checkFormalVsActualParams(actualTypes.get(i), formalParamTypes.get(i),
+                funccallContext, params, i), 0, actualTypes.size());
 
         return this.defaultResult(); // This is an arbitrary Integer as this value is not used
+    }
+
+    /**
+     * Checks whether or not the actual and formal parameter types match
+     * @param actual The actual parameter
+     * @param formal The formal parameter
+     * @param funccall The Funccall in hand
+     * @param params The list of parameters
+     * @param index The index of the parameter
+     */
+    private void checkFormalVsActualParams(Integer actual, Integer formal, FuncCallContext funccall, List<ExprContext> params,
+                                           Integer index){
+        if(!actual.equals(formal))
+            throwTypeError(actual, formal,
+                    "Parameter type at \"" + funccall.ID().getText() +
+                            "\" call does not match expected type from definition", params.get(index).start);
     }
 
     /**
@@ -195,10 +207,11 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
 
         // Check that the types correspond to each other.
-        for (int i = 0; i < stmtsTypes.size(); i++) {
-            Integer someStmtType = stmtsTypes.get(i);
-            checkReturnTypeCorrespondence(someStmtType, ctx, ctx.stmts().get(i).returnStmt().stmt());
-        }
+        checkTypes(i -> checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx, ctx.stmts().get(i).returnStmt().stmt()),
+                0, stmtsTypes.size());
+        // for (int i = 0; i < stmtsTypes.size(); i++) {
+        //     checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx, ctx.stmts().get(i).returnStmt().stmt());
+        // }
 
         // Visit the rest of the children
         if (ctx.funcDefParams() != null)
@@ -266,6 +279,18 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     @Override
     public Integer visitReturnStmt(ReturnStmtContext ctx) {
         return visit(ctx.stmt());
+    }
+
+
+    /**
+     * Checks type correspondence on given checkFunction
+     * @param checkFunction The function used to test the correspondance
+     * @param from The start index
+     * @param to The end index
+     */
+    private void checkTypes(Action checkFunction, Integer from, Integer to){
+        for (int i = from; i < to; i ++)
+            checkFunction.execute(i);
     }
 }
 
