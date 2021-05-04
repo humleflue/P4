@@ -49,10 +49,6 @@ public class CliListener extends CliBaseListener {
         return wantsHelp;
     }
 
-    public String getInFileName() {
-        return inFileName;
-    }
-
     public CharStream getCharStream() {
         if(this.charStream == null) {
             try {
@@ -62,7 +58,7 @@ public class CliListener extends CliBaseListener {
 
                 // Load libraries after source code to keep correct line count.
                 String sourceCode = Files.readString(Path.of(inFileName));
-                this.charStream = CharStreams.fromString(sourceCode + libraries);
+                this.charStream = CharStreams.fromString(sourceCode + '\n' + libraries);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }

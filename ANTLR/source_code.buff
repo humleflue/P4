@@ -1,1 +1,3 @@
+number sqrt() = return 0; endf
+
 sqrt(9)?;
