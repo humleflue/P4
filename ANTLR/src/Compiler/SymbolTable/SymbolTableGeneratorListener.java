@@ -2,11 +2,13 @@ package Compiler.SymbolTable;
 
 import Compiler.AntlrGenerated.BuffBaseListener;
 import Compiler.AntlrGenerated.BuffParser.*;
+import Compiler.ContextualAnalysis.Lambda;
 import Compiler.ErrorHandling.BuffErrorListener;
 import Compiler.ErrorHandling.UnderlineErrorListener;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +39,8 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
         ArrayList<Integer> argumentList = new ArrayList<>();
         if (FuncDefParams != null) {
             //Might be useful for type-checking. Delete otherwise
-            for (int i = 0; i < FuncDefParams.typeAndId().size(); i++) {
-                argumentList.add(FuncDefParams.typeAndId(i).type().start.getType());
-            }
+            actOnList(i -> argumentList.add(FuncDefParams.typeAndId(i).type().start.getType()), 0,
+                    FuncDefParams.typeAndId().size());
         }
 
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
@@ -63,9 +64,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     @Override
     public void exitFuncDefParams(FuncDefParamsContext ctx) {
         List<TypeAndIdContext> params = ctx.getRuleContexts(TypeAndIdContext.class);
-        for (TypeAndIdContext param: params) {
-            DefineParamSymbol(param);
-        }
+        actOnList(i -> DefineParamSymbol(params.get(i)), 0, params.size());
     }
 
     public void DefineParamSymbol(TypeAndIdContext ctx) {
@@ -97,4 +96,15 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
      * @param s The scope which should be added to a node.
      */
     void attachScope(ParserRuleContext ctx, Scope s) { scopes.put(ctx, s); }
+
+    /**
+     * Takes an that should be used to act on a list in any way
+     * @param act The action that should be carried out
+     * @param from The start index
+     * @param to The end index
+     */
+    private void actOnList(Action act, Integer from, Integer to){
+        for (int i = from; i < to; i++)
+            act.execute(i);
+    }
 }
