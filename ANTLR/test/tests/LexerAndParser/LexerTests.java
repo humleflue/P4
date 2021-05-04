@@ -50,23 +50,5 @@ public class LexerTests extends BaseTest {
     void functionCallsInSourceCode_ShouldPass(String sourceCode) throws IOException {
         createCommonTokenStream(sourceCode);
     }
-
-    @Nested
-    class LexerTokensTests {
-        @Test
-        void functionDefinition_ShouldPass() {
-            // Arrange
-            String test = "number test() = return 2; endf";
-            //System.out.println(test);
-            TestCase testCase = new TestCase(test, Arrays.asList(BuffLexer.NUMBERTYPE, BuffLexer.ID,
-                    BuffLexer.LPAREN, BuffLexer.RPAREN, BuffLexer.ASSIGN, BuffLexer.RETURN, BuffLexer.NUMLITERAL, BuffLexer.SEMICOLON,
-                    BuffLexer.ENDF, BuffLexer.EOF));
-
-            // Act
-            boolean result = testCase.test();
-
-            // Assert
-            assertTrue(result);
-        }
-    }
+    
 }
