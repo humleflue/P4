@@ -1,0 +1,8 @@
+Test expression;Should pass
+"number func() = return 2; endf";1;
+"number test(number numb1, number numb2) = return 2; endf";1;
+"number test() = return test(2); endf";1;
+"num test() = return test(2); endf";0;
+"bool test() = return true; endf";1;
+"number 2test = return 2;";0;
+"number _test = return 2;";0;

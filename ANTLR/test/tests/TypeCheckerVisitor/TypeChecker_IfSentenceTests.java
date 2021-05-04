@@ -15,7 +15,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "simpleBooleanTypes.csv", numLinesToSkip = 1)
     public void SimpleBooleanTypeInIfSentence_ShouldPass(String trueOrFalse) throws IOException {
         // Arrange
-        createTreeWithSymbols(String.format("bool f() = if(%s) return true; return true; endf", trueOrFalse));
+        generateTreeWithSymbols(String.format("bool f() = if(%s) return true; return true; endf", trueOrFalse));
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
@@ -26,7 +26,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void NumberTypeInIfSentence_ShouldThrow(String number) throws IOException {
         // Arrange
-        createTreeWithSymbols(String.format("bool f() = if(%s) return true; return true; endf", number));
+        generateTreeWithSymbols(String.format("bool f() = if(%s) return true; return true; endf", number));
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
@@ -37,7 +37,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "binaryBooleanTypes.csv", numLinesToSkip = 1)
     public void BinaryBooleanTypeInIfSentence_ShouldPass(String binaryBoolOperator) throws IOException {
         // Arrange
-        createTreeWithSymbols(String.format(
+        generateTreeWithSymbols(String.format(
                 "bool f() = if(true %s true) return true; return true; endf", binaryBoolOperator));
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
@@ -48,7 +48,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     @Test
     public void NegateWithBoolInIfSentence_ShouldPass() throws IOException {
         // Arrange
-        createTreeWithSymbols("bool f() = if(!true) return true; return true; endf");
+        generateTreeWithSymbols("bool f() = if(!true) return true; return true; endf");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
@@ -58,7 +58,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     @Test
     public void NegateWithNumberInIfSentence_ShouldThrow() throws IOException {
         // Arrange
-        createTreeWithSymbols("bool f() = if(!1) return true; return true; endf");
+        generateTreeWithSymbols("bool f() = if(!1) return true; return true; endf");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
@@ -69,7 +69,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "comparisonBooleanTypes.csv", numLinesToSkip = 1)
     public void NumberComparisonInIfSentence_ShouldPass(String operator) throws IOException {
         // Arrange
-        createTreeWithSymbols(String.format("bool f() = if(1 %s 1) return true; return true; endf", operator));
+        generateTreeWithSymbols(String.format("bool f() = if(1 %s 1) return true; return true; endf", operator));
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
@@ -80,7 +80,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "comparisonBooleanTypes.csv", numLinesToSkip = 1)
     public void BoolNumberComparisonInIfSentence_ShouldThrow(String operator) throws IOException {
         // Arrange
-        createTreeWithSymbols(String.format("bool f() = if(true %s 1) return true; return true; endf", operator));
+        generateTreeWithSymbols(String.format("bool f() = if(true %s 1) return true; return true; endf", operator));
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
@@ -91,7 +91,40 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "comparisonBooleanTypes.csv", numLinesToSkip = 1)
     public void BoolComparisonInIfSentence_ShouldThrow(String operator) throws IOException {
         // Arrange
-        createTreeWithSymbols(String.format("bool f() = if(true %s true) return true; return true; endf", operator));
+        generateTreeWithSymbols(String.format("bool f() = if(true %s true) return true; return true; endf", operator));
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
+                symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
+        // Act & Assert
+        Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = testPath + "comparisonEqualityTypes.csv", numLinesToSkip = 1)
+    public void BoolEqualityComparisonInIfSentence_ShouldPass(String operator) throws IOException {
+        // Arrange
+        generateTreeWithSymbols(String.format("bool f() = if(true %s true) return true; return true; endf", operator));
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
+                symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
+        // Act & Assert
+        Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = testPath + "comparisonEqualityTypes.csv", numLinesToSkip = 1)
+    public void NumberEqualityComparisonInIfSentence_ShouldPass(String operator) throws IOException {
+        // Arrange
+        generateTreeWithSymbols(String.format("bool f() = if(12 %s 12) return true; return true; endf", operator));
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
+                symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
+        // Act & Assert
+        Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = testPath + "comparisonEqualityTypes.csv", numLinesToSkip = 1)
+    public void EqualityComparisonInIfSentence_ShouldThrow(String operator) throws IOException {
+        // Arrange
+        generateTreeWithSymbols(String.format("bool f() = if(12 %s true) return true; return true; endf", operator));
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
