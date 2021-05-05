@@ -224,16 +224,32 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         return ctx.NUMLITERAL().getText();
     }
 
+    /**
+     * Generates code for a boolean.
+     * @param ctx The tree node in question.
+     * @return The same boolean as in the source code.
+     * Therefore, the string, which is returned, can either be "{@code true}" or "{@code false}").
+     */
     @Override
     public String visitExprBoolean(ExprBooleanContext ctx) {
         return ctx.BOOLLITERAL().getText();
     }
 
+    /**
+     * Generates code for an ID.
+     * @param ctx The tree node in question.
+     * @return The same ID as in the source code..
+     */
     @Override
     public String visitExprId(ExprIdContext ctx) {
         return ctx.ID().getText();
     }
 
+    /**
+     * Generates code for a function call
+     * @param ctx The tree node in question.
+     * @return the ID followed by ( Expr params )
+     */
     @Override
     public String visitFuncCall(FuncCallContext ctx) {
         return ctx.ID().getText() + "(" + visit(ctx.exprParams()) + ")";
