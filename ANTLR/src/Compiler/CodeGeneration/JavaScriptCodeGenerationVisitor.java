@@ -85,7 +85,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         // Visit the first parameter outside the for-loop to be able to place the comma correctly inside the loop
         String result = visit(ctx.typeAndId(0));
 
-        result += getStringFromTokenList(i -> visit(ctx.typeAndId(i)), 1, params.size(), ", ");
+        result += getStringFromTokenList(i -> visit(ctx.typeAndId(i)), 1, paramsSize, ", ");
 
         return result;
     }
