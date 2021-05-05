@@ -240,7 +240,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     @Override
     public String visitExprParams(ExprParamsContext ctx) {
         //Gets lists of parameter nodes in the formal parameters
-        List<ExprContext> params =  ctx.getRuleContexts(ExprContext.class);
+        int paramsSize =  ctx.getRuleContexts(ExprContext.class).size();
         String result = visit(ctx.expr(0));
 
         result += getStringFromTokenList(i -> visit(ctx.expr(i)), 1, params.size(), ", ");
