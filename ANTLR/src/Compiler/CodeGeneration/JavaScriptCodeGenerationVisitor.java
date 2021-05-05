@@ -29,12 +29,8 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      */
     @Override
     public String visitProg(ProgContext ctx) {
-        List<CodeContext> codes = ctx.getRuleContexts(CodeContext.class);
-        String result = "";
-
-        result += getStringFromTokenList(i -> visit(ctx.code(i)), 0, codes.size(), "");
-
-        return result;
+        int codeSize = ctx.getRuleContexts(CodeContext.class).size();
+        return getStringFromTokenList(i -> visit(ctx.code(i)), 0, codeSize, "");
     }
 
     @Override
@@ -62,9 +58,9 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         result += visit(ctx.funcDefParams());
         result += ") { ";
 
-        List<StmtsContext> stmts =  ctx.getRuleContexts(StmtsContext.class);
+        int stmtsSize =  ctx.getRuleContexts(StmtsContext.class).size();
 
-        result += getStringFromTokenList(i -> visit(ctx.stmts(i)), 0, stmts.size(), " ");
+        result += getStringFromTokenList(i -> visit(ctx.stmts(i)), 0, stmtsSize, " ");
 
         result += visitReturnStmt(ctx.returnStmt());
         result += "} ";
@@ -74,9 +70,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
     @Override
     public String visitReturnStmt(ReturnStmtContext ctx) {
-        String result = "return ";
-        result += visit(ctx.stmt());
-        return result;
+        return "return " + visit(ctx.stmt());
     }
 
     /**
@@ -87,11 +81,11 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     @Override
     public String visitFuncDefParams(FuncDefParamsContext ctx) {
         //Gets lists of parameter nodes in the formal parameters
-        List<TypeAndIdContext> params =  ctx.getRuleContexts(TypeAndIdContext.class);
+        int paramsSize =  ctx.getRuleContexts(TypeAndIdContext.class).size();
         // Visit the first parameter outside the for-loop to be able to place the comma correctly inside the loop
         String result = visit(ctx.typeAndId(0));
 
-        result += getStringFromTokenList(i -> visit(ctx.typeAndId(i)), 1, params.size(), ", ");
+        result += getStringFromTokenList(i -> visit(ctx.typeAndId(i)), 1, paramsSize, ", ");
 
         return result;
     }
@@ -101,10 +95,6 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         return ctx.ID().getText();
     }
 
-    @Override
-    public String visitType(TypeContext ctx) {
-        return "";
-    }
 
     /**
      * Generates code for an if-statement.
@@ -263,10 +253,10 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     @Override
     public String visitExprParams(ExprParamsContext ctx) {
         //Gets lists of parameter nodes in the formal parameters
-        List<ExprContext> params =  ctx.getRuleContexts(ExprContext.class);
+        int paramsSize =  ctx.getRuleContexts(ExprContext.class).size();
         String result = visit(ctx.expr(0));
 
-        result += getStringFromTokenList(i -> visit(ctx.expr(i)), 1, params.size(), ", ");
+        result += getStringFromTokenList(i -> visit(ctx.expr(i)), 1, paramsSize, ", ");
 
         return result;
     }
