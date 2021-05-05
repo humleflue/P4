@@ -98,10 +98,6 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         return result;
     }
 
-    @Override
-    public String visitType(TypeContext ctx) {
-        return "";
-    }
 
     /**
      * Generates code for an if-statement.
