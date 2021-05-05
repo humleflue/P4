@@ -192,9 +192,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         ArrayList<Integer> stmtsTypes = visitAndGetChildrenTypes(i -> visit(ctx.stmts(i)), stmtsLength);
 
         // If more than one statement is present all of the return types must be checked.
-        if (stmtsTypes.size() > 0)
-            for(int i = 0; i < stmtsTypes.size(); i++)
-                checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx.typeAndId(), ctx.stmts().get(i).returnStmt());
+        for(int i = 0; i < stmtsTypes.size(); i++)
+            checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx.typeAndId(), ctx.stmts().get(i).returnStmt());
 
         // Visit the rest of the children
         // Check if any funcDefParams exist, because if none exist the test will throw an error if vi visit it
