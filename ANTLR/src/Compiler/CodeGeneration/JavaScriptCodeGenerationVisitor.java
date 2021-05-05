@@ -81,7 +81,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     @Override
     public String visitFuncDefParams(FuncDefParamsContext ctx) {
         //Gets lists of parameter nodes in the formal parameters
-        List<TypeAndIdContext> params =  ctx.getRuleContexts(TypeAndIdContext.class);
+        int paramsSize =  ctx.getRuleContexts(TypeAndIdContext.class).size();
         // Visit the first parameter outside the for-loop to be able to place the comma correctly inside the loop
         String result = visit(ctx.typeAndId(0));
 
