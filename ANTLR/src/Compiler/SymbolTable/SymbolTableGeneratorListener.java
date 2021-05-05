@@ -9,6 +9,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +40,8 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
         ArrayList<Integer> argumentList = new ArrayList<>();
         if (FuncDefParams != null) {
             //Might be useful for type-checking. Delete otherwise
-            actOnList(i -> argumentList.add(FuncDefParams.typeAndId(i).type().start.getType()), 0,
-                    FuncDefParams.typeAndId().size());
+            for (int i = 0; i < FuncDefParams.typeAndId().size(); i++)
+                argumentList.add(FuncDefParams.typeAndId(i).type().start.getType());
         }
 
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
@@ -64,10 +65,11 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     @Override
     public void exitFuncDefParams(FuncDefParamsContext ctx) {
         List<TypeAndIdContext> params = ctx.getRuleContexts(TypeAndIdContext.class);
-        actOnList(i -> DefineParamSymbol(params.get(i)), 0, params.size());
+        for (int i = 0; i < params.size(); i++)
+            DefineParamSymbol(params.get(i));
     }
 
-    public void DefineParamSymbol(TypeAndIdContext ctx) {
+    public Void DefineParamSymbol(TypeAndIdContext ctx) {
         Integer paramType = ctx.type().start.getType();
         Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
         try {
@@ -77,6 +79,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
         }
 
         attachScope(ctx, currentScope);
+        return null;
     }
 
     // Scopes attatched to ID and Funccall for easy access in type checking using scopes.get(ctx)
@@ -103,9 +106,4 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
      * @param from The start index
      * @param to The end index
      */
-    private void actOnList(Action act, Integer from, Integer to){
-        for (int i = from; i < to; i++)
-            act.execute(i);
-    }
-
 }
