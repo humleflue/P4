@@ -57,7 +57,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         String result = "function ";
 
         // The function will have the same id in the generated code.
-        result += ctx.typeAndId().ID().getText();
+        result += visit(ctx.typeAndId());
         result += "(";
         result += visit(ctx.funcDefParams());
         result += ") { ";
@@ -98,10 +98,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
     @Override
     public String visitTypeAndId(TypeAndIdContext ctx) {
-        String result = "";
-        result += visit(ctx.type()) + " ";
-        result += ctx.ID().getText();
-        return result;
+        return ctx.ID().getText();
     }
 
     @Override
@@ -234,7 +231,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
     @Override
     public String visitExprId(ExprIdContext ctx) {
-        return ctx.getText();
+        return ctx.ID().getText();
     }
 
     @Override
@@ -274,4 +271,5 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         }
         return result;
     }
+
 }

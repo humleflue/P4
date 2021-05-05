@@ -107,4 +107,5 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
         for (int i = from; i < to; i++)
             act.execute(i);
     }
+
 }

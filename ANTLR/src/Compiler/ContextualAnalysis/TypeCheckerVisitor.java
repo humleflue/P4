@@ -68,7 +68,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     @Override
     public Integer visitExprBinaryOp(ExprBinaryOpContext ctx) {
-        int returnType = -1; // initialized to -1 to check if switchcase evaluated
+        int returnType; // initialized to -1 to check if switchcase evaluated
 
         // Visit the children to thereby get their type.
         Integer left = visit(ctx.left);
@@ -204,16 +204,15 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
         // Visits each stmts node, and thereby gets their types.
         ArrayList<Integer> stmtsTypes = visitAndGetChildrenTypes(i -> visit(ctx.stmts(i)), stmtsLength);
+        Integer amountOfStmts = stmtsTypes.size();
 
-
-        // Check that the types correspond to each other.
-        checkTypes(i -> checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx, ctx.stmts().get(i).returnStmt().stmt()),
-                0, stmtsTypes.size());
-        // for (int i = 0; i < stmtsTypes.size(); i++) {
-        //     checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx, ctx.stmts().get(i).returnStmt().stmt());
-        // }
+        // If more than one statement is present all of the return types must be checked.
+        if (amountOfStmts > 0)
+            checkTypes(i -> checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx, ctx.stmts().get(i).returnStmt().stmt()),
+                0, amountOfStmts);
 
         // Visit the rest of the children
+        // Check if any funcDefParams exist as if none exist the test will throw an error
         if (ctx.funcDefParams() != null)
             visit(ctx.funcDefParams());
 
