@@ -60,7 +60,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
         int stmtsSize =  ctx.getRuleContexts(StmtsContext.class).size();
 
-        result += getStringFromTokenList(i -> visit(ctx.stmts(i)), 0, stmts.size(), " ");
+        result += getStringFromTokenList(i -> visit(ctx.stmts(i)), 0, stmtsSize, " ");
 
         result += visitReturnStmt(ctx.returnStmt());
         result += "} ";
