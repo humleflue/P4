@@ -29,12 +29,8 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      */
     @Override
     public String visitProg(ProgContext ctx) {
-        List<CodeContext> codes = ctx.getRuleContexts(CodeContext.class);
-        String result = "";
-
-        result += getStringFromTokenList(i -> visit(ctx.code(i)), 0, codes.size(), "");
-
-        return result;
+        int codeSize = ctx.getRuleContexts(CodeContext.class).size();
+        return getStringFromTokenList(i -> visit(ctx.code(i)), 0, codeSize, "");
     }
 
     @Override
