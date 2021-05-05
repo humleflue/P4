@@ -243,7 +243,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         int paramsSize =  ctx.getRuleContexts(ExprContext.class).size();
         String result = visit(ctx.expr(0));
 
-        result += getStringFromTokenList(i -> visit(ctx.expr(i)), 1, params.size(), ", ");
+        result += getStringFromTokenList(i -> visit(ctx.expr(i)), 1, paramsSize, ", ");
 
         return result;
     }
