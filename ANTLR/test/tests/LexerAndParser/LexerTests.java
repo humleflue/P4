@@ -8,12 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LexerTests extends BaseTest {
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "newLineTests.csv")
-    void newlinesInSourceCode_ShouldPass(String sourceCode) throws IOException { 
-        createCommonTokenStream(sourceCode);
-    }
-
-    @ParameterizedTest
     @CsvFileSource(resources = testPath + "invalidDeclarationTests.csv")
     void invalidDeclarationsInSourceCode_ShouldThrow(String sourceCode) throws IOException {
         assertThrows(Exception.class, () -> {

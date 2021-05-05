@@ -8,14 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTests extends BaseTest {
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "newLineTests.csv")
-    void newlinesInSourceCode_ShouldThrow(String sourceCode) throws IOException {
-        assertThrows(Exception.class, () -> {
-            createTree(sourceCode);
-        });
-    }
-
-    @ParameterizedTest
     @CsvFileSource(resources = testPath + "invalidDeclarationTests.csv")
     void invalidDeclarationsInSourceCode_ShouldThrow(String sourceCode) throws IOException {
         assertThrows(Exception.class, () -> {
