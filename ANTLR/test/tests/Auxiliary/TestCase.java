@@ -315,5 +315,13 @@ public class TestCase {
 
         return new BuffParser(tokens);
     }
-    
+
+    static public ParseTree createTree(String testSourceCode) throws IOException {
+        CodePointCharStream stream = CharStreams.fromReader(new StringReader(testSourceCode));
+        BuffLexer lexer = new BuffLexer(stream);
+        var tokens = new CommonTokenStream(lexer);
+        BuffParser parser = new BuffParser(tokens);
+        ParseTree tree = parser.prog();
+        return tree;
+    }
 }
