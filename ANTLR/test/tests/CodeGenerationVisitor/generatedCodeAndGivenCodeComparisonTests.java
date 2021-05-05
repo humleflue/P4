@@ -9,7 +9,7 @@ import tests.Auxiliary.BaseTest;
 
 import java.io.IOException;
 
-public class CodeGenerationTests extends BaseTest {
+public class generatedCodeAndGivenCodeComparisonTests extends BaseTest {
     JavaScriptCodeGenerationVisitor codeGenerator = new JavaScriptCodeGenerationVisitor();
 
     @ParameterizedTest
