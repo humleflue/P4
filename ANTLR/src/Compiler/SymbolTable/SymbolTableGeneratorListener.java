@@ -2,14 +2,10 @@ package Compiler.SymbolTable;
 
 import Compiler.AntlrGenerated.BuffBaseListener;
 import Compiler.AntlrGenerated.BuffParser.*;
-import Compiler.ContextualAnalysis.Lambda;
 import Compiler.ErrorHandling.BuffErrorListener;
-import Compiler.ErrorHandling.UnderlineErrorListener;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
-import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,27 +30,17 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
 
     @Override
     public void enterIfFunction(IfFunctionContext ctx) {
-        //Gets lists of parameters as ParseRuleContexts
+        //Gets lists of parameters and converts them into a list of types
         FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
-
-        ArrayList<Integer> argumentList = new ArrayList<>();
-        if (FuncDefParams != null) {
-            //Might be useful for type-checking. Delete otherwise
-            for (int i = 0; i < FuncDefParams.typeAndId().size(); i++)
-                argumentList.add(FuncDefParams.typeAndId(i).type().start.getType());
-        }
-
+        ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
-        try {
-            currentScope.defineSymbol(symbol);
+        try { currentScope.defineSymbol(symbol);
         } catch (Exception e){
             errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
         }
 
         // Making new scope for function body
-        Scope newScope = new BaseScope(currentScope);
-        attachScope(ctx, newScope);
-        currentScope = newScope;
+        makeAndAttachNewScope(ctx);
     }
 
     @Override
@@ -63,17 +49,47 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     }
 
 
-    /*
-    NEDENSTÅENDE ER IKKE LAVET ENDNU
-     */
     @Override
     public void enterOneLineFunction(OneLineFunctionContext ctx) {
-        super.enterOneLineFunction(ctx);
+        //Gets lists of parameters and converts them into a list of types
+        FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
+        ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
+        FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
+        try { currentScope.defineSymbol(symbol);
+        } catch (Exception e){
+            errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
+        }
+
+        // Making new scope for function body
+        makeAndAttachNewScope(ctx);
     }
 
     @Override
     public void exitOneLineFunction(OneLineFunctionContext ctx) {
-        super.exitOneLineFunction(ctx);
+        currentScope = currentScope.getEnclosingScope();
+    }
+
+    /**
+     * Iterates through all typeAndIds in a FuncDefParamsContext and returns a list of the types.
+     * @param ctx
+     * @return A list of types
+     */
+    private ArrayList<Integer> getFuncDefParamTypes(FuncDefParamsContext ctx){
+        ArrayList<Integer> argumentList = new ArrayList<>();
+        if (ctx != null) {
+            ctx.typeAndId().forEach(x -> argumentList.add(x.type().getStart().getType()));
+        }
+        return argumentList;
+    }
+
+    /**
+     * Creates a new scope, attatches the current scope to ctx and sets current scope to the new scope.
+     * @param ctx
+     */
+    private void makeAndAttachNewScope(ParserRuleContext ctx){
+        Scope newScope = new BaseScope(currentScope);
+        attachScope(ctx, newScope);
+        currentScope = newScope;
     }
 
     @Override
@@ -83,7 +99,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
             DefineParamSymbol(params.get(i));
     }
 
-    public Void DefineParamSymbol(TypeAndIdContext ctx) {
+    public void DefineParamSymbol(TypeAndIdContext ctx) {
         Integer paramType = ctx.type().start.getType();
         Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
         try {
@@ -93,7 +109,6 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
         }
 
         attachScope(ctx, currentScope);
-        return null;
     }
 
     // Scopes attatched to ID and Funccall for easy access in type checking using scopes.get(ctx)

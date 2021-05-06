@@ -3,7 +3,6 @@ package Compiler.ContextualAnalysis;
 import Compiler.AntlrGenerated.BuffBaseListener;
 import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.ErrorHandling.BuffErrorListener;
-import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.BaseScope;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
@@ -29,12 +28,22 @@ public class ReferenceCheckerListener extends BuffBaseListener{
     }
 
     @Override
-    public void enterFuncDef(FuncDefContext ctx) {
+    public void enterIfFunction(IfFunctionContext ctx) {
         currentScope = scopes.get(ctx);
     }
 
     @Override
-    public void exitFuncDef(FuncDefContext ctx) {
+    public void exitIfFunction(IfFunctionContext ctx) {
+        currentScope = currentScope.getEnclosingScope();
+    }
+
+    @Override
+    public void enterOneLineFunction(OneLineFunctionContext ctx) {
+        currentScope = scopes.get(ctx);
+    }
+
+    @Override
+    public void exitOneLineFunction(OneLineFunctionContext ctx) {
         currentScope = currentScope.getEnclosingScope();
     }
 
