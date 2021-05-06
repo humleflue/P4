@@ -4,4 +4,4 @@
      if (1)
          return func();
      return 0;
-endf"
+end"
