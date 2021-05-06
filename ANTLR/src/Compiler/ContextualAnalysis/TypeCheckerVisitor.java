@@ -188,16 +188,17 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return symbol.getType();
     }
 
+
     /**
-     * Type check the functions definition's return type corresponds to it's return statement's type.
+     * Type check the function definition's return types corresponds to it's return statement's type.
      * @param ctx The function definition's tree node.
      * @return The return type of the function definition.
      */
     @Override
-    public Integer visitFuncDef(FuncDefContext ctx) {
+    public Integer visitIfFunction(IfFunctionContext ctx) {
         // Check return statement's return type
         Integer returnStmtType = visit(ctx.returnStmt());
-        checkReturnTypeCorrespondence(returnStmtType, ctx, ctx.returnStmt().stmt());
+        checkReturnTypeCorrespondence(returnStmtType, ctx.typeAndId(), ctx.returnStmt().stmt());
 
         //Gets lists of stmt nodes in the actual parameters
         Integer stmtsLength =  ctx.getRuleContexts(StmtsContext.class).size();
@@ -206,10 +207,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         ArrayList<Integer> stmtsTypes = visitAndGetChildrenTypes(i -> visit(ctx.stmts(i)), stmtsLength);
         Integer amountOfStmts = stmtsTypes.size();
 
-        // If more than one statement is present all of the return types must be checked.
-        if (amountOfStmts > 0)
-            checkTypes(i -> checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx, ctx.stmts().get(i).returnStmt().stmt()),
-                0, amountOfStmts);
+        checkTypes(i -> checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx.typeAndId(), ctx.stmts().get(i).returnStmt().stmt()),
+                    0, amountOfStmts);
 
         // Visit the rest of the children
         // Check if any funcDefParams exist as if none exist the test will throw an error
@@ -220,6 +219,19 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         // Returns the type of the function
         return returnStmtType;
     }
+
+    /**
+     * Type check the functions definition's return type corresponds to it's return statement's type.
+     * @param ctx The function definition's tree node.
+     * @return The return type of the function definition.
+     */
+    @Override
+    public Integer visitOneLineFunction(OneLineFunctionContext ctx) {
+        Integer returnStmtType = visit(ctx.returnStmt());
+        checkReturnTypeCorrespondence(returnStmtType, ctx.typeAndId(), ctx.returnStmt().stmt());
+        return returnStmtType;
+    }
+
 
     private ArrayList<Integer> visitAndGetChildrenTypes(Lambda<Integer> visitChild, Integer size) {
         ArrayList<Integer> types = new ArrayList<>();
@@ -237,8 +249,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @param ctx The node for the function definition
      * @param stmt The node for the statement being checked. Used for underlining
      */
-    private void checkReturnTypeCorrespondence(Integer stmtType, FuncDefContext ctx, StmtContext stmt) {
-        String functionId = ctx.typeAndId().ID().getText();
+    private void checkReturnTypeCorrespondence(Integer stmtType, TypeAndIdContext ctx, StmtContext stmt) {
+        String functionId = ctx.ID().getText();
 
         // Retrieve the function's return type from the symbol table
         Symbol symbol = globalScope.getSymbol(functionId);
@@ -249,9 +261,11 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
             String errorMsg = String.format("Incompatible type: Type %s is incompatible with %s. ",
                     VOCABULARY.getLiteralName(funcdefReturnType), VOCABULARY.getLiteralName(stmtType));
             errorMsg += "Does not return expected type in function definition: " + functionId.toString();
-            errorListener.ThrowError(errorMsg, stmt, ctx.typeAndId().type().start);
+            errorListener.ThrowError(errorMsg, stmt, ctx.type().start);
         }
     }
+
+
 
     @Override
     public Integer visitStmt(StmtContext ctx) {

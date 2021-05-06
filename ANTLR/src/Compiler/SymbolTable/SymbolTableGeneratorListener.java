@@ -33,7 +33,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     }
 
     @Override
-    public void enterFuncDef(FuncDefContext ctx) {
+    public void enterIfFunction(IfFunctionContext ctx) {
         //Gets lists of parameters as ParseRuleContexts
         FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
 
@@ -58,8 +58,22 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     }
 
     @Override
-    public void exitFuncDef(FuncDefContext ctx) {
+    public void exitIfFunction(IfFunctionContext ctx) {
         currentScope = currentScope.getEnclosingScope();
+    }
+
+
+    /*
+    NEDENSTÅENDE ER IKKE LAVET ENDNU
+     */
+    @Override
+    public void enterOneLineFunction(OneLineFunctionContext ctx) {
+        super.enterOneLineFunction(ctx);
+    }
+
+    @Override
+    public void exitOneLineFunction(OneLineFunctionContext ctx) {
+        super.exitOneLineFunction(ctx);
     }
 
     @Override
