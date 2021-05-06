@@ -14,11 +14,11 @@ public class MockErrorListener implements BuffErrorListener {
 
     @Override
     public void ThrowError(String errorMsg, Token offendingToken, Token... additionalOffendingTokens) {
-        throw new RuntimeException();
+        ThrowError(errorMsg, offendingToken);
     }
 
     @Override
     public void ThrowError(String errorMsg, ParseTree tree, Token... additionalOffendingTokens) {
-        throw new RuntimeException();
+        
     }
 }
