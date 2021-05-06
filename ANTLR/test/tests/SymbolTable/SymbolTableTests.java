@@ -30,11 +30,11 @@ public class SymbolTableTests {
     @DisplayName("Check type for 'number func' - given number - is true")
     public void GivenNumberType_ReturnsNumberType() throws IOException {
         // Arrange
-        ParseTree tree = TestCase.createTree("number func() = return 1; endf");
+        ParseTree tree = TestCase.createTree("number func() = return 1; end");
         SymbolTableGeneratorListener symbolTable = getWalker(tree);
 
         // Act
-        int expected = BuffLexer.NUMBERTYPE;
+        int expected = BuffLexer.NUMTYPE;
         int actual = symbolTable.globalScope.getSymbol("func").getType();
 
         // Assert

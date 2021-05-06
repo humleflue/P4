@@ -1,4 +1,4 @@
 ﻿Test expression;Should pass
-"number test1() = return 1; endf \nnumber test2() = return 2; endf";1;                   // Test UNIX line break
-"number test1() = return 1; endf \r\nnumber test2() = return 2; endf";1;                 // Test Windows line break
+"number test1() = return 1; end \nnumber test2() = return 2; end";1;                   // Test UNIX line break
+"number test1() = return 1; end \r\nnumber test2() = return 2; end";1;                 // Test Windows line break
 "2 + print(42); \n\n\n print(42);";1;                                                    // Test multiple line breaks

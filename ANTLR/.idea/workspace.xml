@@ -6,30 +6,27 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Merge with HEAD">
-      <change afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/Lambda.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonEqualityTypes.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source_code.buff" beforeDir="false" afterPath="$PROJECT_DIR$/source_code.buff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/BaseScope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/BaseScope.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/FuncdefSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/FuncdefSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/Symbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
-    </list>
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Cleanup" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -45,8 +42,8 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/.idea/workspace.xml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.idea/workspace.xml" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1qcaGocVwLkoEKS1iZtdAzeICch" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -57,7 +54,6 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
@@ -80,14 +76,13 @@
     <property name="project.structure.proportion" value="0.13908207" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.updates" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\GitRepos\P4\ANTLR\test\tests\TypeCheckerVisitor\Data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\GitRepos\P4\ANTLR" />
       <recent name="C:\GitRepos\P4\ANTLR\test\tests\Lexer\Data" />
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
@@ -107,15 +102,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -128,19 +121,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LexerTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TypeChecker_FuncdefReturnTypeTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ANTLR" />
-      <option name="PACKAGE_NAME" value="tests.Lexer" />
-      <option name="MAIN_CLASS_NAME" value="tests.Lexer.LexerTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SymbolTableTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ANTLR" />
-      <option name="PACKAGE_NAME" value="tests.SymbolTable" />
-      <option name="MAIN_CLASS_NAME" value="tests.SymbolTable.SymbolTableTests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.TypeCheckerVisitor.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests.TypeCheckerVisitor" />
+      <option name="MAIN_CLASS_NAME" value="tests.TypeCheckerVisitor.TypeChecker_FuncdefReturnTypeTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -162,20 +152,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TypeChecker_IfSentenceTests.SimpleBooleanTypeInIfSentence_ShouldPass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ANTLR" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.TypeCheckerVisitor.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests.TypeCheckerVisitor" />
+      <option name="MAIN_CLASS_NAME" value="tests.TypeCheckerVisitor.TypeChecker_IfSentenceTests" />
+      <option name="METHOD_NAME" value="SimpleBooleanTypeInIfSentence_ShouldPass(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.All in ANTLR" />
-      <item itemvalue="JUnit.LexerTests" />
-      <item itemvalue="JUnit.SymbolTableTests" />
       <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests.CorrespondingReturnTypes_ShouldPass" />
+      <item itemvalue="JUnit.TypeChecker_IfSentenceTests.SimpleBooleanTypeInIfSentence_ShouldPass" />
+      <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in ANTLR" />
+        <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests" />
+        <item itemvalue="JUnit.TypeChecker_IfSentenceTests.SimpleBooleanTypeInIfSentence_ShouldPass" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests.CorrespondingReturnTypes_ShouldPass" />
-        <item itemvalue="JUnit.LexerTests" />
-        <item itemvalue="JUnit.SymbolTableTests" />
       </list>
     </recent_temporary>
   </component>
@@ -216,6 +222,12 @@
       <workItem from="1619171789128" duration="1295000" />
       <workItem from="1619427035478" duration="1475000" />
       <workItem from="1619611563494" duration="145000" />
+      <workItem from="1619687216393" duration="372000" />
+      <workItem from="1619778716681" duration="1337000" />
+      <workItem from="1620024414431" duration="11796000" />
+      <workItem from="1620040956728" duration="4001000" />
+      <workItem from="1620126084355" duration="7523000" />
+      <workItem from="1620213000680" duration="4330000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
@@ -266,7 +278,28 @@
       <option name="project" value="LOCAL" />
       <updated>1618570595482</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Revised grammar">
+      <created>1619681863009</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1619681863009</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fixed a mistake in the grammar.">
+      <created>1619687360098</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1619687360098</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Cleanup">
+      <created>1620217340982</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1620217340982</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -285,14 +318,16 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="WIP" />
     <MESSAGE value="Type checking documentation." />
     <MESSAGE value="Corrected wrong refactoring." />
     <MESSAGE value="Fixed merge error in workspace.xml" />
     <MESSAGE value="Corrected naming of classes and added a couple more type checker tests" />
     <MESSAGE value="Merge with HEAD" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge with HEAD" />
+    <MESSAGE value="Revised grammar" />
+    <MESSAGE value="Fixed a mistake in the grammar." />
+    <MESSAGE value="Cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -305,12 +340,17 @@
           <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="4" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Compiler/Main.java</url>
+          <line>85</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Main_java$Main.ic" NAME="Main Coverage Results" MODIFIED="1619096295470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>Compiler.OutputFile</FILTER>
+    <SUITE FILE_PATH="coverage/Main_java$Main.ic" NAME="Main Coverage Results" MODIFIED="1618399764911" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>Compiler.*</FILTER>
     </SUITE>
   </component>
 </project>

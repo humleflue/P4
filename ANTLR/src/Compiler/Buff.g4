@@ -1,52 +1,47 @@
 grammar Buff;
 
-prog : code EOF ;
-code : funcdef code                                                           #codeFuncdef
-     | stmt code                                                              #codeStmt
-     |                                                                        #codeEmpty
+prog : code* EOF ;
+code : funcDef #codeFuncdef
+     | stmt    #codeStmt
      ;
-funcdef : type ID LPAREN funcdefparams RPAREN ASSIGN stmts* RETURN stmt ENDF ;
-type : NUMBERTYPE
-     | BOOLTYPE ;
-funcdefparams : funcdefparam (COMMA funcdefparam)*                            #funcdefparamsNotEmpty //dclparams
-              |                                                               #funcdefparamsEmpty
-              ;
-funcdefparam : type ID ;
-stmts : IF LPAREN expr RPAREN RETURN stmt ;
+funcDef : typeAndId LPAREN funcDefParams? RPAREN ASSIGN stmts* returnStmt END ;
+returnStmt : RETURN stmt ;
+type : NUMTYPE
+     | BOOLTYPE
+     ;
+funcDefParams : typeAndId (COMMA typeAndId)* ;
+typeAndId : type ID ;
+stmts : IF LPAREN expr RPAREN returnStmt ;
 stmt : expr SEMICOLON ;
-expr : val                                                                            #value
-     | op=NEGATE val                                                                  #uneryOp
-     | left=expr op=POW right=expr                                                    #binaryOp
-     | left=expr op=(DIVIDE|MULTIPLY) right=expr                                      #binaryOp
-     | left=expr op=(PLUS|MINUS) right=expr                                           #binaryOp
-     | left=expr op=(LOGLESS | LOGGREATER | LOGLESSOREQ | LOGGREATEROREQ) right=expr  #binaryOp
-     | left=expr op=(LOGEQ | LOGNOTEQ) right=expr                                     #binaryOp
-     | left=expr op=LOGAND right=expr                                                 #binaryOp
-     | left=expr op=LOGOR right=expr                                                  #binaryOp
+expr : LPAREN expr RPAREN                                                             #exprParenthesised
+     | funcCall                                                                       #exprFunccall
+     | funcCall PRINTCHAR                                                             #exprFunccallPrint
+     | NUMLITERAL                                                                     #exprNumber
+     | BOOLLITERAL                                                                    #exprBoolean
+     | ID                                                                             #exprId
+     | op=NEGATE expr                                                                 #exprUnaryOp
+     | left=expr op=POW right=expr                                                    #exprBinaryOp
+     | left=expr op=(DIVIDE|MULTIPLY) right=expr                                      #exprBinaryOp
+     | left=expr op=(PLUS|MINUS) right=expr                                           #exprBinaryOp
+     | left=expr op=(LOGLESS | LOGGREATER | LOGLESSOREQ | LOGGREATEROREQ) right=expr  #exprBinaryOp
+     | left=expr op=(LOGEQ | LOGNOTEQ) right=expr                                     #exprBinaryOp
+     | left=expr op=LOGAND right=expr                                                 #exprBinaryOp
+     | left=expr op=LOGOR right=expr                                                  #exprBinaryOp
      ;
 
-val : LPAREN expr RPAREN                                                      #valParenthesisedExpr //parensexp
-    | funccall                                                                #valFunccall
-    | funccall PRINTCHAR                                                      #valFunccallPrint  //valfunccalldebug
-    | NUMLITERAL                                                              #valNumber //valterminal
-    | BOOLLITERAL                                                             #valBoolean
-    | ID                                                                      #valId
-    ;
-funccall : ID LPAREN exprparams RPAREN ;
-exprparams : expr (COMMA expr)*                                               #exprparamsNotEmpty //stmtparamscontained
-           |                                                                  #exprparamsEmpty
-           ;
+funcCall : ID LPAREN exprParams? RPAREN ;
+exprParams : expr (COMMA expr)* ;
 
 // *** Lexing *** //
 // Reserved keywords gets matched first
 // Types
-NUMBERTYPE : 'number' ;
-BOOLTYPE : 'bool' ;
+NUMTYPE : 'number' ;
+BOOLTYPE : 'boolean' ;
 // Literals
 BOOLLITERAL : 'true' | 'false' ;
-NUMLITERAL : ('0'..'9')+|('0'..'9')+'.'('0'..'9')+;
+NUMLITERAL : '-'?(('0'..'9')+|('0'..'9')+'.'('0'..'9')+);
 // Other reserved keywords
-ENDF    : 'endf' ;
+END    : 'end' ;
 RETURN : 'return' ;
 IF : 'if' ;
 
@@ -80,4 +75,4 @@ NEWLINE : ('\r\n'|'\n'|'\r');
 
 // If none of the above regular expressions were true
 // Check if we have an ID (which cannot start with a number)
-ID : ['A-Za-z]['A-Za-z_0-9]* ;
+ID : [A-Za-z][A-Za-z_0-9]* ;

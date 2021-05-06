@@ -2,6 +2,7 @@ package Compiler.CodeGeneration;
 
 import Compiler.AntlrGenerated.BuffBaseVisitor;
 import Compiler.AntlrGenerated.BuffParser.*;
+import Compiler.ContextualAnalysis.Lambda;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +29,18 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      */
     @Override
     public String visitProg(ProgContext ctx) {
-        return visit(ctx.code());
+        int codeSize = ctx.getRuleContexts(CodeContext.class).size();
+        return getStringFromTokenList(i -> visit(ctx.code(i)), codeSize);
     }
 
     @Override
     public String visitCodeFuncdef(CodeFuncdefContext ctx) {
-        return visit(ctx.funcdef()) + visit(ctx.code());
+        return visit(ctx.funcDef());
     }
 
     @Override
     public String visitCodeStmt(CodeStmtContext ctx) {
-        return visit(ctx.stmt()) + visit(ctx.code());
+        return visit(ctx.stmt());
     }
 
     /**
@@ -47,24 +49,28 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @return A string of the form: {@code "function id(param0, param1 , ... , paramN) &#123; functionBody &#125;}".
      */
     @Override
-    public String visitFuncdef(FuncdefContext ctx) {
+    public String visitFuncDef(FuncDefContext ctx) {
         String result = "function ";
 
         // The function will have the same id in the generated code.
-        result += ctx.ID().getText();
+        result += visit(ctx.typeAndId());
         result += "(";
-        result += visit(ctx.funcdefparams());
+        result += visit(ctx.funcDefParams());
         result += ") { ";
 
-        List<StmtsContext> stmts =  ctx.getRuleContexts(StmtsContext.class);
-        for(int i = 0; i < stmts.size(); i++)
-            result += visit(ctx.stmts(i)) + " ";
+        int stmtsSize =  ctx.getRuleContexts(StmtsContext.class).size();
 
-        result += "return ";
-        result += visit(ctx.stmt());
+        result += getStringFromTokenList(i -> visit(ctx.stmts(i)), stmtsSize);
+
+        result += visitReturnStmt(ctx.returnStmt());
         result += "} ";
 
         return result;
+    }
+
+    @Override
+    public String visitReturnStmt(ReturnStmtContext ctx) {
+        return "return " + visit(ctx.stmt());
     }
 
     /**
@@ -73,29 +79,22 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @return A string of the form: "{@code param0, param1, ... , paramN}".
      */
     @Override
-    public String visitFuncdefparamsNotEmpty(FuncdefparamsNotEmptyContext ctx) {
+    public String visitFuncDefParams(FuncDefParamsContext ctx) {
         //Gets lists of parameter nodes in the formal parameters
-        List<FuncdefparamContext> params =  ctx.getRuleContexts(FuncdefparamContext.class);
+        int paramsSize =  ctx.getRuleContexts(TypeAndIdContext.class).size();
         // Visit the first parameter outside the for-loop to be able to place the comma correctly inside the loop
-        String result = visit(ctx.funcdefparam(0));
+        String result = visit(ctx.typeAndId(0));
 
-        for(int i = 1; i < params.size(); i++) {
-            result += ", ";
-            result += visit(ctx.funcdefparam(i));
-        }
+        result += getStringFromTokenList(i -> visit(ctx.typeAndId(i)), 1, paramsSize, ", ");
 
         return result;
     }
 
-    /**
-     * Generates code for a function definition's parameter
-     * @param ctx The tree node in question.
-     * @return A string of the form: "{@code id}", as JavaScript is loosely typed, no type has to be provided.
-     */
     @Override
-    public String visitFuncdefparam(FuncdefparamContext ctx) {
+    public String visitTypeAndId(TypeAndIdContext ctx) {
         return ctx.ID().getText();
     }
+
 
     /**
      * Generates code for an if-statement.
@@ -107,8 +106,8 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         String result = "if(";
 
         result += visit(ctx.expr());
-        result += ") return ";
-        result += visit(ctx.stmt());
+        result += ") ";
+        result += visit(ctx.returnStmt());
 
         return result;
     }
@@ -118,14 +117,10 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         return visit(ctx.expr()) + "; ";
     }
 
-    @Override
-    public String visitValue(ValueContext ctx) {
-        return visit(ctx.val());
-    }
 
     @Override
-    public String visitUneryOp(UneryOpContext ctx) {
-        return "!" + visit(ctx.val());
+    public String visitExprUnaryOp(ExprUnaryOpContext ctx) {
+        return "!" + visit(ctx.expr());
     }
 
     /**
@@ -135,7 +130,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * then the string of the form "{@code Math.pow(expr, expr)}" is returned instead.
      */
     @Override
-    public String visitBinaryOp(BinaryOpContext ctx) {
+    public String visitExprBinaryOp(ExprBinaryOpContext ctx) {
         String expr1 = visit(ctx.expr(0));
         String expr2 = visit(ctx.expr(1));
 
@@ -166,13 +161,13 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     }
 
     @Override
-    public String visitValParenthesisedExpr(ValParenthesisedExprContext ctx) {
+    public String visitExprParenthesised(ExprParenthesisedContext ctx) {
         return "(" + visit(ctx.expr()) + ")";
     }
 
     @Override
-    public String visitValFunccall(ValFunccallContext ctx) {
-        return visit(ctx.funccall());
+    public String visitExprFunccall(ExprFunccallContext ctx) {
+        return visit(ctx.funcCall());
     }
 
     /**
@@ -181,19 +176,19 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @return A string of the form: "{@code console.log(id(param0, param1, ... , paramN) => result)}"
      */
     @Override
-    public String visitValFunccallPrint(ValFunccallPrintContext ctx) {
-        String exprParams = visit(ctx.funccall().exprparams());
+    public String visitExprFunccallPrint(ExprFunccallPrintContext ctx) {
+        String exprParams = visit(ctx.funcCall().exprParams());
 
         String result = "(()=>{";
-        result += String.format("let res = %s(%s);", GetFuncName(ctx.funccall()), exprParams);
-        result += String.format("console.log(`%s(", GetFuncName(ctx.funccall()));
+        result += String.format("let res = %s(%s);", GetFuncName(ctx.funcCall()), exprParams);
+        result += String.format("console.log(`%s(", GetFuncName(ctx.funcCall()));
 
         if (!exprParams.isEmpty()) {
             String[] exprParamsArray = exprParams.split(",");
 
-            for (int i = 0; i < exprParamsArray.length - 1; i++) {
-                result += String.format("${%s},", exprParamsArray[i]);
-            }
+            result += getStringFromTokenList(i -> String.format("${%s},", exprParamsArray[i]),
+                    exprParamsArray.length - 1);
+
             result += String.format("${%s}", exprParamsArray[exprParamsArray.length - 1]);
         }
 
@@ -206,7 +201,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @param ctx The tree node in question
      * @return the ID (name) of the function call
      */
-    String GetFuncName(FunccallContext ctx){
+    String GetFuncName(FuncCallContext ctx){
         return ctx.ID().getText();
     }
     /**
@@ -215,7 +210,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @return The same number as in the source code.
      */
     @Override
-    public String visitValNumber(ValNumberContext ctx) {
+    public String visitExprNumber(ExprNumberContext ctx) {
         return ctx.NUMLITERAL().getText();
     }
 
@@ -226,19 +221,28 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * Therefore, the string, which is returned, can either be "{@code true}" or "{@code false}").
      */
     @Override
-    public String visitValBoolean(ValBooleanContext ctx) {
+    public String visitExprBoolean(ExprBooleanContext ctx) {
         return ctx.BOOLLITERAL().getText();
     }
 
-
+    /**
+     * Generates code for an ID.
+     * @param ctx The tree node in question.
+     * @return The same ID as in the source code..
+     */
     @Override
-    public String visitValId(ValIdContext ctx) {
+    public String visitExprId(ExprIdContext ctx) {
         return ctx.ID().getText();
     }
 
+    /**
+     * Generates code for a function call
+     * @param ctx The tree node in question.
+     * @return the ID followed by ( Expr params )
+     */
     @Override
-    public String visitFunccall(FunccallContext ctx) {
-        return ctx.ID().getText() + "(" + visit(ctx.exprparams()) + ")";
+    public String visitFuncCall(FuncCallContext ctx) {
+        return ctx.ID().getText() + "(" + visit(ctx.exprParams()) + ")";
     }
 
     /**
@@ -247,16 +251,41 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @return A string of the form: "{@code expr0, expr1, ... , exprN}".
      */
     @Override
-    public String visitExprparamsNotEmpty(ExprparamsNotEmptyContext ctx) {
+    public String visitExprParams(ExprParamsContext ctx) {
         //Gets lists of parameter nodes in the formal parameters
-        List<ExprContext> params =  ctx.getRuleContexts(ExprContext.class);
+        int paramsSize =  ctx.getRuleContexts(ExprContext.class).size();
         String result = visit(ctx.expr(0));
 
-        for(int i = 1; i < params.size(); i++) {
-            result += ", ";
-            result += visit(ctx.expr(i));
-        }
+        result += getStringFromTokenList(i -> visit(ctx.expr(i)), 1, paramsSize, ", ");
 
         return result;
     }
+
+    /**
+     * Returns a string from a list of tokens.
+     * @param manipulateTokens A lambda function which will be performed on the list of tokens
+     * @param amountOfTokens The end index
+     * @return The resulting string
+     */
+    private String getStringFromTokenList(Lambda<String> manipulateTokens, Integer amountOfTokens){
+        return getStringFromTokenList(manipulateTokens, 0, amountOfTokens, "");
+    }
+
+    /**
+     * Returns a string from a list of tokens.
+     * @param manipulateTokens A lambda function which will be performed on the list of tokens
+     * @param from The start index
+     * @param to The end index
+     * @param delimiter The delimiter you want a string to be seperated by
+     * @return The resulting string
+     */
+    private String getStringFromTokenList(Lambda<String> manipulateTokens, Integer from, Integer to, String delimiter){
+        String result = "";
+        for (int i = from; i < to; i++) {
+            result += delimiter;
+            result += manipulateTokens.execute(i);
+        }
+        return result;
+    }
+
 }

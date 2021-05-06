@@ -3,5 +3,5 @@ Test expression;Should pass
     if(true)
         return 2+3^4*second;
     return second();
- endf
+ end
  first(2)?;";1;

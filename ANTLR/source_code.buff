@@ -1,6 +1,7 @@
-number fib(number x) =
-    if(x == 0 || x == 1) return 1;
-    return fib(x - 1)? + fib(x - 2);
-    endf
+number fact(number x) =
+    if(x == 0 || x == 1)
+        return 1;
+    return fact(x - 1)? * x;
+    end
 
-fib(20)?;
+fact(10)?;
