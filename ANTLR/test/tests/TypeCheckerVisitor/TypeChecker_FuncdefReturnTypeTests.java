@@ -1,7 +1,6 @@
 package tests.TypeCheckerVisitor;
 
 import Compiler.ContextualAnalysis.TypeCheckerVisitor;
-import Compiler.ErrorHandling.UnderlineErrorListener;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -36,11 +35,12 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     @Test
     public void DifferentReturnTypesInFirstIf_ShouldThrow() throws IOException {
         // Arrange
-        generateTreeWithSymbols("number f() =\n" +
-                "    if(true) return true;\n" +
-                "    if(false) return 2;\n" +
-                "    return 2;\n" +
-                "    endf");
+        generateTreeWithSymbols("""
+                number f() =
+                    if(true) return true;
+                    if(false) return 2;
+                    return 2;
+                    endf""");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
@@ -49,11 +49,12 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     @Test
     public void DifferentReturnTypesInSecondIf_ShouldThrow() throws IOException {
         // Arrange
-        generateTreeWithSymbols("number f() =\n" +
-                "    if(true) return 2;\n" +
-                "    if(false) return true;\n" +
-                "    return 2;\n" +
-                "    endf");
+        generateTreeWithSymbols("""
+                number f() =
+                    if(true) return 2;
+                    if(false) return true;
+                    return 2;
+                    endf""");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));

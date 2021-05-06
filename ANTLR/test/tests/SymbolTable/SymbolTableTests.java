@@ -1,7 +1,6 @@
 package tests.SymbolTable;
 
 import Compiler.AntlrGenerated.BuffLexer;
-import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;

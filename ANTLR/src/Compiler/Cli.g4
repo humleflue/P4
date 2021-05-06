@@ -1,10 +1,9 @@
 grammar Cli;
 
-args : id SUFFIX optionaloptions #compile
+args : ID SUFFIX optionaloptions #compile
      | '-help'                   #help
      ;
-id : ID ;
-optionaloptions : '-o' id #outfile
+optionaloptions : '-o' ID #outfile
                 |         #empty
                 ;
 

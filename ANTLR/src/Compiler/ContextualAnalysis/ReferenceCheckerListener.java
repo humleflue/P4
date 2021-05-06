@@ -3,7 +3,6 @@ package Compiler.ContextualAnalysis;
 import Compiler.AntlrGenerated.BuffBaseListener;
 import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.ErrorHandling.BuffErrorListener;
-import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.BaseScope;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;

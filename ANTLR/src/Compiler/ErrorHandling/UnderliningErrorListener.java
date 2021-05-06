@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,7 +17,7 @@ import java.util.stream.Stream;
  * An error listener that can be used by both ANTLR generated components as the parser and lexer
  * and custom listeners/visitors to print out underlined error messages to the console.sssssd
  */
-public class UnderlineErrorListener extends BaseErrorListener implements BuffErrorListener {
+public class UnderliningErrorListener extends BaseErrorListener implements BuffErrorListener {
 
     /**
      * Contains information about a line that caused an error, allows easy printing to console.
@@ -24,7 +25,7 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
     private class LineWithError {
         String line;
         Integer lineNumber;
-        ArrayList<Interval> errorIntervals = new ArrayList<Interval>();
+        ArrayList<Interval> errorIntervals = new ArrayList<>();
 
         public LineWithError(String line, Integer lineNumber){
             this.line = line;
@@ -90,12 +91,10 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
      * @param additionalOffendingTokens The additional tokens which will be underlined
      */
     public void ThrowError(String errorMsg, Token offendingToken, Token... additionalOffendingTokens) {
-        ArrayList<Token> allOffendingTokens = new ArrayList<Token>();
+        ArrayList<Token> allOffendingTokens = new ArrayList<>();
         allOffendingTokens.add(offendingToken);
 
-        for (Token token : additionalOffendingTokens){
-            allOffendingTokens.add(token);
-        }
+        Collections.addAll(allOffendingTokens, additionalOffendingTokens);
 
         ThrowError(errorMsg, allOffendingTokens);
     }
@@ -108,12 +107,11 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
      */
     public void ThrowError(String errorMsg, ParseTree tree, Token... additionalOffendingTokens){
         ArrayList<TerminalNode> terminalNodes = getTerminalNodes(tree);
-        ArrayList<Token> offendingTokens = (ArrayList<Token>) terminalNodes.stream().map(x -> x.getSymbol()).collect(Collectors.toList());
+        ArrayList<Token> offendingTokens = (ArrayList<Token>) terminalNodes.stream().map(TerminalNode::getSymbol).collect(Collectors.toList());
 
-        for (Token token : additionalOffendingTokens){
-            offendingTokens.add(token);
-        }
-        // Should not hightligt ";"
+        Collections.addAll(offendingTokens, additionalOffendingTokens);
+
+        // Should not highlight ";"
         offendingTokens.removeIf(x -> x.getType() == BuffLexer.SEMICOLON);
         
         ThrowError(errorMsg, offendingTokens);
@@ -143,7 +141,7 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
      * @return An ArrayList of LineWithError.
      */
     private ArrayList<LineWithError> GetLineWithErrorArray(ArrayList<Token> offendingTokens) {
-        ArrayList<LineWithError> errorLines = new ArrayList<LineWithError>();
+        ArrayList<LineWithError> errorLines = new ArrayList<>();
 
         for (Token offendingToken : offendingTokens) {
             int lineNumber = offendingToken.getLine();
@@ -182,7 +180,7 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
 
     /**
      * Prints out the "^" symbol under offending tokens
-     * @param offendingTokenInterval
+     * @param offendingTokenInterval The interval where the offending tokens resides
      */
     private void printUnderlinedIntervals(ArrayList<Interval> offendingTokenInterval) {
         int printPos = 0;
