@@ -4,7 +4,9 @@ prog : code* EOF ;
 code : funcDef #codeFuncdef
      | stmt    #codeStmt
      ;
-funcDef : typeAndId LPAREN funcDefParams? RPAREN ASSIGN stmts* returnStmt END ;
+funcDef : typeAndId LPAREN funcDefParams? RPAREN ASSIGN stmts* returnStmt END       #ifFunction
+        | typeAndId LPAREN funcDefParams? RPAREN ASSIGN returnStmt                  #oneLineFunction
+        ;
 returnStmt : RETURN stmt ;
 type : NUMTYPE
      | BOOLTYPE
