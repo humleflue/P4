@@ -1,9 +1,11 @@
 package tests.TypeCheckerVisitor;
 
+import Compiler.ContextualAnalysis.ReferenceCheckerListener;
+import Compiler.ContextualAnalysis.TypeCheckerVisitor;
 import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
-import Compiler.ContextualAnalysis.ReferenceCheckerListener;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import tests.Auxiliary.MockErrorListener;
 import tests.Auxiliary.TestCase;
@@ -19,8 +21,7 @@ public abstract class TypeCheckerTestsBase {
     protected void generateTreeWithSymbols(String testSourceCode) {
         try {
             tree = TestCase.createTree(testSourceCode);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         ParseTreeWalker walker = new ParseTreeWalker();
@@ -30,5 +31,14 @@ public abstract class TypeCheckerTestsBase {
         ReferenceCheckerListener referenceCheckerListener = new ReferenceCheckerListener(
                 symbolTable.globalScope, symbolTable.scopes, new MockErrorListener());
         walker.walk(referenceCheckerListener, tree);
+    }
+
+    protected ParseTreeVisitor<Integer> generateVisitorForLiteralWithBinaryOp(String literal, String op) {
+        return generateVisitor(literal + op + literal + ";");
+    }
+
+    protected ParseTreeVisitor<Integer> generateVisitor(String sourceCode) {
+        generateTreeWithSymbols(sourceCode);
+        return new TypeCheckerVisitor(symbolTable.globalScope, symbolTable.scopes, new MockErrorListener());
     }
 }

@@ -7,22 +7,22 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import tests.Auxiliary.MockErrorListener;
 
-public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
+public class TypeChecker_BooleanExpressionTests extends TypeCheckerTestsBase {
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "binaryBooleanComparisonOperators.csv")
-    public void BooleanComparisonOperators_ShouldThrow(String operator) {
+    public void BooleanComparisonOperators_ShouldPass(String operator) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("1", operator);
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("true", operator);
 
         // Act & Assert
-        Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
+        Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "equalityOperators.csv")
     public void EqualityOperators_ShouldPass(String operator) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("1", operator);
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("true", operator);
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -30,23 +30,23 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "numberComparisonOperators.csv")
-    public void NumberComparisonOperators_ShouldPass(String operator) {
+    public void NumberComparisonOperators_ShouldThrow(String operator) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("1", operator);
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("true", operator);
 
         // Act & Assert
-        Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
+        Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numberLiterals.csv")
-    public void logicalNot_ShouldThrow(String numberLiteral) {
+    @CsvFileSource(resources = testPath + "booleanLiterals.csv")
+    public void logicalNot_ShouldThrow(String booleanLiteral) {
         // Arrange
-        generateTreeWithSymbols("!" + numberLiteral + ";");
+        generateTreeWithSymbols("!" + booleanLiteral + ";");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTable.globalScope, symbolTable.scopes, new MockErrorListener());
 
         // Act & Assert
-        Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
+        Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
     }
 }
