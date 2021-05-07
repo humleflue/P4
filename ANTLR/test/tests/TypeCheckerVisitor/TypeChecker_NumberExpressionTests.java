@@ -7,21 +7,19 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import tests.Auxiliary.MockErrorListener;
 
-import java.io.IOException;
-
 public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
-    private ParseTreeVisitor<Integer> generateVisitorForLiteralWithOp(String literal, String op) {
+    private ParseTreeVisitor<Integer> generateVisitorForLiteralWithBinaryOp(String literal, String op) {
         // Arrange
         generateTreeWithSymbols(literal + op + literal + ";");
         return new TypeCheckerVisitor(
-                symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
+                symbolTable.globalScope, symbolTable.scopes, new MockErrorListener());
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void plus_ShouldPass(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, "+");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "+");
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -31,7 +29,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void minus_ShouldPass(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp("(" + number + ")", "-");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("(" + number + ")", "-");
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -41,7 +39,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void mult_ShouldPass(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, "*");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "*");
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -51,7 +49,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void div_ShouldPass(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, "/");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "/");
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -61,7 +59,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void pow_ShouldPass(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, "^");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "^");
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -71,7 +69,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void equals_ShouldPass(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, "==");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "==");
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -81,7 +79,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void notEquals_ShouldPass(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, "!=");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "!=");
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -91,7 +89,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void greaterThan_ShouldPass(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, ">");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, ">");
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -101,7 +99,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void lessThan_ShouldPass(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, "<");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "<");
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -111,7 +109,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void greaterThanEquals_ShouldPass(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, ">=");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, ">=");
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -121,7 +119,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void lessThanEquals_ShouldPass(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, "<=");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "<=");
 
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
@@ -131,7 +129,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void logicalAnd_ShouldThrow(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, "&&");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "&&");
 
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
@@ -141,7 +139,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numbers.csv")
     public void logicalOr_ShouldThrow(String number) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithOp(number, "||");
+        ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "||");
 
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
@@ -153,7 +151,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
         // Arrange
         generateTreeWithSymbols("!" + number + ";");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
-                symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
+                symbolTable.globalScope, symbolTable.scopes, new MockErrorListener());
 
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
