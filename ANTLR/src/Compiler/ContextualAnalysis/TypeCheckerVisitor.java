@@ -99,6 +99,17 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     }
 
     @Override
+    public Integer visitExprUnaryOp(ExprUnaryOpContext ctx) {
+        Integer exprType = visit(ctx.expr());
+        if(exprType != BOOLTYPE) {
+            String typeName = VOCABULARY.getLiteralName(exprType);
+            String errorMsg = String.format("Incompatible type: Type %s is incompatible on operation NOT.", typeName);
+            errorListener.ThrowError(errorMsg, ctx.op);
+        }
+        return BOOLTYPE;
+    }
+
+    @Override
     public Integer visitExprParenthesised(ExprParenthesisedContext ctx) {
         return visit(ctx.expr());
     }

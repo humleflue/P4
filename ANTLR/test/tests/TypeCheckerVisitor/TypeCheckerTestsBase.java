@@ -24,8 +24,13 @@ public abstract class TypeCheckerTestsBase {
     protected SymbolTableGeneratorListener symbolTableGeneratorListener;
     final String testPath = "./Data/";
 
-    protected void generateTreeWithSymbols(String testSourceCode) throws IOException {
-        tree = TestCase.createTree(testSourceCode);
+    protected void generateTreeWithSymbols(String testSourceCode) {
+        try {
+            tree = TestCase.createTree(testSourceCode);
+        }
+        catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
         ParseTreeWalker walker = new ParseTreeWalker();
 
         symbolTableGeneratorListener = new SymbolTableGeneratorListener(new UnderlineErrorListener());
