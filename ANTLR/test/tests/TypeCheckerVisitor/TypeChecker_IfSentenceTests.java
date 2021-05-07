@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "simpleBooleanTypes.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = testPath + "booleanLiterals.csv")
     public void SimpleBooleanTypeInIfSentence_ShouldPass(String trueOrFalse) {
         // Arrange
         generateTreeWithSymbols(String.format("boolean f() = if(%s) return true; return true; end", trueOrFalse));
@@ -23,7 +23,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void NumberTypeInIfSentence_ShouldThrow(String number) {
         // Arrange
         generateTreeWithSymbols(String.format("boolean f() = if(%s) return true; return true; end", number));
@@ -34,7 +34,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "binaryBooleanTypes.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = testPath + "binaryBooleanComparisonOperators.csv")
     public void BinaryBooleanTypeInIfSentence_ShouldPass(String binaryBoolOperator) {
         // Arrange
         generateTreeWithSymbols(String.format(
@@ -66,7 +66,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "comparisonBooleanTypes.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = testPath + "numberComparisonOperators.csv")
     public void NumberComparisonInIfSentence_ShouldPass(String operator) {
         // Arrange
         generateTreeWithSymbols(String.format("boolean f() = if(1 %s 1) return true; return true; end", operator));
@@ -77,7 +77,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "comparisonBooleanTypes.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = testPath + "numberComparisonOperators.csv")
     public void BoolNumberComparisonInIfSentence_ShouldThrow(String operator) {
         // Arrange
         generateTreeWithSymbols(String.format("boolean f() = if(true %s 1) return true; return true; end", operator));
@@ -88,7 +88,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "comparisonBooleanTypes.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = testPath + "numberComparisonOperators.csv")
     public void BoolComparisonInIfSentence_ShouldThrow(String operator) {
         // Arrange
         generateTreeWithSymbols(String.format("boolean f() = if(true %s true) return true; return true; end", operator));
@@ -99,7 +99,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "comparisonEqualityTypes.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = testPath + "equalityOperators.csv")
     public void BoolEqualityComparisonInIfSentence_ShouldPass(String operator) {
         // Arrange
         generateTreeWithSymbols(String.format("boolean f() = if(true %s true) return true; return true; end", operator));
@@ -110,7 +110,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "comparisonEqualityTypes.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = testPath + "equalityOperators.csv")
     public void NumberEqualityComparisonInIfSentence_ShouldPass(String operator) {
         // Arrange
         generateTreeWithSymbols(String.format("boolean f() = if(12 %s 12) return true; return true; end", operator));
@@ -121,7 +121,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "comparisonEqualityTypes.csv", numLinesToSkip = 1)
+    @CsvFileSource(resources = testPath + "equalityOperators.csv")
     public void EqualityComparisonInIfSentence_ShouldThrow(String operator) {
         // Arrange
         generateTreeWithSymbols(String.format("boolean f() = if(12 %s true) return true; return true; end", operator));

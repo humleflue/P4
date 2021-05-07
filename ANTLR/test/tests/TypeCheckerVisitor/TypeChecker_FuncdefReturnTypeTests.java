@@ -8,8 +8,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import tests.Auxiliary.MockErrorListener;
 
-import java.io.IOException;
-
 public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "correspondingReturnTypes.csv", numLinesToSkip = 1)
@@ -23,8 +21,8 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "differentReturnTypes.csv", numLinesToSkip = 1)
-    public void DifferentReturnTypes_ShouldThrow(String type, String expr) {
+    @CsvFileSource(resources = testPath + "conflictingReturnTypes.csv", numLinesToSkip = 1)
+    public void ConflictingReturnTypes_ShouldThrow(String type, String expr) {
         // Arrange
         generateTreeWithSymbols(String.format("%s f() = return %s; end", type, expr));
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTable.globalScope, symbolTable.scopes, new MockErrorListener());

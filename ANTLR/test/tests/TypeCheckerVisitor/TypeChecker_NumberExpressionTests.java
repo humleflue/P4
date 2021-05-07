@@ -16,7 +16,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void plus_ShouldPass(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "+");
@@ -26,7 +26,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void minus_ShouldPass(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("(" + number + ")", "-");
@@ -36,7 +36,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void mult_ShouldPass(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "*");
@@ -46,7 +46,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void div_ShouldPass(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "/");
@@ -56,7 +56,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void pow_ShouldPass(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "^");
@@ -66,7 +66,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void equals_ShouldPass(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "==");
@@ -76,7 +76,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void notEquals_ShouldPass(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "!=");
@@ -86,7 +86,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void greaterThan_ShouldPass(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, ">");
@@ -96,7 +96,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void lessThan_ShouldPass(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "<");
@@ -106,7 +106,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void greaterThanEquals_ShouldPass(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, ">=");
@@ -116,7 +116,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void lessThanEquals_ShouldPass(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "<=");
@@ -126,7 +126,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void logicalAnd_ShouldThrow(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "&&");
@@ -136,7 +136,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void logicalOr_ShouldThrow(String number) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp(number, "||");
@@ -146,7 +146,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "numbers.csv")
+    @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void logicalNot_ShouldThrow(String number) {
         // Arrange
         generateTreeWithSymbols("!" + number + ";");

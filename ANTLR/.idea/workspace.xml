@@ -6,8 +6,17 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Added tests for numbers working on all types of operators.">
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Renamed symbol table. Resolved warnings.">
+      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/equalityOperators.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/binaryBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/binaryBooleanComparisonOperators.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/numberComparisonOperators.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonEqualityTypes.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/differentReturnTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/conflictingReturnTypes.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/numbers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/numberLiterals.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/simpleBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/booleanLiterals.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_NumberExpressionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_NumberExpressionTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -233,7 +242,7 @@
       <workItem from="1620040956728" duration="4001000" />
       <workItem from="1620126084355" duration="7523000" />
       <workItem from="1620213000680" duration="4330000" />
-      <workItem from="1620377766863" duration="4077000" />
+      <workItem from="1620377766863" duration="6150000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
@@ -326,7 +335,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620381477118</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Renamed symbol table. Resolved warnings.">
+      <created>1620382072893</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1620382072893</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,7 +373,9 @@
     <MESSAGE value="Fix issue 42" />
     <MESSAGE value="Fix issue 43" />
     <MESSAGE value="Added tests for numbers working on all types of operators." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added tests for numbers working on all types of operators." />
+    <MESSAGE value="Renamed symbol table" />
+    <MESSAGE value="Renamed symbol table. Resolved warnings." />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed symbol table. Resolved warnings." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
