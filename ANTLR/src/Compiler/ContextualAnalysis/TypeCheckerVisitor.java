@@ -69,25 +69,38 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
 
-        if(!left.equals(right))
-            throwTypeError(left, right, "On operation " + ctx.op.getText(), ctx.op);
-
         // Now we know that the two operators are of the same type: 'left == right' // true
-
+        String errorText = "On operation" + ctx.op.getText() + ". Must be number type";
         switch (ctx.op.getType()) {
-            case PLUS, MINUS, MULTIPLY, DIVIDE, POW ->
+            case PLUS, MINUS, MULTIPLY, DIVIDE, POW -> {
+                if(left != NUMTYPE || right != NUMTYPE)
+                    throwTypeError(left, right, errorText, ctx.op);
                 returnType = NUMTYPE;
-            case LOGAND, LOGOR, LOGEQ, LOGNOTEQ ->
-                returnType = BOOLTYPE;
+            }
             case LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
                 if (left != NUMTYPE || right != NUMTYPE)
-                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be number type", ctx.op);
-                returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
+                    throwTypeError(left, right, errorText, ctx.op);
+                returnType = BOOLTYPE;
+            }
+            case LOGAND, LOGOR -> {
+                if(left != BOOLTYPE || right != BOOLTYPE)
+                        throwTypeError(left, right, errorText, ctx.op);
+                returnType = BOOLTYPE;
+            }
+            case LOGEQ, LOGNOTEQ -> {
+                if(!left.equals(right))
+                    throwTypeError(left, right, errorText, ctx.op);
+                returnType = BOOLTYPE;
             }
             default -> throw new IllegalArgumentException("Type not found by type checker.");
         }
 
         return returnType;
+    }
+
+    @Override
+    public Integer visitExprParenthesised(ExprParenthesisedContext ctx) {
+        return visit(ctx.expr());
     }
 
     @Override
