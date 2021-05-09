@@ -40,5 +40,11 @@ public class BaseTest {
         parser.addErrorListener(errorListener);
         return parser.prog();
     }
+    
+    protected int getNumberOfSyntaxErrors(String sourceCode) throws IOException {
+        BuffParser parser = createParser(sourceCode);
+        parser.prog();
+        return parser.getNumberOfSyntaxErrors();
+    }
 
 }

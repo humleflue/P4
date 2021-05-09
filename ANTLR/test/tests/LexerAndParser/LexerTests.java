@@ -5,38 +5,68 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class LexerTests extends BaseTest {
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "invalidDeclarationTests.csv")
-    void invalidDeclarationsInSourceCode_ShouldThrow(String sourceCode) throws IOException {
+    void invalidDeclarationsInSourceCode_ShouldThrow(String sourceCode) throws Exception {
         assertThrows(Exception.class, () -> {
-            createTree(sourceCode);
+           int errors = getNumberOfSyntaxErrors(sourceCode);
+           if (errors > 0){
+               throw new Exception();
+           }
         });
+        
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "validDeclarationTests.csv")
-    void declarationsInSourceCode_ShouldPass(String sourceCode) throws IOException { 
-        createCommonTokenStream(sourceCode);
+    void validDeclarationsInSourceCode_ShouldPass(String sourceCode) throws IOException {
+        //arrange
+        int errors = getNumberOfSyntaxErrors(sourceCode);
+        //act
+        //assert
+        if (errors > 0){
+            fail();
+        }
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "expressionsTest.csv")
     void expressionsInSourceCode_ShouldPass(String sourceCode) throws IOException {
-        createCommonTokenStream(sourceCode);
+        //arrange
+        int errors = getNumberOfSyntaxErrors(sourceCode);
+        System.out.println(errors);
+        //act
+        //assert
+        if (errors > 0){
+            fail();
+        }
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "ifChainTests.csv")
     void ifChainInSourceCode_ShouldPass(String sourceCode) throws IOException {
-        createCommonTokenStream(sourceCode);
+        //arrange
+        int errors = getNumberOfSyntaxErrors(sourceCode);
+        //act
+        //assert
+        if (errors > 0){
+            fail();
+        }
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "functionsTest.csv")
     void functionCallsInSourceCode_ShouldPass(String sourceCode) throws IOException {
-        createCommonTokenStream(sourceCode);
+        //arrange
+        int errors = getNumberOfSyntaxErrors(sourceCode);
+        //act
+        //assert
+        if (errors > 0){
+            fail();
+        }
     }
     
 }
