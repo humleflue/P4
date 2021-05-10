@@ -37,7 +37,6 @@ public class LexerTests extends BaseTest {
     void expressionsInSourceCode_ShouldPass(String sourceCode) throws IOException {
         //arrange
         int errors = getNumberOfSyntaxErrors(sourceCode);
-        System.out.println(errors);
         //act
         //assert
         if (errors > 0){
