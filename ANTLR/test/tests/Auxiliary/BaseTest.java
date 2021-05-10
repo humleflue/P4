@@ -12,7 +12,7 @@ import java.io.StringReader;
 
 public class BaseTest {
     protected final String testPath = "./Data/";
-    UnderlineErrorListener errorListener = new UnderlineErrorListener();
+    MockErrorListener errorListener = new MockErrorListener();
 
 
     protected CodePointCharStream createCharStream(String sourceCode) throws IOException {
