@@ -1,5 +1,5 @@
 Return type ; Expression
-"boolean","2"
-"boolean","2.5"
+"bool","2"
+"bool","2.5"
 "number","true"
 "number","false"

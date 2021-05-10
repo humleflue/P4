@@ -17,9 +17,9 @@ public class TestCaseTests {
     @DisplayName("Generate Parser from tokens")
     void  parameterizedFunctionDefinition() throws Exception {
         // Test that LangTestCase.getParserFromTokens() works.
-        tests.Auxiliary.TestCase.getParserFromTokens(Arrays.asList(BuffLexer.NUMTYPE, BuffLexer.ID,
+        tests.Auxiliary.TestCase.getParserFromTokens(Arrays.asList(BuffLexer.NUMBERTYPE, BuffLexer.ID,
                     BuffLexer.LPAREN, BuffLexer.RPAREN, BuffLexer.ASSIGN, BuffLexer.RETURN, BuffLexer.NUMLITERAL, BuffLexer.SEMICOLON,
-                    BuffLexer.END, BuffLexer.EOF));
+                    BuffLexer.ENDF, BuffLexer.EOF));
         
         // If error not thrown test was successful
         assertTrue(true);
