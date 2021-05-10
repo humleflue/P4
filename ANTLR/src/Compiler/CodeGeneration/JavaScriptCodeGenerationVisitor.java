@@ -304,15 +304,4 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         return result;
     }
 
-    /**
-     * Auxilery function that allows the call of getStringFromTokenList with only a lambda function and the {@code to} parameter.
-     * Always starts at 0 and uses {@code " "} as delimiter
-     * @param manipulateTokens A lambda function which will be performed on the list of tokens
-     * @param to The end index
-     * @return The resulting string
-     */
-    public String getStringFromTokenList(Lambda<String> manipulateTokens, Integer to){
-        return getStringFromTokenList(manipulateTokens, 0, to, " ");
-    }
-
 }
