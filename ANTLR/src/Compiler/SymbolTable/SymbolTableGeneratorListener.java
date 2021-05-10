@@ -34,8 +34,10 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
         FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
         ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
-        try { currentScope.defineSymbol(symbol);
-        } catch (Exception e){
+        try { 
+            currentScope.defineSymbol(symbol);
+        } 
+        catch (Exception e){
             errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
         }
 
