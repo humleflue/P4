@@ -7,17 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Renamed symbol table. Resolved warnings.">
-      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/equalityOperators.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/binaryBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/binaryBooleanComparisonOperators.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/numberComparisonOperators.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonEqualityTypes.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/differentReturnTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/conflictingReturnTypes.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/numbers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/numberLiterals.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/simpleBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/booleanLiterals.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_NumberExpressionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_NumberExpressionTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source_code.buff" beforeDir="false" afterPath="$PROJECT_DIR$/source_code.buff" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +90,7 @@
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in ANTLR">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
@@ -114,15 +105,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -191,8 +180,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in ANTLR" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.All in ANTLR" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests" />
         <item itemvalue="JUnit.TypeChecker_IfSentenceTests.SimpleBooleanTypeInIfSentence_ShouldPass" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests.CorrespondingReturnTypes_ShouldPass" />

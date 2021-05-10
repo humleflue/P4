@@ -55,7 +55,8 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         // The function will have the same id in the generated code.
         result += visit(ctx.typeAndId());
         result += "(";
-        result += visit(ctx.funcDefParams());
+        if(ctx.funcDefParams() != null)
+            result += visit(ctx.funcDefParams());
         result += ") { ";
 
         int stmtsSize =  ctx.getRuleContexts(StmtsContext.class).size();
