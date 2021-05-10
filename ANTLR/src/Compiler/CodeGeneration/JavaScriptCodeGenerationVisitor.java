@@ -50,12 +50,12 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @return A string of the form: {@code "function id(param0, param1 , ... , paramN) &#123; functionBody &#125;}".
      */
     @Override
-    public String visitIfFunction(IfFunctionContext ctx) {
+    public String visitMultiLineFunction(MultiLineFunctionContext ctx) {
         String result = initiateFuncDef(ctx.typeAndId(), ctx.funcDefParams());
 
         int stmtsSize =  ctx.getRuleContexts(StmtsContext.class).size();
 
-        result += getStringFromTokenList(i -> visit(ctx.stmts(i)), 0, stmtsSize, " ");
+        result += getStringFromTokenList(i -> visit(ctx.stmts(i)),  stmtsSize);
 
         result += endFunction(ctx.returnStmt());
 
@@ -65,7 +65,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
     @Override
     public String visitOneLineFunction(OneLineFunctionContext ctx) {
-        return initiateFuncDef(ctx.typeAndId(), ctx.funcDefParams()) + endFunction(ctx.stmt());
+        return initiateFuncDef(ctx.typeAndId(), ctx.funcDefParams()) + endFunction(ctx.returnStmt());
     }
 
     private String initiateFuncDef(TypeAndIdContext typeAndId, FuncDefParamsContext funcParams){
@@ -82,10 +82,6 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
     private String endFunction(ReturnStmtContext returnStmt){
         return visit(returnStmt) + "} ";
-    }
-
-    private String endFunction(StmtContext stmt){
-        return "return " + visit(stmt) + "} ";
     }
 
     @Override
@@ -296,6 +292,17 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
             result += manipulateTokens.execute(i);
         }
         return result;
+    }
+
+    /**
+     * Auxilery function that allows the call of getStringFromTokenList with only a lambda function and the {@code to} parameter.
+     * Always starts at 0 and uses {@code " "} as delimiter
+     * @param manipulateTokens A lambda function which will be performed on the list of tokens
+     * @param to The end index
+     * @return The resulting string
+     */
+    public String getStringFromTokenList(Lambda<String> manipulateTokens, Integer to){
+        return getStringFromTokenList(manipulateTokens, 0, to, " ");
     }
 
 }

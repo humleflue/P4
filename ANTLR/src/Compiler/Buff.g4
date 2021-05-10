@@ -4,7 +4,7 @@ prog : code* EOF ;
 code : funcDef #codeFuncdef
      | stmt    #codeStmt
      ;
-funcDef : typeAndId LPAREN funcDefParams? RPAREN ASSIGN stmts* returnStmt END       #ifFunction
+funcDef : typeAndId LPAREN funcDefParams? RPAREN ASSIGN stmts* returnStmt END       #multiLineFunction
         | typeAndId LPAREN funcDefParams? RPAREN ASSIGN returnStmt                  #oneLineFunction
         ;
 returnStmt : RETURN stmt ;

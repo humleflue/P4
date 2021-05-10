@@ -29,7 +29,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     }
 
     @Override
-    public void enterIfFunction(IfFunctionContext ctx) {
+    public void enterMultiLineFunction(MultiLineFunctionContext ctx) {
         //Gets lists of parameters and converts them into a list of types
         FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
         ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
@@ -44,8 +44,8 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     }
 
     @Override
-    public void exitIfFunction(IfFunctionContext ctx) {
-        currentScope = currentScope.getEnclosingScope();
+    public void exitMultiLineFunction(MultiLineFunctionContext ctx) {
+        closeScope();
     }
 
 
@@ -66,7 +66,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
 
     @Override
     public void exitOneLineFunction(OneLineFunctionContext ctx) {
-        currentScope = currentScope.getEnclosingScope();
+        closeScope();
     }
 
     /**
@@ -80,6 +80,13 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
             ctx.typeAndId().forEach(x -> argumentList.add(x.type().getStart().getType()));
         }
         return argumentList;
+    }
+
+    /**
+     * Sets the current scope to be the enclosing scope of the current scope
+     */
+    private void closeScope(){
+        currentScope = currentScope.getEnclosingScope();
     }
 
     /**
