@@ -26,6 +26,7 @@ public class BaseTest {
 
     protected CommonTokenStream createCommonTokenStream(String sourceCode) throws IOException {
         BuffLexer lexer = createLexer(sourceCode);
+        lexer.removeErrorListeners();
         lexer.addErrorListener(errorListener);
         return new CommonTokenStream(lexer);
     }
