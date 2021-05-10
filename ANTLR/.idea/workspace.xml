@@ -6,7 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="This fixes &quot;Tree is null&quot; error" />
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Fix wrong implementation of the error listener mock">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/LexerAndParser/Data/invalidDeclarationTests.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/LexerAndParser/Data/invalidDeclarationTests.csv" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -335,7 +338,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620652356575</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Fix merge errors">
+      <created>1620652720126</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1620652720126</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Fix wrong implementation of the error listener mock">
+      <created>1620652763449</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1620652763449</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -369,7 +386,9 @@
     <MESSAGE value="Renamed symbol table" />
     <MESSAGE value="Renamed symbol table. Resolved warnings." />
     <MESSAGE value="This fixes &quot;Tree is null&quot; error" />
-    <option name="LAST_COMMIT_MESSAGE" value="This fixes &quot;Tree is null&quot; error" />
+    <MESSAGE value="Fix merge errors" />
+    <MESSAGE value="Fix wrong implementation of the error listener mock" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix wrong implementation of the error listener mock" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
