@@ -130,8 +130,10 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @return The function's return type.
      */
     @Override
-    public Integer visitExprFunccall(ExprFunccallContext ctx) {
-        return visit(ctx.funcCall());
+    public Integer visitFuncCall(FuncCallContext ctx) {
+        Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
+        visitChildren(ctx);
+        return symbol.getType();
     }
 
     /**
@@ -143,14 +145,6 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     @Override
     public Integer visitExprFunccallPrint(ExprFunccallPrintContext ctx) {
         return visit(ctx.funcCall());
-    }
-
-    @Override
-    public Integer visitFuncCall(FuncCallContext ctx) {
-        Symbol symbol = globalScope.getSymbol(ctx.ID().getText());
-        if(ctx.exprParams() != null)
-            visit(ctx.exprParams());
-        return symbol.getType();
     }
 
     /**
@@ -242,7 +236,6 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         }
         return types;
     }
-
 
     /**
      * Checks whether or not a functions return statement type matches the type defined in function definition.

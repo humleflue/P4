@@ -1,5 +1,7 @@
-number foo() =
-    if(!false)
+number fact(number x) =
+    if(x == 0 || x == 1)
         return 1;
-    return 0;
+    return fact(x - 1)? * x;
     end
+
+fact(10)?;

@@ -42,7 +42,7 @@ public class TypeChecker_BooleanExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "booleanLiterals.csv")
     public void logicalNot_ShouldThrow(String booleanLiteral) {
         // Arrange
-        createTreeWithSymbols("!" + booleanLiteral + ";");
+        generateTreeWithSymbols("!" + booleanLiteral + ";");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTable.globalScope, symbolTable.scopes, new MockErrorListener());
 
