@@ -30,7 +30,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     @Override
     public String visitProg(ProgContext ctx) {
         int codeSize = ctx.getRuleContexts(CodeContext.class).size();
-        return getStringFromTokenList(i -> visit(ctx.code(i)), 0, codeSize, "");
+        return getStringFromTokenList(i -> visit(ctx.code(i)), codeSize);
     }
 
     @Override
@@ -202,8 +202,8 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         if (!exprParams.isEmpty()) {
             String[] exprParamsArray = exprParams.split(",");
 
-            result += getStringFromTokenList(i -> String.format("${%s},", exprParamsArray[i]), 0,
-                    exprParamsArray.length - 1, "");
+            result += getStringFromTokenList(i -> String.format("${%s},", exprParamsArray[i]),
+                    exprParamsArray.length - 1);
 
             result += String.format("${%s}", exprParamsArray[exprParamsArray.length - 1]);
         }
@@ -280,12 +280,22 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     /**
      * Returns a string from a list of tokens.
      * @param manipulateTokens A lambda function which will be performed on the list of tokens
+     * @param amountOfTokens The end index
+     * @return The resulting string
+     */
+    private String getStringFromTokenList(Lambda<String> manipulateTokens, Integer amountOfTokens){
+        return getStringFromTokenList(manipulateTokens, 0, amountOfTokens, "");
+    }
+
+    /**
+     * Returns a string from a list of tokens.
+     * @param manipulateTokens A lambda function which will be performed on the list of tokens
      * @param from The start index
      * @param to The end index
      * @param delimiter The delimiter you want a string to be seperated by
      * @return The resulting string
      */
-    public String getStringFromTokenList(Lambda<String> manipulateTokens, Integer from, Integer to, String delimiter){
+    private String getStringFromTokenList(Lambda<String> manipulateTokens, Integer from, Integer to, String delimiter){
         String result = "";
         for (int i = from; i < to; i++) {
             result += delimiter;

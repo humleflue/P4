@@ -34,9 +34,9 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
         FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
         ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
-        try { 
+        try {
             currentScope.defineSymbol(symbol);
-        } 
+        }
         catch (Exception e){
             errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
         }
@@ -57,9 +57,9 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
         FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
         ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
-        try { 
+        try {
             currentScope.defineSymbol(symbol);
-        } 
+        }
         catch (Exception e){
             errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
         }
@@ -106,8 +106,8 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     @Override
     public void exitFuncDefParams(FuncDefParamsContext ctx) {
         List<TypeAndIdContext> params = ctx.getRuleContexts(TypeAndIdContext.class);
-        for (int i = 0; i < params.size(); i++)
-            DefineParamSymbol(params.get(i));
+        for (TypeAndIdContext param : params)
+            DefineParamSymbol(param);
     }
 
     public void DefineParamSymbol(TypeAndIdContext ctx) {
@@ -139,11 +139,4 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
      * @param s The scope which should be added to a node.
      */
     void attachScope(ParserRuleContext ctx, Scope s) { scopes.put(ctx, s); }
-
-    /**
-     * Takes an that should be used to act on a list in any way
-     * @param act The action that should be carried out
-     * @param from The start index
-     * @param to The end index
-     */
 }
