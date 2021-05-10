@@ -37,7 +37,7 @@ public abstract class TypeCheckerTestsBase extends BaseTest {
     }
 
     protected ParseTreeVisitor<Integer> generateVisitor(String sourceCode) {
-        generateTreeWithSymbols(sourceCode);
+        createTreeWithSymbols(sourceCode);
         return new TypeCheckerVisitor(symbolTable.globalScope, symbolTable.scopes, new MockErrorListener());
     }
 }
