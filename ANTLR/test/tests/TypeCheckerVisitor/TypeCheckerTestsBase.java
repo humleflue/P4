@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import tests.Auxiliary.BaseTest;
 import tests.Auxiliary.MockErrorListener;
 import tests.Auxiliary.TestCase;
 
@@ -19,15 +20,13 @@ import java.io.StringReader;
 /**
  * Shared functionality for all TypeCheckerVisitor test classes.
  */
-public abstract class TypeCheckerTestsBase {
+public abstract class TypeCheckerTestsBase extends BaseTest {
     protected ParseTree tree;
     protected SymbolTableGeneratorListener symbolTableGeneratorListener;
-    final String testPath = "./Data/";
 
-    protected void generateTreeWithSymbols(String testSourceCode) throws IOException {
-        tree = TestCase.createTree(testSourceCode);
+    protected void createTreeWithSymbols(String sourceCode) throws IOException {
+        tree = createTree(sourceCode);
         ParseTreeWalker walker = new ParseTreeWalker();
-
         symbolTableGeneratorListener = new SymbolTableGeneratorListener(new UnderlineErrorListener());
         walker.walk(symbolTableGeneratorListener, tree);
         ReferenceCheckerListener referenceCheckerListener = new ReferenceCheckerListener(

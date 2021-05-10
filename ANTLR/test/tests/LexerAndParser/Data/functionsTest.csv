@@ -1,7 +1,7 @@
-Test expression;Should pass
 "number first(number second) =
     if(true)
         return 2+3^4*second;
     return second();
  end
- first(2)?;";1;
+
+ first(2)?;"

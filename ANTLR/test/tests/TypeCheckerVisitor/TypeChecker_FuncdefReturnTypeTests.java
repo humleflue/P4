@@ -16,7 +16,7 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     @CsvFileSource(resources = testPath + "correspondingReturnTypes.csv", numLinesToSkip = 1)
     public void CorrespondingReturnTypes_ShouldPass(String type, String expr) throws IOException {
         // Arrange
-        generateTreeWithSymbols(String.format("%s f() = return %s; end", type, expr));
+        createTreeWithSymbols(String.format("%s f() = return %s; end", type, expr));
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
@@ -27,7 +27,7 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     @CsvFileSource(resources = testPath + "differentReturnTypes.csv", numLinesToSkip = 1)
     public void DifferentReturnTypes_ShouldThrow(String type, String expr) throws IOException {
         // Arrange
-        generateTreeWithSymbols(String.format("%s f() = return %s; end", type, expr));
+        createTreeWithSymbols(String.format("%s f() = return %s; end", type, expr));
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
@@ -36,7 +36,7 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     @Test
     public void DifferentReturnTypesInFirstIf_ShouldThrow() throws IOException {
         // Arrange
-        generateTreeWithSymbols("number f() =\n" +
+        createTreeWithSymbols("number f() =\n" +
                 "    if(true) return true;\n" +
                 "    if(false) return 2;\n" +
                 "    return 2;\n" +
@@ -49,7 +49,7 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase{
     @Test
     public void DifferentReturnTypesInSecondIf_ShouldThrow() throws IOException {
         // Arrange
-        generateTreeWithSymbols("number f() =\n" +
+        createTreeWithSymbols("number f() =\n" +
                 "    if(true) return 2;\n" +
                 "    if(false) return true;\n" +
                 "    return 2;\n" +
