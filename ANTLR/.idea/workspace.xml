@@ -7,16 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Renamed symbol table. Resolved warnings.">
-      <change afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/equalityOperators.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/binaryBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/binaryBooleanComparisonOperators.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/numberComparisonOperators.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/comparisonEqualityTypes.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/differentReturnTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/conflictingReturnTypes.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/numbers.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/numberLiterals.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/simpleBooleanTypes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/Data/booleanLiterals.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source_code.buff" beforeDir="false" afterPath="$PROJECT_DIR$/source_code.buff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/generatefiles.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTestsBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeCheckerTestsBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_BooleanExpressionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_BooleanExpressionTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_FuncdefReturnTypeTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_NumberExpressionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_NumberExpressionTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +97,7 @@
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in ANTLR">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
@@ -114,15 +112,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -150,22 +146,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TypeChecker_FuncdefReturnTypeTests.CorrespondingReturnTypes_ShouldPass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ANTLR" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.TypeCheckerVisitor.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests.TypeCheckerVisitor" />
-      <option name="MAIN_CLASS_NAME" value="tests.TypeCheckerVisitor.TypeChecker_FuncdefReturnTypeTests" />
-      <option name="METHOD_NAME" value="CorrespondingReturnTypes_ShouldPass(java.lang.String,java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TypeChecker_IfSentenceTests.SimpleBooleanTypeInIfSentence_ShouldPass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ANTLR" />
       <extension name="coverage">
@@ -182,20 +162,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TypeChecker_NumberExpressionTests.logicalNot_ShouldThrow" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ANTLR" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.TypeCheckerVisitor.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests.TypeCheckerVisitor" />
+      <option name="MAIN_CLASS_NAME" value="tests.TypeCheckerVisitor.TypeChecker_NumberExpressionTests" />
+      <option name="METHOD_NAME" value="logicalNot_ShouldThrow(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.All in ANTLR" />
-      <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests.CorrespondingReturnTypes_ShouldPass" />
       <item itemvalue="JUnit.TypeChecker_IfSentenceTests.SimpleBooleanTypeInIfSentence_ShouldPass" />
       <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests" />
+      <item itemvalue="JUnit.TypeChecker_NumberExpressionTests.logicalNot_ShouldThrow" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in ANTLR" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.All in ANTLR" />
+        <item itemvalue="JUnit.TypeChecker_NumberExpressionTests.logicalNot_ShouldThrow" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests" />
         <item itemvalue="JUnit.TypeChecker_IfSentenceTests.SimpleBooleanTypeInIfSentence_ShouldPass" />
-        <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests.CorrespondingReturnTypes_ShouldPass" />
       </list>
     </recent_temporary>
   </component>
@@ -243,6 +239,7 @@
       <workItem from="1620126084355" duration="7523000" />
       <workItem from="1620213000680" duration="4330000" />
       <workItem from="1620377766863" duration="6150000" />
+      <workItem from="1620645796245" duration="4642000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
@@ -388,14 +385,10 @@
           <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="4" />
         </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="7" />
-        </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Compiler/Main.java</url>
-          <line>85</line>
-          <option name="timeStamp" value="6" />
+          <line>96</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

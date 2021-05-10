@@ -42,7 +42,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "numberLiterals.csv")
     public void logicalNot_ShouldThrow(String numberLiteral) {
         // Arrange
-        generateTreeWithSymbols("!" + numberLiteral + ";");
+        createTreeWithSymbols("!" + numberLiteral + ";");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTable.globalScope, symbolTable.scopes, new MockErrorListener());
 

@@ -13,7 +13,7 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "correspondingTypes.csv", numLinesToSkip = 1)
     public void CorrespondingReturnTypes_ShouldPass(String type, String expr) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = createTreeWithSymbols(String.format("%s f() = return %s; end", type, expr));
+        ParseTreeVisitor<Integer> visitor = generateVisitor(String.format("%s f() = return %s; end", type, expr));
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
     }
@@ -22,7 +22,7 @@ public class TypeChecker_FuncdefReturnTypeTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "conflictingTypes.csv", numLinesToSkip = 1)
     public void ConflictingReturnTypes_ShouldThrow(String type, String expr) {
         // Arrange
-        ParseTreeVisitor<Integer> visitor = createTreeWithSymbols(String.format("%s f() = return %s; end", type, expr));
+        ParseTreeVisitor<Integer> visitor = generateVisitor(String.format("%s f() = return %s; end", type, expr));
         // Act & Assert
         Assertions.assertThrows(RuntimeException.class, () -> visitor.visit(tree));
     }
