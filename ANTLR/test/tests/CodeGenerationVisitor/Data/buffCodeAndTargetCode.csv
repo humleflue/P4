@@ -1,3 +1,3 @@
 Buff code; Generated code
-"number fib(number x) = if(x === 0 || x === 1) return 1; return fib(x - 1) + fib(x - 2); endf fib(20)?;","function fib(x) { if(x===0||x===1) return 1;  return fib(x-1)+fib(x-2); } console.log(fib(20)); " 
+"number fib(number x) = if(x == 0 || x == 1) return 1; return fib(x - 1) + fib(x - 2); end fib(20)?;","function fib(x) { if(x===0||x===1) return 1; return fib(x-1)+fib(x-2); } (()=>{let res = fib(20);console.log(`fib(${20}) => ${res}`); return res;})(); " 
 

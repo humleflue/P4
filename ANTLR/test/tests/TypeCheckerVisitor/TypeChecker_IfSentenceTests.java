@@ -91,7 +91,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     @CsvFileSource(resources = testPath + "comparisonBooleanTypes.csv", numLinesToSkip = 1)
     public void BoolComparisonInIfSentence_ShouldThrow(String operator) throws IOException {
         // Arrange
-        createTreeWithSymbols(String.format("bool f() = if(true %s true) return true; return true; endf", operator));
+        createTreeWithSymbols(String.format("boolean f() = if(true %s true) return true; return true; end", operator));
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTableGeneratorListener.globalScope, symbolTableGeneratorListener.scopes, new MockErrorListener());
         // Act & Assert

@@ -1,4 +1,4 @@
-"number func() = return 2; endf"
-"number test(number numb1, number numb2) = return 2; endf"
-"number test() = return test(2); endf"
-"bool test() = return true; endf"
+"number func() = return 2; end"
+"number test(number numb1, number numb2) = return 2; end"
+"number test() = return test(2); end"
+"boolean test() = return true; end"
