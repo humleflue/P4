@@ -65,7 +65,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
     @Override
     public String visitOneLineFunction(OneLineFunctionContext ctx) {
-        return initiateFuncDef(ctx.typeAndId(), ctx.funcDefParams()) + endFunction(ctx.returnStmt());
+        return initiateFuncDef(ctx.typeAndId(), ctx.funcDefParams()) + endFunction(ctx.stmt());
     }
 
     private String initiateFuncDef(TypeAndIdContext typeAndId, FuncDefParamsContext funcParams){
@@ -78,6 +78,10 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         result += ") { ";
 
         return result;
+    }
+
+    private String endFunction(StmtContext stmt){
+        return "return " + visit(stmt) + "} ";
     }
 
     private String endFunction(ReturnStmtContext returnStmt){

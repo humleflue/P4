@@ -223,8 +223,8 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      */
     @Override
     public Integer visitOneLineFunction(OneLineFunctionContext ctx) {
-        Integer returnStmtType = visit(ctx.returnStmt());
-        checkReturnTypeCorrespondence(returnStmtType, ctx.typeAndId(), ctx.returnStmt().stmt(), getReturnType(ctx.typeAndId()));
+        Integer returnStmtType = visit(ctx.stmt());
+        checkReturnTypeCorrespondence(returnStmtType, ctx.typeAndId(), ctx.stmt(), getReturnType(ctx.typeAndId()));
         return returnStmtType;
     }
 
