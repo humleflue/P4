@@ -10,7 +10,7 @@ import tests.Auxiliary.MockErrorListener;
 public class TypeChecker_BooleanExpressionTests extends TypeCheckerTestsBase {
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "binaryBooleanComparisonOperators.csv")
-    public void BooleanComparisonOperators_ShouldPass(String operator) {
+    public void BooleanComparisonOnBooleans_ShouldPass(String operator) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("true", operator);
 
@@ -20,7 +20,7 @@ public class TypeChecker_BooleanExpressionTests extends TypeCheckerTestsBase {
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "equalityOperators.csv")
-    public void EqualityOperators_ShouldPass(String operator) {
+    public void EqualityComparisonOnBooleans_ShouldPass(String operator) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("true", operator);
 
@@ -30,7 +30,7 @@ public class TypeChecker_BooleanExpressionTests extends TypeCheckerTestsBase {
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "numberComparisonOperators.csv")
-    public void NumberComparisonOperators_ShouldThrow(String operator) {
+    public void NumberComparisonOnBooleans_ShouldThrow(String operator) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("true", operator);
 
@@ -40,7 +40,7 @@ public class TypeChecker_BooleanExpressionTests extends TypeCheckerTestsBase {
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "booleanLiterals.csv")
-    public void logicalNot_ShouldThrow(String booleanLiteral) {
+    public void LogicalNotOnBoolean_ShouldPass(String booleanLiteral) {
         // Arrange
         createTreeWithSymbols("!" + booleanLiteral + ";");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(

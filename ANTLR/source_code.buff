@@ -1,6 +1,6 @@
 number fact(number x) =
     if(x == 0 || x == 1)
-        return 1;
+        return true;
     return fact(x - 1)? * x;
     end
 

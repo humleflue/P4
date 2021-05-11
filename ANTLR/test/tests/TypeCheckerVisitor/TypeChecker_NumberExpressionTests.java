@@ -10,7 +10,7 @@ import tests.Auxiliary.MockErrorListener;
 public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "binaryBooleanComparisonOperators.csv")
-    public void BooleanComparisonOperators_ShouldThrow(String operator) {
+    public void BooleanComparisonOnNumbers_ShouldThrow(String operator) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("1", operator);
 
@@ -20,7 +20,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "equalityOperators.csv")
-    public void EqualityOperators_ShouldPass(String operator) {
+    public void EqualityComparisonOnNumbers_ShouldPass(String operator) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("1", operator);
 
@@ -30,7 +30,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "numberComparisonOperators.csv")
-    public void NumberComparisonOperators_ShouldPass(String operator) {
+    public void NumberComparisonOnNumbers_ShouldPass(String operator) {
         // Arrange
         ParseTreeVisitor<Integer> visitor = generateVisitorForLiteralWithBinaryOp("1", operator);
 
@@ -40,7 +40,7 @@ public class TypeChecker_NumberExpressionTests extends TypeCheckerTestsBase {
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "numberLiterals.csv")
-    public void logicalNot_ShouldThrow(String numberLiteral) {
+    public void LogicalNotOnNumber_ShouldThrow(String numberLiteral) {
         // Arrange
         createTreeWithSymbols("!" + numberLiteral + ";");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(

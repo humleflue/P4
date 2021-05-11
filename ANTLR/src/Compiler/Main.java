@@ -27,6 +27,7 @@ public class Main {
             runCompiler(args);
         }
         catch (Exception e){
+
             /** Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
              *  given a message explaining the error and nothing more should be done here.
              */
