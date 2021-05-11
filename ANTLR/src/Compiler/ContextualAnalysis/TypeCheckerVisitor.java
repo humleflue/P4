@@ -64,7 +64,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     @Override
     public Integer visitExprBinaryOp(ExprBinaryOpContext ctx) {
-        int returnType; // initialized to -1 to check if switchcase evaluated
+        int returnType;
 
         // Visit the children to thereby get their type.
         Integer left = visit(ctx.left);
@@ -302,5 +302,4 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
             checkFunction.execute(i);
     }
 }
-
 
