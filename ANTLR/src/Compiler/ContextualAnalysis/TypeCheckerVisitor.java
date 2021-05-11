@@ -150,8 +150,9 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         List<Integer> formalParamTypes = symbol.getParameterTypes();
 
         // Check that the types correspond to each other.
-        checkTypes(i -> checkFormalVsActualParams(actualTypes.get(i), formalParamTypes.get(i),
-                funccallContext, params, i), 0, actualTypes.size());
+        for (int i = 0; i < actualTypes.size(); i++){
+            checkFormalVsActualParams(actualTypes.get(i), formalParamTypes.get(i), funccallContext, params, i);
+        }
 
         return this.defaultResult(); // This is an arbitrary Integer as this value is not used
     }
@@ -203,9 +204,9 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         // Visits each stmts node, and thereby gets their types.
         ArrayList<Integer> stmtsTypes = visitAndGetChildrenTypes(i -> visit(ctx.stmts(i)), stmtsLength);
         Integer amountOfStmts = stmtsTypes.size();
-
-        checkTypes(i -> checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx.typeAndId(), ctx.stmts().get(i).returnStmt().stmt(), returnType),
-                    0, amountOfStmts);
+        for (int i = 0; i < amountOfStmts; i++){
+            checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx.typeAndId(), ctx.stmts().get(i).returnStmt().stmt(), returnType);
+        }
 
         // Visit the rest of the children
         // Check if any funcDefParams exist as if none exist the test will throw an error
@@ -288,18 +289,6 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     @Override
     public Integer visitReturnStmt(ReturnStmtContext ctx) {
         return visit(ctx.stmt());
-    }
-
-
-    /**
-     * Checks type correspondence on given checkFunction
-     * @param checkFunction The function used to test the correspondance
-     * @param from The start index
-     * @param to The end index
-     */
-    private void checkTypes(Action checkFunction, Integer from, Integer to){
-        for (int i = from; i < to; i ++)
-            checkFunction.execute(i);
     }
 }
 

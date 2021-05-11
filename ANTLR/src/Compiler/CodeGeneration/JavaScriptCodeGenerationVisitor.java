@@ -74,7 +74,9 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         // The function will have the same id in the generated code.
         result += visit(typeAndId);
         result += "(";
-        result += visit(funcParams);
+        if(funcParams != null){
+            result += visit(funcParams);
+        }
         result += ") { ";
 
         return result;
