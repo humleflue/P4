@@ -59,10 +59,10 @@ public class SymbolTableTests extends BaseTest {
         SymbolTableGeneratorListener symbolTable = getWalker(tree);
 
         // Act
+        Scope functionScope = symbolTable.scopes.get(((ProgContext)tree).getChild(CodeFuncdefContext.class, 0).funcDef());
+        Symbol symbol = functionScope.getSymbol("func");
+
         // Assert
-        Assertions.assertDoesNotThrow(()->{
-            Symbol actual = symbolTable.globalScope.getSymbol("fun2c"); // TODO: This should throw. Does not right now
-            System.out.println(actual);
-        });
+        Assertions.assertNotNull(symbol);
     }
 }
