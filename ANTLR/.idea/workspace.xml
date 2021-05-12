@@ -6,12 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Fixed a mistake in the grammar.">
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Fixed wrong lexer test case.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Buff.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Buff.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source_code.buff" beforeDir="false" afterPath="$PROJECT_DIR$/source_code.buff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_BooleanExpressionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_BooleanExpressionTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_IfSentenceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_NumberExpressionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/TypeCheckerVisitor/TypeChecker_NumberExpressionTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +32,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -78,7 +79,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.13908207" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -93,7 +94,7 @@
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.All in ANTLR">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
@@ -185,8 +186,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in ANTLR" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests" />
         <item itemvalue="JUnit.TypeChecker_IfSentenceTests.SimpleBooleanTypeInIfSentence_ShouldPass" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests.CorrespondingReturnTypes_ShouldPass" />
@@ -235,6 +236,11 @@
       <workItem from="1620024414431" duration="11796000" />
       <workItem from="1620040956728" duration="4001000" />
       <workItem from="1620126084355" duration="7523000" />
+      <workItem from="1620213000680" duration="4330000" />
+      <workItem from="1620377766863" duration="6150000" />
+      <workItem from="1620674784169" duration="713000" />
+      <workItem from="1620675826180" duration="726000" />
+      <workItem from="1620759199762" duration="796000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
@@ -299,7 +305,70 @@
       <option name="project" value="LOCAL" />
       <updated>1619687360098</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Cleanup">
+      <created>1620217340982</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1620217340982</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fix issue 42">
+      <created>1620380825796</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1620380825796</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Fix issue 43">
+      <created>1620380884985</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1620380884985</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added tests for numbers working on all types of operators.">
+      <created>1620381477118</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1620381477118</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Renamed symbol table. Resolved warnings.">
+      <created>1620382072893</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1620382072893</updated>
+    </task>
+    <task id="LOCAL-00015" summary="This fixes &quot;Tree is null&quot; error">
+      <created>1620652356575</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1620652356575</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Fix merge errors">
+      <created>1620652720126</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1620652720126</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Fix wrong implementation of the error listener mock">
+      <created>1620652763449</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1620652763449</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Fixed wrong lexer test case.">
+      <created>1620653693037</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1620653693037</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,7 +395,17 @@
     <MESSAGE value="Merge with HEAD" />
     <MESSAGE value="Revised grammar" />
     <MESSAGE value="Fixed a mistake in the grammar." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed a mistake in the grammar." />
+    <MESSAGE value="Cleanup" />
+    <MESSAGE value="Fix issue 42" />
+    <MESSAGE value="Fix issue 43" />
+    <MESSAGE value="Added tests for numbers working on all types of operators." />
+    <MESSAGE value="Renamed symbol table" />
+    <MESSAGE value="Renamed symbol table. Resolved warnings." />
+    <MESSAGE value="This fixes &quot;Tree is null&quot; error" />
+    <MESSAGE value="Fix merge errors" />
+    <MESSAGE value="Fix wrong implementation of the error listener mock" />
+    <MESSAGE value="Fixed wrong lexer test case." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed wrong lexer test case." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -339,11 +418,10 @@
           <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="4" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Compiler/Main.java</url>
-          <line>85</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="7" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

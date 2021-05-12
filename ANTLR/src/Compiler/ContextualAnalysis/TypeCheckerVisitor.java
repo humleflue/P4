@@ -70,30 +70,49 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
 
-        if(!left.equals(right))
-            throwTypeError(left, right, "On operation " + ctx.op.getText(), ctx.op);
-
         // Now we know that the two operators are of the same type: 'left == right' // true
-
+        String errorText = "On operation" + ctx.op.getText() + ". Must be number type";
         switch (ctx.op.getType()) {
-            case PLUS, MINUS, MULTIPLY, DIVIDE, POW ->
+            case PLUS, MINUS, MULTIPLY, DIVIDE, POW -> {
+                if(left != NUMTYPE || right != NUMTYPE)
+                    throwTypeError(left, right, errorText, ctx.op);
                 returnType = NUMTYPE;
-            case LOGAND, LOGOR ->
-                returnType = BOOLTYPE;
-            case LOGEQ, LOGNOTEQ -> {
-                if (left != right)
-                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be same type", ctx.op);
-                returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
             }
             case LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
                 if (left != NUMTYPE || right != NUMTYPE)
-                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be number type", ctx.op);
-                returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
+                    throwTypeError(left, right, errorText, ctx.op);
+                returnType = BOOLTYPE;
+            }
+            case LOGAND, LOGOR -> {
+                if(left != BOOLTYPE || right != BOOLTYPE)
+                        throwTypeError(left, right, errorText, ctx.op);
+                returnType = BOOLTYPE;
+            }
+            case LOGEQ, LOGNOTEQ -> {
+                if(!left.equals(right))
+                    throwTypeError(left, right, errorText, ctx.op);
+                returnType = BOOLTYPE;
             }
             default -> throw new IllegalArgumentException("Type not found by typechecker.");
         }
 
         return returnType;
+    }
+
+    @Override
+    public Integer visitExprUnaryOp(ExprUnaryOpContext ctx) {
+        Integer exprType = visit(ctx.expr());
+        if(exprType != BOOLTYPE) {
+            String typeName = VOCABULARY.getLiteralName(exprType);
+            String errorMsg = String.format("Incompatible type: Type %s is incompatible on operation NOT.", typeName);
+            errorListener.ThrowError(errorMsg, ctx.op);
+        }
+        return BOOLTYPE;
+    }
+
+    @Override
+    public Integer visitExprParenthesised(ExprParenthesisedContext ctx) {
+        return visit(ctx.expr());
     }
 
     @Override

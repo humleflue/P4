@@ -1,7 +1,9 @@
 number fact(number x) =
     if(x == 0 || x == 1)
-        return 1;
+        return x;
     return fact(x - 1)? * x;
     end
 
 fact(10)?;
+
+number foo() = if(true) return 1; return 0; end
