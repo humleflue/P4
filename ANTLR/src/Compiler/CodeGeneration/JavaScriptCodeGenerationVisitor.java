@@ -210,7 +210,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
             result += getStringFromTokenList(i -> String.format("${%s},", exprParamsArray[i]),
                     exprParamsArray.length - 1);
 
-            // Adds result of the last parameter to the string
+            // Adds result of the last parameter to the string (parameters can be expressions)
             result += String.format("${%s}", exprParamsArray[exprParamsArray.length - 1]);
         }
 
