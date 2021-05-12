@@ -201,21 +201,32 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     public String visitExprFunccallPrint(ExprFunccallPrintContext ctx) {
         String exprParams = visit(ctx.funcCall().exprParams());
 
-        String result = "(()=>{";
-        result += String.format("let res = %s(%s);", GetFuncName(ctx.funcCall()), exprParams);
-        result += String.format("console.log(`%s(", GetFuncName(ctx.funcCall()));
+        String result = initiatePrintFunction(ctx, exprParams);
 
         if (!exprParams.isEmpty()) {
             String[] exprParamsArray = exprParams.split(",");
 
+            // Adds result of the parameters to the string (parameters can be expressions)
             result += getStringFromTokenList(i -> String.format("${%s},", exprParamsArray[i]),
                     exprParamsArray.length - 1);
 
+            // Adds result of the last parameter to the string (parameters can be expressions)
             result += String.format("${%s}", exprParamsArray[exprParamsArray.length - 1]);
         }
 
-        result += ") => ${res}`); return res;})()";
+        result += terminatePrintFunction();
         return result;
+    }
+
+    private String initiatePrintFunction(ExprFunccallPrintContext ctx, String exprParams){
+        String result = "(()=>{";
+        result += String.format("let res = %s(%s);", GetFuncName(ctx.funcCall()), exprParams);
+        result += String.format("console.log(`%s(", GetFuncName(ctx.funcCall()));
+        return result;
+    }
+
+    private String terminatePrintFunction(){
+        return ") => ${res}`); return res;})()";
     }
 
     /**
