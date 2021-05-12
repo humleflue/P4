@@ -1,16 +1,17 @@
 package tests.SymbolTable;
 
-import Compiler.AntlrGenerated.BuffLexer;
-import Compiler.ErrorHandling.UnderlineErrorListener;
+import Compiler.AntlrGenerated.BuffParser.*;
+import Compiler.SymbolTable.Scope;
+import Compiler.SymbolTable.Symbol;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import tests.Auxiliary.BaseTest;
 import tests.Auxiliary.MockErrorListener;
-import tests.Auxiliary.TestCase;
-
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,19 +23,46 @@ public class SymbolTableTests extends BaseTest {
         return symbolTableGeneratorListener;
     }
 
-    @Test
-    @DisplayName("Check type for 'number func' - given number - is true")
-    public void GivenNumberType_ReturnsNumberType() throws IOException {
+    @ParameterizedTest
+    @CsvFileSource(resources = testPath + "functionReturnTypeTest.csv")
+    public void GivenRetunType_ReturnsGivenType(String sourceCode, int type) {
         // Arrange
-        ParseTree tree = createTree("number func() = return 1; end");
+        ParseTree tree = createTree(sourceCode);
         SymbolTableGeneratorListener symbolTable = getWalker(tree);
 
         // Act
-        int expected = BuffLexer.NUMTYPE;
         int actual = symbolTable.globalScope.getSymbol("func").getType();
 
         // Assert
-        assertEquals(expected, actual);
+        assertEquals(actual, type);
     }
-    
+
+    @ParameterizedTest
+    @CsvFileSource(resources = testPath + "functionParameterTest.csv")
+    public void functionParameterExists_CanBeFoundInSymbolTable(String sourceCode, String parameter, int type) {
+        // Arrange
+        ParseTree tree = createTree(sourceCode);
+        SymbolTableGeneratorListener symbolTable = getWalker(tree);
+        // Act
+        // Gets the scope for the specific function. Requires that the tree is parsed to a ParseRuleContext.
+        Scope functionScope = symbolTable.scopes.get(((ProgContext)tree).getChild(CodeFuncdefContext.class, 0).funcDef());
+        int actualType = functionScope.getSymbol(parameter).getType();
+
+        // Assert
+        assertEquals(type, actualType);
+    }
+
+    @Test
+    public void lookUpFunctionInEnclosedScope_FunctionIsFound(){
+        // Arrange
+        ParseTree tree = createTree("number func() = 1;");
+        SymbolTableGeneratorListener symbolTable = getWalker(tree);
+
+        // Act
+        // Assert
+        Assertions.assertDoesNotThrow(()->{
+            Symbol actual = symbolTable.globalScope.getSymbol("fun2c"); // TODO: This should throw. Does not right now
+            System.out.println(actual);
+        });
+    }
 }

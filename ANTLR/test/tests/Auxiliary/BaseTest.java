@@ -15,34 +15,41 @@ public class BaseTest {
     UnderlineErrorListener errorListener = new UnderlineErrorListener();
 
 
-    protected CodePointCharStream createCharStream(String sourceCode) throws IOException {
-        return CharStreams.fromReader(new StringReader(sourceCode));
+    protected CodePointCharStream createCharStream(String sourceCode) {
+        try {
+            return CharStreams.fromReader(new StringReader(sourceCode));
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            // Something has to be returned.
+            return null;
+        }
     }
 
-    protected BuffLexer createLexer(String sourceCode) throws IOException {
+    protected BuffLexer createLexer(String sourceCode) {
         CodePointCharStream stream = createCharStream(sourceCode);
         return new BuffLexer(stream);
     }
 
-    protected CommonTokenStream createCommonTokenStream(String sourceCode) throws IOException {
+    protected CommonTokenStream createCommonTokenStream(String sourceCode) {
         BuffLexer lexer = createLexer(sourceCode);
         lexer.removeErrorListeners();
         lexer.addErrorListener(errorListener);
         return new CommonTokenStream(lexer);
     }
 
-    protected BuffParser createParser(String sourceCode) throws IOException {
+    protected BuffParser createParser(String sourceCode) {
         CommonTokenStream tokens = createCommonTokenStream(sourceCode);
         return new BuffParser(tokens);
     }
 
-    protected ParseTree createTree(String sourceCode) throws IOException {
+    protected ParseTree createTree(String sourceCode) {
         BuffParser parser = createParser(sourceCode);
         parser.addErrorListener(errorListener);
         return parser.prog();
     }
     
-    protected int getNumberOfSyntaxErrors(String sourceCode) throws IOException {
+    protected int getNumberOfSyntaxErrors(String sourceCode) {
         BuffParser parser = createParser(sourceCode);
         parser.prog();
         return parser.getNumberOfSyntaxErrors();
