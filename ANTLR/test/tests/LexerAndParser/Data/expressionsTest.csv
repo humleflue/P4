@@ -1,1 +1,1 @@
-"number test() = if (1 || (2 && 3) == 4 != 5 > 6 >= 7 < 8 <= 9^3 + 10 - 11 * 12 / 13) return 1; return 2; end test()?;"
+"number test() = if (1 OR (2 AND 3) IS 4 IS NOT 5 > 6 >= 7 < 8 <= 9^3 + 10 - 11 * 12 / 13) return 1; return 2; end test()?;"

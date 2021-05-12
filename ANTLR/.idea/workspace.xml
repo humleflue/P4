@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Fixed wrong lexer test case." />
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Replaced &quot;==&quot; with &quot;IS&quot;, &quot;!=&quot; with &quot;IS NOT&quot; etc." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,8 +42,8 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/.idea/workspace.xml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.idea/workspace.xml" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1qcaGocVwLkoEKS1iZtdAzeICch" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -98,6 +98,17 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -348,7 +359,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620653693037</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Removed deprecated files">
+      <created>1620811241523</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1620811241523</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Replaced &quot;==&quot; with &quot;IS&quot;, &quot;!=&quot; with &quot;IS NOT&quot; etc.">
+      <created>1620811283158</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1620811283158</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,7 +410,9 @@
     <MESSAGE value="Fix merge errors" />
     <MESSAGE value="Fix wrong implementation of the error listener mock" />
     <MESSAGE value="Fixed wrong lexer test case." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed wrong lexer test case." />
+    <MESSAGE value="Removed deprecated files" />
+    <MESSAGE value="Replaced &quot;==&quot; with &quot;IS&quot;, &quot;!=&quot; with &quot;IS NOT&quot; etc." />
+    <option name="LAST_COMMIT_MESSAGE" value="Replaced &quot;==&quot; with &quot;IS&quot;, &quot;!=&quot; with &quot;IS NOT&quot; etc." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -33,7 +33,7 @@ public abstract class TypeCheckerTestsBase extends BaseTest {
     }
 
     protected ParseTreeVisitor<Integer> generateVisitorForLiteralWithBinaryOp(String literal, String op) {
-        return generateVisitor(literal + op + literal + ";");
+        return generateVisitor(literal + " " + op + " " + literal + ";");
     }
 
     protected ParseTreeVisitor<Integer> generateVisitor(String sourceCode) {
