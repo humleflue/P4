@@ -65,4 +65,41 @@ public class SymbolTableTests extends BaseTest {
         // Assert
         Assertions.assertNotNull(symbol);
     }
+
+    @Test
+    public void lookUpFunctionThatDoesNotExist_returnsNull(){
+        // Arrange
+        ParseTree tree = createTree("number func() = 1;");
+        SymbolTableGeneratorListener symbolTable = getWalker(tree);
+
+        // Act
+        Symbol symbol = symbolTable.globalScope.getSymbol("funcDoesNotExist");
+
+        // Assert
+        Assertions.assertNull(symbol);
+    }
+
+    @Test
+    public void twoParametersWithSameName_throws(){
+        // Arrange
+        ParseTree tree = createTree("number func(number x, boolean x) = 1;");
+
+        // Act
+        // Assert
+        Assertions.assertThrows(Exception.class, () -> {
+            SymbolTableGeneratorListener symbolTable = getWalker(tree);
+        });
+    }
+
+    @Test
+    public void twoFunctionsWithSameName_throws(){
+        // Arrange
+        ParseTree tree = createTree("number func() = 1; boolean func() = true;");
+
+        // Act
+        // Assert
+        Assertions.assertThrows(Exception.class, () -> {
+            SymbolTableGeneratorListener symbolTable = getWalker(tree);
+        });
+    }
 }
