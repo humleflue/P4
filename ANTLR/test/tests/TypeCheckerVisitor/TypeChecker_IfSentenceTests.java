@@ -46,7 +46,7 @@ public class TypeChecker_IfSentenceTests extends TypeCheckerTestsBase {
     @Test
     public void NegateWithBoolInIfSentence_ShouldPass() {
         // Arrange
-        createTreeWithSymbols("boolean f() = if(!true) return true; return true; end");
+        createTreeWithSymbols("boolean f() = if(NOT true) return true; return true; end");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
                 symbolTable.globalScope, symbolTable.scopes, new MockErrorListener());
         // Act & Assert

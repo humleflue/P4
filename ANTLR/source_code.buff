@@ -1,5 +1,5 @@
 number fact(number x) =
-    if(x == 0 || x == 1)
+    if(x IS 0 OR x IS 1)
         return x;
     return fact(x - 1)? * x;
     end
