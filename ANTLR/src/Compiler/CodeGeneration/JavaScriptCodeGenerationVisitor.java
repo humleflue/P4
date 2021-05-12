@@ -206,7 +206,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         if (!exprParams.isEmpty()) {
             String[] exprParamsArray = exprParams.split(",");
 
-            // Adds result of the parameters to the string
+            // Adds result of the parameters to the string (parameters can be expressions)
             result += getStringFromTokenList(i -> String.format("${%s},", exprParamsArray[i]),
                     exprParamsArray.length - 1);
 
