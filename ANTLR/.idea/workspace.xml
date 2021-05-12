@@ -6,7 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Cleanup" />
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Fixed a mistake in the grammar.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Buff.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Buff.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,8 +48,8 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/.idea/workspace.xml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1qcaGocVwLkoEKS1iZtdAzeICch" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -102,13 +108,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -227,7 +235,6 @@
       <workItem from="1620024414431" duration="11796000" />
       <workItem from="1620040956728" duration="4001000" />
       <workItem from="1620126084355" duration="7523000" />
-      <workItem from="1620213000680" duration="4330000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
@@ -292,14 +299,7 @@
       <option name="project" value="LOCAL" />
       <updated>1619687360098</updated>
     </task>
-    <task id="LOCAL-00010" summary="Cleanup">
-      <created>1620217340982</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1620217340982</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,8 +326,7 @@
     <MESSAGE value="Merge with HEAD" />
     <MESSAGE value="Revised grammar" />
     <MESSAGE value="Fixed a mistake in the grammar." />
-    <MESSAGE value="Cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed a mistake in the grammar." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

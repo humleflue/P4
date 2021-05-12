@@ -3,11 +3,11 @@ package Compiler.ContextualAnalysis;
 import Compiler.AntlrGenerated.BuffBaseListener;
 import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.ErrorHandling.BuffErrorListener;
-import Compiler.ErrorHandling.UnderlineErrorListener;
 import Compiler.SymbolTable.BaseScope;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
@@ -29,13 +29,23 @@ public class ReferenceCheckerListener extends BuffBaseListener{
     }
 
     @Override
-    public void enterFuncDef(FuncDefContext ctx) {
-        currentScope = scopes.get(ctx);
+    public void enterMultiLineFunction(MultiLineFunctionContext ctx) {
+        openScope(ctx);
     }
 
     @Override
-    public void exitFuncDef(FuncDefContext ctx) {
-        currentScope = currentScope.getEnclosingScope();
+    public void exitMultiLineFunction(MultiLineFunctionContext ctx) {
+        closeScope();
+    }
+
+    @Override
+    public void enterOneLineFunction(OneLineFunctionContext ctx) {
+        openScope(ctx);
+    }
+
+    @Override
+    public void exitOneLineFunction(OneLineFunctionContext ctx) {
+        closeScope();
     }
 
     @Override
@@ -64,6 +74,21 @@ public class ReferenceCheckerListener extends BuffBaseListener{
                     " arguments but was called with " + callArgCount;
             errorListener.ThrowError(errorMsg, ctx.exprParams().getStart());
         }
+    }
+
+    /**
+     * Sets the current scope to be the scope of the given node
+     * @param ctx The node which scope we want
+     */
+    private void openScope(ParserRuleContext ctx){
+        currentScope = scopes.get(ctx);
+    }
+
+    /**
+     * Sets the current scope to be the enclosing scope of the current scope
+     */
+    private void closeScope(){
+        currentScope = currentScope.getEnclosingScope();
     }
 
     /**

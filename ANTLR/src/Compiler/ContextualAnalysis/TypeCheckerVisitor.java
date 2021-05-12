@@ -6,6 +6,7 @@ import Compiler.ErrorHandling.BuffErrorListener;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
+import Compiler.SymbolTable.Action;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
@@ -77,14 +78,19 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         switch (ctx.op.getType()) {
             case PLUS, MINUS, MULTIPLY, DIVIDE, POW ->
                 returnType = NUMTYPE;
-            case LOGAND, LOGOR, LOGEQ, LOGNOTEQ ->
+            case LOGAND, LOGOR ->
                 returnType = BOOLTYPE;
+            case LOGEQ, LOGNOTEQ -> {
+                if (left != right)
+                    throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be same type", ctx.op);
+                returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
+            }
             case LOGLESS, LOGGREATER, LOGLESSOREQ, LOGGREATEROREQ -> {
                 if (left != NUMTYPE || right != NUMTYPE)
                     throwTypeError(left, right, "On operation" + ctx.op.getText() + ". Must be number type", ctx.op);
                 returnType = BOOLTYPE; // left and right contains same value (integer presenting their type)
             }
-            default -> throw new IllegalArgumentException("Type not found by type checker.");
+            default -> throw new IllegalArgumentException("Type not found by typechecker.");
         }
 
         return returnType;
@@ -125,7 +131,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     /**
      * Type checks a function's parameters.
-     * @param ctx The function parameter's tree node.
+     * @param ctx The function parameters' tree node.
      * @return An arbitrary Integer as this value is not used.
      */
     @Override
@@ -144,8 +150,9 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         List<Integer> formalParamTypes = symbol.getParameterTypes();
 
         // Check that the types correspond to each other.
-        for (int i = 0; i < actualTypes.size(); i ++)
-            checkFormalVsActualParams(actualTypes.get(i), formalParamTypes.get(i), params.get(i).start);
+        for (int i = 0; i < actualTypes.size(); i++){
+            checkFormalVsActualParams(actualTypes.get(i), formalParamTypes.get(i), funccallContext, params, i);
+        }
 
         return this.defaultResult(); // This is an arbitrary Integer as this value is not used
     }
@@ -154,12 +161,16 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * Checks whether or not the actual and formal parameter types match
      * @param actual The actual parameter
      * @param formal The formal parameter
-     * @param token The actual param token which is being tested
+     * @param funccall The Funccall in hand
+     * @param params The list of parameters
+     * @param index The index of the parameter
      */
-    private void checkFormalVsActualParams(Integer actual, Integer formal, Token token){
+    private void checkFormalVsActualParams(Integer actual, Integer formal, FuncCallContext funccall, List<ExprContext> params,
+                                           Integer index){
         if(!actual.equals(formal))
             throwTypeError(actual, formal,
-                    "Parameter type does not match expected type from definition.", token);
+                    "Parameter type at \"" + funccall.ID().getText() +
+                            "\" call does not match expected type from definition", params.get(index).start);
     }
 
     /**
@@ -174,35 +185,50 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return symbol.getType();
     }
 
+
     /**
-     * Type check the functions definition's return type corresponds to it's return statement's type.
+     * Type check the function definition's return types corresponds to it's return statement's type.
      * @param ctx The function definition's tree node.
      * @return The return type of the function definition.
      */
     @Override
-    public Integer visitFuncDef(FuncDefContext ctx) {
+    public Integer visitMultiLineFunction(MultiLineFunctionContext ctx) {
         // Check return statement's return type
+        Integer returnType = getReturnType(ctx.typeAndId());
         Integer returnStmtType = visit(ctx.returnStmt());
-        checkReturnTypeCorrespondence(returnStmtType, ctx.typeAndId(), ctx.returnStmt());
+        checkReturnTypeCorrespondence(returnStmtType, ctx.typeAndId(), ctx.returnStmt().stmt(), returnType);
 
         //Gets lists of stmt nodes in the actual parameters
         Integer stmtsLength =  ctx.getRuleContexts(StmtsContext.class).size();
 
         // Visits each stmts node, and thereby gets their types.
         ArrayList<Integer> stmtsTypes = visitAndGetChildrenTypes(i -> visit(ctx.stmts(i)), stmtsLength);
-
-        // If more than one statement is present all of the return types must be checked.
-        for(int i = 0; i < stmtsTypes.size(); i++)
-            checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx.typeAndId(), ctx.stmts().get(i).returnStmt());
+        Integer amountOfStmts = stmtsTypes.size();
+        for (int i = 0; i < amountOfStmts; i++){
+            checkReturnTypeCorrespondence(stmtsTypes.get(i), ctx.typeAndId(), ctx.stmts().get(i).returnStmt().stmt(), returnType);
+        }
 
         // Visit the rest of the children
-        // Check if any funcDefParams exist, because if none exist the test will throw an error if vi visit it
+        // Check if any funcDefParams exist as if none exist the test will throw an error
         if (ctx.funcDefParams() != null)
             visit(ctx.funcDefParams());
 
         // Returns the type of the function
+        return returnType;
+    }
+
+    /**
+     * Type check the functions definition's return type corresponds to it's return statement's type.
+     * @param ctx The function definition's tree node.
+     * @return The return type of the function definition.
+     */
+    @Override
+    public Integer visitOneLineFunction(OneLineFunctionContext ctx) {
+        Integer returnStmtType = visit(ctx.stmt());
+        checkReturnTypeCorrespondence(returnStmtType, ctx.typeAndId(), ctx.stmt(), getReturnType(ctx.typeAndId()));
         return returnStmtType;
     }
+
 
     private ArrayList<Integer> visitAndGetChildrenTypes(Lambda<Integer> visitChild, Integer size) {
         ArrayList<Integer> types = new ArrayList<>();
@@ -217,23 +243,25 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * Checks whether or not a functions return statement type matches the type defined in function definition.
      * Calls ThrowError in the errorListener if not.
      * @param stmtType The type that the statement returns
-     * @param typeAndIdContext The node for the function definition
-     * @param returnStmtContext The node for the statement being checked. Used for underlining
+     * @param ctx The node for the function definition
+     * @param stmt The node for the statement being checked. Used for underlining
      */
-    private void checkReturnTypeCorrespondence(Integer stmtType, TypeAndIdContext typeAndIdContext, ReturnStmtContext returnStmtContext) {
-        String functionId = typeAndIdContext.ID().getText();
+    private void checkReturnTypeCorrespondence(Integer stmtType, TypeAndIdContext ctx, StmtContext stmt, Integer funcDefReturnType) {
+        // Evaluate if the types are the same.
+        if(!funcDefReturnType.equals(stmtType)){
+            String errorMsg = String.format("Incompatible type: Type %s is incompatible with %s. ",
+                    VOCABULARY.getLiteralName(funcDefReturnType), VOCABULARY.getLiteralName(stmtType));
+            errorMsg += "Does not return expected type in function definition: " + ctx.ID().getText();
+            errorListener.ThrowError(errorMsg, stmt, ctx.type().start);
+        }
+    }
+
+    private Integer getReturnType(TypeAndIdContext ctx){
+        String functionId = ctx.ID().getText();
 
         // Retrieve the function's return type from the symbol table
         Symbol symbol = globalScope.getSymbol(functionId);
-        Integer funcdefReturnType = symbol.getType();
-
-        // Evaluate if the types are the same.
-        if(!funcdefReturnType.equals(stmtType)){
-            String errorMsg = String.format("Incompatible type: Type %s is incompatible with %s. ",
-                    VOCABULARY.getLiteralName(funcdefReturnType), VOCABULARY.getLiteralName(stmtType));
-            errorMsg += "Does not return expected type in function definition: " + functionId;
-            errorListener.ThrowError(errorMsg, returnStmtContext.stmt(), typeAndIdContext.type().start);
-        }
+        return symbol.getType();
     }
 
     @Override
@@ -263,5 +291,4 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return visit(ctx.stmt());
     }
 }
-
 
