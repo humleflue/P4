@@ -2,14 +2,10 @@ package Compiler.SymbolTable;
 
 import Compiler.AntlrGenerated.BuffBaseListener;
 import Compiler.AntlrGenerated.BuffParser.*;
-import Compiler.ContextualAnalysis.Lambda;
 import Compiler.ErrorHandling.BuffErrorListener;
-import Compiler.ErrorHandling.UnderlineErrorListener;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
-import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,42 +29,78 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     }
 
     @Override
-    public void enterFuncDef(FuncDefContext ctx) {
-        //Gets lists of parameters as ParseRuleContexts
-        FuncDefParamsContext funcDefParamsContext =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
-
-        ArrayList<Integer> argumentList = getArguments(funcDefParamsContext);
-
+    public void enterMultiLineFunction(MultiLineFunctionContext ctx) {
+        //Gets lists of parameters and converts them into a list of types
+        FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
+        ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
         try {
             currentScope.defineSymbol(symbol);
-        } catch (Exception e){
+        }
+        catch (Exception e){
             errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
         }
 
         // Making new scope for function body
-        Scope newScope = new BaseScope(currentScope);
-        attachScope(ctx, newScope);
-        currentScope = newScope;
-    }
-
-    /**
-     * Auxiliary function for enterFuncDef, which retrieves the arguments from a function definition.
-     * @param ctx The FuncDefParamsContext which the arguments should be extracted from.
-     * @return A list of the arguments
-     */
-    private ArrayList<Integer> getArguments(FuncDefParamsContext ctx) {
-        ArrayList<Integer> args = new ArrayList<>();
-        if (ctx != null) {
-            for (int i = 0; i < ctx.typeAndId().size(); i++)
-                args.add(ctx.typeAndId(i).type().start.getType());
-        }
-        return args;
+        makeAndAttachNewScope(ctx);
     }
 
     @Override
-    public void exitFuncDef(FuncDefContext ctx) {
+    public void exitMultiLineFunction(MultiLineFunctionContext ctx) {
+        closeScope();
+    }
+
+
+    @Override
+    public void enterOneLineFunction(OneLineFunctionContext ctx) {
+        //Gets lists of parameters and converts them into a list of types
+        FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
+        ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
+        FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
+        try {
+            currentScope.defineSymbol(symbol);
+        }
+        catch (Exception e){
+            errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
+        }
+
+        // Making new scope for function body
+        makeAndAttachNewScope(ctx);
+    }
+
+    @Override
+    public void exitOneLineFunction(OneLineFunctionContext ctx) {
+        closeScope();
+    }
+
+    /**
+     * Iterates through all typeAndIds in a FuncDefParamsContext and returns a list of the types.
+     * @param ctx
+     * @return A list of types
+     */
+    private ArrayList<Integer> getFuncDefParamTypes(FuncDefParamsContext ctx){
+        ArrayList<Integer> argumentList = new ArrayList<>();
+        if (ctx != null) {
+            ctx.typeAndId().forEach(x -> argumentList.add(x.type().getStart().getType()));
+        }
+        return argumentList;
+    }
+
+    /**
+     * Sets the current scope to be the enclosing scope of the current scope
+     */
+    private void closeScope(){
         currentScope = currentScope.getEnclosingScope();
+    }
+
+    /**
+     * Creates a new scope, attatches the current scope to ctx and sets current scope to the new scope.
+     * @param ctx
+     */
+    private void makeAndAttachNewScope(ParserRuleContext ctx){
+        Scope newScope = new BaseScope(currentScope);
+        attachScope(ctx, newScope);
+        currentScope = newScope;
     }
 
     @Override

@@ -43,30 +43,51 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         return visit(ctx.stmt());
     }
 
+
     /**
-     * Generates code for a function definition node.
+     * Generates code for an if function definition node.
      * @param ctx The tree node in question.
      * @return A string of the form: {@code "function id(param0, param1 , ... , paramN) &#123; functionBody &#125;}".
      */
     @Override
-    public String visitFuncDef(FuncDefContext ctx) {
-        String result = "function ";
-
-        // The function will have the same id in the generated code.
-        result += visit(ctx.typeAndId());
-        result += "(";
-        if(ctx.funcDefParams() != null)
-            result += visit(ctx.funcDefParams());
-        result += ") { ";
+    public String visitMultiLineFunction(MultiLineFunctionContext ctx) {
+        String result = initiateFuncDef(ctx.typeAndId(), ctx.funcDefParams());
 
         int stmtsSize =  ctx.getRuleContexts(StmtsContext.class).size();
 
-        result += getStringFromTokenList(i -> visit(ctx.stmts(i)), stmtsSize);
+        result += getStringFromTokenList(i -> visit(ctx.stmts(i)),  stmtsSize);
 
-        result += visitReturnStmt(ctx.returnStmt());
-        result += "} ";
+        result += endFunction(ctx.returnStmt());
 
         return result;
+
+    }
+
+    @Override
+    public String visitOneLineFunction(OneLineFunctionContext ctx) {
+        return initiateFuncDef(ctx.typeAndId(), ctx.funcDefParams()) + endFunction(ctx.stmt());
+    }
+
+    private String initiateFuncDef(TypeAndIdContext typeAndId, FuncDefParamsContext funcParams){
+        String result = "function ";
+
+        // The function will have the same id in the generated code.
+        result += visit(typeAndId);
+        result += "(";
+        if(funcParams != null){
+            result += visit(funcParams);
+        }
+        result += ") { ";
+
+        return result;
+    }
+
+    private String endFunction(StmtContext stmt){
+        return "return " + visit(stmt) + "} ";
+    }
+
+    private String endFunction(ReturnStmtContext returnStmt){
+        return visit(returnStmt) + "} ";
     }
 
     @Override
