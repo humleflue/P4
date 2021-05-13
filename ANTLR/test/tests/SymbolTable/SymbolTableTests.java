@@ -25,7 +25,7 @@ public class SymbolTableTests extends BaseTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "functionReturnTypeTest.csv")
-    public void GivenRetunType_ReturnsGivenType(String sourceCode, int type) {
+    public void givenFunctionDefinitionWithReturnType_CorrectTypeSavedInSymbolTable(String sourceCode, int type) {
         // Arrange
         ParseTree tree = createTree(sourceCode);
         SymbolTableGeneratorListener symbolTable = getWalker(tree);
