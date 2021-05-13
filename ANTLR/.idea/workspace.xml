@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Replaced &quot;==&quot; with &quot;IS&quot;, &quot;!=&quot; with &quot;IS NOT&quot; etc." />
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Removed TestCase stuff." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,7 +87,7 @@
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.All in ANTLR">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
@@ -102,13 +102,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -125,12 +127,12 @@
       <module name="ANTLR" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tests.TypeCheckerVisitor.*" />
+          <option name="PATTERN" value="tests.TypeChecker.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="tests.TypeCheckerVisitor" />
-      <option name="MAIN_CLASS_NAME" value="tests.TypeCheckerVisitor.TypeChecker_FuncdefReturnTypeTests" />
+      <option name="PACKAGE_NAME" value="tests.TypeChecker" />
+      <option name="MAIN_CLASS_NAME" value="tests.TypeChecker.TypeChecker_FuncdefReturnTypeTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -140,12 +142,12 @@
       <module name="ANTLR" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tests.TypeCheckerVisitor.*" />
+          <option name="PATTERN" value="tests.TypeChecker.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="tests.TypeCheckerVisitor" />
-      <option name="MAIN_CLASS_NAME" value="tests.TypeCheckerVisitor.TypeChecker_FuncdefReturnTypeTests" />
+      <option name="PACKAGE_NAME" value="tests.TypeChecker" />
+      <option name="MAIN_CLASS_NAME" value="tests.TypeChecker.TypeChecker_FuncdefReturnTypeTests" />
       <option name="METHOD_NAME" value="CorrespondingReturnTypes_ShouldPass(java.lang.String,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -156,12 +158,12 @@
       <module name="ANTLR" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tests.TypeCheckerVisitor.*" />
+          <option name="PATTERN" value="tests.TypeChecker.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="tests.TypeCheckerVisitor" />
-      <option name="MAIN_CLASS_NAME" value="tests.TypeCheckerVisitor.TypeChecker_IfSentenceTests" />
+      <option name="PACKAGE_NAME" value="tests.TypeChecker" />
+      <option name="MAIN_CLASS_NAME" value="tests.TypeChecker.TypeChecker_IfSentenceTests" />
       <option name="METHOD_NAME" value="SimpleBooleanTypeInIfSentence_ShouldPass(java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -177,8 +179,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in ANTLR" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests" />
         <item itemvalue="JUnit.TypeChecker_IfSentenceTests.SimpleBooleanTypeInIfSentence_ShouldPass" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests.CorrespondingReturnTypes_ShouldPass" />
@@ -232,6 +234,7 @@
       <workItem from="1620674784169" duration="713000" />
       <workItem from="1620675826180" duration="726000" />
       <workItem from="1620759199762" duration="796000" />
+      <workItem from="1620888607191" duration="484000" />
     </task>
     <task id="LOCAL-00001" summary="WIP">
       <created>1617614552494</created>
@@ -373,7 +376,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620811283158</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Refactoring.">
+      <created>1620888850691</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1620888850691</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Removed TestCase stuff.">
+      <created>1620889076095</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1620889076095</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -412,7 +429,9 @@
     <MESSAGE value="Fixed wrong lexer test case." />
     <MESSAGE value="Removed deprecated files" />
     <MESSAGE value="Replaced &quot;==&quot; with &quot;IS&quot;, &quot;!=&quot; with &quot;IS NOT&quot; etc." />
-    <option name="LAST_COMMIT_MESSAGE" value="Replaced &quot;==&quot; with &quot;IS&quot;, &quot;!=&quot; with &quot;IS NOT&quot; etc." />
+    <MESSAGE value="Refactoring." />
+    <MESSAGE value="Removed TestCase stuff." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed TestCase stuff." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

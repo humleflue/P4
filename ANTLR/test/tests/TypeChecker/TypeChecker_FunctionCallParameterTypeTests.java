@@ -1,4 +1,4 @@
-package tests.TypeCheckerVisitor;
+package tests.TypeChecker;
 
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.junit.jupiter.api.Assertions;
