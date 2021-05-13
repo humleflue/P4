@@ -1,4 +1,4 @@
-package tests.TypeCheckerVisitor;
+package tests.TypeChecker;
 
 import Compiler.ContextualAnalysis.ReferenceCheckerListener;
 import Compiler.ContextualAnalysis.TypeCheckerVisitor;
@@ -9,7 +9,6 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import tests.Auxiliary.BaseTest;
 import tests.Auxiliary.MockErrorListener;
-import tests.Auxiliary.TestCase;
 
 /**
  * Shared functionality for all TypeCheckerVisitor test classes.

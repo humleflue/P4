@@ -1,4 +1,4 @@
-package tests.CodeGenerationVisitor;
+package tests.CodeGeneration;
 
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -7,14 +7,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import tests.Auxiliary.BaseTest;
 
-import java.io.IOException;
-
-public class generatedCodeAndGivenCodeComparisonTests extends BaseTest {
+public class CodeGenerationTests extends BaseTest {
     JavaScriptCodeGenerationVisitor codeGenerator = new JavaScriptCodeGenerationVisitor();
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "buffCodeAndTargetCode.csv", numLinesToSkip = 1)
-    public void GeneratedCodeAndExpectedCodeTheSame_ShouldPass(String buffCode, String targetCode ) throws IOException {
+    public void GeneratedCodeAndExpectedCodeTheSame_ShouldPass(String buffCode, String targetCode ) {
         // Arrange 
         ParseTree tree = createTree(buffCode);
          // Act

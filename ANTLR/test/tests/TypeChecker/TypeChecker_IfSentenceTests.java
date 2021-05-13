@@ -1,4 +1,4 @@
-package tests.TypeCheckerVisitor;
+package tests.TypeChecker;
 
 import Compiler.ContextualAnalysis.TypeCheckerVisitor;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
