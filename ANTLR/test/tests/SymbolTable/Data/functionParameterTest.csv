@@ -1,0 +1,5 @@
+source code, parameter to check, parameter expected type
+"number func(number x, boolean y) = 1;","x", "1"
+"number func(boolean y, number x) = 1;","x", "1"
+"number func(number x, boolean y) = 1;","y", "2"
+"number func(boolean y, number x) = 1;","y", "2"
