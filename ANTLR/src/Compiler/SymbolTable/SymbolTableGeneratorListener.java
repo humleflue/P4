@@ -13,11 +13,11 @@ import java.util.List;
  * Listener responsible for making the symbol table. Provides {@code scopes} and {@code globalScope}
  * for use by other listeners/visitors
  */
-public class SymbolTableGeneratorListener extends BuffBaseListener{
-    private BuffErrorListener errorListener;
+public class SymbolTableGeneratorListener extends BuffBaseListener {
     public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
     public BaseScope globalScope = new BaseScope();
     Scope currentScope;
+    private final BuffErrorListener errorListener;
 
     public SymbolTableGeneratorListener(BuffErrorListener errorListener) {
         this.errorListener = errorListener;
@@ -31,13 +31,12 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     @Override
     public void enterMultiLineFunction(MultiLineFunctionContext ctx) {
         //Gets lists of parameters and converts them into a list of types
-        FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
+        FuncDefParamsContext FuncDefParams = ctx.getRuleContext(FuncDefParamsContext.class, 0);
         ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
         try {
             currentScope.defineSymbol(symbol);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
         }
 
@@ -54,13 +53,12 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     @Override
     public void enterOneLineFunction(OneLineFunctionContext ctx) {
         //Gets lists of parameters and converts them into a list of types
-        FuncDefParamsContext FuncDefParams =  ctx.getRuleContext(FuncDefParamsContext.class, 0);
+        FuncDefParamsContext FuncDefParams = ctx.getRuleContext(FuncDefParamsContext.class, 0);
         ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
         try {
             currentScope.defineSymbol(symbol);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
         }
 
@@ -75,10 +73,11 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
 
     /**
      * Iterates through all typeAndIds in a FuncDefParamsContext and returns a list of the types.
-     * @param ctx
+     *
+     * @param ctx The node in question.
      * @return A list of types
      */
-    private ArrayList<Integer> getFuncDefParamTypes(FuncDefParamsContext ctx){
+    private ArrayList<Integer> getFuncDefParamTypes(FuncDefParamsContext ctx) {
         ArrayList<Integer> argumentList = new ArrayList<>();
         if (ctx != null) {
             ctx.typeAndId().forEach(x -> argumentList.add(x.type().getStart().getType()));
@@ -89,15 +88,16 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
     /**
      * Sets the current scope to be the enclosing scope of the current scope
      */
-    private void closeScope(){
+    private void closeScope() {
         currentScope = currentScope.getEnclosingScope();
     }
 
     /**
      * Creates a new scope, attatches the current scope to ctx and sets current scope to the new scope.
-     * @param ctx
+     *
+     * @param ctx The node in question.
      */
-    private void makeAndAttachNewScope(ParserRuleContext ctx){
+    private void makeAndAttachNewScope(ParserRuleContext ctx) {
         Scope newScope = new BaseScope(currentScope);
         attachScope(ctx, newScope);
         currentScope = newScope;
@@ -115,7 +115,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
         Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
         try {
             currentScope.defineSymbol(paramSymbol);
-        } catch (Exception e){
+        } catch (Exception e) {
             errorListener.ThrowError(e.getMessage(), ctx.ID().getSymbol());
         }
 
@@ -135,8 +135,11 @@ public class SymbolTableGeneratorListener extends BuffBaseListener{
 
     /**
      * Adds a scope as a ParseTreeProperty to a node
+     *
      * @param ctx The node which should have a reference to a scope
-     * @param s The scope which should be added to a node.
+     * @param s   The scope which should be added to a node.
      */
-    void attachScope(ParserRuleContext ctx, Scope s) { scopes.put(ctx, s); }
+    void attachScope(ParserRuleContext ctx, Scope s) {
+        scopes.put(ctx, s);
+    }
 }

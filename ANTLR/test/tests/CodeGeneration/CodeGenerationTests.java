@@ -12,13 +12,13 @@ public class CodeGenerationTests extends BaseTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "buffCodeAndTargetCode.csv", numLinesToSkip = 1)
-    public void GeneratedCodeAndExpectedCodeTheSame_ShouldPass(String buffCode, String targetCode ) {
+    public void GeneratedCodeAndExpectedCodeTheSame_ShouldPass(String buffCode, String targetCode) {
         // Arrange 
         ParseTree tree = createTree(buffCode);
-         // Act
+        // Act
         String generatedCode = codeGenerator.visit(tree);
         // Assert
         Assertions.assertEquals(targetCode, generatedCode);
     }
-    
+
 }

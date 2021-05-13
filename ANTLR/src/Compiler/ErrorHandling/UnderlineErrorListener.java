@@ -8,9 +8,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * An error listener that can be used by both ANTLR generated components as the parser and lexer
@@ -19,51 +19,25 @@ import java.util.stream.Stream;
 public class UnderlineErrorListener extends BaseErrorListener implements BuffErrorListener {
 
     /**
-     * Contains information about a line that caused an error, allows easy printing to console.
-     */
-    private class LineWithError {
-        String line;
-        Integer lineNumber;
-        ArrayList<Interval> errorIntervals = new ArrayList<Interval>();
-
-        public LineWithError(String line, Integer lineNumber){
-            this.line = line;
-            this.lineNumber = lineNumber;
-        }
-
-        /**
-         * Adds the interval of a token to the errorIntervals list
-         * @param token The token that should be added
-         */
-        public void addTokenToInterval(Token token) {
-            int tokenStartPos = token.getCharPositionInLine();
-            int tokenEndpos = tokenStartPos + token.getText().length() - 1;
-
-            this.errorIntervals.add(new Interval(tokenStartPos, tokenEndpos));
-        }
-
-    }
-
-    /**
      * Called by the parser whenever an error is found. Should not be used by us
      */
-    public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) throws ParseCancellationException
-    {
+    public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) throws ParseCancellationException {
         //Gets the specific line that the error occurred on.
-        CommonTokenStream tokens = (CommonTokenStream)recognizer.getInputStream();
+        CommonTokenStream tokens = (CommonTokenStream) recognizer.getInputStream();
         String input = tokens.getTokenSource().getInputStream().toString();
         String[] lines = input.split("\n");
         String errorLine = lines[line - 1];
 
         //Gets the token that caused the error. Gets parsed from Object to token to get position
-        Token offendingToken = (Token)offendingSymbol;
+        Token offendingToken = (Token) offendingSymbol;
         Interval offendingTokenInterval = new Interval(offendingToken.getStartIndex(), offendingToken.getStopIndex());
         ThrowError(msg, offendingToken);
     }
 
     /**
      * Throws a ParseCancellationException and prints the lines that caused the error with the offending tokens highlighted.
-     * @param errorMsg Message that explains the cause of the error
+     *
+     * @param errorMsg        Message that explains the cause of the error
      * @param offendingTokens The list of tokens which will be underlined
      */
     public void ThrowError(String errorMsg, ArrayList<Token> offendingTokens) {
@@ -84,53 +58,51 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
     }
 
     /**
-     *  An auxiliary function that simplifies calling ThrowUnderlinedError() without making a List
-     * @param errorMsg Message that explains the cause of the error
-     * @param offendingToken A tokens which will be underlined
+     * An auxiliary function that simplifies calling ThrowUnderlinedError() without making a List
+     *
+     * @param errorMsg                  Message that explains the cause of the error
+     * @param offendingToken            A tokens which will be underlined
      * @param additionalOffendingTokens The additional tokens which will be underlined
      */
     public void ThrowError(String errorMsg, Token offendingToken, Token... additionalOffendingTokens) {
-        ArrayList<Token> allOffendingTokens = new ArrayList<Token>();
+        ArrayList<Token> allOffendingTokens = new ArrayList<>();
         allOffendingTokens.add(offendingToken);
 
-        for (Token token : additionalOffendingTokens){
-            allOffendingTokens.add(token);
-        }
+        Collections.addAll(allOffendingTokens, additionalOffendingTokens);
 
         ThrowError(errorMsg, allOffendingTokens);
     }
 
     /**
      * An auxiliary function that allows calling ThrowError with a ParseTree. All nodes in the ParseTree will be underlined.
-     * @param errorMsg Message that explains the cause of the error
-     * @param tree The tree with the tokens that should be underlined
+     *
+     * @param errorMsg                  Message that explains the cause of the error
+     * @param tree                      The tree with the tokens that should be underlined
      * @param additionalOffendingTokens The additional tokens which will be underlined
      */
-    public void ThrowError(String errorMsg, ParseTree tree, Token... additionalOffendingTokens){
+    public void ThrowError(String errorMsg, ParseTree tree, Token... additionalOffendingTokens) {
         ArrayList<TerminalNode> terminalNodes = getTerminalNodes(tree);
-        ArrayList<Token> offendingTokens = (ArrayList<Token>) terminalNodes.stream().map(x -> x.getSymbol()).collect(Collectors.toList());
+        ArrayList<Token> offendingTokens = (ArrayList<Token>) terminalNodes.stream().map(TerminalNode::getSymbol).collect(Collectors.toList());
 
-        for (Token token : additionalOffendingTokens){
-            offendingTokens.add(token);
-        }
+        Collections.addAll(offendingTokens, additionalOffendingTokens);
         // Should not hightligt ";"
         offendingTokens.removeIf(x -> x.getType() == BuffLexer.SEMICOLON);
-        
+
         ThrowError(errorMsg, offendingTokens);
     }
 
     /**
      * Gets all TerminalNodes in a ParseTree
+     *
      * @param tree The ParseTree which terminal nodes should be returned.
      */
-    private ArrayList<TerminalNode> getTerminalNodes(ParseTree tree){
+    private ArrayList<TerminalNode> getTerminalNodes(ParseTree tree) {
         ArrayList<TerminalNode> terminalNodeList = new ArrayList<>();
         for (int i = 0; i < tree.getChildCount(); i++) {
             ParseTree node = tree.getChild(i);
             if (node instanceof TerminalNode) {
-                terminalNodeList.add((TerminalNode)node);
-            }
-            else{
+                terminalNodeList.add((TerminalNode) node);
+            } else {
                 terminalNodeList.addAll(getTerminalNodes(node));
             }
         }
@@ -139,31 +111,31 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
 
     /**
      * Converts a list of tokens to a list of LineWithError's. Checks whether or not offending tokens are on the same line.
+     *
      * @param offendingTokens A tokens which will be underlined
      * @return An ArrayList of LineWithError.
      */
     private ArrayList<LineWithError> GetLineWithErrorArray(ArrayList<Token> offendingTokens) {
-        ArrayList<LineWithError> errorLines = new ArrayList<LineWithError>();
+        ArrayList<LineWithError> errorLines = new ArrayList<>();
 
         for (Token offendingToken : offendingTokens) {
             int lineNumber = offendingToken.getLine();
 
             //Checks whether or not an existing offending token is present in a line.
             LineWithError errorLine = null;
-            for (LineWithError line : errorLines){
-                if (line.lineNumber == lineNumber){
+            for (LineWithError line : errorLines) {
+                if (line.lineNumber == lineNumber) {
                     errorLine = line;
                 }
             }
 
-            if (errorLine == null){
+            if (errorLine == null) {
                 //Gets the source code for the line in which the offending token occurred
                 String line = offendingToken.getInputStream().toString().split("\n")[lineNumber - 1];
                 LineWithError lineWithError = new LineWithError(line, lineNumber);
                 lineWithError.addTokenToInterval(offendingToken);
                 errorLines.add(lineWithError);
-            }
-            else {
+            } else {
                 errorLine.addTokenToInterval(offendingToken);
             }
         }
@@ -172,6 +144,7 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
 
     /**
      * Prints a line of source code, the line number and hightligts the offending tokens
+     *
      * @param lineWithError The line that should be printed
      */
     private void PrintUnderlinedError(LineWithError lineWithError) {
@@ -182,17 +155,18 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
 
     /**
      * Prints out the "^" symbol under offending tokens
-     * @param offendingTokenInterval
+     *
+     * @param offendingTokenInterval The interval in which the erroneous tokens exist
      */
     private void printUnderlinedIntervals(ArrayList<Interval> offendingTokenInterval) {
         int printPos = 0;
 
-        for (Interval interval : offendingTokenInterval){
+        for (Interval interval : offendingTokenInterval) {
             if (printPos < interval.a) {
                 System.out.print(" ".repeat(interval.a - printPos));
                 printPos = interval.a;
             }
-            if ( interval.a >= 0 && interval.b >= 0) {
+            if (interval.a >= 0 && interval.b >= 0) {
                 printRed("^".repeat(interval.b - interval.a + 1));
                 printPos += interval.b - interval.a + 1;
             }
@@ -203,9 +177,37 @@ public class UnderlineErrorListener extends BaseErrorListener implements BuffErr
 
     /**
      * Prints a message in a red color. Works in most terminals but not cmd :(
+     *
      * @param msg The message that sould be printed red
      */
     private void printRed(String msg) {
-        System.out.print("\u001b[31m" + msg +  "\u001b[0m");
+        System.out.print("\u001b[31m" + msg + "\u001b[0m");
+    }
+
+    /**
+     * Contains information about a line that caused an error, allows easy printing to console.
+     */
+    private class LineWithError {
+        String line;
+        Integer lineNumber;
+        ArrayList<Interval> errorIntervals = new ArrayList<>();
+
+        public LineWithError(String line, Integer lineNumber) {
+            this.line = line;
+            this.lineNumber = lineNumber;
+        }
+
+        /**
+         * Adds the interval of a token to the errorIntervals list
+         *
+         * @param token The token that should be added
+         */
+        public void addTokenToInterval(Token token) {
+            int tokenStartPos = token.getCharPositionInLine();
+            int tokenEndpos = tokenStartPos + token.getText().length() - 1;
+
+            this.errorIntervals.add(new Interval(tokenStartPos, tokenEndpos));
+        }
+
     }
 }

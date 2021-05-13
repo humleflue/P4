@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import java.io.IOException;
+
 import java.io.StringReader;
 
 public class BaseTest {
@@ -18,9 +18,8 @@ public class BaseTest {
     protected CodePointCharStream createCharStream(String sourceCode) {
         try {
             return CharStreams.fromReader(new StringReader(sourceCode));
-        }
-        catch (Exception e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             // Something has to be returned.
             return null;
         }
@@ -48,7 +47,7 @@ public class BaseTest {
         parser.addErrorListener(errorListener);
         return parser.prog();
     }
-    
+
     protected int getNumberOfSyntaxErrors(String sourceCode) {
         BuffParser parser = createParser(sourceCode);
         parser.prog();
