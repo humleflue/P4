@@ -86,9 +86,7 @@ public class SymbolTableTests extends BaseTest {
 
         // Act
         // Assert
-        Assertions.assertThrows(Exception.class, () -> {
-            SymbolTableGeneratorListener symbolTable = getWalker(tree);
-        });
+        Assertions.assertThrows(Exception.class, () -> getWalker(tree));
     }
 
     @Test
