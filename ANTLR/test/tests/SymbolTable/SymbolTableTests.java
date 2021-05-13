@@ -24,7 +24,7 @@ public class SymbolTableTests extends BaseTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "functionReturnTypeTest.csv")
+    @CsvFileSource(resources = testPath + "functionReturnTypeTest.csv", numLinesToSkip = 1)
     public void givenFunctionDefinitionWithReturnType_CorrectTypeSavedInSymbolTable(String sourceCode, int type) {
         // Arrange
         ParseTree tree = createTree(sourceCode);
@@ -38,7 +38,7 @@ public class SymbolTableTests extends BaseTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = testPath + "functionParameterTest.csv")
+    @CsvFileSource(resources = testPath + "functionParameterTest.csv", numLinesToSkip = 1)
     public void functionParameterExists_CanBeFoundInSymbolTable(String sourceCode, String parameter, int type) {
         // Arrange
         ParseTree tree = createTree(sourceCode);
