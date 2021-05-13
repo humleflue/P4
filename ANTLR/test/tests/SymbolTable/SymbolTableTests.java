@@ -1,6 +1,7 @@
 package tests.SymbolTable;
 
-import Compiler.AntlrGenerated.BuffParser.*;
+import Compiler.AntlrGenerated.BuffParser.CodeFuncdefContext;
+import Compiler.AntlrGenerated.BuffParser.ProgContext;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
 import Compiler.SymbolTable.SymbolTableGeneratorListener;
@@ -45,7 +46,7 @@ public class SymbolTableTests extends BaseTest {
         SymbolTableGeneratorListener symbolTable = getWalker(tree);
         // Act
         // Gets the scope for the specific function. Requires that the tree is parsed to a ParseRuleContext.
-        Scope functionScope = symbolTable.scopes.get(((ProgContext)tree).getChild(CodeFuncdefContext.class, 0).funcDef());
+        Scope functionScope = symbolTable.scopes.get(((ProgContext) tree).getChild(CodeFuncdefContext.class, 0).funcDef());
         int actualType = functionScope.getSymbol(parameter).getType();
 
         // Assert
@@ -53,13 +54,13 @@ public class SymbolTableTests extends BaseTest {
     }
 
     @Test
-    public void lookUpFunctionInEnclosedScope_FunctionIsFound(){
+    public void lookUpFunctionInEnclosedScope_FunctionIsFound() {
         // Arrange
         ParseTree tree = createTree("number func() = 1;");
         SymbolTableGeneratorListener symbolTable = getWalker(tree);
 
         // Act
-        Scope functionScope = symbolTable.scopes.get(((ProgContext)tree).getChild(CodeFuncdefContext.class, 0).funcDef());
+        Scope functionScope = symbolTable.scopes.get(((ProgContext) tree).getChild(CodeFuncdefContext.class, 0).funcDef());
         Symbol symbol = functionScope.getSymbol("func");
 
         // Assert
@@ -67,7 +68,7 @@ public class SymbolTableTests extends BaseTest {
     }
 
     @Test
-    public void lookUpFunctionThatDoesNotExist_returnsNull(){
+    public void lookUpFunctionThatDoesNotExist_returnsNull() {
         // Arrange
         ParseTree tree = createTree("number func() = 1;");
         SymbolTableGeneratorListener symbolTable = getWalker(tree);
@@ -80,7 +81,7 @@ public class SymbolTableTests extends BaseTest {
     }
 
     @Test
-    public void twoParametersWithSameName_throws(){
+    public void twoParametersWithSameName_throws() {
         // Arrange
         ParseTree tree = createTree("number func(number x, boolean x) = 1;");
 
@@ -90,7 +91,7 @@ public class SymbolTableTests extends BaseTest {
     }
 
     @Test
-    public void twoFunctionsWithSameName_throws(){
+    public void twoFunctionsWithSameName_throws() {
         // Arrange
         ParseTree tree = createTree("number func() = 1; boolean func() = true;");
 

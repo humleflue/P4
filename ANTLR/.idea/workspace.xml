@@ -6,7 +6,27 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Removed TestCase stuff." />
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="IntelliJ automatic cleanup + a little manual work.">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/.antlr/LangLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/.antlr/LangLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/.antlr/LangParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/.antlr/LangParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/CliListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/CliListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/ReferenceCheckerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/ReferenceCheckerListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ErrorHandling/BuffErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ErrorHandling/BuffErrorListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/BaseScope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/BaseScope.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/FuncdefSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/FuncdefSymbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/Symbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/Auxiliary/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Auxiliary/BaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/CodeGeneration/CodeGenerationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/CodeGeneration/CodeGenerationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/LexerAndParser/LexerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/LexerAndParser/LexerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/LexerAndParser/ParserTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/LexerAndParser/ParserTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/tests/SymbolTable/SymbolTableTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/SymbolTable/SymbolTableTests.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -431,7 +451,8 @@
     <MESSAGE value="Replaced &quot;==&quot; with &quot;IS&quot;, &quot;!=&quot; with &quot;IS NOT&quot; etc." />
     <MESSAGE value="Refactoring." />
     <MESSAGE value="Removed TestCase stuff." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed TestCase stuff." />
+    <MESSAGE value="IntelliJ automatic cleanup + a little manual work." />
+    <option name="LAST_COMMIT_MESSAGE" value="IntelliJ automatic cleanup + a little manual work." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

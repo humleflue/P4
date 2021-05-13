@@ -7,7 +7,7 @@ public class CliListener extends CliBaseListener {
     private boolean wantsHelp = false;
     private String inputFileName = null;
     private String outfileName = "a";
-    private String outFileDefaultType = ".js";
+    private final String outFileDefaultType = ".js";
 
     @Override
     public void enterCompile(CliParser.CompileContext ctx) {
@@ -26,10 +26,9 @@ public class CliListener extends CliBaseListener {
     public void enterOutfile(CliParser.OutfileContext ctx) {
         String outfile = ctx.id().ID().getText();
 
-        if(outfile.contains(".")) {
+        if (outfile.contains(".")) {
             outfileName = outfile;
-        }
-        else {
+        } else {
             outfileName = outfile + outFileDefaultType;
         }
     }

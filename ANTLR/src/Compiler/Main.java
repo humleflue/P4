@@ -1,15 +1,15 @@
 package Compiler;
 
-import Compiler.AntlrGenerated.CliLexer;
-import Compiler.AntlrGenerated.CliParser;
 import Compiler.AntlrGenerated.BuffLexer;
 import Compiler.AntlrGenerated.BuffParser;
+import Compiler.AntlrGenerated.CliLexer;
+import Compiler.AntlrGenerated.CliParser;
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
 import Compiler.ContextualAnalysis.CliListener;
-import Compiler.ErrorHandling.UnderlineErrorListener;
-import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import Compiler.ContextualAnalysis.ReferenceCheckerListener;
 import Compiler.ContextualAnalysis.TypeCheckerVisitor;
+import Compiler.ErrorHandling.UnderlineErrorListener;
+import Compiler.SymbolTable.SymbolTableGeneratorListener;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -25,8 +25,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             runCompiler(args);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             /*  Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
              *  given a message explaining the error and nothing more should be done here.
              */
@@ -45,7 +44,7 @@ public class Main {
         CliListener parsedUserInput = new CliListener();
         walker.walk(parsedUserInput, tree);
 
-        if(parsedUserInput.wantsHelp())
+        if (parsedUserInput.wantsHelp())
             displayHelp();
         else
             compile(parsedUserInput);
@@ -54,8 +53,7 @@ public class Main {
     private static void displayHelp() {
         try {
             System.out.println(Files.readString(Path.of("helpMessage.txt")));
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("usage: buff <file>");
         }
     }
