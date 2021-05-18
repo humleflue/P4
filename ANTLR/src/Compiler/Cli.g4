@@ -1,9 +1,9 @@
 grammar Cli;
 
-args : INFILENAME optionalOptions #compile
-     | '-help'                    #help
+args : INFILENAME optionalOptions? #compile
+     | '-help'                     #help
      ;
-optionalOptions : ('-o' OUTFILENAME)? ;
+optionalOptions : '-o' OUTFILENAME ;
 
 WS: (' '|'\t')+ -> skip;
 
