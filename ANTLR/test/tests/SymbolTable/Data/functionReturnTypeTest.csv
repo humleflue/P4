@@ -1,3 +1,5 @@
 source code, expected function return type
 "number func() = return 1; end",1
 "boolean func() = return true; end",2
+"number func() = 1;",1
+"boolean func() = true;",2
