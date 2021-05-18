@@ -11,10 +11,7 @@ public class CliListener extends CliBaseListener {
 
     @Override
     public void enterCompile(CliParser.CompileContext ctx) {
-        String fileName = ctx.id().ID().getText();
-        String suffix = ctx.SUFFIX().getText();
-        inputFileName = fileName + suffix;
-
+        inputFileName = ctx.INFILENAME().getText();
     }
 
     @Override
@@ -23,18 +20,17 @@ public class CliListener extends CliBaseListener {
     }
 
     @Override
-    public void enterOutfile(CliParser.OutfileContext ctx) {
-        String outfile = ctx.id().ID().getText();
-
-        if (outfile.contains(".")) {
-            outfileName = outfile;
-        } else {
-            outfileName = outfile + outFileDefaultType;
-        }
+    public void enterOptionalOptions(CliParser.OptionalOptionsContext ctx) {
+        if(ctx.OUTFILENAME() != null)
+            outfileName = ctx.OUTFILENAME().getText();
     }
 
     public String getOutfileName() {
-        return outfileName;
+        if (outfileName.contains(".")) {
+             return outfileName;
+        } else {
+            return outfileName + outFileDefaultType;
+        }
     }
 
     public boolean wantsHelp() {

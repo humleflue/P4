@@ -7,25 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="IntelliJ automatic cleanup + a little manual work.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/.antlr/LangLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/.antlr/LangLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/.antlr/LangParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/.antlr/LangParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/CodeGeneration/JavaScriptCodeGenerationVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Compiler/Cli.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Cli.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/CliListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/CliListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/ReferenceCheckerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/ReferenceCheckerListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/TypeCheckerVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/ErrorHandling/BuffErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ErrorHandling/BuffErrorListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ErrorHandling/UnderlineErrorListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/BaseScope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/BaseScope.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/FuncdefSymbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/FuncdefSymbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/Symbol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/SymbolTable/SymbolTableGeneratorListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/Auxiliary/BaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/Auxiliary/BaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/CodeGeneration/CodeGenerationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/CodeGeneration/CodeGenerationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/LexerAndParser/LexerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/LexerAndParser/LexerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/LexerAndParser/ParserTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/LexerAndParser/ParserTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/tests/SymbolTable/SymbolTableTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/tests/SymbolTable/SymbolTableTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +77,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.13908207" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -107,7 +92,7 @@
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in ANTLR">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
@@ -122,15 +107,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -138,6 +121,8 @@
     <configuration name="All in ANTLR" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ANTLR" />
       <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -199,8 +184,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in ANTLR" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.All in ANTLR" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests" />
         <item itemvalue="JUnit.TypeChecker_IfSentenceTests.SimpleBooleanTypeInIfSentence_ShouldPass" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests.CorrespondingReturnTypes_ShouldPass" />

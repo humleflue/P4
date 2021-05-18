@@ -29,10 +29,10 @@ Run the following commands in your terminal:
 
 ```shell
 $ cd /usr/local/lib
-$ sudo curl -O https://skaalum.tech/downloads/buff-0.1.jar
+$ sudo curl -O https://skaalum.tech/downloads/buff-1.0.jar
 ```
 
-Or just download in browser from website: https://skaalum.tech/downloads/buff-0.1.jar and put it somewhere rational
+Or just download in browser from website: https://skaalum.tech/downloads/buff-1.0.jar and put it somewhere rational
 like `/usr/local/lib`.
 
 2. Create an alias for the Buff tool
@@ -46,19 +46,24 @@ $ alias buff='java -jar /usr/local/lib/buff-0.1.jar'
 2.
     1. OPTIONAL: It's a good idea to put the alias in your `.bashrc` file
 
-Run the following command in your terminal:
+        Run the following command in your terminal:
+        
+        ```shell
+        $ vim ~/.bashrc
+        ```
+        
+        - Press `SHIFT` + `G` to go to the bottom of the file.
+        - Press `SHIFT` + `A` to edit the file.
+        - Press `ENTER` to make a line break.
+        - Paste in `alias buff='java -jar /usr/local/lib/buff-0.1.jar'`.
+        - Save and close the file with the following keystrokes: `ESCAPE`, `:`, `w`, `q`, `ENTER`
 
-```shell
-$ vim ~/.bashrc
-```
+    2. Run the following command to rerun `.bashrc`:
+        ```shell
+        $ source ~/.bashrc
+        ```
 
-- Press `SHIFT` + `G` to go to the bottom of the file.
-- Press `SHIFT` + `A` to edit the file.
-- Press `ENTER` to make a line break.
-- Paste in `alias buff='java -jar /usr/local/lib/buff-0.1.jar'`.
-- Save and close the file with the following keystrokes: `ESCAPE`, `:`, `w`, `q`, `ENTER`
-
-Now you should be able to compile a file by running the following command in your terminal:
+Now you should be able to compile a file by running the following command in your terminal, given that you have written some buff code in a file called `hello_world.buff`:
 
 ```shell
 $ buff hello_world.buff
