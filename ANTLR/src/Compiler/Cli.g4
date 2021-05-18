@@ -1,14 +1,13 @@
 grammar Cli;
 
-args : id SUFFIX optionaloptions #compile
-     | '-help'                   #help
+args : INFILENAME optionalOptions #compile
+     | '-help'                    #help
      ;
-id : ID ;
-optionaloptions : '-o' id #outfile
-                |         #empty
-                ;
+optionalOptions : ('-o' OUTFILENAME)? ;
 
 WS: (' '|'\t')+ -> skip;
-SUFFIX : '.buff' ;
 
-ID : ['A-Za-z]['A-Za-z_0-9]* ;
+INFILENAME : ID'.buff' ;
+OUTFILENAME : ID('.js')? ;
+
+ID : [A-Za-z][A-Za-z_0-9-]* ;
