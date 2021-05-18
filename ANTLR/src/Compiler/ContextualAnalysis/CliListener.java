@@ -24,17 +24,15 @@ public class CliListener extends CliBaseListener {
 
     @Override
     public void enterOutfile(CliParser.OutfileContext ctx) {
-        String outfile = ctx.id().ID().getText();
-
-        if (outfile.contains(".")) {
-            outfileName = outfile;
-        } else {
-            outfileName = outfile + outFileDefaultType;
-        }
+        outfileName = ctx.id().ID().getText();
     }
 
     public String getOutfileName() {
-        return outfileName;
+        if (outfileName.contains(".")) {
+             return outfileName;
+        } else {
+            return outfileName + outFileDefaultType;
+        }
     }
 
     public boolean wantsHelp() {
