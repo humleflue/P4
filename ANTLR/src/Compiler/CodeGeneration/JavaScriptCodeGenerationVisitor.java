@@ -154,6 +154,11 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         return "!" + visit(ctx.expr());
     }
 
+    @Override
+    public String visitExprMinusPrefix(ExprMinusPrefixContext ctx) {
+        return "-" + visit(ctx.expr());
+    }
+
     /**
      * Generates code for a binary operation.
      *
