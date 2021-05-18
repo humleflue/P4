@@ -18,9 +18,10 @@ A compiler built for a close-to-pure functional programming language for beginne
 Run the following commands in your terminal:
 
 ```shell
-$ sudo add-apt-repository ppa:linuxuprising/java
-$ sudo apt update
-$ sudo apt install oracle-java15-installer
+$ sudo apt-get install openjdk-15-jre
+$ sudo apt-get install openjdk-15-jdk
+$ export JAVA_HOME=/usr/lib/jvm/openjdk-15-jdk
+$ export PATH=$PATH:$JAVA_HOME/bin
 ```
 
 1. Download the jar file
@@ -63,7 +64,7 @@ $ alias buff='java -jar /usr/local/lib/buff-0.1.jar'
         $ source ~/.bashrc
         ```
 
-Now you should be able to compile a file by running the following command in your terminal, given that you have written some buff code in a file called `hello_world.buff`:
+Now you should be able to compile a file by changing to a directory you would like to contain your file and running the following command in your terminal, given that you have written some buff code in a file called `hello_world.buff`:
 
 ```shell
 $ buff hello_world.buff
