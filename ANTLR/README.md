@@ -58,7 +58,7 @@ $ vim ~/.bashrc
 - Paste in `alias buff='java -jar /usr/local/lib/buff-0.1.jar'`.
 - Save and close the file with the following keystrokes: `ESCAPE`, `:`, `w`, `q`, `ENTER`
 
-Now you should be able to compile a file by running the following command in your terminal:
+Now you should be able to compile a file by running the following command in your terminal, given that you have written some buff code in a file called `hello_world.buff`:
 
 ```shell
 $ buff hello_world.buff
