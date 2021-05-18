@@ -2,3 +2,5 @@
 "number test(number numb1, number numb2) = return 2; end"
 "number test() = return test(2); end"
 "boolean test() = return true; end"
+"number test() = 1;"
+"boolean test() = true;"
