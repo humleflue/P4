@@ -21,8 +21,7 @@ public class CliListener extends CliBaseListener {
 
     @Override
     public void enterOptionalOptions(CliParser.OptionalOptionsContext ctx) {
-        if(ctx.OUTFILENAME() != null)
-            outfileName = ctx.OUTFILENAME().getText();
+        outfileName = ctx.OUTFILENAME().getText();
     }
 
     public String getOutfileName() {

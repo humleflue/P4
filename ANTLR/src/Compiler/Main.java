@@ -22,14 +22,14 @@ import java.nio.file.Path;
 
 public class Main {
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws IOException {
+//        try {
             runCompiler(args);
-        } catch (Exception e) {
+//        } catch (Exception e) {
             /*  Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
              *  given a message explaining the error and nothing more should be done here.
              */
-        }
+//        }
     }
 
     public static void runCompiler(String[] args) throws IOException {
