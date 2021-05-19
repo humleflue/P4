@@ -26,6 +26,7 @@ public class Main {
         try {
             runCompiler(args);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             /*  Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
              *  given a message explaining the error and nothing more should be done here.
              */

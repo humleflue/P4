@@ -1,0 +1,5 @@
+boolean returnsTrue() =
+    if (NOT false)
+        return true;
+    return false;
+    end
