@@ -41,7 +41,7 @@ like `/usr/local/lib`.
 Run the following command in your terminal:
 
 ```shell
-$ alias buff='java -jar /usr/local/lib/buff-0.1.jar'
+$ alias buff='java -jar /usr/local/lib/buff-1.0.jar'
 ```
 
 2.
