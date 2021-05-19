@@ -238,7 +238,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
     private String initiatePrintFunction(ExprFunccallPrintContext ctx, String exprParams) {
         String result = "(()=>{";
-        result += String.format("let res = %s(%s);", GetFuncName(ctx.funcCall()), exprParams);
+        result += String.format("const res = %s(%s);", GetFuncName(ctx.funcCall()), exprParams);
         result += String.format("console.log(`%s(", GetFuncName(ctx.funcCall()));
         return result;
     }
