@@ -7,6 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="IntelliJ automatic cleanup + a little manual work." />
+    <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="Abstracted over unary operators. Added source_code.buff again." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,6 +84,8 @@
       <recent name="C:\GitRepos\P4\ANTLR\test\tests\TypeCheckerVisitor\Data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\GitRepos\P4\ANTLR" />
+      <recent name="C:\GitRepos\P4\ANTLR\src\Compiler" />
       <recent name="C:\GitRepos\P4\ANTLR\test\tests\Lexer\Data" />
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
@@ -91,7 +94,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
-      <option name="PROGRAM_PARAMETERS" value="source_code.buff -o a3.js" />
+      <option name="PROGRAM_PARAMETERS" value="source_code.buff -o a.js" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="Compiler.OutputFile" />
@@ -391,7 +394,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620889076095</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Abstracted over unary operators. Added source_code.buff again.">
+      <created>1621419984529</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1621419984529</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -433,7 +443,8 @@
     <MESSAGE value="Refactoring." />
     <MESSAGE value="Removed TestCase stuff." />
     <MESSAGE value="IntelliJ automatic cleanup + a little manual work." />
-    <option name="LAST_COMMIT_MESSAGE" value="IntelliJ automatic cleanup + a little manual work." />
+    <MESSAGE value="Abstracted over unary operators. Added source_code.buff again." />
+    <option name="LAST_COMMIT_MESSAGE" value="Abstracted over unary operators. Added source_code.buff again." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -450,6 +461,11 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="7" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Compiler/ContextualAnalysis/CliListener.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
