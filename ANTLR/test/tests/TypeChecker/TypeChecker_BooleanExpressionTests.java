@@ -52,7 +52,7 @@ public class TypeChecker_BooleanExpressionTests extends TypeCheckerTestsBase {
 
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "booleanLiterals.csv")
-    public void MinusPrefixOnBoolean_ShoulThrow(String booleanLiteral) {
+    public void MinusPrefixOnBoolean_ShouldThrow(String booleanLiteral) {
         // Arrange
         createTreeWithSymbols("- " + booleanLiteral + ";");
         ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
