@@ -4,10 +4,10 @@ import Compiler.AntlrGenerated.CliBaseListener;
 import Compiler.AntlrGenerated.CliParser;
 
 public class CliListener extends CliBaseListener {
+    private final String outFileDefaultType = ".js";
     private boolean wantsHelp = false;
     private String inputFileName = null;
     private String outfileName = "a";
-    private final String outFileDefaultType = ".js";
 
     @Override
     public void enterCompile(CliParser.CompileContext ctx) {
@@ -26,7 +26,7 @@ public class CliListener extends CliBaseListener {
 
     public String getOutfileName() {
         if (outfileName.contains(".")) {
-             return outfileName;
+            return outfileName;
         } else {
             return outfileName + outFileDefaultType;
         }

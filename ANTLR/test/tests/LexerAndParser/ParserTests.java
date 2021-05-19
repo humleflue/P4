@@ -5,8 +5,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import tests.Auxiliary.BaseTest;
 
-import java.io.IOException;
-
 public class ParserTests extends BaseTest {
     @ParameterizedTest
     @CsvFileSource(resources = testPath + "invalidDeclarationTests.csv")

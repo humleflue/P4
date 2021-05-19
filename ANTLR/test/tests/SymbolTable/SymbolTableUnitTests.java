@@ -3,7 +3,6 @@ package tests.SymbolTable;
 import Compiler.SymbolTable.BaseScope;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +23,7 @@ public class SymbolTableUnitTests {
     @Test
     public void symbolDefinedInScope_shouldBeAbleToRetrieve() {
         // Arrange
-        Symbol symbol = new Symbol("test",1);
+        Symbol symbol = new Symbol("test", 1);
         Scope scope = new BaseScope();
 
         // Act
@@ -37,7 +36,7 @@ public class SymbolTableUnitTests {
     @Test
     public void symbolDefinedInOuterScope_shouldBeAbleToRetrieveFromInner() {
         // Arrange
-        Symbol symbol = new Symbol("test",1);
+        Symbol symbol = new Symbol("test", 1);
         Scope outerScope = new BaseScope();
         Scope innerScope = new BaseScope(outerScope);
 
@@ -51,11 +50,11 @@ public class SymbolTableUnitTests {
     @Test
     public void definingTwoSymbolsWithSameId_throws() {
         // Arrange
-        Symbol symbol1 = new Symbol("test",1);
-        Symbol symbol2 = new Symbol("test",1);
+        Symbol symbol1 = new Symbol("test", 1);
+        Symbol symbol2 = new Symbol("test", 1);
         Scope scope = new BaseScope();
         scope.defineSymbol(symbol1);
-        
+
         // Act & Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> scope.defineSymbol(symbol2));
     }

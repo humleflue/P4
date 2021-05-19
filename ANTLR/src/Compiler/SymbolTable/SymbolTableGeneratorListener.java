@@ -14,10 +14,10 @@ import java.util.List;
  * for use by other listeners/visitors
  */
 public class SymbolTableGeneratorListener extends BuffBaseListener {
+    private final BuffErrorListener errorListener;
     public ParseTreeProperty<Scope> scopes = new ParseTreeProperty<>();
     public BaseScope globalScope = new BaseScope();
     Scope currentScope;
-    private final BuffErrorListener errorListener;
 
     public SymbolTableGeneratorListener(BuffErrorListener errorListener) {
         this.errorListener = errorListener;

@@ -47,12 +47,12 @@ $ alias buff='java -jar /usr/local/lib/buff-1.0.jar'
 2.
     1. OPTIONAL: It's a good idea to put the alias in your `.bashrc` file
 
-        Run the following command in your terminal:
-        
+       Run the following command in your terminal:
+
         ```shell
         $ vim ~/.bashrc
         ```
-        
+
         - Press `SHIFT` + `G` to go to the bottom of the file.
         - Press `SHIFT` + `A` to edit the file.
         - Press `ENTER` to make a line break.
@@ -64,7 +64,8 @@ $ alias buff='java -jar /usr/local/lib/buff-1.0.jar'
         $ source ~/.bashrc
         ```
 
-Now you should be able to compile a file by changing to a directory you would like to contain your file and running the following command in your terminal, given that you have written some buff code in a file called `hello_world.buff`:
+Now you should be able to compile a file by changing to a directory you would like to contain your file and running the
+following command in your terminal, given that you have written some buff code in a file called `hello_world.buff`:
 
 ```shell
 $ buff hello_world.buff
