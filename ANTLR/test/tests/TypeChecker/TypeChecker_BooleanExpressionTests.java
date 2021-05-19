@@ -49,4 +49,16 @@ public class TypeChecker_BooleanExpressionTests extends TypeCheckerTestsBase {
         // Act & Assert
         Assertions.assertDoesNotThrow(() -> visitor.visit(tree));
     }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = testPath + "booleanLiterals.csv")
+    public void MinusPrefixOnBoolean_ShoulThrow(String booleanLiteral) {
+        // Arrange
+        createTreeWithSymbols("- " + booleanLiteral + ";");
+        ParseTreeVisitor<Integer> visitor = new TypeCheckerVisitor(
+                symbolTable.globalScope, symbolTable.scopes, new MockErrorListener());
+
+        // Act & Assert
+        Assertions.assertThrows(Exception.class, () -> visitor.visit(tree));
+    }
 }

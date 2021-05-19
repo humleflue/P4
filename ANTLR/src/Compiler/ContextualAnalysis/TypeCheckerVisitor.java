@@ -83,7 +83,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         Integer right = visit(ctx.right);
 
         // Now we know that the two operators are of the same type: 'left == right' // true
-        String errorText = "On operation" + ctx.op.getText() + ". Must be number type";
+        String errorText = "On operation " + ctx.op.getText() + ". Must be number type";
         switch (ctx.op.getType()) {
             case PLUS, MINUS, MULTIPLY, DIVIDE, POW -> {
                 if (left != NUMTYPE || right != NUMTYPE)
@@ -120,6 +120,17 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
             errorListener.ThrowError(errorMsg, ctx.op);
         }
         return BOOLTYPE;
+    }
+
+    @Override
+    public Integer visitExprMinusPrefix(ExprMinusPrefixContext ctx) {
+        Integer exprType = visit(ctx.expr());
+        if (exprType != NUMTYPE) {
+            String typeName = VOCABULARY.getLiteralName(exprType);
+            String errorMsg = String.format("Incompatible type: Type %s can not be negative.", typeName);
+            errorListener.ThrowError(errorMsg, ctx.op);
+        }
+        return NUMTYPE;
     }
 
     @Override
