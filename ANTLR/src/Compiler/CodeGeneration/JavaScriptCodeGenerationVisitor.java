@@ -216,9 +216,8 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     @Override
     public String visitExprFunccallPrint(ExprFunccallPrintContext ctx) {
         String exprParams = "";
-        if(ctx.funcCall().exprParams() != null){
+        if (ctx.funcCall().exprParams() != null)
             exprParams = visit(ctx.funcCall().exprParams());
-        }
 
         String result = initiatePrintFunction(ctx, exprParams);
 
