@@ -7,10 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec002e3b-f500-4cca-aa7f-57cd4de3b265" name="Default Changelist" comment="IntelliJ automatic cleanup + a little manual work.">
+      <change afterPath="$PROJECT_DIR$/ATConditionalSelection.buff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ATSequentialOperation.buff" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Cli.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Cli.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/CliListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/ContextualAnalysis/CliListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Compiler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Compiler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source_code.buff" beforeDir="false" afterPath="$PROJECT_DIR$/ATLoopingConstruct.buff" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +92,7 @@
       <recent name="C:\Users\chris\4-semester\Projekt\P4\ANTLR\test" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.All in ANTLR">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Compiler.Main" />
       <module name="ANTLR" />
@@ -103,6 +103,17 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -173,8 +184,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in ANTLR" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests" />
         <item itemvalue="JUnit.TypeChecker_IfSentenceTests.SimpleBooleanTypeInIfSentence_ShouldPass" />
         <item itemvalue="JUnit.TypeChecker_FuncdefReturnTypeTests.CorrespondingReturnTypes_ShouldPass" />

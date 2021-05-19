@@ -1,0 +1,13 @@
+boolean isPositive(number x) =
+    if(x >= 0)
+        return true;
+    return false;
+    end
+
+boolean isNegative(number x) = NOT isPositive(x);
+
+isPositive(-10)?;
+isPositive(10)?;
+
+isNegative(-10)?;
+isNegative(10)?;
