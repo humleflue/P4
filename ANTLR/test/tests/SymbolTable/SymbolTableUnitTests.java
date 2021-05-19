@@ -16,8 +16,9 @@ public class SymbolTableUnitTests {
         Scope innerScope = new BaseScope(outerScope);
 
         // Act
+        var enclosingScope = innerScope.getEnclosingScope();
         // Assert
-        Assertions.assertEquals(innerScope.getEnclosingScope(), outerScope);
+        Assertions.assertEquals(enclosingScope, outerScope);
     }
 
     @Test
