@@ -138,7 +138,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      *                            expression as input, and produce a string, which will be the error message to
      *                            the user
      */
-    private void checkIfExprIsNumberType(ExprContext ctx, Integer expectedType, Token operator, Lambda<String, String> produceErrorMessage) {
+    private void isExprTypeOfExpectedType(ExprContext ctx, Integer expectedType, Token operator, Lambda<String, String> produceErrorMessage) {
         Integer exprType = visit(ctx);
         if (!exprType.equals(expectedType)) {
             String typeName = VOCABULARY.getLiteralName(exprType);
@@ -356,4 +356,3 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return visit(ctx.stmt());
     }
 }
-
