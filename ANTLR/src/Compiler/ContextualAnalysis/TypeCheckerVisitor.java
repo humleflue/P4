@@ -74,6 +74,11 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         errorListener.ThrowError(errorMsg, allOffendingTokens);
     }
 
+    /**
+     * Checks the types of a binary operation
+     * @param ctx The node in question
+     * @return Returns the type of the expression
+     */
     @Override
     public Integer visitExprBinaryOp(ExprBinaryOpContext ctx) {
         int returnType;
@@ -111,6 +116,11 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return returnType;
     }
 
+    /**
+     * Checks the type of a unary operation
+     * @param ctx The node in question
+     * @return The type of the operation
+     */
     @Override
     public Integer visitExprUnaryOp(ExprUnaryOpContext ctx) {
         Integer exprType = visit(ctx.expr());
@@ -122,6 +132,11 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return BOOLTYPE;
     }
 
+    /**
+     * Checks that the type of a minus expression is a number
+     * @param ctx The node in question
+     * @return The type of the expression
+     */
     @Override
     public Integer visitExprMinusPrefix(ExprMinusPrefixContext ctx) {
         Integer exprType = visit(ctx.expr());
@@ -278,7 +293,12 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return returnStmtType;
     }
 
-
+    /**
+     * Gets the children types of a given node
+     * @param visitChild The node in question
+     * @param size The amount of children
+     * @return A list of the children types
+     */
     private ArrayList<Integer> visitAndGetChildrenTypes(Lambda<Integer> visitChild, Integer size) {
         ArrayList<Integer> types = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -306,6 +326,11 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         }
     }
 
+    /**
+     * Gets the return type of a typeAndId production
+     * @param ctx The node in question
+     * @return The type
+     */
     private Integer getReturnType(TypeAndIdContext ctx) {
         String functionId = ctx.ID().getText();
 

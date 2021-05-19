@@ -70,11 +70,22 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
 
     }
 
+    /**
+     * Generates the JS code for a one line function
+     * @param ctx The node from the CST
+     * @return Returns a string containing the function definition
+     */
     @Override
     public String visitOneLineFunction(OneLineFunctionContext ctx) {
         return initiateFuncDef(ctx.typeAndId(), ctx.funcDefParams()) + endFunction(ctx.stmt());
     }
 
+    /**
+     * Initiates the start of a function definition
+     * @param typeAndId Used to get the name of the function
+     * @param funcParams Used to get the parameters of the function
+     * @return Returns as string with the function signature
+     */
     private String initiateFuncDef(TypeAndIdContext typeAndId, FuncDefParamsContext funcParams) {
         String result = "function ";
 
@@ -89,10 +100,20 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         return result;
     }
 
+    /**
+     * Gives the end of a multilinefunction (requires the 'return' keyword)
+     * @param stmt The return statement
+     * @return Returns a string containing the return statement of a multiLineFunction
+     */
     private String endFunction(StmtContext stmt) {
         return "return " + visit(stmt) + "} ";
     }
 
+    /**
+     *  Gives the end of a oneLineFunction
+     * @param returnStmt The return statement
+     * @return Returns a string containing the end of a oneLineFunction
+     */
     private String endFunction(ReturnStmtContext returnStmt) {
         return visit(returnStmt) + "} ";
     }
@@ -236,6 +257,12 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
         return result;
     }
 
+    /**
+     * Initiates a function that should be printed by wrapping it in an anonymous functioncall
+     * @param ctx The funcCallPrint node in hand
+     * @param exprParams The parameters of the function
+     * @return A string containing an anonymous function call which prints the function and the results
+     */
     private String initiatePrintFunction(ExprFunccallPrintContext ctx, String exprParams) {
         String result = "(()=>{";
         result += String.format("let res = %s(%s);", GetFuncName(ctx.funcCall()), exprParams);
