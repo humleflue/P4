@@ -51,11 +51,7 @@ public class Main {
     }
 
     private static void displayHelp() {
-        try {
-            System.out.println(Files.readString(Path.of("helpMessage.txt")));
-        } catch (IOException e) {
-            System.out.println("usage: buff <file>");
-        }
+        System.out.println("usage: buff <file> [-o outfile]");
     }
 
     private static void compile(CliListener userInput) throws IOException {
