@@ -54,12 +54,9 @@ public class SymbolTableUnitTests {
         Symbol symbol1 = new Symbol("test",1);
         Symbol symbol2 = new Symbol("test",1);
         Scope scope = new BaseScope();
-
-        // Act
-        // Assert
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            scope.defineSymbol(symbol1);
-            scope.defineSymbol(symbol2);
-        });
+        scope.defineSymbol(symbol1);
+        
+        // Act & Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> scope.defineSymbol(symbol2));
     }
 }
