@@ -59,7 +59,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
      * Creates a FuncdefSymbol from the functions return type, name and parameters.
      * Defines the FuncdefSymbol in the current scope, and makes a new scope.
      *
-     * @param ctx The MultiLineFunction's tree node
+     * @param ctx The OneLineFunctionContext tree node
      */
     @Override
     public void enterOneLineFunction(OneLineFunctionContext ctx) {
