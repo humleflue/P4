@@ -1,0 +1,9 @@
+
+number plus(number a, number b) = a + b;
+plus(1, 2)?;
+
+boolean returnsTrue() =
+    if (NOT false)
+        return true;
+    return false;
+    end

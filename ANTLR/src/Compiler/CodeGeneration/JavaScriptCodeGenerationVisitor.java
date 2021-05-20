@@ -2,7 +2,7 @@ package Compiler.CodeGeneration;
 
 import Compiler.AntlrGenerated.BuffBaseVisitor;
 import Compiler.AntlrGenerated.BuffParser.*;
-import Compiler.ContextualAnalysis.Lambda;
+import Compiler.Lambda;
 
 import static Compiler.AntlrGenerated.BuffLexer.DIVIDE;
 import static Compiler.AntlrGenerated.BuffLexer.LOGAND;
@@ -265,7 +265,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      */
     private String initiatePrintFunction(ExprFunccallPrintContext ctx, String exprParams) {
         String result = "(()=>{";
-        result += String.format("let res = %s(%s);", GetFuncName(ctx.funcCall()), exprParams);
+        result += String.format("const res = %s(%s);", GetFuncName(ctx.funcCall()), exprParams);
         result += String.format("console.log(`%s(", GetFuncName(ctx.funcCall()));
         return result;
     }
@@ -351,7 +351,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @param amountOfTokens   The end index
      * @return The resulting string
      */
-    private String getStringFromTokenList(Lambda<String> manipulateTokens, Integer amountOfTokens) {
+    private String getStringFromTokenList(Lambda<String, Integer> manipulateTokens, Integer amountOfTokens) {
         return getStringFromTokenList(manipulateTokens, 0, amountOfTokens, "");
     }
 
@@ -364,7 +364,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      * @param delimiter        The delimiter you want a string to be seperated by
      * @return The resulting string
      */
-    private String getStringFromTokenList(Lambda<String> manipulateTokens, Integer from, Integer to, String delimiter) {
+    private String getStringFromTokenList(Lambda<String, Integer> manipulateTokens, Integer from, Integer to, String delimiter) {
         StringBuilder result = new StringBuilder();
         for (int i = from; i < to; i++) {
             result.append(delimiter);

@@ -3,6 +3,7 @@ package Compiler.ContextualAnalysis;
 import Compiler.AntlrGenerated.BuffBaseVisitor;
 import Compiler.AntlrGenerated.BuffParser.*;
 import Compiler.ErrorHandling.BuffErrorListener;
+import Compiler.Lambda;
 import Compiler.SymbolTable.FuncdefSymbol;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol;
@@ -123,12 +124,10 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      */
     @Override
     public Integer visitExprUnaryOp(ExprUnaryOpContext ctx) {
-        Integer exprType = visit(ctx.expr());
-        if (exprType != BOOLTYPE) {
-            String typeName = VOCABULARY.getLiteralName(exprType);
-            String errorMsg = String.format("Incompatible type: Type %s is incompatible on operation NOT.", typeName);
-            errorListener.ThrowError(errorMsg, ctx.op);
-        }
+        checkIfExprIsNumberType(ctx.expr(),
+                BOOLTYPE,
+                ctx.op,
+                typeName -> String.format("Incompatible type: Type %s is incompatible on operation NOT.", typeName));
         return BOOLTYPE;
     }
 
@@ -139,13 +138,28 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      */
     @Override
     public Integer visitExprMinusPrefix(ExprMinusPrefixContext ctx) {
-        Integer exprType = visit(ctx.expr());
-        if (exprType != NUMTYPE) {
-            String typeName = VOCABULARY.getLiteralName(exprType);
-            String errorMsg = String.format("Incompatible type: Type %s can not be negative.", typeName);
-            errorListener.ThrowError(errorMsg, ctx.op);
-        }
+        checkIfExprIsNumberType(ctx.expr(),
+                NUMTYPE,
+                ctx.op,
+                typeName -> String.format("Incompatible type: Type %s cannot be negative.", typeName));
         return NUMTYPE;
+    }
+
+    /**
+     * Type checks an expression in an unary operation
+     * @param ctx                 The node in question
+     * @param operator            The unary operator
+     * @param produceErrorMessage The Lambda function should take the string representation of the type of the
+     *                            expression as input, and produce a string, which will be the error message to
+     *                            the user
+     */
+    private void isExprTypeOfExpectedType(ExprContext ctx, Integer expectedType, Token operator, Lambda<String, String> produceErrorMessage) {
+        Integer exprType = visit(ctx);
+        if (!exprType.equals(expectedType)) {
+            String typeName = VOCABULARY.getLiteralName(exprType);
+            String errorMsg = produceErrorMessage.execute(typeName);
+            errorListener.ThrowError(errorMsg, operator);
+        }
     }
 
     @Override
@@ -299,7 +313,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      * @param size The amount of children
      * @return A list of the children types
      */
-    private ArrayList<Integer> visitAndGetChildrenTypes(Lambda<Integer> visitChild, Integer size) {
+    private ArrayList<Integer> visitAndGetChildrenTypes(Lambda<Integer, Integer> visitChild, Integer size) {
         ArrayList<Integer> types = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             Integer type = visitChild.execute(i);
@@ -367,4 +381,3 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return visit(ctx.stmt());
     }
 }
-
