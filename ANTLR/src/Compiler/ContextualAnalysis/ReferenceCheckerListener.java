@@ -35,6 +35,7 @@ public class ReferenceCheckerListener extends BuffBaseListener {
 
     /**
      * Sets the current scope to be the global scope.
+     * @param ctx The Prog's tree node
      */
     @Override
     public void enterProg(ProgContext ctx) {
