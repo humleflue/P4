@@ -57,7 +57,7 @@ public class CliListener extends CliBaseListener {
     }
 
     /**
-     *
+     * Getter for retrieving the input file name
      * @return The string 'inputFileName'
      */
     public String getInputFileName() {
