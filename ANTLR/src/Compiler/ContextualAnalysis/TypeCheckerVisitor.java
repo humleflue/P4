@@ -77,6 +77,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     /**
      * Checks the types of a binary operation
+     *
      * @param ctx The node in question
      * @return Returns the type of the expression
      */
@@ -119,6 +120,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     /**
      * Checks the type of a unary operation
+     *
      * @param ctx The node in question
      * @return The type of the operation
      */
@@ -133,6 +135,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     /**
      * Checks that the type of a minus expression is a number
+     *
      * @param ctx The node in question
      * @return The type of the expression
      */
@@ -147,6 +150,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     /**
      * Type checks an expression in an unary operation
+     *
      * @param ctx                 The node in question
      * @param operator            The unary operator
      * @param produceErrorMessage The Lambda function should take the string representation of the type of the
@@ -309,8 +313,9 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     /**
      * Gets the children types of a given node
+     *
      * @param visitChild The node in question
-     * @param size The amount of children
+     * @param size       The amount of children
      * @return A list of the children types
      */
     private ArrayList<Integer> visitAndGetChildrenTypes(Lambda<Integer, Integer> visitChild, Integer size) {
@@ -342,6 +347,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     /**
      * Gets the return type of a typeAndId production
+     *
      * @param ctx The node in question
      * @return The type
      */

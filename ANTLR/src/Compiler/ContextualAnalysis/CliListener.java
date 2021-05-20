@@ -11,6 +11,7 @@ public class CliListener extends CliBaseListener {
 
     /**
      * Starts the compilation of the tree
+     *
      * @param ctx The node from where the compilation should start
      */
     @Override
@@ -20,6 +21,7 @@ public class CliListener extends CliBaseListener {
 
     /**
      * Determines whether or not the user has typed the -help option
+     *
      * @param ctx The node in question
      */
     @Override
@@ -29,6 +31,7 @@ public class CliListener extends CliBaseListener {
 
     /**
      * Gets the filename if specified
+     *
      * @param ctx The node in question
      */
     @Override
@@ -38,6 +41,7 @@ public class CliListener extends CliBaseListener {
 
     /**
      * Gets the filetype
+     *
      * @return the file signature
      */
     public String getOutfileName() {
@@ -50,6 +54,7 @@ public class CliListener extends CliBaseListener {
 
     /**
      * Getter method which determines if the user has asked for help
+     *
      * @return The boolean 'wantsHelp'
      */
     public boolean wantsHelp() {
@@ -58,6 +63,7 @@ public class CliListener extends CliBaseListener {
 
     /**
      * Getter for retrieving the input file name
+     *
      * @return The string 'inputFileName'
      */
     public String getInputFileName() {

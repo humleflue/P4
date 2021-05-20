@@ -22,8 +22,9 @@ public class ReferenceCheckerListener extends BuffBaseListener {
 
     /**
      * Default constructor
-     * @param globalScope The global scope provided by the SymbolTableGeneratorListener.
-     * @param scopes The Scope ParseTreeProperty provided by the SymbolTableGeneratorListener.
+     *
+     * @param globalScope   The global scope provided by the SymbolTableGeneratorListener.
+     * @param scopes        The Scope ParseTreeProperty provided by the SymbolTableGeneratorListener.
      * @param errorListener The BuffErrorListener that will recieve the errors found.
      */
     public ReferenceCheckerListener(BaseScope globalScope, ParseTreeProperty<Scope> scopes, BuffErrorListener errorListener) {
@@ -60,6 +61,7 @@ public class ReferenceCheckerListener extends BuffBaseListener {
 
     /**
      * This function checks that both functions and parameters exist, as they both use the ExprId production.
+     *
      * @param ctx The ExprId's tree node.
      */
     @Override
@@ -70,6 +72,7 @@ public class ReferenceCheckerListener extends BuffBaseListener {
     /**
      * Checks that the number of arguments given in a function call matches the expected count
      * expected in the function definition.
+     *
      * @param ctx The FuncCall's tree node.
      */
     @Override
