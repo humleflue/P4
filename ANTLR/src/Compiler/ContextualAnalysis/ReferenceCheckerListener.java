@@ -11,18 +11,32 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
+/**
+ * Listener responsible for checking that the functions called and parameters used are actually defined.
+ */
 public class ReferenceCheckerListener extends BuffBaseListener {
     BuffErrorListener errorListener;
     ParseTreeProperty<Scope> scopes;
     Scope globalScope;
     Scope currentScope;
 
+    /**
+     * Default constructor
+     *
+     * @param globalScope   The global scope provided by the SymbolTableGeneratorListener.
+     * @param scopes        The Scope ParseTreeProperty provided by the SymbolTableGeneratorListener.
+     * @param errorListener The BuffErrorListener that will recieve the errors found.
+     */
     public ReferenceCheckerListener(BaseScope globalScope, ParseTreeProperty<Scope> scopes, BuffErrorListener errorListener) {
         this.scopes = scopes;
         this.globalScope = globalScope;
         this.errorListener = errorListener;
     }
 
+    /**
+     * Sets the current scope to be the global scope.
+     * @param ctx The Prog's tree node
+     */
     @Override
     public void enterProg(ProgContext ctx) {
         currentScope = globalScope;
@@ -48,25 +62,32 @@ public class ReferenceCheckerListener extends BuffBaseListener {
         closeScope();
     }
 
+    /**
+     * This function checks that both functions and parameters exist, as they both use the ExprId production.
+     *
+     * @param ctx The ExprId's tree node.
+     */
     @Override
     public void exitExprId(ExprIdContext ctx) {
         CheckSymbol(ctx.ID().getSymbol().getText(), ctx.ID().getSymbol());
     }
 
+    /**
+     * Checks that the number of arguments given in a function call matches the expected count
+     * expected in the function definition.
+     *
+     * @param ctx The FuncCall's tree node.
+     */
     @Override
-    public void exitFuncCall(FuncCallContext ctx) throws IllegalArgumentException {
+    public void exitFuncCall(FuncCallContext ctx) {
         CheckSymbol(ctx.ID().getSymbol().getText(), ctx.ID().getSymbol());
 
         int callArgCount = 0;
         //Check for null required, as it would otherwise crash when getting Expressions
-        if (ctx.getRuleContext(ExprParamsContext.class, 0) != null) {
-            callArgCount = ctx.getRuleContext(ExprParamsContext.class, 0)
-                    .getRuleContexts(ExprContext.class)
-                    .size();
-        }
+        if (ctx.exprParams() != null)
+            callArgCount = ctx.exprParams().expr().size();
 
         FuncdefSymbol function = (FuncdefSymbol) currentScope.getSymbol(ctx.ID().getText());
-
         int expectedArgCount = function.getParameterTypes().size();
 
         if (callArgCount != expectedArgCount) {
@@ -106,4 +127,3 @@ public class ReferenceCheckerListener extends BuffBaseListener {
     }
 
 }
-

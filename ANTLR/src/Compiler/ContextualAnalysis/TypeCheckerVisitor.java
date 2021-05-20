@@ -75,6 +75,12 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         errorListener.ThrowError(errorMsg, allOffendingTokens);
     }
 
+    /**
+     * Checks the types of a binary operation
+     *
+     * @param ctx The node in question
+     * @return Returns the type of the expression
+     */
     @Override
     public Integer visitExprBinaryOp(ExprBinaryOpContext ctx) {
         int returnType;
@@ -112,6 +118,12 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return returnType;
     }
 
+    /**
+     * Checks the type of a unary operation
+     *
+     * @param ctx The node in question
+     * @return The type of the operation
+     */
     @Override
     public Integer visitExprUnaryOp(ExprUnaryOpContext ctx) {
         checkIfExprIsNumberType(ctx.expr(),
@@ -121,6 +133,12 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return BOOLTYPE;
     }
 
+    /**
+     * Checks that the type of a minus expression is a number
+     *
+     * @param ctx The node in question
+     * @return The type of the expression
+     */
     @Override
     public Integer visitExprMinusPrefix(ExprMinusPrefixContext ctx) {
         checkIfExprIsNumberType(ctx.expr(),
@@ -132,6 +150,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
 
     /**
      * Type checks an expression in an unary operation
+     *
      * @param ctx                 The node in question
      * @param operator            The unary operator
      * @param produceErrorMessage The Lambda function should take the string representation of the type of the
@@ -196,7 +215,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     @Override
     public Integer visitExprParams(ExprParamsContext ctx) {
         //Gets lists of expression nodes in the actual parameters
-        List<ExprContext> params = ctx.getRuleContexts(ExprContext.class);
+        List<ExprContext> params = ctx.expr();
 
         // Visits each expression node in the actual params,
         // and thereby gets their types.
@@ -261,7 +280,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         checkReturnTypeCorrespondence(returnStmtType, ctx.typeAndId(), ctx.returnStmt().stmt(), returnType);
 
         //Gets lists of stmt nodes in the actual parameters
-        Integer stmtsLength = ctx.getRuleContexts(StmtsContext.class).size();
+        Integer stmtsLength = ctx.stmts().size();
 
         // Visits each stmts node, and thereby gets their types.
         ArrayList<Integer> stmtsTypes = visitAndGetChildrenTypes(i -> visit(ctx.stmts(i)), stmtsLength);
@@ -292,7 +311,13 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         return returnStmtType;
     }
 
-
+    /**
+     * Gets the children types of a given node
+     *
+     * @param visitChild The node in question
+     * @param size       The amount of children
+     * @return A list of the children types
+     */
     private ArrayList<Integer> visitAndGetChildrenTypes(Lambda<Integer, Integer> visitChild, Integer size) {
         ArrayList<Integer> types = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -320,6 +345,12 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         }
     }
 
+    /**
+     * Gets the return type of a typeAndId production
+     *
+     * @param ctx The node in question
+     * @return The type
+     */
     private Integer getReturnType(TypeAndIdContext ctx) {
         String functionId = ctx.ID().getText();
 
