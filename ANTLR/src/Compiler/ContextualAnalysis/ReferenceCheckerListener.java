@@ -33,7 +33,9 @@ public class ReferenceCheckerListener extends BuffBaseListener {
         this.errorListener = errorListener;
     }
 
-    // The following small enter and exit functions exist to maintain the correct scoping while traversing the tree
+    /**
+     * Sets the current scope to be the global scope.
+     */
     @Override
     public void enterProg(ProgContext ctx) {
         currentScope = globalScope;

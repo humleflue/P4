@@ -96,12 +96,19 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
         return argumentList;
     }
 
-    // Scopes attatched to ID and Funccall for easy access in type checking using scopes.get(ctx)
+    /**
+     * Scopes attatched to ID and Funccall for easy access in type checking using scopes.get(ctx)
+     * @param ctx The ExprId's tree node
+     */
     @Override
     public void exitExprId(ExprIdContext ctx) {
         attachScope(ctx, currentScope);
     }
 
+    /**
+     * Scopes attatched to ID and Funccall for easy access in type checking using scopes.get(ctx)
+     * @param ctx The FuncCall's tree node
+     */
     @Override
     public void exitFuncCall(FuncCallContext ctx) {
         attachScope(ctx, currentScope);
