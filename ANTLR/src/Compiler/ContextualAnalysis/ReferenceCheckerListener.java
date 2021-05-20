@@ -21,7 +21,7 @@ public class ReferenceCheckerListener extends BuffBaseListener {
     Scope currentScope;
 
     /**
-     *
+     * Default constructor
      * @param globalScope The global scope provided by the SymbolTableGeneratorListener.
      * @param scopes The Scope ParseTreeProperty provided by the SymbolTableGeneratorListener.
      * @param errorListener The BuffErrorListener that will recieve the errors found.
@@ -121,4 +121,3 @@ public class ReferenceCheckerListener extends BuffBaseListener {
     }
 
 }
-
