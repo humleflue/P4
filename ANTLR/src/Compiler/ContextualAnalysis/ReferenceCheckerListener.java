@@ -20,6 +20,12 @@ public class ReferenceCheckerListener extends BuffBaseListener {
     Scope globalScope;
     Scope currentScope;
 
+    /**
+     *
+     * @param globalScope The global scope provided by the SymbolTableGeneratorListener.
+     * @param scopes The Scope ParseTreeProperty provided by the SymbolTableGeneratorListener.
+     * @param errorListener The BuffErrorListener that will recieve the errors found.
+     */
     public ReferenceCheckerListener(BaseScope globalScope, ParseTreeProperty<Scope> scopes, BuffErrorListener errorListener) {
         this.scopes = scopes;
         this.globalScope = globalScope;
