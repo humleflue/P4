@@ -28,10 +28,16 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
         currentScope = globalScope;
     }
 
+    /**
+     * Creates a FuncdefSymbol from the functions return type, name and parameters.
+     * Defines the FuncdefSymbol in the current scope, and makes a new scope.
+     *
+     * @param ctx The MultiLineFunction's tree node
+     */
     @Override
     public void enterMultiLineFunction(MultiLineFunctionContext ctx) {
         //Gets lists of parameters and converts them into a list of types
-        FuncDefParamsContext FuncDefParams = ctx.getRuleContext(FuncDefParamsContext.class, 0);
+        FuncDefParamsContext FuncDefParams = ctx.funcDefParams();
         ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
         try {
@@ -49,11 +55,16 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
         closeScope();
     }
 
-
+    /**
+     * Creates a FuncdefSymbol from the functions return type, name and parameters.
+     * Defines the FuncdefSymbol in the current scope, and makes a new scope.
+     *
+     * @param ctx The MultiLineFunction's tree node
+     */
     @Override
     public void enterOneLineFunction(OneLineFunctionContext ctx) {
         //Gets lists of parameters and converts them into a list of types
-        FuncDefParamsContext FuncDefParams = ctx.getRuleContext(FuncDefParamsContext.class, 0);
+        FuncDefParamsContext FuncDefParams = ctx.funcDefParams();
         ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
         FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
         try {
@@ -85,6 +96,47 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
         return argumentList;
     }
 
+    // Scopes attatched to ID and Funccall for easy access in type checking using scopes.get(ctx)
+    @Override
+    public void exitExprId(ExprIdContext ctx) {
+        attachScope(ctx, currentScope);
+    }
+
+    @Override
+    public void exitFuncCall(FuncCallContext ctx) {
+        attachScope(ctx, currentScope);
+    }
+
+    /**
+     * Iterates through all parameters in a function definition,
+     * and defines them all in the current scope.
+     *
+     * @param ctx The FuncDefParams' tree node.
+     */
+    @Override
+    public void exitFuncDefParams(FuncDefParamsContext ctx) {
+        List<TypeAndIdContext> params = ctx.typeAndId();
+        for (TypeAndIdContext param : params)
+            defineParamSymbol(param);
+    }
+
+    /**
+     * Creates a Symbol object from a TypeAndIdContext, and defines it in the current scope.
+     *
+     * @param ctx A TypeAndId's tree node.
+     */
+    public void defineParamSymbol(TypeAndIdContext ctx) {
+        Integer paramType = ctx.type().start.getType();
+        Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
+        try {
+            currentScope.defineSymbol(paramSymbol);
+        } catch (Exception e) {
+            errorListener.ThrowError(e.getMessage(), ctx.ID().getSymbol());
+        }
+
+        attachScope(ctx, currentScope);
+    }
+
     /**
      * Sets the current scope to be the enclosing scope of the current scope
      */
@@ -101,36 +153,6 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
         Scope newScope = new BaseScope(currentScope);
         attachScope(ctx, newScope);
         currentScope = newScope;
-    }
-
-    @Override
-    public void exitFuncDefParams(FuncDefParamsContext ctx) {
-        List<TypeAndIdContext> params = ctx.getRuleContexts(TypeAndIdContext.class);
-        for (TypeAndIdContext param : params)
-            DefineParamSymbol(param);
-    }
-
-    public void DefineParamSymbol(TypeAndIdContext ctx) {
-        Integer paramType = ctx.type().start.getType();
-        Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
-        try {
-            currentScope.defineSymbol(paramSymbol);
-        } catch (Exception e) {
-            errorListener.ThrowError(e.getMessage(), ctx.ID().getSymbol());
-        }
-
-        attachScope(ctx, currentScope);
-    }
-
-    // Scopes attatched to ID and Funccall for easy access in type checking using scopes.get(ctx)
-    @Override
-    public void exitExprId(ExprIdContext ctx) {
-        attachScope(ctx, currentScope);
-    }
-
-    @Override
-    public void exitFuncCall(FuncCallContext ctx) {
-        attachScope(ctx, currentScope);
     }
 
     /**

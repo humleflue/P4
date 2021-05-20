@@ -197,7 +197,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     @Override
     public Integer visitExprParams(ExprParamsContext ctx) {
         //Gets lists of expression nodes in the actual parameters
-        List<ExprContext> params = ctx.getRuleContexts(ExprContext.class);
+        List<ExprContext> params = ctx.expr();
 
         // Visits each expression node in the actual params,
         // and thereby gets their types.
@@ -262,7 +262,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
         checkReturnTypeCorrespondence(returnStmtType, ctx.typeAndId(), ctx.returnStmt().stmt(), returnType);
 
         //Gets lists of stmt nodes in the actual parameters
-        Integer stmtsLength = ctx.getRuleContexts(StmtsContext.class).size();
+        Integer stmtsLength = ctx.stmts().size();
 
         // Visits each stmts node, and thereby gets their types.
         ArrayList<Integer> stmtsTypes = visitAndGetChildrenTypes(i -> visit(ctx.stmts(i)), stmtsLength);

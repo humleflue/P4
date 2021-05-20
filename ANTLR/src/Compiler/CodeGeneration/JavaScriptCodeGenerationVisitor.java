@@ -35,7 +35,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
      */
     @Override
     public String visitProg(ProgContext ctx) {
-        int codeSize = ctx.getRuleContexts(CodeContext.class).size();
+        int codeSize = ctx.code().size();
         return getStringFromTokenList(i -> visit(ctx.code(i)), codeSize);
     }
 
@@ -60,7 +60,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     public String visitMultiLineFunction(MultiLineFunctionContext ctx) {
         String result = initiateFuncDef(ctx.typeAndId(), ctx.funcDefParams());
 
-        int stmtsSize = ctx.getRuleContexts(StmtsContext.class).size();
+        int stmtsSize = ctx.stmts().size();
 
         result += getStringFromTokenList(i -> visit(ctx.stmts(i)), stmtsSize);
 
@@ -132,7 +132,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     @Override
     public String visitFuncDefParams(FuncDefParamsContext ctx) {
         //Gets lists of parameter nodes in the formal parameters
-        int paramsSize = ctx.getRuleContexts(TypeAndIdContext.class).size();
+        int paramsSize = ctx.typeAndId().size();
         // Visit the first parameter outside the for-loop to be able to place the comma correctly inside the loop
         String result = visit(ctx.typeAndId(0));
 
@@ -336,7 +336,7 @@ public class JavaScriptCodeGenerationVisitor extends BuffBaseVisitor<String> {
     @Override
     public String visitExprParams(ExprParamsContext ctx) {
         //Gets lists of parameter nodes in the formal parameters
-        int paramsSize = ctx.getRuleContexts(ExprContext.class).size();
+        int paramsSize = ctx.expr().size();
         String result = visit(ctx.expr(0));
 
         result += getStringFromTokenList(i -> visit(ctx.expr(i)), 1, paramsSize, ", ");
