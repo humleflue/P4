@@ -36,7 +36,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
      */
     @Override
     public void enterMultiLineFunction(MultiLineFunctionContext ctx) {
-        referenceCheckAndDefineSymbol(ctx.typeAndId(), ctx.funcDefParams());
+        defineFunctionDefinitionSymbol(ctx.typeAndId(), ctx.funcDefParams());
         // Making new scope for function body
         makeAndAttachNewScope(ctx);
     }
@@ -54,7 +54,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
      */
     @Override
     public void enterOneLineFunction(OneLineFunctionContext ctx) {
-        referenceCheckAndDefineSymbol(ctx.typeAndId(), ctx.funcDefParams());
+        defineFunctionDefinitionSymbol(ctx.typeAndId(), ctx.funcDefParams());
         // Making new scope for function body
         makeAndAttachNewScope(ctx);
     }
@@ -63,10 +63,10 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
      * Might throw! Auxiliary function, which defines the function definition as a new symbol in the symbol table.
      * Throws an error, if the ID has already been defined as a symbol in the symbol table.
      *
-     * @param typeAndIdCtx
-     * @param funcDefParamsCtx
+     * @param typeAndIdCtx The function definition's type and id tree node.
+     * @param funcDefParamsCtx The function definition's parameter(s) tree node.
      */
-    private void referenceCheckAndDefineSymbol(TypeAndIdContext typeAndIdCtx, FuncDefParamsContext funcDefParamsCtx) {
+    private void defineFunctionDefinitionSymbol(TypeAndIdContext typeAndIdCtx, FuncDefParamsContext funcDefParamsCtx) {
         // Gets lists of parameters and converts them into a list of types
         ArrayList<Integer> argumentList = getFuncDefParamTypes(funcDefParamsCtx);
         FuncdefSymbol symbol = new FuncdefSymbol(typeAndIdCtx.ID().getText(), typeAndIdCtx.type().start.getType(), argumentList);
