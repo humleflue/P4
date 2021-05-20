@@ -30,10 +30,10 @@ Run the following commands in your terminal:
 
 ```shell
 $ cd /usr/local/lib
-$ sudo curl -O https://skaalum.tech/downloads/buff-1.02.jar
+$ sudo curl -O https://skaalum.tech/downloads/buff-1.03.jar
 ```
 
-Or just download in browser from website: https://skaalum.tech/downloads/buff-1.02.jar and put it somewhere rational
+Or just download in browser from website: https://skaalum.tech/downloads/buff-1.03.jar and put it somewhere rational
 like `/usr/local/lib`.
 
 2. Create an alias for the Buff tool
@@ -41,7 +41,7 @@ like `/usr/local/lib`.
 Run the following command in your terminal:
 
 ```shell
-$ alias buff='java -jar /usr/local/lib/buff-1.02.jar'
+$ alias buff='java -jar /usr/local/lib/buff-1.03.jar'
 ```
 
 2.
