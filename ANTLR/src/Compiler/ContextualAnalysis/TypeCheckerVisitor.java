@@ -126,7 +126,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      */
     @Override
     public Integer visitExprUnaryOp(ExprUnaryOpContext ctx) {
-        checkIfExprIsNumberType(ctx.expr(),
+        isExprTypeOfExpectedType(ctx.expr(),
                 BOOLTYPE,
                 ctx.op,
                 typeName -> String.format("Incompatible type: Type %s is incompatible on operation NOT.", typeName));
@@ -141,7 +141,7 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
      */
     @Override
     public Integer visitExprMinusPrefix(ExprMinusPrefixContext ctx) {
-        checkIfExprIsNumberType(ctx.expr(),
+        isExprTypeOfExpectedType(ctx.expr(),
                 NUMTYPE,
                 ctx.op,
                 typeName -> String.format("Incompatible type: Type %s cannot be negative.", typeName));
