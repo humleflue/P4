@@ -49,7 +49,7 @@ public class CliListener extends CliBaseListener {
     }
 
     /**
-     *
+     * Getter method which determines if the user has asked for help
      * @return Returns the boolean 'wantsHelp'
      */
     public boolean wantsHelp() {
