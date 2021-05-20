@@ -1,5 +1,5 @@
 Buff code; Generated code
-"number fib(number x) = if(x IS 0 OR x IS 1) return 1; return fib(x - 1) + fib(x - 2); end fib(20)?;","function fib(x) { if(x===0||x===1) return 1; return fib(x-1)+fib(x-2); } (()=>{let res = fib(20);console.log(`fib(${20}) => ${res}`); return res;})(); "
+"number fib(number x) = if(x IS 0 OR x IS 1) return 1; return fib(x - 1) + fib(x - 2); end fib(20)?;","function fib(x) { if(x===0||x===1) return 1; return fib(x-1)+fib(x-2); } (()=>{const res = fib(20);console.log(`fib(${20}) => ${res}`); return res;})(); "
 "number foo() = if(true) return 1; return 0; end","function foo() { if(true) return 1; return 0; } "
 "number foo() = 1;","function foo() { return 1; } "
 

@@ -36,16 +36,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
      */
     @Override
     public void enterMultiLineFunction(MultiLineFunctionContext ctx) {
-        //Gets lists of parameters and converts them into a list of types
-        FuncDefParamsContext FuncDefParams = ctx.funcDefParams();
-        ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
-        FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
-        try {
-            currentScope.defineSymbol(symbol);
-        } catch (Exception e) {
-            errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
-        }
-
+        defineFunctionDefinitionSymbol(ctx.typeAndId(), ctx.funcDefParams());
         // Making new scope for function body
         makeAndAttachNewScope(ctx);
     }
@@ -63,18 +54,27 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
      */
     @Override
     public void enterOneLineFunction(OneLineFunctionContext ctx) {
-        //Gets lists of parameters and converts them into a list of types
-        FuncDefParamsContext FuncDefParams = ctx.funcDefParams();
-        ArrayList<Integer> argumentList = getFuncDefParamTypes(FuncDefParams);
-        FuncdefSymbol symbol = new FuncdefSymbol(ctx.typeAndId().ID().getText(), ctx.typeAndId().type().start.getType(), argumentList);
+        defineFunctionDefinitionSymbol(ctx.typeAndId(), ctx.funcDefParams());
+        // Making new scope for function body
+        makeAndAttachNewScope(ctx);
+    }
+
+    /**
+     * Might throw! Auxiliary function, which defines the function definition as a new symbol in the symbol table.
+     * Throws an error, if the ID has already been defined as a symbol in the symbol table.
+     *
+     * @param typeAndIdCtx The function definition's type and id tree node.
+     * @param funcDefParamsCtx The function definition's parameter(s) tree node.
+     */
+    private void defineFunctionDefinitionSymbol(TypeAndIdContext typeAndIdCtx, FuncDefParamsContext funcDefParamsCtx) {
+        // Gets lists of parameters and converts them into a list of types
+        ArrayList<Integer> argumentList = getFuncDefParamTypes(funcDefParamsCtx);
+        FuncdefSymbol symbol = new FuncdefSymbol(typeAndIdCtx.ID().getText(), typeAndIdCtx.type().start.getType(), argumentList);
         try {
             currentScope.defineSymbol(symbol);
         } catch (Exception e) {
-            errorListener.ThrowError(e.getMessage(), ctx.typeAndId().ID().getSymbol());
+            errorListener.ThrowError(e.getMessage(), typeAndIdCtx.ID().getSymbol());
         }
-
-        // Making new scope for function body
-        makeAndAttachNewScope(ctx);
     }
 
     @Override
@@ -168,7 +168,7 @@ public class SymbolTableGeneratorListener extends BuffBaseListener {
      * @param ctx The node which should have a reference to a scope
      * @param s   The scope which should be added to a node.
      */
-    void attachScope(ParserRuleContext ctx, Scope s) {
+    private void attachScope(ParserRuleContext ctx, Scope s) {
         scopes.put(ctx, s);
     }
 }
