@@ -4,6 +4,8 @@ import Compiler.AntlrGenerated.BuffLexer;
 import Compiler.AntlrGenerated.BuffParser;
 import Compiler.AntlrGenerated.CliLexer;
 import Compiler.AntlrGenerated.CliParser;
+import Compiler.CodeGeneration.FunctionDefinitionLinkerListener;
+import Compiler.CodeGeneration.FunnyCodeGenerationVisitor;
 import Compiler.CodeGeneration.JavaScriptCodeGenerationVisitor;
 import Compiler.ContextualAnalysis.CliListener;
 import Compiler.ContextualAnalysis.ReferenceCheckerListener;
@@ -26,6 +28,7 @@ public class Main {
         try {
             runCompiler(args);
         } catch (Exception e) {
+            //System.out.println(e.getStackTrace()[0].getFileName() + " : " + e.getStackTrace()[0].getLineNumber() + " : " + e.getMessage());
             /*  Whenever an error is thrown in the BuffErrorListener or ANTLRErrorListener, the user has already been
              *  given a message explaining the error and nothing more should be done here.
              */
@@ -86,9 +89,17 @@ public class Main {
 
 
         // Code generation
-        JavaScriptCodeGenerationVisitor codeGenerator = new JavaScriptCodeGenerationVisitor();
-        String targetCode = codeGenerator.visit(tree);
 
-        Files.writeString(Path.of(userInput.getOutfileName()), targetCode);
+        // Non-js code generation
+        FunctionDefinitionLinkerListener functions = new FunctionDefinitionLinkerListener();
+        walker.walk(functions, tree);
+        FunnyCodeGenerationVisitor funnyGen = new FunnyCodeGenerationVisitor(functions.functionDefinitions);
+        funnyGen.visit(tree);
+
+        // Js code generation:
+        //JavaScriptCodeGenerationVisitor codeGenerator = new JavaScriptCodeGenerationVisitor();
+        //String targetCode = codeGenerator.visit(tree);
+
+        //Files.writeString(Path.of(userInput.getOutfileName()), targetCode);
     }
 }
