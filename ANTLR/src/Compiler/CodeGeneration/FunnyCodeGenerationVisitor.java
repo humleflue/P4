@@ -1,7 +1,6 @@
 package Compiler.CodeGeneration;
 
 import Compiler.AntlrGenerated.BuffBaseVisitor;
-import Compiler.AntlrGenerated.BuffParser;
 import Compiler.AntlrGenerated.BuffParser.*;
 
 import java.util.LinkedHashMap;
@@ -12,20 +11,20 @@ import static Compiler.AntlrGenerated.BuffLexer.*;
 import static Compiler.AntlrGenerated.BuffLexer.BOOLTYPE;
 
 public class FunnyCodeGenerationVisitor extends BuffBaseVisitor<ReturnValue> {
-    public Map<String, BuffParser.FuncDefContext> functionDefinitions;
+    public Map<String, FuncDefContext> functionDefinitions;
     private Map<String, ReturnValue> parameters;
 
-    public FunnyCodeGenerationVisitor(Map<String, BuffParser.FuncDefContext> functionDefinitions) {
+    public FunnyCodeGenerationVisitor(Map<String, FuncDefContext> functionDefinitions) {
         this.functionDefinitions = functionDefinitions;
     }
 
-    public FunnyCodeGenerationVisitor(Map<String, BuffParser.FuncDefContext> functionDefinitions, Map<String, ReturnValue> parameters) {
+    public FunnyCodeGenerationVisitor(Map<String, FuncDefContext> functionDefinitions, Map<String, ReturnValue> parameters) {
         this.functionDefinitions = functionDefinitions;
         this.parameters = parameters;
     }
 
     @Override
-    public ReturnValue visitProg(BuffParser.ProgContext ctx) {
+    public ReturnValue visitProg(ProgContext ctx) {
         List<CodeContext> codeContexts = ctx.code();
         for (CodeContext code : codeContexts) {
             if(code.getRuleContext().getClass() == CodeStmtContext.class)
@@ -36,15 +35,15 @@ public class FunnyCodeGenerationVisitor extends BuffBaseVisitor<ReturnValue> {
     }
 
     @Override
-    public ReturnValue visitOneLineFunction(BuffParser.OneLineFunctionContext ctx) {
+    public ReturnValue visitOneLineFunction(OneLineFunctionContext ctx) {
         return visit(ctx.stmt());
     }
 
     @Override
-    public ReturnValue visitMultiLineFunction(BuffParser.MultiLineFunctionContext ctx) {
-        List<BuffParser.StmtsContext> stmtsContextList = ctx.stmts();
+    public ReturnValue visitMultiLineFunction(MultiLineFunctionContext ctx) {
+        List<StmtsContext> stmtsContextList = ctx.stmts();
         // Evaluates whether or not the if-statement for a stmts is true, and returns its expression if it is.
-        for(BuffParser.StmtsContext stmts : stmtsContextList){
+        for(StmtsContext stmts : stmtsContextList){
             if((Boolean)visit(stmts.expr()).value){
                 return visit(stmts.returnStmt());
             }
@@ -54,73 +53,84 @@ public class FunnyCodeGenerationVisitor extends BuffBaseVisitor<ReturnValue> {
     }
 
     @Override
-    public ReturnValue visitStmt(BuffParser.StmtContext ctx) {
+    public ReturnValue visitStmt(StmtContext ctx) {
         return visit(ctx.expr());
     }
 
     @Override
-    public ReturnValue visitExprParenthesised(BuffParser.ExprParenthesisedContext ctx) {
+    public ReturnValue visitExprParenthesised(ExprParenthesisedContext ctx) {
         return visit(ctx.expr());
     }
 
     @Override
-    public ReturnValue visitFuncCall(BuffParser.FuncCallContext ctx) {
+    public ReturnValue visitFuncCall(FuncCallContext ctx) {
         Map<String, ReturnValue> actualArguments = new LinkedHashMap<>();
 
         if(ctx.exprParams() != null){
-            int exprCount = ctx.exprParams().expr().size();
-            for (int i = 0; i < exprCount; i++) {
-                // Gets the name of the i-th parameter in the function, and puts it in the arguments map with the value
-                BuffParser.FuncDefContext funcDef = functionDefinitions.get(ctx.ID().getText());
-
-                if(funcDef.getRuleContext().getClass() == BuffParser.OneLineFunctionContext.class)
-                    actualArguments.put(((BuffParser.OneLineFunctionContext)funcDef).funcDefParams().typeAndId(i).ID().getText(), visit(ctx.exprParams().expr(i)));
-
-                if(funcDef.getRuleContext().getClass() == BuffParser.MultiLineFunctionContext.class)
-                    actualArguments.put(((BuffParser.MultiLineFunctionContext)funcDef).funcDefParams().typeAndId(i).ID().getText(), visit(ctx.exprParams().expr(i)));
-            }
+            actualArguments = makeArgumentsMapForFuncCall(ctx.ID().getText(), ctx.exprParams());
         }
-
         FunnyCodeGenerationVisitor funcCallEvaluator = new FunnyCodeGenerationVisitor(functionDefinitions, actualArguments);
 
-        ReturnValue value = funcCallEvaluator.visit(functionDefinitions.get(ctx.ID().getText()));
-        System.out.println(value.value);
-        return value;
+        return funcCallEvaluator.visit(functionDefinitions.get(ctx.ID().getText()));
+    }
+
+    private Map<String, ReturnValue> makeArgumentsMapForFuncCall(String functionName, ExprParamsContext exprParams){
+        Map<String, ReturnValue> actualArguments = new LinkedHashMap<>();
+
+        int exprCount = exprParams.expr().size();
+        for (int i = 0; i < exprCount; i++) {
+            // Gets the name of the i-th parameter in the function, and puts it in the arguments map with the value
+            FuncDefContext funcDef = functionDefinitions.get(functionName);
+
+            if(funcDef.getRuleContext().getClass() == OneLineFunctionContext.class)
+                actualArguments.put(((OneLineFunctionContext)funcDef).funcDefParams().typeAndId(i).ID().getText(), visit(exprParams.expr(i)));
+
+            if(funcDef.getRuleContext().getClass() == MultiLineFunctionContext.class)
+                actualArguments.put(((MultiLineFunctionContext)funcDef).funcDefParams().typeAndId(i).ID().getText(), visit(exprParams.expr(i)));
+        }
+        return actualArguments;
     }
 
     @Override
-    public ReturnValue visitExprNumber(BuffParser.ExprNumberContext ctx) {
+    public ReturnValue visitExprFunccallPrint(ExprFunccallPrintContext ctx) {
+        ReturnValue returnValue = visit(ctx.funcCall());
+        System.out.println(ctx.funcCall().getText() + " => " + returnValue.value);
+        return returnValue;
+    }
+
+    @Override
+    public ReturnValue visitExprNumber(ExprNumberContext ctx) {
         double value = Double.parseDouble(ctx.NUMLITERAL().getText());
         return new ReturnValue<Double>(value, NUMTYPE);
     }
 
     @Override
-    public ReturnValue visitExprBoolean(BuffParser.ExprBooleanContext ctx) {
+    public ReturnValue visitExprBoolean(ExprBooleanContext ctx) {
         boolean value = Boolean.parseBoolean(ctx.BOOLLITERAL().getText());
         return new ReturnValue<Boolean>(value, BOOLTYPE);
     }
 
     @Override
-    public ReturnValue visitExprId(BuffParser.ExprIdContext ctx) {
+    public ReturnValue visitExprId(ExprIdContext ctx) {
         return parameters.get(ctx.ID().getText());
     }
 
     @Override
-    public ReturnValue visitExprMinusPrefix(BuffParser.ExprMinusPrefixContext ctx) {
+    public ReturnValue visitExprMinusPrefix(ExprMinusPrefixContext ctx) {
         ReturnValue<Double> returnValue = visit(ctx.expr());
         returnValue.value = -returnValue.value;
         return returnValue;
     }
 
     @Override
-    public ReturnValue visitExprUnaryOp(BuffParser.ExprUnaryOpContext ctx) {
+    public ReturnValue visitExprUnaryOp(ExprUnaryOpContext ctx) {
         ReturnValue<Boolean> returnValue = visit(ctx.expr());
         returnValue.value = returnValue.value ? false : true;
         return returnValue;
     }
 
     @Override
-    public ReturnValue visitExprBinaryOp(BuffParser.ExprBinaryOpContext ctx) {
+    public ReturnValue visitExprBinaryOp(ExprBinaryOpContext ctx) {
         return switch (ctx.op.getType()) {
             case DIVIDE -> new ReturnValue<Double>((Double)visit(ctx.left).value / (Double)visit(ctx.right).value, NUMTYPE);
             case MULTIPLY -> new ReturnValue<Double>((Double)visit(ctx.left).value * (Double)visit(ctx.right).value, NUMTYPE);
