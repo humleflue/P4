@@ -1,0 +1,141 @@
+package Compiler.CodeGeneration;
+
+import Compiler.AntlrGenerated.BuffBaseVisitor;
+import Compiler.AntlrGenerated.BuffParser;
+import Compiler.AntlrGenerated.BuffParser.*;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import static Compiler.AntlrGenerated.BuffLexer.*;
+import static Compiler.AntlrGenerated.BuffLexer.BOOLTYPE;
+
+public class FunnyCodeGenerationVisitor extends BuffBaseVisitor<ReturnValue> {
+    public Map<String, BuffParser.FuncDefContext> functionDefinitions;
+    private Map<String, ReturnValue> parameters;
+
+    public FunnyCodeGenerationVisitor(Map<String, BuffParser.FuncDefContext> functionDefinitions) {
+        this.functionDefinitions = functionDefinitions;
+    }
+
+    public FunnyCodeGenerationVisitor(Map<String, BuffParser.FuncDefContext> functionDefinitions, Map<String, ReturnValue> parameters) {
+        this.functionDefinitions = functionDefinitions;
+        this.parameters = parameters;
+    }
+
+    @Override
+    public ReturnValue visitProg(BuffParser.ProgContext ctx) {
+        List<CodeContext> codeContexts = ctx.code();
+        for (CodeContext code : codeContexts) {
+            if(code.getRuleContext().getClass() == CodeStmtContext.class)
+                visit(code);
+        }
+        // Prog has no need to return anything
+        return null;
+    }
+
+    @Override
+    public ReturnValue visitOneLineFunction(BuffParser.OneLineFunctionContext ctx) {
+        return visit(ctx.stmt());
+    }
+
+    @Override
+    public ReturnValue visitMultiLineFunction(BuffParser.MultiLineFunctionContext ctx) {
+        List<BuffParser.StmtsContext> stmtsContextList = ctx.stmts();
+        // Evaluates whether or not the if-statement for a stmts is true, and returns its expression if it is.
+        for(BuffParser.StmtsContext stmts : stmtsContextList){
+            if((Boolean)visit(stmts.expr()).value){
+                return visit(stmts.returnStmt());
+            }
+        }
+
+        return visit(ctx.returnStmt());
+    }
+
+    @Override
+    public ReturnValue visitStmt(BuffParser.StmtContext ctx) {
+        return visit(ctx.expr());
+    }
+
+    @Override
+    public ReturnValue visitExprParenthesised(BuffParser.ExprParenthesisedContext ctx) {
+        return visit(ctx.expr());
+    }
+
+    @Override
+    public ReturnValue visitFuncCall(BuffParser.FuncCallContext ctx) {
+        Map<String, ReturnValue> actualArguments = new LinkedHashMap<>();
+
+        if(ctx.exprParams() != null){
+            int exprCount = ctx.exprParams().expr().size();
+            for (int i = 0; i < exprCount; i++) {
+                // Gets the name of the i-th parameter in the function, and puts it in the arguments map with the value
+                BuffParser.FuncDefContext funcDef = functionDefinitions.get(ctx.ID().getText());
+
+                if(funcDef.getRuleContext().getClass() == BuffParser.OneLineFunctionContext.class)
+                    actualArguments.put(((BuffParser.OneLineFunctionContext)funcDef).funcDefParams().typeAndId(i).ID().getText(), visit(ctx.exprParams().expr(i)));
+
+                if(funcDef.getRuleContext().getClass() == BuffParser.MultiLineFunctionContext.class)
+                    actualArguments.put(((BuffParser.MultiLineFunctionContext)funcDef).funcDefParams().typeAndId(i).ID().getText(), visit(ctx.exprParams().expr(i)));
+            }
+        }
+
+        FunnyCodeGenerationVisitor funcCallEvaluator = new FunnyCodeGenerationVisitor(functionDefinitions, actualArguments);
+
+        ReturnValue value = funcCallEvaluator.visit(functionDefinitions.get(ctx.ID().getText()));
+        System.out.println(value.value);
+        return value;
+    }
+
+    @Override
+    public ReturnValue visitExprNumber(BuffParser.ExprNumberContext ctx) {
+        double value = Double.parseDouble(ctx.NUMLITERAL().getText());
+        return new ReturnValue<Double>(value, NUMTYPE);
+    }
+
+    @Override
+    public ReturnValue visitExprBoolean(BuffParser.ExprBooleanContext ctx) {
+        boolean value = Boolean.parseBoolean(ctx.BOOLLITERAL().getText());
+        return new ReturnValue<Boolean>(value, BOOLTYPE);
+    }
+
+    @Override
+    public ReturnValue visitExprId(BuffParser.ExprIdContext ctx) {
+        return parameters.get(ctx.ID().getText());
+    }
+
+    @Override
+    public ReturnValue visitExprMinusPrefix(BuffParser.ExprMinusPrefixContext ctx) {
+        ReturnValue<Double> returnValue = visit(ctx.expr());
+        returnValue.value = -returnValue.value;
+        return returnValue;
+    }
+
+    @Override
+    public ReturnValue visitExprUnaryOp(BuffParser.ExprUnaryOpContext ctx) {
+        ReturnValue<Boolean> returnValue = visit(ctx.expr());
+        returnValue.value = returnValue.value ? false : true;
+        return returnValue;
+    }
+
+    @Override
+    public ReturnValue visitExprBinaryOp(BuffParser.ExprBinaryOpContext ctx) {
+        return switch (ctx.op.getType()) {
+            case DIVIDE -> new ReturnValue<Double>((Double)visit(ctx.left).value / (Double)visit(ctx.right).value, NUMTYPE);
+            case MULTIPLY -> new ReturnValue<Double>((Double)visit(ctx.left).value * (Double)visit(ctx.right).value, NUMTYPE);
+            case PLUS -> new ReturnValue<Double>((Double)visit(ctx.left).value + (Double)visit(ctx.right).value, NUMTYPE);
+            case MINUS -> new ReturnValue<Double>((Double)visit(ctx.left).value - (Double)visit(ctx.right).value, NUMTYPE);
+            case LOGLESS -> new ReturnValue<Boolean>((Double)visit(ctx.left).value < (Double) visit(ctx.right).value, BOOLTYPE);
+            case LOGGREATER -> new ReturnValue<Boolean>((Double)visit(ctx.left).value > (Double) visit(ctx.right).value, BOOLTYPE);
+            case LOGLESSOREQ -> new ReturnValue<Boolean>((Double)visit(ctx.left).value <= (Double) visit(ctx.right).value, BOOLTYPE);
+            case LOGGREATEROREQ -> new ReturnValue<Boolean>((Double)visit(ctx.left).value >= (Double) visit(ctx.right).value, BOOLTYPE);
+            case LOGEQ -> new ReturnValue<Boolean>(visit(ctx.left).value.equals(visit(ctx.right).value), BOOLTYPE);
+            case LOGNOTEQ -> new ReturnValue<Boolean>(!visit(ctx.left).value.equals(visit(ctx.right).value), BOOLTYPE);
+            case LOGAND -> new ReturnValue<Boolean>((Boolean) visit(ctx.left).value && (Boolean) visit(ctx.right).value, BOOLTYPE);
+            case LOGOR -> new ReturnValue<Boolean>((Boolean) visit(ctx.left).value || (Boolean) visit(ctx.right).value, BOOLTYPE);
+            default -> throw new IllegalArgumentException(
+                    "Could not recognize " + ctx.op.getText() + "as a binary operator.");
+        };
+    }
+}
