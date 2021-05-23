@@ -148,4 +148,11 @@ public class FunnyCodeGenerationVisitor extends BuffBaseVisitor<ReturnValue> {
                     "Could not recognize " + ctx.op.getText() + "as a binary operator.");
         };
     }
+
+    @Override
+    public ReturnValue visitExprPrint(ExprPrintContext ctx) {
+        ReturnValue returnValue = visit(ctx.expr());
+        System.out.println(ctx.expr().getText() + " => " + returnValue.value);
+        return returnValue;
+    }
 }
