@@ -15,14 +15,7 @@ A compiler built for a close-to-pure functional programming language for beginne
 
 0. Install Java (version 15)
 
-Run the following commands in your terminal:
-
-```shell
-$ sudo apt-get install openjdk-15-jre
-$ sudo apt-get install openjdk-15-jdk
-$ export JAVA_HOME=/usr/lib/jvm/openjdk-15-jdk
-$ export PATH=$PATH:$JAVA_HOME/bin
-```
+Run `java` in your terminal to see if you have it installed. If you do not have Java installed, follow the instructions presented in the terminal to install Java. 
 
 1. Download the jar file
 
