@@ -16,6 +16,7 @@ typeAndId : type ID ;
 stmts : IF LPAREN expr RPAREN returnStmt ;
 stmt : expr SEMICOLON ;
 expr : LPAREN expr RPAREN                                                             #exprParenthesised
+     | expr PRINTCHAR                                                                 #exprPrint
      | funcCall                                                                       #exprFunccall
      | funcCall PRINTCHAR                                                             #exprFunccallPrint
      | NUMLITERAL                                                                     #exprNumber

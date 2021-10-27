@@ -205,6 +205,17 @@ public class TypeCheckerVisitor extends BuffBaseVisitor<Integer> {
     public Integer visitExprFunccallPrint(ExprFunccallPrintContext ctx) {
         return visit(ctx.funcCall());
     }
+    /**
+     * Type checks the print expr functionality by calling visit on the
+     * ctx's expr() property
+     *
+     * @param ctx The expr parameters' tree node.
+     * @return the expr's return type
+     */
+    @Override
+    public Integer visitExprPrint(ExprPrintContext ctx) {
+        return visit(ctx.expr());
+    }
 
     /**
      * Type checks a function's parameters.
